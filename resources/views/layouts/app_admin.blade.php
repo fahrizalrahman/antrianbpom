@@ -310,6 +310,20 @@
           });
         </script>
 
+<script>
+    $(function () {
+      $("#admin").DataTable();
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false
+      });
+    });
+  </script>
+
         @yield('scripts')
 
 <style type="text/css">

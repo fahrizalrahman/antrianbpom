@@ -14,8 +14,13 @@ class FileController extends Controller
      */
     public function index()
     {
-        $files = File::all();
-        return view('loket.inputImg.indexImg', compact('files'));
+        $Lt1 = File::where('lantai','1')->orderby('id','desc')->get();
+        $Lt2 = File::where('lantai','2')->orderby('id','desc');
+        $Lt3 = File::where('lantai','3')->orderby('id','desc');
+        $Lt4 = File::where('lantai','4')->orderby('id','desc');
+        $Lt5 = File::where('lantai','5')->orderby('id','desc');
+        $Lt6 = File::where('lantai','6')->orderby('id','desc');
+        return view('loket.inputImg.indexImg', compact('Lt1'));
     }
 
     /**

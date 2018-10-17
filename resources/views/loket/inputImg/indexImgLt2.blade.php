@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gambar Utama</h1>
+            <h1>Gambar Utama Lantai 2</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,12 +18,12 @@
           @include('layouts._flash')
            <div class="card">
             <div class="card-header">
-                <a href="#" id="admin_filter" class="dataTables_filter">Lantai 2</a>
+                <a href="{{ route('inputImg.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a>
+            
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <a href="{{ route('inputImg.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a> <br><br>
-              <table id="admin" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>id</th>
@@ -34,7 +34,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($Lt1 as $value)
+                @foreach($files as $value)
                  <tr>
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>
