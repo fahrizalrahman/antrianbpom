@@ -28,11 +28,12 @@
     <div class="col-md-12" style="height:5px; width:100%; background-color:#3badc9;">
     </div>
 
-    @if($bgLantai6->count() > 0)
-    <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai6->first()->filename))}}); width:626px; height:auto; background-position:center;">               
-    </div>
+    @if($bgLantai6->first()->type == 1)
+        <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai6->first()->filename))}}); width:626px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             
+        </div>
     @else
-        <div class="col-md-7" style="background-color:white; width:615px; height:auto; background-position:center;">               
+        <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai6->first()->filename))}}); width:626px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             
+        </div>               
     </div>
     @endif
     
@@ -71,10 +72,6 @@
         <div class="col-md-6" style="background-color:white; width:auto; height:95px;">
         </div>  
     @endif
-
-    {{-- <div class="col-md-12" style="background-color:#252525;">
-      <span style="float:left; height:35px; color:white;background-color:#3badc9; text-align:center; width:10%; margin-left:-15px;"> <h3 id="time-part"></h3></span> 
-    </div> --}}
 
     <div class="col-md-12" style="width:103%;">
         <table border="0px" style="width:102%; height:40px; margin-left:-15px;">

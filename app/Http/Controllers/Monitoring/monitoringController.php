@@ -65,7 +65,7 @@ class monitoringController extends Controller
 				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=3')
 				 		-> first();
 				 	if($lt3){
-				 		$hasil['l3'] = (string)@$lt2->no_antrian;
+				 		$hasil['l3'] = (string)@$lt3->no_antrian;
 	                }else{
 	                	$hasil['l3'] = '0';
 	                }
@@ -85,7 +85,7 @@ class monitoringController extends Controller
 				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=6')
 				 		-> first();
 				 	if($lt5){
-				 		$hasil['l5'] = (string)@$lt4->no_antrian;
+				 		$hasil['l5'] = (string)@$lt5->no_antrian;
 	                }else{
 	                	$hasil['l5'] = '0';
 	                }
@@ -95,7 +95,7 @@ class monitoringController extends Controller
 				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=6')
 				 		-> first();
 				 	if($lt6){
-				 		$hasil['l6'] = (string)@$lt4->no_antrian;
+				 		$hasil['l6'] = (string)@$lt6->no_antrian;
 	                }else{
 	                	$hasil['l6'] = '0';
 	                }

@@ -45,7 +45,7 @@
                   <td>{{$value->jabatan}}</td>
                   <td>{{$value->lantai}}</td>
                   <td align="center">
-                      <form action="{{route('petugas.destroy', $value->id)}}" method="POST"">
+                      <form action="{{route('petugas.destroy', $value->id)}}" method="POST">
                         <a href="{{ route('petugas.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">

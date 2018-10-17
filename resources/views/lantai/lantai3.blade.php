@@ -42,19 +42,19 @@
         </table>
       </div>
 
-        @if($bgLantai1->first()->type == 1)
+        @if($bgLantai3->first()->type == 1)
             <div class="col-sm-8"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 <video width="890" height="660" controls autoplay loop>
-                    <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
+                    <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
                 </video>
             </div>
         @else
-            <div class="col-sm-8" style="background-image:url({{url(Storage::url($bgLantai1->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            <div class="col-sm-8" style="background-image:url({{url(Storage::url($bgLantai3->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
             </div>
         @endif
 
     </div>
         <div class="col-md-12" style="width:103%;">
-            <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
+            <table border="0px" style="width:104%; height:40px; margin-left:-29px;">
                 <tr>
                     <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b> <h3 id="time-part"></h3></b></td>
                     <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>

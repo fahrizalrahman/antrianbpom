@@ -47,15 +47,17 @@
         @if($imgSid4->count() > 0)
           <img src="{{url(Storage::url($imgSid4->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:auto; margin-left:-15px; width:105.8%;">
         @else
-         <img style="background-color:white;background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:109%;">
+         <img style="background-color:white; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:109%;">
          @endif
       </div>
     </div>
-      @if($bgLantai4->count() > 0)
-      <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai4->first()->filename))}}); width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;" >
+
+      @if($bgLantai4->first()->ytpe == 1)
+      <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai4->first()->filename))}}); width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
       </div>
       @else
-      <div class="col-md-8" style="background-color:white; margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;" >
+      <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai4->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
+
       </div>
       @endif
 

@@ -44,7 +44,7 @@
           @endforeach
       </table>
 
-      <div >
+      <div style="width:101.9%;" >
           @if($imgSid5->count() > 0)
           <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; margin-right:-16px; background-position:center; height:310px; width:104.5%;">
           @else
@@ -53,7 +53,7 @@
 
       </div>
     </div>
-     @if($bgLantai5->count() > 0)
+     @if($bgLantai5->first()->type == 1)
       <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">               
       </div>
       @else
@@ -61,13 +61,13 @@
       </div>
       @endif
 
-     @if($imgFotL5->count() > 0)
-      <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotL5->first()->filename))}}); width:auto; height:75px;">
-        </div>
-        @else
-       <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
-        </div> 
-        @endif
+    @if($imgFotL5->count() > 0)
+        <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotL5->first()->filename))}}); width:auto; height:75px;">
+    </div>
+    @else
+        <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;" >
+    </div> 
+    @endif
     
          @if($imgFotR5->count() > 0)
         <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotR5->first()->filename))}}); width:auto; height:75px;">
@@ -76,10 +76,6 @@
         <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
         </div> 
         @endif
-
-          {{-- <div class="col-md-12" style="background-color:#252525;">
-              <span style="float:left; height:35px; color:white;background-color:#3badc9; text-align:center; width:10%; margin-left:-15px;"> <h3 id="time-part"></h3></span> 
-          </div> --}}
         
         <div class="col-md-12" style="width:103%;">
             <table border="0px" style="width:102%; height:40px; margin-left:-15px;">

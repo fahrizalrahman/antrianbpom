@@ -39,14 +39,16 @@ class FileController extends Controller
         $this->validate($request,[
             'title'     => 'nullable|min:5',
             'lantai'    => 'required',
+            'type'      => 'required',
             'file'      => 'required|file|max:2000'
         ]);
-
+        
         $uploadFile = $request->file('file');
         $path       = $uploadFile->store('public/files');
         $file       = File::create([
             'title' => $request->title ?? $uploadFile->getClientOriginalName(),
             'lantai'    => $request->lantai,
+            'type'      => $request->type,
             'filename'  => $path
         ]);
         return redirect()->route('inputImg.index');
@@ -88,6 +90,7 @@ class FileController extends Controller
         $editImg->title = $request->title;
         $editImg->lantai = $request->lantai;
         $editImg->status = $request->status;
+        $editImg->type = $request->type;
         $editImg->save();
 
         
@@ -102,6 +105,10 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fileHapus = File::findorfail($id);
+        $fileHapus->delete();
+        dd($fileHapus);
+
+        return redirect()->route('inputImg.index');
     }
 }

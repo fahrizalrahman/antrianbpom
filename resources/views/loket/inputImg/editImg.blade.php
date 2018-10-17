@@ -49,6 +49,14 @@
                           <option value="Non-Aktif">Tidak Aktif</option>
                       </select>
                   </div>
+
+                  <div class="form-group">
+                      <label>Pilih Type</label>
+                      <select class="form-control" name="type" value="{{$updateFile->type}} ">
+                          <option value="1">Video</option>
+                          <option value="0">Image</option>
+                      </select>
+                  </div>
                   </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

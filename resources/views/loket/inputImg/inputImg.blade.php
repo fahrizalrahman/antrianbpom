@@ -42,6 +42,14 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Pilih Type</label>
+                        <select class="form-control" name="type">
+                            <option value="">-- Video/Image --</option>
+                            <option value="1">Video</option>
+                            <option value="0">Image</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                       <label for="exampleInputFile">File input</label>
                       <div class="input-group">
                         <div class="custom-file">
