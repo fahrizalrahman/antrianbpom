@@ -17,7 +17,7 @@
     <section class="content">
       <div class="container-fluid">
             <!-- Content Header (Page header) -->
-            <div class="card card-primary">
+            <div class="card card-info">
                     <div class="card-header">
                       <h3 class="card-title">Tambah Petugas</h3>
                     </div>
@@ -73,11 +73,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password">
-                        </div>
-      
+
                       <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </div>

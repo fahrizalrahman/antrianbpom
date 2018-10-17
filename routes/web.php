@@ -39,6 +39,8 @@ Route::resource('inputImgSid','SidebarController');
 
 // Route Tambah User
 Route::resource('user','AddUserController');
+Route::post('/user-perusahaan', 'AddUserController@storePerusahaan')->name('store-perusahaan');
+
 // Tambah Petugas
 Route::resource('petugas','addPetugasController');
 

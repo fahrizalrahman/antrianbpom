@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use Session;
 
 class AddUserController extends Controller
 {
@@ -47,19 +48,73 @@ class AddUserController extends Controller
     public function store(Request $request)
     {
 
-        $user = New User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->nik = $request->nik;
-        $user->no_telp = $request->no_telp;
-        $user->alamat = $request->alamat;
-        $user->jabatan = 'pelanggan';
-        $user->lantai = 0;
-        $user->password = bcrypt($request->password);
-        $user->save();
+       $this->validate($request, [ 
+         'nik' => 'required|unique:users',
+         'no_telp' => 'required|unique:users',
+         'email' => 'required|unique:users',
+        ]);
+
+        $usercreate = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'nik' => $request->nik,
+            'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+            'jabatan' => 'pelanggan',
+            'lantai' => 0,
+            'password' => bcrypt('123456')
+        ]);
+
         
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menambah Pelanggan"
+            ]);
+
+
         return redirect()->route('user.index');
     }
+
+        public function storePerusahaan(Request $request)
+    {
+
+        $this->validate($request, [ 
+         'nik' => 'required|unique:users',
+         'no_telp' => 'required|unique:users',
+         'email' => 'required|unique:users',
+         'npwp' => 'required|unique:users',
+         'no_telp_perusahaan' => 'required|unique:users',
+         'email_perusahaan' => 'required|unique:users',
+        ]);
+
+        $usercreate = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'nik' => $request->nik,
+            'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+            'jabatan' => 'pelanggan',
+            'lantai' => 0,
+            'password' => bcrypt('123456'),
+            'npwp' => $request->npwp,
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'email_perusahaan' => $request->email_perusahaan,
+            'no_telp_perusahaan' => $request->no_telp_perusahaan,
+            'alamat_perusahaan' => $request->alamat_perusahaan
+
+        ]);
+
+        
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menambah Pelanggan"
+        ]);
+
+
+        return redirect()->route('user.index');
+    }
+
 
     /**
      * Display the specified resource.
