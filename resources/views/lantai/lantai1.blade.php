@@ -30,13 +30,17 @@
                         </div>
                     </span>
             </div>
-            @if($bgLantai1->count() > 0)
-            <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai1->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">     
+           
+            <div class="col-sm-7" style=" margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
+                    @if ($bgLantai1->first()->type == 1 )
+                    <video width="890" height="660" controls autoplay loop>
+                        <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
+                    </video>    
+                    @else 
+                        <img src="{{Storage::url($bgLantai1->first()->filename)}}" >
+                    @endif             
             </div>
-            @else
-             <div class="col-sm-7" style="background-color:white; width:820px; height:660px; background-size:cover; background-position:center; background-repeat:no-repeat;">
-            </div>
-            @endif
+
             <div class="col-sm-4" style="width:120.%; height:auto;">
                 <table border="1px;" style="width:132.8%; border-color:gray;">
                         <?php $_i=1; ?>
@@ -71,15 +75,12 @@
                  <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
                 </div>
                 @endif
-            {{-- <div class="col-md-12" style="background-color:#252525; height:40px;">
-                <span style="float:left; height:40px; color:white;background-color:#3badc9; text-align:center; width:10%; margin-left:-15px;"><b> <h3 id="time-part">  </h3></b></span>
-            </div> --}}
 
             <div class="col-md-12" style="width:102%;">
                 <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
                     <tr>
                         <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b> <h3 id="time-part"></h3></b></td>
-                        <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>SELAMAT DATANG</marquee></td>
+                        <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
                     </tr>
                 </table>
             </div>
@@ -96,18 +97,6 @@
     <script src="{{asset('js/jquery.nicescroll.js')}}"></script>
     <!-- custom -->
     <script src="{{asset('js/main.js')}}"></script>
-
-
-    <script type="text/javascript">
-    /*
-     $(document).ready(function(){
-       $('input').iCheck({
-        checkboxClass: 'icheckbox_flat-aero',
-        radioClass: 'iradio_flat-aero'
-      });
-     });*/
-    </script>
-   <!-- end: Javascript -->
 
    <script type="text/javascript">
        $(document).ready(function() {

@@ -84,7 +84,14 @@ class FileController extends Controller
      */
     public function update(Request $request, $id)
     {
-    //    
+        $editImg = File::findorfail($id);
+        $editImg->title = $request->title;
+        $editImg->lantai = $request->lantai;
+        $editImg->status = $request->status;
+        $editImg->save();
+
+        
+        return redirect()->route('inputImg.index');
     }
 
     /**

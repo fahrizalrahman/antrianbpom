@@ -139,24 +139,27 @@ class HomeController extends Controller
     public function lantai()
     {
         $lantai1 = Loket::where('lantai','1')->get();
-        $bgLantai1 = File::where('lantai','1')->orderby('id','desc');
+        $bgLantai1 = File::where('lantai','1')->where('status','Aktif')->orderby('id','desc');
         $imgFotL1    = Footer::where('lantai','1')->where('float','footer_L')->orderby('id','desc');
         $imgFotR1    = Footer::where('lantai','1')->where('float','footer_R')->orderby('id','desc');
-        return view('lantai.lantai1', compact('lantai1','bgLantai1','imgFooter','imgFotL1','imgFotR1'));
+        $Text        = Tulisan::where('lantai','1')->where('float','footer')->orderby('id','desc');
+        return view('lantai.lantai1', compact('lantai1','bgLantai1','imgFooter','imgFotL1','imgFotR1','Text'));
     }
 
     public function lantai2()
     {
         $lantai2 = Loket::where('lantai','2')->get();
         $bgLantai2 = File::where('lantai','2')->orderby('id','desc');
-        return view('lantai.lantai2', compact('lantai2','bgLantai2'));
+        $Text        = Tulisan::where('lantai','2')->where('float','footer')->orderby('id','desc');
+        return view('lantai.lantai2', compact('lantai2','bgLantai2','Text'));
     }
 
     public function lantai3()
     {
         $lantai3 = Loket::where('lantai','3')->get();
         $bgLantai3 = File::where('lantai','3')->orderby('id','desc');
-        return view('lantai.lantai3', compact('lantai3','bgLantai3'));
+        $Text        = Tulisan::where('lantai','3')->where('float','footer')->orderby('id','desc');
+        return view('lantai.lantai3', compact('lantai3','bgLantai3','Text'));
     }
 
     public function lantai4()
@@ -164,7 +167,8 @@ class HomeController extends Controller
         $lantai4 = Loket::where('lantai','4')->get();
         $bgLantai4 = File::where('lantai','4')->orderby('id','desc');
         $imgSid4 = Sidebar::where('lantai','4')->orderby('id','desc');
-        return view('lantai.lantai4', compact('lantai4','bgLantai4','imgSid4'));
+        $Text        = Tulisan::where('lantai','4')->where('float','footer')->orderby('id','desc');
+        return view('lantai.lantai4', compact('lantai4','bgLantai4','imgSid4','Text'));
     }
 
     public function lantai5()
@@ -174,7 +178,8 @@ class HomeController extends Controller
         $imgSid5 = Sidebar::where('lantai','5')->orderby('id','desc');
         $imgFotL5    = Footer::where('lantai','5')->where('float','footer_L')->orderby('id','desc');
         $imgFotR5    = Footer::where('lantai','5')->where('float','footer_R')->orderby('id','desc');
-        return view('lantai.lantai5', compact('lantai5','bgLantai5','imgSid5','imgFotL5','imgFotR5'));
+        $Text        = Tulisan::where('lantai','5')->where('float','footer')->orderby('id','desc');
+        return view('lantai.lantai5', compact('lantai5','bgLantai5','imgSid5','imgFotL5','imgFotR5','Text'));
     }
 
     public function lantai6()
@@ -183,7 +188,8 @@ class HomeController extends Controller
         $bgLantai6 = File::where('lantai','6')->orderby('id','desc');
         $imgFotL6    = Footer::where('lantai','6')->where('float','footer_L')->orderby('id','desc');
         $imgFotR6    = Footer::where('lantai','6')->where('float','footer_R')->orderby('id','desc');
-        return view('lantai.lantai6', compact('lantai6','bgLantai6','imgFotL6','imgFotR6'));
+        $Text        = Tulisan::where('lantai','6')->where('float','footer')->orderby('id','desc');
+        return view('lantai.lantai6', compact('lantai6','bgLantai6','imgFotL6','imgFotR6','Text'));
     }
 
     public function display()
@@ -208,4 +214,5 @@ class HomeController extends Controller
         $layanan_lantai = Loket::select()->where('lantai',$lantai)->get();
         return view('pelanggan.layanan',['layanan_lantai' => $layanan_lantai,'lantai'=>$lantai]);
     }
+
 }
