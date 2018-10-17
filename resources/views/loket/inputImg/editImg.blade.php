@@ -43,14 +43,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputFile">File input</label>
-                      <div class="input-group">
-                        <div class="custom-file">
-                          <input type="file" name="filename" id="filename" value="{{$updateFile->filename}} ">
-                        </div>
-                      </div>
-                    </div>
-                    
+                      <label>Status</label>
+                      <select class="form-control" name="status" value="{{$updateFile->status}} ">
+                          <option value="Aktif">Aktif</option>
+                          <option value="Non-Aktif">Tidak Aktif</option>
+                      </select>
+                  </div>
                   </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

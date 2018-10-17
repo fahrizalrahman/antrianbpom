@@ -30,16 +30,16 @@
                         </div>
                     </span>
             </div>
-           
-            <div class="col-sm-7" style=" margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
-                    @if ($bgLantai1->first()->type == 1 )
-                    <video width="890" height="660" controls autoplay loop>
+
+            @if($bgLantai1->first()->type == 1)
+                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video width="890" height="660" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
-                    </video>    
-                    @else 
-                        <img src="{{Storage::url($bgLantai1->first()->filename)}}" >
-                    @endif             
-            </div>
+                    </video>
+                </div>
+            @else
+                <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai1->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+                </div>
+            @endif
 
             <div class="col-sm-4" style="width:120.%; height:auto;">
                 <table border="1px;" style="width:132.8%; border-color:gray;">

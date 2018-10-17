@@ -29,6 +29,7 @@
                   <th>id</th>
                   <th>Title </th>
                   <th>Lantai </th>
+                  <th>Status</th>
                   <th>action</th>
                 </tr>
                 </thead>
@@ -38,6 +39,7 @@
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>
                   <td>{{$value->lantai}}</td>
+                  <td>{{$value->status}}</td>
                   <td>
                       <a href="{{route('inputImg.edit', $value->id)}}" class="btn btn-warning btn-sm" title="Show or download value {{ $value->title }}">
                           <i class="nav-icon fa fa-wrench"></i>
