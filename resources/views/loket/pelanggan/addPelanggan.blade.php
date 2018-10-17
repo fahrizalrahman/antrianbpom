@@ -2,12 +2,52 @@
 @extends('layouts.app_admin')
 
 @section('content')
+
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
   <div class="content-wrapper">
         <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Tambah Pelanggan</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -17,59 +57,20 @@
     <section class="content">
       <div class="container-fluid">
             <!-- Content Header (Page header) -->
-            <div class="card card-primary">
-                    <div class="card-header">
-                      <h3 class="card-title">Tambah Pelanggan</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    <form action="{{route('user.store')}}" role="form" method="POST">
-                        @csrf
-                        {{ method_field('post') }}
-                      <div class="card-body">
-                        <div class="form-group">
-                          <label for="name">Nama</label>
-                          <input type="text" class="form-control" id="name" name="name" placeholder="Masukan Nama" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">E-Mail</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Masukan Email" required>
+                        <div class="tab">
+                          <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'Perorangan')">Perorangan</button>
+                          <button class="tablinks" onclick="openCity(event, 'Perusahaan')">Perusahaan</button>
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
+                        <div id="Perorangan" class="tabcontent">
+                          @include('loket.pelanggan.umum')
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">No Telp</label>
-                            <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
+                        <div id="Perusahaan" class="tabcontent">
+                           @include('loket.pelanggan.perusahaan')
                         </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Password</label>
-                            <input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="Konfirmasi Password" required>
-                        </div>
-      
-                      <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </div>
-                    </form>
-                  </div>
-            </div>
-
           <!-- /.card -->
+          <br>
       </div>
   </section>
   </div>
@@ -86,3 +87,24 @@
   </aside>
   <!-- /.control-sidebar -->
 @endsection
+@section('scripts')
+<script type="text/javascript">
+    function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+@endsection
+

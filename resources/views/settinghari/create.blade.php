@@ -96,7 +96,7 @@
       $(document).ready(function() {
          var lantai = $("#lantai").val();
 
-          $.get('{{ Url("cek-pilih-lantai-sub") }}',{'_token': $('meta[name=csrf-token]').attr('content'),lantai:lantai}, function(resp){  
+          $.get('{{ Url("cek-pilih-lantai") }}',{'_token': $('meta[name=csrf-token]').attr('content'),lantai:lantai}, function(resp){  
 
             $("#select-layanan").html(resp);
              
@@ -106,7 +106,7 @@
         $(document).on('change', '#lantai', function (e) { 
          var lantai = $(this).val();
 
-          $.get('{{ Url("cek-pilih-lantai-sub") }}',{'_token': $('meta[name=csrf-token]').attr('content'),lantai:lantai}, function(resp){  
+          $.get('{{ Url("cek-pilih-lantai") }}',{'_token': $('meta[name=csrf-token]').attr('content'),lantai:lantai}, function(resp){  
 
             $("#select-layanan").html(resp);
              

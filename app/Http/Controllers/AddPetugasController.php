@@ -45,7 +45,7 @@ class AddPetugasController extends Controller
         $petugas->alamat = $request->alamat;
         $petugas->jabatan = $request->jabatan;
         $petugas->lantai = $request->lantai;
-        $petugas->password = bcrypt($request->password);
+        $petugas->password = bcrypt('123456');
         $petugas->save();
         return redirect()->route('petugas.index');
     }
