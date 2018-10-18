@@ -20,70 +20,45 @@
 						<div class="row">
 							<div class="col-md-2">
 								<label class="label-input">Mulai : </label>
-								<input class="input_date" name="ed_mulai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
+								<input class="input_date" id="ed_mulai" name="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
 							</div>
 							<div class="col-md-2">
 								<label class="label-input">Sampai : </label>
-								<input class="input_date" name="ed_mulai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
+								<input class="input_date" id="ed_sampai" name="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
 							</div>
 							<div class="col-md-4">
 								<label class="label-input">Petugas : </label>
-								<select class="ed_sel_petugas input_date full-width">
-									<option value="ALL">Semua Petugas</option>
+								<select id="petugas" class="ed_sel_petugas input_date full-width">
+									<option value="all">Semua Petugas</option>
+									<?php
+									$data_petugas = App\User::select('id','name')->where('jabatan','petugas_loket')->get();
+									?>
+									@foreach($data_petugas as $data_petugass)
+									<option value="{{$data_petugass->id}}">{{$data_petugass->name}}</option>
+									@endforeach									
 								</select>
 							</div>
 							<div class="col-md-4">
 								<label class="label-input">Pelayanan : </label>
-								<select class="ed_sel_layanan input_date full-width">
-									<option value="ALL">Semua Layanan</option>
-								</select>
+								<select id="pelayanan" class="ed_sel_layanan input_date full-width">
+									<option value="all">Semua Layanan</option>
+									<option value="0">TIDAK SURVEY</option>
+									<option value="1">SANGAT PUAS</option>
+									<option value="2">PUAS</option>
+									<option value="3">TIDAK PUAS</option>
+								</select>	
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12" style="margin-top: 10px;">
-								<button class="btn btn-success">Proses</button>
+								<button id="proses" class="btn btn-success">Proses</button>
 								<hr />
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
-								<table id="example1" class="table table-bordered table-striped">
-									<thead>
-										<tr style="border-bottom: 3px solid black !important;">
-											<th width="90px">Tanggal</th>
-											<th width="150px">Petugas</th>
-											<th width="150px">Email</th>
-											<th width="150px">Pengunjung</th>
-											<th width="100px">No. Telp</th>
-											<th>Pelayanan</th>
-											<th width="100px">Survey</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php $_i=0; 
-										$emosi = array("TIDAK SURVEY", "SANGAT PUAS", "PUAS", "TIDAK PUAS");
-										?>
-										@foreach($_data as $data)
-											@if($_i % 2===0)
-												<tr>
-											@else
-												<tr style="background-color: #dddddd">
-											@endif
-												<td align="center">{{ substr($data->tanggal,0,10) }}</td>
-												<td>{{ $data->nama_petugas }}</td>
-												<td>{{ $data->email }}</td>
-												<td>{{ strtoupper($data->pelanggan) }}</td>
-												<td>{{ strtoupper($data->no_telp) }}</td>
-												<td>{{ strtoupper($data->nama_layanan) }}</td>
-												<td>{{ strtoupper($emosi[$data->kepuasan]) }}</td>
-											</tr>
-											<?php $_i++;?>
-										@endforeach
-									</tbody>
-									<tfoot>
-									</tfoot>
-								</table>
-							</div>
+							<span id="refresh-table">
+							@include('cetak.refresh_table_survey')
+							</span> <!--penutup span-->
 						</div>
 					</div>
 				</div>
@@ -117,4 +92,38 @@
 	border: 1px solid #dddddd;
 }
 </style>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+      $(document).ready(function() {
+         var ed_mulai = $("#ed_mulai").val();
+         var ed_sampai = $("#ed_sampai").val();
+         var petugas = $("#petugas").val();
+         var pelayanan = $("#pelayanan").val();
+
+
+          $.get('{{ Url("filter-data-survey") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas,pelayanan:pelayanan}, function(resp){  
+
+            $("#refresh-table").html(resp);
+             
+          });
+    });
+      
+        $(document).on('click', '#proses', function (e) { 
+         
+         var ed_mulai = $("#ed_mulai").val();
+         var ed_sampai = $("#ed_sampai").val();
+         var petugas = $("#petugas").val();
+         var pelayanan = $("#pelayanan").val();
+
+
+
+          $.get('{{ Url("filter-data-survey") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas,pelayanan:pelayanan}, function(resp){  
+
+            $("#refresh-table").html(resp);
+             
+          });
+    });
+</script>
 @endsection

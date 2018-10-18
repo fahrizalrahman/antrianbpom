@@ -215,4 +215,42 @@ class HomeController extends Controller
         return view('pelanggan.layanan',['layanan_lantai' => $layanan_lantai,'lantai'=>$lantai]);
     }
 
+    public function filterDataSurvey(Request $request){
+
+                if ($request->petugas == 'all' and $request->pelayanan == 'all') {
+                    $data = DB::table('view_pelayanan')
+                            -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            -> get();
+                }elseif($request->petugas == 'all' and $request->pelayanan != 'all'){
+                    $data = DB::table('view_pelayanan')
+                            -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('kepuasan',$request->pelayanan)
+                            -> get();                    
+                }elseif($request->petugas != 'all' and $request->pelayanan == 'all'){
+                    $data = DB::table('view_pelayanan')
+                            -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('petugas',$request->petugas)
+                            -> get();
+                 }else{
+                   $data = DB::table('view_pelayanan')
+                            -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('petugas',$request->petugas)
+                            ->where('kepuasan',$request->pelayanan)
+                            -> get();  
+                }
+
+              return view('cetak.refresh_table_survey')
+                    ->with('_data', $data);
+
+            }
+
+
 }

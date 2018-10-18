@@ -52,6 +52,7 @@ Route::post('/user-perusahaan', 'AddUserController@storePerusahaan')->name('stor
 
 // Tambah Petugas
 Route::resource('petugas','addPetugasController');
+Route::get('/petugas-reset/{id}', 'addPetugasController@reset')->name('reset');
 
 // Route Antrian
 Route::get('/print-antrian/{id}', 'AntrianController@print')->name('print-antrian');
@@ -190,3 +191,6 @@ Route::get('/pelanggan/popup/survey', 'LoketController@survey_pelanggan');
 
 Route::get('/petugas/report/create_pdf','LoketController@generatePDF');
 Route::get('survey-pengunjung', 'HomeController@survey_pengunjung');
+
+
+Route::get('filter-data-survey', 'HomeController@filterDataSurvey');
