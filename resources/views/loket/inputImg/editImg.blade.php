@@ -23,7 +23,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('inputImg.update', $updateFile->id)}} " method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{route('inputImg.update', $updateFile->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                   <div class="card-body">
@@ -31,9 +31,15 @@
                       <label for="exampleInputEmail1">Judul File</label>
                       <input type="text" class="form-control" id="title" name="title" value="{{$updateFile->title}} " placeholder="Masukan Judul">
                     </div>
+
                     <div class="form-group">
-                        <label>Pilih Lantai</label>
-                        <select class="form-control" name="lantai" value="{{$updateFile->lantai}}">
+                        <label for="exampleInputEmail1">Lantai</label>
+                        <input type="text" class="form-control" id="lantai" name="lantai" value="{{$updateFile->lantai}} " readonly>
+                      </div>
+
+                    {{-- <div class="form-group">
+                        <label>Lantai</label>
+                        <select class="form-control" name="lantai" value="{{$updateFile->lantai}}" readonly>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -41,7 +47,8 @@
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select>
-                    </div>
+                    </div> --}}
+                    
                     <div class="form-group">
                       <label>Status</label>
                       <select class="form-control" name="status" value="{{$updateFile->status}} ">
@@ -51,12 +58,18 @@
                   </div>
 
                   <div class="form-group">
-                      <label>Pilih Type</label>
-                      <select class="form-control" name="type" value="{{$updateFile->type}} ">
-                          <option value="1">Video</option>
-                          <option value="0">Image</option>
+                      <label for="exampleInputEmail1">Type</label>
+                      <input type="text" class="form-control" id="type" name="type" value="{{$updateFile->type}} " readonly>
+                    </div>
+              
+                  {{-- <div class="form-group">
+                      <label>Type</label>
+                      <select class="form-control" name="type" value="{{$updateFile->type}} " readonly>
+                          <option value="1" {{$updateFile->type}}>Video</option>
+                          <option value="0" {{$updateFile->type}}>Image</option>
                       </select>
-                  </div>
+                  </div> --}}
+
                   </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

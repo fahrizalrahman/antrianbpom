@@ -13,7 +13,16 @@
 <body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
 
 <div class="container-fluid">
-  <div class="row" style="margin-top:1px;">
+        <a class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media">
+                <div class="media-body">
+                
+                </div>
+            </div>
+            <!-- Message End -->
+        </a>
+  <div class="row">
 
       <div class="col-sm-12" style="height:70px; background-color:#e6e6e6;">
           <img src="{{asset('img/log/logo-bpom.png')}}" style="margin-top:7px;" width="220px" height="55px" >
@@ -28,17 +37,22 @@
     <div class="col-md-12" style="height:5px; width:100%; background-color:#3badc9;">
     </div>
 
-    @if($bgLantai6->first()->type == 1)
-        <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai6->first()->filename))}}); width:626px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             
+    @if($bgLantai6->first()->type == 'Video')
+        <div class="col-md-7" style="width:626px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             
+            <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:515px; position:center;" controls autoplay loop>
+                <source src="{{Storage::url($bgLantai6->first()->filename)}}" type="video/mp4">
+            </video>
+            <div style="background-color:#2b869d; margin-left:-15px; margin-top:-5px; width:917px; height:120px;">
+            </div>
         </div>
     @else
-        <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai6->first()->filename))}}); width:626px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             
+        <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai6->first()->filename))}}); margin-left:-15px; width:626px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             
         </div>               
     </div>
     @endif
     
-    <div class="col-md-5" style="width:105%; height:auto;">
-      <table border="1px;" style=" width:105%; margin-left:-15px; border-color:gray;">
+    <div class="col-md-4" style="width:132%; height:auto;">
+      <table border="1px;" style=" width:132%; margin-left:-12px; border-color:gray;">
         <?php $_i=1; ?>
           @foreach ($lantai6 as $lantai6)
           <tr>

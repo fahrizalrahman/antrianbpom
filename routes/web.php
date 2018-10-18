@@ -44,6 +44,8 @@ Route::get('inputImgLt4','FileController@Lt4')->name('loket.inputImg.indexImgLt4
 Route::get('inputImgLt5','FileController@Lt5')->name('loket.inputImg.indexImgLt5');
 Route::get('inputImgLt6','FileController@Lt6')->name('loket.inputImg.indexImgLt6');
 
+Route::get('editImgBtn/{id}/status','FileController@editBtn')->name('indexImg.editBtn');
+
 // Route Tambah User
 Route::resource('user','AddUserController');
 Route::post('/user-perusahaan', 'AddUserController@storePerusahaan')->name('store-perusahaan');

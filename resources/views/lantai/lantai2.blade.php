@@ -12,7 +12,16 @@
 </head>
 <body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
     <div class="container-fluid">
-        <div class="row" style="margin-top:0px;">
+            <a class="dropdown-item">
+                    <!-- Message Start -->
+                    <div class="media">
+                      <div class="media-body">
+                       
+                      </div>
+                    </div>
+                    <!-- Message End -->
+                </a>
+        <div class="row">
             <div class="col-sm-12" style="height:70px; background-color:#e6e6e6;">
                 <img src="{{asset('img/log/logo-bpom.png')}}" style="margin-top:7px;" width="220px" height="55px" >
                 <span style="float:right; text-align:center; height:30px; margin-left:-15px; margin-right:-15px; width:20%;">
@@ -26,7 +35,7 @@
             <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
             </div>
 
-            @if($bgLantai2->first()->type == 1)
+            @if($bgLantai2->first()->type == 'Video')
                 <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai2->first()->filename)}}" type="video/mp4">
                     </video>

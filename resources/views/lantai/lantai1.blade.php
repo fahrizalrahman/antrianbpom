@@ -10,7 +10,7 @@
 </head>
 <body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
     <div class="container-fluid">
-                  <a class="dropdown-item">
+        <a class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
               <div class="media-body">
@@ -18,7 +18,7 @@
               </div>
             </div>
             <!-- Message End -->
-          </a>
+        </a>
         <div class="row">
                 
             <div class="col-sm-12" style="height:70px; background-color:#e6e6e6;;">
@@ -31,7 +31,7 @@
                     </span>
             </div>
 
-            @if($bgLantai1->first()->type == 1)
+            @if($bgLantai1->first()->type == 'Video')
                 <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>

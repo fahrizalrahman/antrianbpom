@@ -13,7 +13,16 @@
 <body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
 
 <div class="container-fluid">
-  <div class="row" style="margin-top:1px;">
+        <a class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <div class="media-body">
+                   
+                  </div>
+                </div>
+                <!-- Message End -->
+            </a>
+  <div class="row">
 
       <div class="col-sm-12" style="height:70px; background-color:#e6e6e6;">
           <img src="{{asset('img/log/logo-bpom.png')}}" style="margin-top:7px;" width="220px" height="55px" >
@@ -28,8 +37,8 @@
     <div class="col-md-12" style="height:5px; width:100%; background-color:deepskyblue;">
     </div>
 
-    <div class="col-md-5" style="width:623px; height:auto;">
-      <table border="1px" style="margin-left:-15px; margin-right:-14px; width:104.5%;">
+    <div class="col-md-4" style="width:132%; height:auto;">
+      <table border="1px" style="margin-left:-15px; margin-right:-14px; width:132%;">
         <?php $_i = 1; ?>
           @foreach ($lantai5 as $lantai5)
           <tr>
@@ -44,21 +53,26 @@
           @endforeach
       </table>
 
-      <div style="width:101.9%;" >
+      <div>
           @if($imgSid5->count() > 0)
-          <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; margin-right:-16px; background-position:center; height:310px; width:104.5%;">
+          <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; background-position:center; height:350px; width:132%;">
           @else
           <img  style="background-color:white;background-position:center;  margin-left:-15px; margin-right:-16px; height:310px; width:102.4%;">
           @endif
 
       </div>
     </div>
-     @if($bgLantai5->first()->type == 1)
-      <div class="col-md-7" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">               
-      </div>
+     @if($bgLantai5->first()->type == 'Video')
+        <div class="col-md-7" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">    
+            <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                <source src="{{Storage::url($bgLantai5->first()->filename)}}" type="video/mp4">
+            </video>
+            <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:198px;">
+            </div>           
+        </div>
       @else
-      <div class="col-md-7" style="background-color:white; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">               
-      </div>
+        <div class="col-md-7" style="background-color:white; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">               
+        </div>
       @endif
 
     @if($imgFotL5->count() > 0)

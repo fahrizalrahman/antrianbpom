@@ -10,7 +10,16 @@
 </head>
 <body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
   <div class="container-fluid">
-    <div class="row" style="margin-top:0px;">
+        <a class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <div class="media-body">
+                   
+                  </div>
+                </div>
+                <!-- Message End -->
+            </a>
+    <div class="row">
       
             <div class="col-sm-12" style="height:70px; background-color:#e6e6e6;">
                     <img src="{{asset('img/log/logo-bpom.png')}}" style="margin-top:7px;" width="220px" height="55px" >
@@ -24,17 +33,17 @@
                 <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
                 </div>
 
-      <div class="col-sm-4" style="background-color:darkgray; width:106%; height:auto;">
-        <table border="1px" style="width:106%; margin-left:-15px; height:auto;">
+      <div class="col-sm-4" style="background-color:darkgray;  height:auto;">
+        <table border="1px" style="width:132%; margin-left:-15px; height:auto;">
                 <?php $_i = 1; ?>
                 @foreach ($lantai3 as $lantai3)
                 <tr>
-                    <td class="col-md-5" style="color:white;background-color:#2b869d; height:53px; width:388px;">{{$lantai3->nama_layanan}}</td>
+                    <td class="col-md-4" style="color:white;background-color:#2b869d; height:53px; width:388px;">{{$lantai3->nama_layanan}}</td>
                     <td rowspan="2" style="color:white;background-color:#236c7d; width:100px; height:53px; text-align:center; border-color:honeydew;"><h3 style="float:left; margin-left:25px;">{{$lantai3->kode_antrian}} - </h3><h3 style="float:left; margin-left:8px;" id="lok_{{ $_i }}"></h3></td>
                 </tr>
                 
                 <tr>
-                    <td class="col-md-5" style="color:white;background-color:#34a1bc; height:53px; width:100px;">{{$lantai3->kode}}</td>
+                    <td class="col-md-4" style="color:white;background-color:#34a1bc; height:53px; width:100px;">{{$lantai3->kode}}</td>
                 </tr>
                 <?php $_i++; ?>
                 
@@ -42,15 +51,16 @@
         </table>
       </div>
 
-        @if($bgLantai3->first()->type == 1)
-            <div class="col-sm-8"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+        @if($bgLantai3->first()->type == 'Video')
+            <div class="col-sm-7"  style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 
+                <video style=" margin-left:114px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
                 </video>
-                <div style="background-color:#2b869d; margin-left:-14px; margin-top:-5px; width:906px; height:229px;">
+                <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:229px;">
                 </div>
             </div>
         @else
-            <div class="col-sm-8" style="background-image:url({{url(Storage::url($bgLantai3->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai3->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
             </div>
         @endif
 

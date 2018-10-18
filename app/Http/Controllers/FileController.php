@@ -15,11 +15,6 @@ class FileController extends Controller
     public function index()
     {
         $Lt1 = File::where('lantai','1')->orderby('id','desc')->get();
-        
-        $Lt3 = File::where('lantai','3')->orderby('id','desc');
-        $Lt4 = File::where('lantai','4')->orderby('id','desc');
-        $Lt5 = File::where('lantai','5')->orderby('id','desc');
-        $Lt6 = File::where('lantai','6')->orderby('id','desc');
         return view('loket.inputImg.indexImg', compact('Lt1'));
     }
 
@@ -109,6 +104,20 @@ class FileController extends Controller
     {
         $updateFile = File::findorfail($id);
         return view('loket.inputImg.editImg', compact('updateFile'));
+    }
+
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editBtn(Request $request)
+    {
+        if($request->ajax()){
+            $editBtn = ClassRoutine::Find($request->id);
+            return Response($editBtn);
+        }
     }
 
     /**
