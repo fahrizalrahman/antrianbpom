@@ -14,8 +14,43 @@ class FileController extends Controller
      */
     public function index()
     {
-        $files = File::all();
-        return view('loket.inputImg.indexImg', compact('files'));
+        $Lt1 = File::where('lantai','1')->orderby('id','desc')->get();
+        
+        $Lt3 = File::where('lantai','3')->orderby('id','desc');
+        $Lt4 = File::where('lantai','4')->orderby('id','desc');
+        $Lt5 = File::where('lantai','5')->orderby('id','desc');
+        $Lt6 = File::where('lantai','6')->orderby('id','desc');
+        return view('loket.inputImg.indexImg', compact('Lt1'));
+    }
+
+    public function Lt2()
+    {
+        $Lt2 = File::where('lantai','2')->orderby('id','desc')->get();
+        return view('loket.inputImg.indexImgLt2', compact('Lt2'));
+    }
+
+    public function Lt3()
+    {
+        $Lt3 = File::where('lantai','3')->orderby('id','desc')->get();
+        return view('loket.inputImg.indexImgLt3', compact('Lt3'));
+    }
+
+    public function Lt4()
+    {
+        $Lt4 = File::where('lantai','4')->orderby('id','desc')->get();
+        return view('loket.inputImg.indexImgLt4', compact('Lt4'));
+    }
+
+    public function Lt5()
+    {
+        $Lt5 = File::where('lantai','5')->orderby('id','desc')->get();
+        return view('loket.inputImg.indexImgLt5', compact('Lt5'));
+    }
+
+    public function Lt6()
+    {
+        $Lt6 = File::where('lantai','6')->orderby('id','desc')->get();
+        return view('loket.inputImg.indexImgLt6', compact('Lt6'));
     }
 
     /**
@@ -53,7 +88,6 @@ class FileController extends Controller
         ]);
         return redirect()->route('inputImg.index');
     }
-
     /**
      * Display the specified resource.
      *

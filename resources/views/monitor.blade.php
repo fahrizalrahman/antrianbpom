@@ -146,11 +146,12 @@
                     </div>
 
                     <div class="col-sm-6" style=" margin-top:0.4%;">
-                        <table class="table-responsive" style="background-color:beige; position:static; margin-bottom:4px;">
+                        <table class="table-responsive" style="background-color:beige; width:680px; position:static; margin-bottom:4px;">
+                        <col width="600px">
                         <col width="600px">    
                         @foreach ($textmonitor as $text)
                             <tr>
-                                <td style="color:blue; padding-left:20px;"> <b> <u> {{$text->judul}}</u></b></td>
+                                <td style="color:blue; width:680px; padding-left:20px;"> <b> <u> {{$text->judul}}</u></b></td>
                             </tr>
                             <tr>
                                 <td style="color:black; font-size:11px; padding-left:20px; ">

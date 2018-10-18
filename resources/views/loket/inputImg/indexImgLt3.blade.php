@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gambar Utama Lantai 1</h1>
+            <h1>Gambar Utama Lantai 3</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -19,15 +19,14 @@
            <div class="card">
             <div class="card-header">
                 <a href="{{ route('inputImg.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a>
+                <a href="{{route('inputImg.index')}}" id="admin_filter" class="btn btn-dark">Lantai 1</a>
                 <a href="{{route('loket.inputImg.indexImgLt2')}}" id="admin_filter" class="btn btn-dark">Lantai 2</a>
-                <a href="{{route('loket.inputImg.indexImgLt3')}}" id="admin_filter" class="btn btn-dark">Lantai 3</a>
                 <a href="{{route('loket.inputImg.indexImgLt4')}}" id="admin_filter" class="btn btn-dark">Lantai 4</a>
                 <a href="{{route('loket.inputImg.indexImgLt5')}}" id="admin_filter" class="btn btn-dark">Lantai 5</a>
                 <a href="{{route('loket.inputImg.indexImgLt6')}}" id="admin_filter" class="btn btn-dark">Lantai 6</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                
               <table id="admin" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -39,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($Lt1 as $value)
+                @foreach($Lt3 as $value)
                  <tr>
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>

@@ -50,6 +50,14 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Pilih Status</label>
+                        <select class="form-control" name="type">
+                            <option value="">-- Aktif/Non-Aktif --</option>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Non-Aktfi">Non-Aktif</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                       <label for="exampleInputFile">File input</label>
                       <div class="input-group">
                         <div class="custom-file">

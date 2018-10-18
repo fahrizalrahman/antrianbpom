@@ -13,10 +13,10 @@
 
 Route::get('/', 'HomeController@home')->middleware('verified');
 
-
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
 // Route Lantai
 Route::get('/lantai', 'HomeController@lantai')->name('lantai');
 Route::get('/lantai2', 'HomeController@lantai2')->name('lantai2');
@@ -36,6 +36,13 @@ Route::resource('inputTulisan','TulisanController');
 Route::resource('inputImg','FileController');
 Route::resource('inputImgFoot','FotterController');
 Route::resource('inputImgSid','SidebarController');
+
+// Route Tambah File per-lantai
+Route::get('inputImgLt2','FileController@Lt2')->name('loket.inputImg.indexImgLt2');
+Route::get('inputImgLt3','FileController@Lt3')->name('loket.inputImg.indexImgLt3');
+Route::get('inputImgLt4','FileController@Lt4')->name('loket.inputImg.indexImgLt4');
+Route::get('inputImgLt5','FileController@Lt5')->name('loket.inputImg.indexImgLt5');
+Route::get('inputImgLt6','FileController@Lt6')->name('loket.inputImg.indexImgLt6');
 
 // Route Tambah User
 Route::resource('user','AddUserController');

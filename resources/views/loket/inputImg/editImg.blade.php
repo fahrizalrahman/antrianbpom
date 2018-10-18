@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <label>Pilih Lantai</label>
-                        <select class="form-control" name="lantai" value="{{$updateFile->lantai}} ">
+                        <select class="form-control" name="lantai" value="{{$updateFile->lantai}}">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

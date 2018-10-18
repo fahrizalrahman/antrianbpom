@@ -32,28 +32,30 @@
             </div>
 
             @if($bgLantai1->first()->type == 1)
-                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video width="890" height="660" controls autoplay loop>
+                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>
+                    <div style="background-color:#2b869d; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
+                    </div>
                 </div>
             @else
                 <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai1->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
                 </div>
             @endif
-
+                
             <div class="col-sm-4" style="width:120.%; height:auto;">
-                <table border="1px;" style="width:132.8%; border-color:gray;">
-                        <?php $_i=1; ?>
-                        @foreach ($lantai1 as $lantai1)
-                        <tr>
-                            <td class="col-sm-5" style="background-color:#2b869d; height:55px; width:400px;color:white;">{{$lantai1->nama_layanan}}</td>
-                            <td id="td_style" rowspan="2" style="background-color:#236c7d; width:100px; height:55px; text-align:center; border-color:honeydew;color:white;"><h3 style="float:left; margin-left:25px;">{{$lantai1->kode_antrian}} - </h3><h3 style="float:left; margin-left:8px;" id="lok_{{ $_i }}"></h3></td>
-                        </tr>
-                        <tr>
-                            <td class="col-sm-5" style="background-color:#34a1bc; height:55px; width:400px;color:white;">{{$lantai1->kode}}</td>
-                        </tr>
-                        <?php $_i++; ?>
-                        @endforeach
+                <table border="1px;" style="width:132.8%; margin-left:-5px; border-color:gray;">
+                    <?php $_i=1; ?>
+                    @foreach ($lantai1 as $lantai1)
+                    <tr>
+                        <td class="col-sm-5" style="background-color:#2b869d; height:55px; width:400px;color:white;">{{$lantai1->nama_layanan}}</td>
+                        <td id="td_style" rowspan="2" style="background-color:#236c7d; width:100px; height:55px; text-align:center; border-color:honeydew;color:white;"><h3 style="float:left; margin-left:25px;">{{$lantai1->kode_antrian}} - </h3><h3 style="float:left; margin-left:8px;" id="lok_{{ $_i }}"></h3></td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-5" style="background-color:#34a1bc; height:55px; width:400px;color:white;">{{$lantai1->kode}}</td>
+                    </tr>
+                    <?php $_i++; ?>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -79,7 +81,7 @@
             <div class="col-md-12" style="width:102%;">
                 <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
                     <tr>
-                        <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b> <h3 id="time-part"></h3></b></td>
+                        <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                         <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
                     </tr>
                 </table>
@@ -89,7 +91,6 @@
         </div>
     </div>
     {{-- Javascript --}}
-    
     <script src="{{asset ('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
@@ -106,25 +107,25 @@
             }, 100);
         });
 
-var es = new EventSource("<?php echo action('Monitoring\monitoringController@layanan_satu'); ?>");
-es.onmessage = function(f){
-    var _text = f.data;
-    var _test = JSON.parse(_text);
-    $('#lok_1').html(_test.l1);
-    $('#lok_2').html(_test.l2);
-    $('#lok_3').html(_test.l3);
-    $('#lok_4').html(_test.l4);
-    $('#lok_5').html(_test.l5);
-    $('#lok_6').html(_test.l6);
-}
-
-var es = new EventSource("<?php echo action('Monitoring\monitoringController@layanan_aktif'); ?>");
-es.onmessage = function(f) {
-    if(f.data.length > 0){
-        $('#td_style').css('background-color', '#34a1bc');
-        $('#lok_' + f.data).parent('td').css('background-color', 'red');
+    var es = new EventSource("<?php echo action('Monitoring\monitoringController@layanan_satu'); ?>");
+    es.onmessage = function(f){
+        var _text = f.data;
+        var _test = JSON.parse(_text);
+        $('#lok_1').html(_test.l1);
+        $('#lok_2').html(_test.l2);
+        $('#lok_3').html(_test.l3);
+        $('#lok_4').html(_test.l4);
+        $('#lok_5').html(_test.l5);
+        $('#lok_6').html(_test.l6);
     }
-}
+
+    var es = new EventSource("<?php echo action('Monitoring\monitoringController@layanan_aktif'); ?>");
+    es.onmessage = function(f) {
+        if(f.data.length > 0){
+            $('#td_style').css('background-color', '#34a1bc');
+            $('#lok_' + f.data).parent('td').css('background-color', 'red');
+        }
+    }
 
    </script>
 </body>

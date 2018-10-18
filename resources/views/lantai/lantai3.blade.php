@@ -43,9 +43,11 @@
       </div>
 
         @if($bgLantai3->first()->type == 1)
-            <div class="col-sm-8"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 <video width="890" height="660" controls autoplay loop>
+            <div class="col-sm-8"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
                 </video>
+                <div style="background-color:#2b869d; margin-left:-14px; margin-top:-5px; width:906px; height:229px;">
+                </div>
             </div>
         @else
             <div class="col-sm-8" style="background-image:url({{url(Storage::url($bgLantai3->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
