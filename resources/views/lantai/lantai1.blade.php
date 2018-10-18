@@ -35,8 +35,7 @@
                 <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>
-                    <div  style="background-color:#2b869d; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
-
+                    <div style="background-color:#2b869d; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
                     </div>
                 </div>
             @else
