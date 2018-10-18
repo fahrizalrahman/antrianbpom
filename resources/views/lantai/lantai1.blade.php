@@ -36,6 +36,7 @@
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>
                     <div style="background-color:#2b869d; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
+                        {{$TextUtama->first()->title}} 
                     </div>
                 </div>
             @else

@@ -149,16 +149,16 @@
                         <table class="table-responsive" style="background-color:beige; width:680px; position:static; margin-bottom:4px;">
                         <col width="600px">
                         <col width="600px">    
-                        @foreach ($textmonitor as $text)
+                        {{-- @foreach ($textmonitor as $text) --}}
                             <tr>
-                                <td style="color:blue; width:680px; padding-left:20px;"> <b> <u> {{$text->judul}}</u></b></td>
+                                <td style="color:blue; width:680px; padding-left:20px;"> <b> <u> {{$textmonitor->first()->judul}}</u></b></td>
                             </tr>
                             <tr>
                                 <td style="color:black; font-size:11px; padding-left:20px; ">
-                                    {{$text->isi}}
+                                    {{$textmonitor->first()->isi}}
                                 </td>
                             </tr>
-                            @endforeach
+                            {{-- @endforeach --}}
                         </table>
                     </div>                    
                 </div>

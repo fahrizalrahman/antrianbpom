@@ -30,7 +30,8 @@ Route::get('/loket/delete/{id}', 'LoketController@delete')->name('loket.delete')
 
 // Tambah Tulisan
 Route::resource('inputTulisan','TulisanController');
-// Route::get('/monitor','HomeController@TextMonitor')-name('monitor');
+Route::get('inputTulisanUtama','TulisanController@createUtama')->name('tulisan.createUtama');
+Route::post('inputTulisanUtamaStore','TulisanController@storeUtama')->name('tulisan.storeUtama');
 
 // Route Tambah Gambar
 Route::resource('inputImg','FileController');

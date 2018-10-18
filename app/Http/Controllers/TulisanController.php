@@ -29,12 +29,40 @@ class TulisanController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createUtama()
+    {
+        return view('loket.inputTulisan.createUtama');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {
+        $this->validate($request, [
+            'judul' => 'required',
+            'isi'   => 'required',
+            'lantai'   => 'required',
+            'float'   => 'required'
+        ]);
+
+        $Tulisan = new Tulisan;
+        $Tulisan->judul = $request->judul;
+        $Tulisan->isi = $request->isi;
+        $Tulisan->lantai = $request->lantai;
+        $Tulisan->float = $request->float;
+        $Tulisan->save();
+        return redirect()->route('inputTulisan.index');
+    }
+
+    public function storeUtama(Request $request)
     {
         $this->validate($request, [
             'judul' => 'required',

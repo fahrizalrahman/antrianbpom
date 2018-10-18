@@ -90,7 +90,7 @@
     <div class="col-md-12" style="width:103%;">
         <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
             <tr>
-                <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b> <h3 id="time-part"></h3></b></td>
+                <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                 <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
             </tr>
         </table>

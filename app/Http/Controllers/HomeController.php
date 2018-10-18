@@ -143,6 +143,7 @@ class HomeController extends Controller
         $imgFotL1    = Footer::where('lantai','1')->where('float','footer_L')->orderby('id','desc');
         $imgFotR1    = Footer::where('lantai','1')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','1')->where('float','footer')->orderby('id','desc');
+        $TextUtama   = Tulisan::where('lantai','1')->where('float','utama')->orderby('id','desc');
         return view('lantai.lantai1', compact('lantai1','bgLantai1','imgFooter','imgFotL1','imgFotR1','Text'));
     }
 
