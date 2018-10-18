@@ -156,8 +156,13 @@ class AddUserController extends Controller
         $user->alamat = $request->alamat;
         $user->jabatan = 'pelanggan';
         $user->lantai = $request->lantai;
-        $user->password = bcrypt($request->password);
         $user->save();
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Mengubah Pelanggan"
+            ]);
+
         
         return redirect()->route('user.index');
     }
@@ -172,6 +177,11 @@ class AddUserController extends Controller
     {
         $pelanggan = User::findorfail($id);
         $pelanggan->delete();
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menghapus Pelanggan"
+            ]);
 
         return redirect()->route('user.index');
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Session;
+
 
 class AddPetugasController extends Controller
 {
@@ -47,6 +49,14 @@ class AddPetugasController extends Controller
         $petugas->lantai = $request->lantai;
         $petugas->password = bcrypt('123456');
         $petugas->save();
+
+        
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menambah Petugas"
+            ]);
+
+
         return redirect()->route('petugas.index');
     }
 
@@ -90,9 +100,12 @@ class AddPetugasController extends Controller
         $petugas->alamat = $request->alamat;
         // $petugas->jabatan = $request->jabatan;
         $petugas->lantai = $request->lantai;
-        $petugas->password = bcrypt($request->password);
         $petugas->save();
 
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Mengubah Petugas"
+            ]);
         
         return redirect()->route('petugas.index');
     }
@@ -107,6 +120,28 @@ class AddPetugasController extends Controller
     {
         $petugas = User::findorfail($id);
         $petugas->delete();
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menghapus Petugas"
+            ]);
+
+        return redirect()->route('petugas.index');
+    }
+
+        public function reset($id)
+    {
+        
+        $petugas = User::find($id);
+        $petugas->password = bcrypt('123456');
+        $petugas->save();
+
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Reset Password"
+            ]);
+
 
         return redirect()->route('petugas.index');
     }
