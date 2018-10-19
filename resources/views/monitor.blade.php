@@ -17,7 +17,7 @@
         }
         
         tr:nth-child(even) {
-            background-color: #f2f2f2; !important; 
+            background-color: #f2f2f2; !important;  
         }
     </style>
 </head>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
                     </div>
-        <div class="col-md-12" style="width:100%; height:auto; background-image:url( {{asset('img/come.jpg')}} ); background-size:cover; background-position:center; background-repeat:no-repeat; ">
+        <div class="col-md-12" style="width:100%; height:auto;  background-size:cover; background-position:center; background-repeat:no-repeat; ">
             <div class="container-fluid" style="margin-left:19px;">
               <div class="row" style="margin-top:0px; margin-left:5px; color:azure;">
                     <div class="col-sm-6" style="margin-top:1%; height:auto; width:auto; color:azure;">
@@ -48,14 +48,13 @@
                         <td rowspan="0" style="background-color:#276a7b; color: white; height:40px; text-align:center; "><h1> <b> 1 </b></h1></td>
                         <?php $_1=1; ?>
                         @foreach ($MonitorLt1 as $Lt1)
-                            <tr>
-                            <td style="background-color:#278698; height:40px;">{{$Lt1->nama_layanan}}</td>
+                            <tr style="margin-right:15px;">
+                            <td style="background-color:#278698; margin-right:15px; height:40px;">{{$Lt1->nama_layanan}}</td>
                                 <td style="background-color:#278698; height:40px;">{{$Lt1->kode}}</td>
                                 <td style="background-color:#278698; height:40px;"><h4 style="float:left; margin-left:25px;">{{$Lt1->kode_antrian}} - </h4><h4 style="float:left; margin-left:8px;" id="lok1_{{ $_1 }}"></h4></td>
                             </tr>
                         <?php $_1++; ?>    
-                        @endforeach
-                        
+                        @endforeach                        
                         </table>
                     </div>
 

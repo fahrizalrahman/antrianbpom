@@ -43,6 +43,9 @@ Route::resource('inputImgSid','SidebarController');
 Route::post('inputImageBg','FileController@storeBg')->name('imagebg.store');
 Route::get('inputImageBg','FileController@createBg')->name('imagebg.createBg');
 Route::get('viewbbg','FileController@ImageBg')->name('imagebg.view');
+Route::get('inputImgHome','FileController@createImgHome')->name('imgHome.create');
+Route::post('inputImgHome','FileController@storeHome')->name('imgHome.storeHome');
+Route::get('viewImgHome','FileController@ImgHome')->name('imgHome.view');
 
 // Route Tambah File per-lantai
 Route::get('inputImgLt2','FileController@Lt2')->name('loket.inputImg.indexImgLt2');

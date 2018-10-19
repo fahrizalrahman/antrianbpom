@@ -200,6 +200,12 @@
                     </a>
                   </li>
                   <li class="nav-item">
+                      <a href="{{route('imgHome.view')}}" class="nav-link">
+                        <i class="fa fa-circle-o nav-icon"></i>
+                        <p>Gambar Mainbar</p>
+                      </a>
+                    </li>
+                  <li class="nav-item">
                     <a href="{{route('imagebg.view')}}" class="nav-link">
                       <i class="fa fa-circle-o nav-icon"></i>
                       <p>Gambar Background</p>
