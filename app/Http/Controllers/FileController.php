@@ -54,6 +54,12 @@ class FileController extends Controller
         return view('loket.inputImg.indexImgBg', compact('ImageBg'));
     }
 
+    public function ImgHome()
+    {
+        $ImgHome = File::where('type','ImgHome')->orderby('id','desc')->get();
+        return view('loket.inputImg.indexImgHome', compact('ImgHome'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -72,6 +78,16 @@ class FileController extends Controller
     public function createBg()
     {
         return view('loket.inputImg.inputImgBg');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createImgHome()
+    {
+        return view('loket.inputImg.createImgHome');
     }
 
     /**
@@ -112,7 +128,6 @@ class FileController extends Controller
             'title'     => 'nullable|min:5',
             'lantai'    => 'required',
             'type'      => 'required',
-            'float' => 'required',
             'file'      => 'required|file|max:2000'
         ]);
         
@@ -122,10 +137,35 @@ class FileController extends Controller
             'title' => $request->title ?? $uploadFile->getClientOriginalName(),
             'lantai'    => $request->lantai,
             'type'      => $request->type,
-            'float' => $request->background,
             'filename'  => $path
         ]);
         return redirect()->route('imagebg.view');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeHome(Request $request)
+    {
+        $this->validate($request,[
+            'title'     => 'nullable|min:5',
+            'lantai'    => 'required',
+            'type'      => 'required',
+            'file'      => 'required|file|max:2000'
+        ]);
+        
+        $uploadFile = $request->file('file');
+        $path       = $uploadFile->store('public/files');
+        $file       = File::create([
+            'title' => $request->title ?? $uploadFile->getClientOriginalName(),
+            'lantai'    => $request->lantai,
+            'type'      => $request->type,
+            'filename'  => $path
+        ]);
+        return redirect()->route('imgHome.view');
     }
 
     /**

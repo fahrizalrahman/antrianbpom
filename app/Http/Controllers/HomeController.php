@@ -139,7 +139,7 @@ class HomeController extends Controller
     public function lantai()
     {
         $lantai1 = Loket::where('lantai','1')->get();
-        $bgLantai1 = File::where('lantai','1')->where('status','Aktif')->whereNotIn('type',['background'])->orderby('id','desc');
+        $bgLantai1 = File::where('lantai','1')->where('status','Aktif')->whereNotIn('type',['background','ImgHome'])->orderby('id','desc');
         $imgFotL1    = Footer::where('lantai','1')->where('float','footer_L')->orderby('id','desc');
         $imgFotR1    = Footer::where('lantai','1')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','1')->where('float','footer')->orderby('id','desc');
@@ -151,26 +151,28 @@ class HomeController extends Controller
     public function lantai2()
     {
         $lantai2 = Loket::where('lantai','2')->get();
-        $bgLantai2 = File::where('lantai','2')->where('status','Aktif')->whereNotIn('type',['background'])->orderby('id','desc');
+        $bgLantai2 = File::where('lantai','2')->where('status','Aktif')->whereNotIn('type',['background','ImgHome'])->orderby('id','desc');
         $Text        = Tulisan::where('lantai','2')->where('float','footer')->orderby('id','desc');
         $TextUtama   = Tulisan::where('lantai','2')->where('float','utama')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
-        return view('lantai.lantai2', compact('lantai2','bgLantai2','Text','TextUtama','Background'));
+        $Mainbar    = File::where('lantai','2')->where('type','ImgHome')->orderby('id','desc');
+        return view('lantai.lantai2', compact('lantai2','bgLantai2','Text','TextUtama','Background','Mainbar'));
     }
 
     public function lantai3()
     {
         $lantai3 = Loket::where('lantai','3')->get();
-        $bgLantai3 = File::where('lantai','3')->where('status','Aktif')->whereNotIn('type',['background'])->orderby('id','desc');
+        $bgLantai3 = File::where('lantai','3')->where('status','Aktif')->whereNotIn('type',['background','ImgHome'])->orderby('id','desc');
         $Text        = Tulisan::where('lantai','3')->where('float','footer')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
-        return view('lantai.lantai3', compact('lantai3','bgLantai3','Text','Background'));
+        $Mainbar    = File::where('lantai','3')->where('type','ImgHome')->orderby('id','desc');
+        return view('lantai.lantai3', compact('lantai3','bgLantai3','Text','Background','Mainbar'));
     }
 
     public function lantai4()
     {
         $lantai4 = Loket::where('lantai','4')->get();
-        $bgLantai4 = File::where('lantai','4')->where('status','Aktif')->whereNotIn('type',['background'])->orderby('id','desc');
+        $bgLantai4 = File::where('lantai','4')->where('status','Aktif')->whereNotIn('type',['background','ImgHome'])->orderby('id','desc');
         $imgSid4 = Sidebar::where('lantai','4')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','4')->where('float','footer')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
@@ -180,7 +182,7 @@ class HomeController extends Controller
     public function lantai5()
     {
         $lantai5 = Loket::where('lantai','5')->get();
-        $bgLantai5 = File::where('lantai','5')->where('status','Aktif')->whereNotIn('type',['background'])->orderby('id','desc');
+        $bgLantai5 = File::where('lantai','5')->where('status','Aktif')->whereNotIn('type',['background','ImgHome'])->orderby('id','desc');
         $imgSid5 = Sidebar::where('lantai','5')->orderby('id','desc');
         $imgFotL5    = Footer::where('lantai','5')->where('float','footer_L')->orderby('id','desc');
         $imgFotR5    = Footer::where('lantai','5')->where('float','footer_R')->orderby('id','desc');
@@ -192,7 +194,7 @@ class HomeController extends Controller
     public function lantai6()
     {
         $lantai6 = Loket::where('lantai','6')->get();
-        $bgLantai6 = File::where('lantai','6')->where('status','Aktif')->whereNotIn('type',['background'])->orderby('id','desc');
+        $bgLantai6 = File::where('lantai','6')->where('status','Aktif')->whereNotIn('type',['background','ImgHome'])->orderby('id','desc');
         $imgFotL6    = Footer::where('lantai','6')->where('float','footer_L')->orderby('id','desc');
         $imgFotR6    = Footer::where('lantai','6')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','6')->where('float','footer')->orderby('id','desc');

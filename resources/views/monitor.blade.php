@@ -17,7 +17,7 @@
         }
         
         tr:nth-child(even) {
-            background-color: #f2f2f2; !important; 
+            background-color: #f2f2f2; !important;  
         }
     </style>
 </head>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
                     </div>
-        <div class="col-md-12" style="width:100%; height:auto; background-image:url( {{asset('img/come.jpg')}} ); background-size:cover; background-position:center; background-repeat:no-repeat; ">
+        <div class="col-md-12" style="width:100%; height:auto;  background-size:cover; background-position:center; background-repeat:no-repeat; ">
             <div class="container-fluid" style="margin-left:19px;">
               <div class="row" style="margin-top:0px; margin-left:5px; color:azure;">
                     <div class="col-sm-6" style="margin-top:1%; height:auto; width:auto; color:azure;">

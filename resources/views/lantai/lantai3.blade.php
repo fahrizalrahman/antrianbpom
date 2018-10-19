@@ -56,7 +56,7 @@
                 <video style=" margin-left:129px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
                 </video>
-                <div style="background-color:#2b869d; margin-left:129px; margin-top:-5px; width:906px; height:229px;">
+                <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); margin-left:129px; margin-top:-5px; width:906px; height:229px;">
                 </div>
             </div>
         @else
@@ -65,13 +65,15 @@
         @endif
             </div>
     </div>
-    <div class="col-md-12" style="height:5px; width:100%; background-color:#236c7d;">
-    </div>
+    {{-- <div class="row">
+        <div class="col-md-12" style="height:3px; width:100%; background-color:#34a1bc;">
+        </div>
+    </div> --}}
     <div class="col-md-12" style="width:103%;">
         <table border="0px" style="width:104%; height:40px; margin-left:-29px;">
             <tr>
                 <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
-                <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
+                <td style="width:1500px; background-color:#e6e6e6; color:#252525; size:19px;"><marquee> <b>{{$Text->first()->isi}}</b></marquee></td>
             </tr>
         </table>
     </div>
