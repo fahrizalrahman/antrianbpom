@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Input File</h1>
+            <h1>Input Gambar Untuk Background</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -23,13 +23,14 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('inputImg.store')}} " method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{route('imagebg.store')}} " method="POST" enctype="multipart/form-data">
                 @csrf
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Judul File</label>
-                      <input type="text" class="form-control" id="title" name="title" placeholder="Masukan Judul">
+                      <label for="exampleInputEmail1">Judul Gambar</label>
+                      <input type="text" class="form-control" id="title" name="title" placeholder="Masukan Judul Gambar">
                     </div>
+
                     <div class="form-group">
                         <label>Pilih Lantai</label>
                         <select class="form-control" name="lantai">
@@ -41,22 +42,21 @@
                             <option value="6">6</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label>Pilih Type</label>
-                        <select class="form-control" name="type">
-                            <option value="">-- Video/Image --</option>
-                            <option value="Video">Video</option>
+                        <label>Type File</label>
+                        <select class="form-control" name="type" readonly>
                             <option value="Image">Image</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label>Pilih Status</label>
-                        <select class="form-control" name="type">
-                            <option value="">-- Aktif/Non-Aktif --</option>
-                            <option value="Aktif">Aktif</option>
-                            <option value="Non-Aktfi">Non-Aktif</option>
+                        <label>Penempatan</label>
+                        <select class="form-control" name="type" readonly>
+                            <option value="background">Background</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                       <label for="exampleInputFile">File input</label>
                       <div class="input-group">

@@ -33,10 +33,16 @@ Route::resource('inputTulisan','TulisanController');
 Route::get('inputTulisanUtama','TulisanController@createUtama')->name('tulisan.createUtama');
 Route::post('inputTulisanUtamaStore','TulisanController@storeUtama')->name('tulisan.storeUtama');
 
+// Tambah Tulisan - Tampil
+Route::get('tampilTulisanHome','TulisanController@indexHome')->name('tampil.tulisan');
+
 // Route Tambah Gambar
 Route::resource('inputImg','FileController');
 Route::resource('inputImgFoot','FotterController');
 Route::resource('inputImgSid','SidebarController');
+Route::post('inputImageBg','FileController@storeBg')->name('imagebg.store');
+Route::get('inputImageBg','FileController@createBg')->name('imagebg.createBg');
+Route::get('viewbbg','FileController@ImageBg')->name('imagebg.view');
 
 // Route Tambah File per-lantai
 Route::get('inputImgLt2','FileController@Lt2')->name('loket.inputImg.indexImgLt2');

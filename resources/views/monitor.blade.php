@@ -8,28 +8,38 @@
     <link rel="stylesheet" href="{{asset ('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href=" {{asset('css/file.css')}} ">
 
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+        }
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2; !important; 
+        }
+    </style>
 </head>
-<body style="container-fluid; overflow-x:hidden; background-image:url({{asset('img/log/bg-log.jpg')}});">
+<body style="container-fluid; overflow-x:hidden; background-image:url({{asset('img/log/bg-log.jpg')}}); ">
 
     <div class="container-fluid">
     {{-- <div class="row"> --}}
-            <div class="col-sm-12" style="height:70px; background-color:#e6e6e6;">
+            <div class="col-md-12" style="height:70px; background-color:#e6e6e6;">
                     <img src="{{asset('img/log/logo-bpom.png')}}" style="margin-top:7px;" width="220px" height="55px" >
                     <span style="float:right; text-align:center; height:30px; margin-left:-15px;  margin-right:-35px; width:20%;">
                         <div class="time">
                             <h1 style="text-align:center; color:#252525;; margin-top:8px; float:center;"> Monitoring</h1> 
-                                            <div id="test"></div>
-
-                            {{-- <p style="color:forestgreen; text-align:center;"><h1><b></b></h1></p> --}}
+                            <div id="test"></div>
                         </div>
                     </span>
                 </div>
                 <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
                     </div>
-        <div class="col-md-12" style="width:100%; height:auto; background-image:url( {{asset('img/come.jpg')}} ); background-size:cover; background-position:center; background-repeat:no-repeat;">
+        <div class="col-md-12" style="width:100%; height:auto; background-image:url( {{asset('img/come.jpg')}} ); background-size:cover; background-position:center; background-repeat:no-repeat; ">
             <div class="container-fluid" style="margin-left:19px;">
-              <div class="row" style="margin-top:0px; margin-left:5px;">
-                    <div class="col-sm-6" style="margin-top:1%; height:auto; width:auto;">
+              <div class="row" style="margin-top:0px; margin-left:5px; color:azure;">
+                    <div class="col-sm-6" style="margin-top:1%; height:auto; width:auto; color:azure;">
                         <table class="table-responsive" style="position:static;">
                         <col width="90">
                         <col width="430">
@@ -167,8 +177,8 @@
         </div>
         <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
             </div>
-        <div class="col-md-12" style="width:100%; height:30px; background-color:black;">
-            <p style="size:18px; color:#e6e6e6; text-align:center; font-style:bold;"> SELAMAT DATANG DI KANTOR BADAN PENGAWAS OBAT DAN MAKANAN</p>
+        <div class="col-md-12" style="width:100%; height:30px; background-color:#e6e6e6;">
+            <p style="size:18px; color:black; text-align:center; font-style:bold;"><b> SELAMAT DATANG DI KANTOR BADAN PENGAWAS OBAT DAN MAKANAN</b></p>
         </div>
     </div>
 </div>

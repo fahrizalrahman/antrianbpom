@@ -14,8 +14,19 @@ class TulisanController extends Controller
      */
     public function index()
     {
-        $tampilTulisan = Tulisan::all();
+        $tampilTulisan = Tulisan::wherein('float', ['footer','monitor'])->get();
         return view('loket.inputTulisan.index', compact('tampilTulisan'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexHome()
+    {
+        $tampilTulHome = Tulisan::where('float','utama')->get();
+        return view('loket.inputTulisan.indexHome', compact('tampilTulHome'));
     }
 
     /**
@@ -77,7 +88,7 @@ class TulisanController extends Controller
         $Tulisan->lantai = $request->lantai;
         $Tulisan->float = $request->float;
         $Tulisan->save();
-        return redirect()->route('inputTulisan.index');
+        return redirect()->route('tampil.tulisan');
     }
 
     /**

@@ -196,11 +196,17 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{route('inputImgFoot.index')}}" class="nav-link">
-                        <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Gambar Footer</p>
-                      </a>
-                    </li>
+                    <a href="{{route('inputImgFoot.index')}}" class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>Gambar Footer</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('imagebg.view')}}" class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>Gambar Background</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
          </li>
@@ -218,9 +224,9 @@
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p> Running Text</p>
                 </a>
-              </li>
+              </li> 
               <li class="nav-item">
-                <a href="{{route('tulisan.createUtama')}} " class="nav-link">
+                <a href="{{route('tampil.tulisan')}} " class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Home Text</p>
                 </a>

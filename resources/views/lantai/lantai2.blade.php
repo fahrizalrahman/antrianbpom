@@ -10,7 +10,7 @@
    
     <title>Contoh Lantai 2</title>
 </head>
-<body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
+<body class="container-fluid" style="background-image:url({{url(Storage::url($Background->first()->filename))}});">
     <div class="container-fluid">
             <a class="dropdown-item">
                     <!-- Message Start -->
@@ -27,7 +27,7 @@
                 <span style="float:right; text-align:center; height:30px; margin-left:-15px; margin-right:-15px; width:20%;">
                         <div class="time">
                             <h1 style="text-align:center; color:#252525;; margin-top:8px;">Lantai 2</h1> 
-                            {{-- <p style="color:forestgreen; text-align:center;"><h1><b></b></h1></p> --}}
+                            
                         </div>
                     </span>
             </div>
@@ -36,17 +36,19 @@
             </div>
 
             @if($bgLantai2->first()->type == 'Video')
-                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">          <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai2->first()->filename)}}" type="video/mp4">
                     </video>
-                    <div style="background-color:#2b869d; margin-left:-14px; margin-top:-5px; width:906px; height:229px;">
+                    <div style="background-color:#34a1bc; color:azure; text-align:left; margin-left:-14px; margin-top:-5px; width:906px; height:229px;">
+                        <b><h4 style="margin-left:10px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
+                        <p style="margin-left:10px;">{{$TextUtama->first()->isi}}</p>
                     </div>
                 </div>
             @else
                 <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai2->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
                 </div>
             @endif
-
+                
             <div class="col-sm-4" style="width:auto; height:auto;">
                 <table border="1px" style="width:132%; height:auto;">
                     <?php $_i=1; ?>
@@ -64,18 +66,18 @@
                 
                 </table>
             </div>
-            <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
-                </div>
+    <div class="row">
+        <div class="col-md-12" style="height:3px; width:100%; background-color:#3badc9;">
         </div>
-    
-
+        </div>
         <div class="col-md-12" style="width:103%;">
-            <table border="0px" style="width:104%; height:40px; margin-left:-30px;">
-                    <tr>
-                        <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
-                        <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
-                    </tr>
-                </table>
+            <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
+                <tr>
+                    <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
+                    <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
+                </tr>
+            </table>
+        </div>
         </div>
     </div>
 

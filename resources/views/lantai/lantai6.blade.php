@@ -10,7 +10,7 @@
   <script src="{{asset('popper.min.js')}}"></script>
   <script src="{{asset('bootstrap.min.js')}}"></script>
 </head>
-<body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
+<body class="container-fluid" style="background-image:url({{url(Storage::url($Background->first()->filename))}});">
 
 <div class="container-fluid">
         <a class="dropdown-item">

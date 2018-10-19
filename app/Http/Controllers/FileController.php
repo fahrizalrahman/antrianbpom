@@ -14,38 +14,44 @@ class FileController extends Controller
      */
     public function index()
     {
-        $Lt1 = File::where('lantai','1')->orderby('id','desc')->get();
+        $Lt1 = File::where('lantai','1')->whereNotIn('type', ['background'])->orderby('id','desc')->get();
         return view('loket.inputImg.indexImg', compact('Lt1'));
     }
 
     public function Lt2()
     {
-        $Lt2 = File::where('lantai','2')->orderby('id','desc')->get();
+        $Lt2 = File::where('lantai','2')->whereNotIn('type', ['background'])->orderby('id','desc')->get();
         return view('loket.inputImg.indexImgLt2', compact('Lt2'));
     }
 
     public function Lt3()
     {
-        $Lt3 = File::where('lantai','3')->orderby('id','desc')->get();
+        $Lt3 = File::where('lantai','3')->whereNotIn('type', ['background'])->orderby('id','desc')->get();
         return view('loket.inputImg.indexImgLt3', compact('Lt3'));
     }
 
     public function Lt4()
     {
-        $Lt4 = File::where('lantai','4')->orderby('id','desc')->get();
+        $Lt4 = File::where('lantai','4')->whereNotIn('type', ['background'])->orderby('id','desc')->get();
         return view('loket.inputImg.indexImgLt4', compact('Lt4'));
     }
 
     public function Lt5()
     {
-        $Lt5 = File::where('lantai','5')->orderby('id','desc')->get();
+        $Lt5 = File::where('lantai','5')->whereNotIn('type', ['background'])->orderby('id','desc')->get();
         return view('loket.inputImg.indexImgLt5', compact('Lt5'));
     }
 
     public function Lt6()
     {
-        $Lt6 = File::where('lantai','6')->orderby('id','desc')->get();
+        $Lt6 = File::where('lantai','6')->whereNotIn('type', ['background'])->orderby('id','desc')->get();
         return view('loket.inputImg.indexImgLt6', compact('Lt6'));
+    }
+
+    public function ImageBg()
+    {
+        $ImageBg = File::where('type','background')->orderby('id','desc')->get();
+        return view('loket.inputImg.indexImgBg', compact('ImageBg'));
     }
 
     /**
@@ -56,6 +62,16 @@ class FileController extends Controller
     public function create()
     {
         return view('loket.inputImg.inputImg');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createBg()
+    {
+        return view('loket.inputImg.inputImgBg');
     }
 
     /**
@@ -83,6 +99,35 @@ class FileController extends Controller
         ]);
         return redirect()->route('inputImg.index');
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeBg(Request $request)
+    {
+        $this->validate($request,[
+            'title'     => 'nullable|min:5',
+            'lantai'    => 'required',
+            'type'      => 'required',
+            'float' => 'required',
+            'file'      => 'required|file|max:2000'
+        ]);
+        
+        $uploadFile = $request->file('file');
+        $path       = $uploadFile->store('public/files');
+        $file       = File::create([
+            'title' => $request->title ?? $uploadFile->getClientOriginalName(),
+            'lantai'    => $request->lantai,
+            'type'      => $request->type,
+            'float' => $request->background,
+            'filename'  => $path
+        ]);
+        return redirect()->route('imagebg.view');
+    }
+
     /**
      * Display the specified resource.
      *

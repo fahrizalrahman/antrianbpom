@@ -10,7 +10,7 @@
   <script src="{{asset('popper.min.js')}}"></script>
   <script src="{{asset('bootstrap.min.js')}}"></script>
 </head>
-<body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
+<body class="container-fluid" style="background-image:url({{url(Storage::url($Background->first()->filename))}});">
 
 <div class="container-fluid">
         <a class="dropdown-item">
@@ -29,7 +29,6 @@
           <span style="float:right; text-align:center; height:30px; margin-left:-15px; margin-right:-15px; width:20%;">
               <div class="time">
                   <h1 style="text-align:center; color:#252525;; margin-top:8px;">Lantai 5</h1> 
-                  {{-- <p style="color:forestgreen; text-align:center;"><h1><b></b></h1></p> --}}
               </div>
           </span>
       </div>
@@ -62,35 +61,35 @@
 
       </div>
     </div>
-     @if($bgLantai5->first()->type == 'Video')
-        <div class="col-md-7" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">    
-            <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
-                <source src="{{Storage::url($bgLantai5->first()->filename)}}" type="video/mp4">
-            </video>
-            <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:198px;">
-            </div>           
-        </div>
-      @else
-        <div class="col-md-7" style="background-color:white; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">               
-        </div>
-      @endif
+        @if($bgLantai5->first()->type == 'Video')
+            <div class="col-md-7" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">    
+                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                    <source src="{{Storage::url($bgLantai5->first()->filename)}}" type="video/mp4">
+                </video>
+                <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:198px;">
+                </div>           
+            </div>
+        @else
+            <div class="col-md-7" style="background-color:white; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">               
+            </div>
+        @endif
 
-    @if($imgFotL5->count() > 0)
-        <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotL5->first()->filename))}}); width:auto; height:75px;">
-    </div>
-    @else
-        <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;" >
-    </div> 
-    @endif
-    
-         @if($imgFotR5->count() > 0)
-        <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotR5->first()->filename))}}); width:auto; height:75px;">
-          </div>
-          @else
-        <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
+        @if($imgFotL5->count() > 0)
+            <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotL5->first()->filename))}}); width:auto; height:75px;">
+        </div>
+        @else
+            <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;" >
         </div> 
         @endif
-        
+
+        @if($imgFotR5->count() > 0)
+            <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotR5->first()->filename))}}); width:auto; height:75px;">
+            </div>
+        @else
+            <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
+            </div> 
+        @endif
+            
         <div class="col-md-12" style="width:103%;">
             <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
                 <tr>
