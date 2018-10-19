@@ -253,15 +253,23 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="{{ url('/laporan-pengunjung') }}" class="nav-link">
-                      <i class="nav-icon fa fa-stats"></i>
+                      <i class="nav-icon fa fa-circle-o"></i>
                       <p>
                         Pengunjung 
                       </p>
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="{{ url('/laporan-petugas') }}" class="nav-link">
+                      <i class="nav-icon fa fa-circle-o"></i>
+                      <p>
+                        Petugas
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="{{ url('/survey-pengunjung') }}" class="nav-link">
-                      <i class="nav-icon fa fa-percent"></i>
+                      <i class="nav-icon fa fa-circle-o"></i>
                       <p>
                         Survey 
                       </p>

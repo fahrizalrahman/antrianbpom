@@ -199,8 +199,16 @@ Route::get('/pelanggan/popup/survey', 'LoketController@survey_pelanggan');
 Route::get('/petugas/report/create_pdf','LoketController@generatePDF');
 
 //laporan (ADMIN)
+//survey
 Route::get('survey-pengunjung', 'HomeController@survey_pengunjung');
+Route::get('filter-data-survey', 'HomeController@filterDataSurvey');
+
+//pengunjung
 Route::get('laporan-pengunjung', 'HomeController@laporanPengunjung');
 Route::get('filter-laporan-pengunjung', 'HomeController@filterLaporanPengunjung');
 Route::get('lihat-list-kunjungan', 'HomeController@lihatListKunjungan');
-Route::get('fiLter-data-survey', 'HomeController@filterDataSurvey');
+
+//petugas
+Route::get('laporan-petugas', 'HomeController@laporanPetugas');
+Route::get('filter-laporan-petugas', 'HomeController@filterLaporanPetugas');
+Route::get('lihat-list-pelayanan', 'HomeController@lihatListPelayanan');
