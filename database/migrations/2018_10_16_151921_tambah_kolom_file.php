@@ -15,7 +15,7 @@ class TambahKolomFile extends Migration
     {
         Schema::table('files', function($table){
             $table->enum('status', array('Aktif','Non-Aktif'));
-            $table->enum('type', array('1','0'));
+            $table->enum('type', array('Video','Image','background'));
         });
     }
 
@@ -28,7 +28,7 @@ class TambahKolomFile extends Migration
     {
         Schema::table('files', function($table){
             $table->enum('status', array('Aktif','Non-Aktif'));
-            $table->enum('type', array('1','0'));
+            $table->enum('type', array('Video','Image','background'));
         });
     }
 }

@@ -17,7 +17,7 @@ class CreateTulisansTable extends Migration
             $table->increments('id');
             $table->text('judul');
             $table->text('isi');
-            $table->enum('float', array('footer','monitor'));
+            $table->enum('float', array('footer','monitor','utama'));
             $table->enum('lantai', array('1','2','3','4','5','6','monitor'));
             $table->timestamps();
         });

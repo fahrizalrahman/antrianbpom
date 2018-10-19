@@ -194,22 +194,44 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{route('inputImgFoot.index')}}" class="nav-link">
-                        <i class="fa fa-circle-o nav-icon"></i>
-                        <p>Gambar Footer</p>
-                      </a>
-                    </li>
+                    <a href="{{route('inputImgFoot.index')}}" class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>Gambar Footer</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('imagebg.view')}}" class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>Gambar Background</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
          </li>
-         <li class="nav-item">
-          <a href="{{ route('inputTulisan.index') }}" class="nav-link">
-            <i class="nav-icon fa fa-pencil"></i>
-            <p>
-              Tambah Running Text
-            </p>
-          </a>
-        </li>
+         <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-pencil"></i>
+              <p>
+                Tambah Text
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('inputTulisan.index') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p> Running Text</p>
+                </a>
+              </li> 
+              <li class="nav-item">
+                <a href="{{route('tampil.tulisan')}} " class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Home Text</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+     </li>
         <!--
           <li class="nav-item">
             <a href="{{ route('home') }}" class="nav-link">

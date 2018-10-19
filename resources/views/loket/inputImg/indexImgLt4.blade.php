@@ -19,11 +19,12 @@
            <div class="card">
             <div class="card-header">
                 <a href="{{ route('inputImg.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a>
-                <a href="{{route('inputImg.index')}}" id="admin_filter" class="btn btn-dark">Lantai 1</a>
-                <a href="{{route('loket.inputImg.indexImgLt2')}}" id="admin_filter" class="btn btn-dark">Lantai 2</a>
-                <a href="{{route('loket.inputImg.indexImgLt3')}}" id="admin_filter" class="btn btn-dark">Lantai 3</a>
-                <a href="{{route('loket.inputImg.indexImgLt5')}}" id="admin_filter" class="btn btn-dark">Lantai 5</a>
-                <a href="{{route('loket.inputImg.indexImgLt6')}}" id="admin_filter" class="btn btn-dark">Lantai 6</a>
+                <a href="{{route('inputImg.index')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 1</a>
+                <a href="{{route('loket.inputImg.indexImgLt2')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 2</a>
+                <a href="{{route('loket.inputImg.indexImgLt3')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 3</a>
+                <a href="{{route('loket.inputImg.indexImgLt4')}}" id="admin_filter" class="btn btn-danger">Lantai 4</a>
+                <a href="{{route('loket.inputImg.indexImgLt5')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 5</a>
+                <a href="{{route('loket.inputImg.indexImgLt6')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 6</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -33,6 +34,7 @@
                   <th>id</th>
                   <th>Title </th>
                   <th>Lantai </th>
+                  <th>Type File</th>
                   <th>Status</th>
                   <th>action</th>
                 </tr>
@@ -43,7 +45,8 @@
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>
                   <td>{{$value->lantai}}</td>
-                  <td>{{$value->status}}</td>
+                  <td>{{$value->type}}</td>
+                  <td><a href="{{ route('indexImg.editBtn', $value->id) }}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">{{$value->status}}</a></td>
                   <td align="center">
                       <form action="{{route('inputImg.destroy', $value->id)}}" method="POST">
                         <a href="{{ route('inputImg.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 

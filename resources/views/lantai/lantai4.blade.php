@@ -10,25 +10,33 @@
 
   <script src="{{asset('bootstrap.min.js')}}"></script>
 </head>
-<body class="container-fluid" style="background-image:url({{('img/log/bg-log.jpg')}})">
+<body class="container-fluid" style="background-image:url({{url(Storage::url($Background->first()->filename))}});">
 
 <div class="container-fluid">
-  <div class="row" style="margin-top:0px;">
+        <a class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media">
+                <div class="media-body">
+                
+                </div>
+            </div>
+            <!-- Message End -->
+        </a>
+  <div class="row">
 
         <div class="col-sm-12" style="height:70px; background-color:#e6e6e6;">
                 <img src="{{asset('img/log/logo-bpom.png')}}" style="margin-top:7px;" width="220px" height="55px" >
                 <span style="float:right; text-align:center; height:30px; margin-left:-15px; margin-right:-15px; width:20%;">
                     <div class="time">
                         <h1 style="text-align:center; color:#252525;; margin-top:8px;">Lantai 4</h1> 
-                        {{-- <p style="color:forestgreen; text-align:center;"><h1><b></b></h1></p> --}}
                     </div>
                 </span>
             </div>
-    <div class="col-md-12" style="height:5px; width:100%; background-color:deepskyblue;">
+    <div class="col-md-12" style="height:3px; width:100%; background-color:deepskyblue;">
     </div>
 
     <div class="col-md-4" style="width:119%; height:auto;">
-      <table border="1px" style=" width:105.8%; height:auto; margin-left:-15px; ">
+      <table border="1px" style=" width:132%; height:auto; margin-left:-15px; ">
         <?php $_i = 1; ?>
           @foreach ($lantai4 as $lantai4)
           <tr>
@@ -45,29 +53,37 @@
 
       <div>
         @if($imgSid4->count() > 0)
-          <img src="{{url(Storage::url($imgSid4->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:auto; margin-left:-15px; width:105.8%;">
+          <img src="{{url(Storage::url($imgSid4->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:400px; margin-left:-15px; width:132%;">
         @else
-         <img style="background-color:white; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:109%;">
+         <img style="background-color:white; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:132%;">
          @endif
       </div>
     </div>
-
-      @if($bgLantai4->first()->ytpe == 1)
-      <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai4->first()->filename))}}); width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
-      </div>
-      @else
-      <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai4->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
-
-      </div>
-      @endif
-
-    <div class="col-md-12" style="width:103%;">
-        <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
-            <tr>
-                <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b> <h3 id="time-part"></h3></b></td>
-                <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
-            </tr>
-        </table>
+    
+        @if($bgLantai4->first()->type == 'Video')
+            <div class="col-md-8" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
+                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                    <source src="{{Storage::url($bgLantai4->first()->filename)}}" type="video/mp4">
+                </video>
+                <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:220px;">
+                </div>
+            </div>
+        @else
+            <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai4->first()->filename))}}); margin-left:129px; width:160%; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            </div>
+        @endif
+    <div class="col-md-12" style="height:3px; width:100%; background-color:deepskyblue;">
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12" style="width:100%;">
+            <table border="0px" style="width:100%; height:40px;">
+                <tr>
+                    <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
+                    <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
+                </tr>
+            </table>
+        </div>
     </div>
 
 </div>

@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gambar Utama Lantai 2</h1>
+            <h1>Background Image</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,16 +18,11 @@
           @include('layouts._flash')
            <div class="card">
             <div class="card-header">
-                <a href="{{ route('inputImg.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a>
-                <a href="{{route('inputImg.index')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 1</a>
-                <a href="{{route('loket.inputImg.indexImgLt3')}}" id="admin_filter" class="btn btn-danger">Lantai 2</a>
-                <a href="{{route('loket.inputImg.indexImgLt3')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 3</a>
-                <a href="{{route('loket.inputImg.indexImgLt4')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 4</a>
-                <a href="{{route('loket.inputImg.indexImgLt5')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 5</a>
-                <a href="{{route('loket.inputImg.indexImgLt6')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 6</a>
+                <a href="{{ route('imagebg.createBg') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+                
               <table id="admin" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -40,7 +35,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($Lt2 as $value)
+                @foreach($ImageBg as $value)
                  <tr>
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>
@@ -64,8 +59,47 @@
           </div>
           <!-- /.card -->
       </div>
+       <!-- The Modal -->
+      <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Status</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+              {{-- <form role="form" action="{{route('inputImg.update', $editBtn->id)}}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  @method('PUT')
+                  <div class="form-group">
+                      <label>Status</label>
+                      <select class="form-control" name="status" value="">
+                          <option value="Aktif">Aktif</option>
+                          <option value="Non-Aktif">Tidak Aktif</option>
+                      </select>
+                  </div>
+              </form> --}}
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    {{-- End Modal --}}
   </section>
   </div>
+
+  <script>
+    
+  </script>
 
     <!-- /.content-wrapper -->
   <footer class="main-footer">

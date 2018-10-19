@@ -15,7 +15,7 @@ class DisplayController extends Controller
         $MonitorLt4 = Loket::where('lantai','4')->get();
         $MonitorLt5 = Loket::where('lantai','5')->get();
         $MonitorLt6 = Loket::where('lantai','6')->get();
-        $textmonitor = Tulisan::where('lantai','monitor')->LIMIT('1')->get();
+        $textmonitor = Tulisan::where('lantai','monitor');
         return view('monitor', compact('MonitorLt1','MonitorLt2','MonitorLt3','MonitorLt4','MonitorLt5','MonitorLt6','textmonitor'));
         /*
         $data = DB::table('view_monitoring_utama')

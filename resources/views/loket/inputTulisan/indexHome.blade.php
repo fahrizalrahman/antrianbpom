@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Running Text</h1>
+            <h1>Home Text</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -18,7 +18,7 @@
           @include('layouts._flash')
            <div class="card">
             <div class="card-header">
-                <a href="{{ route('inputTulisan.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Tulisan</a>
+                <a href="{{ route('tulisan.createUtama') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Tulisan</a>
             
             </div>
             <!-- /.card-header -->
@@ -28,14 +28,16 @@
                 <tr>
                   <th>Judul</th>
                   <th>Isi Tulisan</th>
+                  <th>Lantai</th>
                   <th >Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($tampilTulisan as $value)
+                @foreach($tampilTulHome as $value)
                  <tr>
                   <td>{{$value->judul}}</td>
                   <td>{{$value->isi}}</td>
+                  <td>{{$value->lantai}}</td>
                   <td>
                     <a href="{{ route('inputTulisan.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                     

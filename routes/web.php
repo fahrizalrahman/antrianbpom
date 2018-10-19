@@ -30,12 +30,19 @@ Route::get('/loket/delete/{id}', 'LoketController@delete')->name('loket.delete')
 
 // Tambah Tulisan
 Route::resource('inputTulisan','TulisanController');
-// Route::get('/monitor','HomeController@TextMonitor')-name('monitor');
+Route::get('inputTulisanUtama','TulisanController@createUtama')->name('tulisan.createUtama');
+Route::post('inputTulisanUtamaStore','TulisanController@storeUtama')->name('tulisan.storeUtama');
+
+// Tambah Tulisan - Tampil
+Route::get('tampilTulisanHome','TulisanController@indexHome')->name('tampil.tulisan');
 
 // Route Tambah Gambar
 Route::resource('inputImg','FileController');
 Route::resource('inputImgFoot','FotterController');
 Route::resource('inputImgSid','SidebarController');
+Route::post('inputImageBg','FileController@storeBg')->name('imagebg.store');
+Route::get('inputImageBg','FileController@createBg')->name('imagebg.createBg');
+Route::get('viewbbg','FileController@ImageBg')->name('imagebg.view');
 
 // Route Tambah File per-lantai
 Route::get('inputImgLt2','FileController@Lt2')->name('loket.inputImg.indexImgLt2');
@@ -43,6 +50,8 @@ Route::get('inputImgLt3','FileController@Lt3')->name('loket.inputImg.indexImgLt3
 Route::get('inputImgLt4','FileController@Lt4')->name('loket.inputImg.indexImgLt4');
 Route::get('inputImgLt5','FileController@Lt5')->name('loket.inputImg.indexImgLt5');
 Route::get('inputImgLt6','FileController@Lt6')->name('loket.inputImg.indexImgLt6');
+
+Route::get('editImgBtn/{id}/status','FileController@editBtn')->name('indexImg.editBtn');
 
 // Route Tambah User
 Route::resource('user','AddUserController');
