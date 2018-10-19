@@ -57,7 +57,7 @@
 						</div>
 						<div class="row">
 							<span id="refresh-table">
-							@include('cetak.refresh_table_survey')
+							@include('laporan.refresh_table_survey')
 							</span> <!--penutup span-->
 						</div>
 					</div>

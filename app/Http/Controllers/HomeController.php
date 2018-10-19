@@ -129,8 +129,10 @@ class HomeController extends Controller
             if(Auth()->user()->jabatan==='admin'){
                 $data = DB::table('view_pelayanan')
                     -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                     ->where(DB::raw('DATE(tanggal)'),'>=',DB::raw('curdate()'))
+                     ->where(DB::raw('DATE(tanggal)'),'<=',DB::raw('curdate()'))
                     -> get();
-                return view('cetak.laporan survey pelanggan')
+                return view('laporan.laporan survey pelanggan')
                     -> with('_data', $data);
             }
         }
@@ -257,10 +259,82 @@ class HomeController extends Controller
                             -> get();  
                 }
 
-              return view('cetak.refresh_table_survey')
+              return view('laporan.refresh_table_survey')
                     ->with('_data', $data);
 
             }
 
+
+        public function laporanPengunjung(){
+             $datass = DB::table('view_pelayanan')
+                            -> select('pelanggan','email','no_telp','id_user','tanggal')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',DB::raw('curdate()'))
+                            ->where(DB::raw('DATE(tanggal)'),'<=',DB::raw('curdate()'))
+                            ->groupBy('id_user')
+                            ->get();
+            
+
+
+                return view('laporan.laporan_pengunjung')
+                        ->with('_data',$datass);
+        }
+
+
+        public function filterLaporanPengunjung(Request $request){
+
+                if ($request->petugas == 'all') {
+                     $datass = DB::table('view_pelayanan')
+                            -> select('pelanggan','email','no_telp','id_user','tanggal')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->groupBy('id_user')
+                            ->get();
+                }else{
+                    $datass = DB::table('view_pelayanan')
+                            -> select('pelanggan','email','no_telp','id_user','tanggal')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('petugas',$request->petugas)
+                            ->groupBy('id_user')
+                            ->get();                    
+                }
+
+                return view('laporan.refresh_table_lap_pengunjung')
+                        ->with('_data',$datass);
+        }   
+
+
+
+        public function lihatListKunjungan(Request $request){
+                $datass = DB::table('view_pelayanan')
+                            -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
+                            ->where('id_user',$request->id_user);
+                
+                $_i=0; 
+                $emosi = array("TIDAK SURVEY", "SANGAT PUAS", "PUAS", "TIDAK PUAS");
+
+                $tables = '';
+                    foreach ($datass->get() as $value) {
+                        if ($_i % 2===0) {
+                $tables .=   '<tr>';
+                        }else{
+                $tables .=   '<tr style="background-color: #dddddd">';
+                        }
+                $tables .=   '<td>'. $value->tanggal .'</td>
+                                <td>'. $value->nama_loket .'</td>
+                                <td>'. $value->nama_layanan .'</td>
+                                <td>'. $value->sub_layanan .'</td>
+                                <td>'. $value->nama_petugas .'</td>
+                                <td>'. strtoupper($emosi[$value->kepuasan]) .'</td>
+                            </tr>';
+                            $_i++;
+                            }
+                $tables .=  '';
+
+
+                return $tables;
+            }
 
 }
