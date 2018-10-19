@@ -39,8 +39,14 @@
                 <div class="col-sm-7"  style="margin-right:115px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">          <video style="margin-top:-0px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai2->first()->filename)}}" type="video/mp4">
                     </video>
-                    <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); color:azure; text-align:left; margin-top:-5px; width:906px; height:230px; background-size:cover; background-position:center; background-repeat:no-repeat">
-                    </div>
+                    @if ($Mainbar->count() > 0)
+                        <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); text-align:left; margin-top:-5px; width:906px; height:230px; background-size:cover; background-position:center; background-repeat:no-repeat">
+                        </div>    
+                    @else
+                        <div style="background-color:34a1bc; text-align:left; margin-top:-5px; width:906px; height:230px; background-size:cover; background-position:center; background-repeat:no-repeat">
+                        </div>
+                    @endif
+                    
                 </div>
             @else
                 <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai2->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
@@ -70,7 +76,12 @@
             <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
                 <tr>
                     <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
-                    <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>
+                    @if ($Text->count() > 0)
+                        <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>    
+                    @else
+                        <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>SELAMAT DATANG</marquee></td>
+                    @endif
+                    
                 </tr>
             </table>
         </div>

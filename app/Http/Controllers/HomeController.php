@@ -178,7 +178,8 @@ class HomeController extends Controller
         $imgSid4 = Sidebar::where('lantai','4')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','4')->where('float','footer')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
-        return view('lantai.lantai4', compact('lantai4','bgLantai4','imgSid4','Text','Background'));
+        $TextUtama   = Tulisan::where('lantai','4')->where('float','utama')->orderby('id','desc');
+        return view('lantai.lantai4', compact('lantai4','bgLantai4','imgSid4','Text','Background','TextUtama'));
     }
 
     public function lantai5()
@@ -190,7 +191,8 @@ class HomeController extends Controller
         $imgFotR5    = Footer::where('lantai','5')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','5')->where('float','footer')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
-        return view('lantai.lantai5', compact('lantai5','bgLantai5','imgSid5','imgFotL5','imgFotR5','Text','Background'));
+        $TextUtama   = Tulisan::where('lantai','5')->where('float','utama')->orderby('id','desc');
+        return view('lantai.lantai5', compact('lantai5','bgLantai5','imgSid5','imgFotL5','imgFotR5','Text','Background','TextUtama'));
     }
 
     public function lantai6()
@@ -201,7 +203,8 @@ class HomeController extends Controller
         $imgFotR6    = Footer::where('lantai','6')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','6')->where('float','footer')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
-        return view('lantai.lantai6', compact('lantai6','bgLantai6','imgFotL6','imgFotR6','Text','Background'));
+        $TextUtama   = Tulisan::where('lantai','6')->where('float','utama')->orderby('id','desc');
+        return view('lantai.lantai6', compact('lantai6','bgLantai6','imgFotL6','imgFotR6','Text','Background','TextUtama'));
     }
 
     public function display()
