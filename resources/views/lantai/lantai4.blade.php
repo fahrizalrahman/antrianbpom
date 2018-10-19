@@ -67,8 +67,8 @@
                 </video>
                 @if ($TextUtama->count() > 0)
                     <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:220px;">
-                        <b><h4 style="margin-left:10px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
-                        <p style="margin-left:10px;">{{$TextUtama->first()->isi}}</p>
+                        <b><h4 style="margin-left:10px; color:yellowgreen; margin-top:-4px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
+                        <p style="margin-left:10px; color:white;">{{$TextUtama->first()->isi}}</p>
                     </div>    
                 @else
                     <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:220px;">
