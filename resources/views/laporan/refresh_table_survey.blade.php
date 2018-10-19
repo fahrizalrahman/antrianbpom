@@ -36,7 +36,7 @@
 									</tfoot>
 								</table>
 							</div>
-<script>
+	<script>
           $(function () {
             $("#example1").DataTable({
               dom: 'Bfrtip',
@@ -53,7 +53,7 @@
               ]
             });
           });
-</script>
+	</script>
 
 <style type="text/css">
 table.dataTable thead tr {

@@ -31,8 +31,6 @@
       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
              
       <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap4.css')}}">
-      <link rel="stylesheet" href="{{ asset('plugins/datatables/jquery.dataTables.min.css.css')}}">
-      <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.buttons.dataTables.min.css')}}">
        
 </head>
 <body class="hold-transition sidebar-mini">
@@ -222,14 +220,35 @@
             </a>
           </li>
           -->
-          <li class="nav-item">
-            <a href="/survey-pengunjung" class="nav-link">
-              <i class="nav-icon fa fa-percent"></i>
-              <p>
-                Survey 
-              </p>
-            </a>
-          </li>
+          <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fa fa-id-badge"></i>
+                  <p>
+                    Laporan
+                    <i class="right fa fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/laporan-pengunjung') }}" class="nav-link">
+                      <i class="nav-icon fa fa-stats"></i>
+                      <p>
+                        Pengunjung 
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ url('/survey-pengunjung') }}" class="nav-link">
+                      <i class="nav-icon fa fa-percent"></i>
+                      <p>
+                        Survey 
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
 
         </ul> <!-- penutup ul nav nav-pills nav-sidebar flex-column-->
       </nav>
@@ -283,10 +302,8 @@
         <script src="{{ asset('plugins/datatables/jquery.dataTables.js')}}"></script>
         <script src="{{ asset('plugins/datatables/dataTables.bootstrap4.js')}}"></script>
         <script src="{{ asset('plugins/datatables/dataTables.buttons.min.js')}}"></script>
-        <script src="{{ asset('plugins/datatables/dataTables.jszip.min.js')}}"></script>
         <script src="{{ asset('plugins/datatables/pdfmake.min.js')}}"></script>
         <script src="{{ asset('plugins/datatables/vfs_fonts.js')}}"></script>
-        <script src="{{ asset('plugins/datatables/dataTables.jszip.min.js')}}"></script>
         <script src="{{ asset('plugins/datatables/buttons.html5.min.js')}}"></script>
 
         <script src="{{ asset('js/sweetalert2.all.min.js') }}" type="text/javascript"></script>
