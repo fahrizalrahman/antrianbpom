@@ -70,16 +70,16 @@
                 
                 </table>
             </div>
-            <div class="col-md-12" style="height:3px; width:100%; background-color:#3badc9;">
+            <div class="col-md-12" style="height:4px; width:100%; background-color:#3badc9;">
             </div>
         <div class="col-md-12" style="width:103%;">
             <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
                 <tr>
-                    <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
+                    <td style="width:150px; margin-right:10px; padding-top:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                     @if ($Text->count() > 0)
-                        <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>    
+                        <td style="width:1500px; background-color:#e6e6e6; padding-top:5px; color:252525; size:19px;"><marquee><b>{{$Text->first()->isi}}</b></marquee></td>    
                     @else
-                        <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>SELAMAT DATANG</marquee></td>
+                        <td style="width:1500px; background-color:#e6e6e6; color:252525; size:19px;"><marquee>SELAMAT DATANG</marquee></td>
                     @endif
                     
                 </tr>

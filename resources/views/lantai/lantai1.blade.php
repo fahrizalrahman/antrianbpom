@@ -30,16 +30,16 @@
                         </div>
                     </span>
             </div>
-            <div class="col-md-12" style="height:5px; width:100%; background-color:#34a1bc;">
+            <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
             </div>
             @if($bgLantai1->first()->type == 'Video')
                 <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>
                     @if ($TextUtama->count() > 0)
-                        <div style="background-color:#34a1bc; color:azure; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
-                            <b><h4 style="margin-left:10px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
-                            <p style="margin-left:10px;">{{$TextUtama->first()->isi}}</p>                     
+                        <div style="background-color:#34a1bc; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
+                            <b><h4 style="margin-left:10px; color:gold; padding-top:15px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
+                            <p style="margin-left:10px; color:#e6e6e6;">{{$TextUtama->first()->isi}}</p>                     
                         </div>    
                     @else
                         <div style="background-color:#34a1bc; color:azure; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
@@ -71,7 +71,7 @@
         </div>
 
         <div class="row">
-                <div class="col-md-12" style="height:5px; width:100%; background-color:#34a1bc;">
+                <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
                 </div>
                 @if($imgFotL1->count() > 0)
                 <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotL1->first()->filename))}}); width:auto; height:75px;">
@@ -87,15 +87,17 @@
                  <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
                 </div>
                 @endif
-
+                <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
+                </div>
             <div class="col-md-12" style="width:102%;">
+                
                 <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
                     <tr>
-                        <td style="width:150px; margin-right:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
+                        <td style="width:150px; margin-right:10px; padding-top:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                         @if ($Text->count() > 0)
-                            <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>{{$Text->first()->isi}}</marquee></td>    
+                            <td style="width:1500px; background-color:#e6e6e6; padding-top:5px; color:#252525; size:19px;"><marquee><b>{{$Text->first()->isi}}</b></marquee></td>    
                         @else
-                            <td style="width:1500px; background-color:#252525; color:antiquewhite; size:19px;"><marquee>SELAMAT DATANG</marquee></td>
+                            <td style="width:1500px; background-color:#e6e6e6; padding-top:5px; color:#252525; size:19px;"><marquee>SELAMAT DATANG</marquee></td>
                         @endif
                     </tr>
                 </table>
