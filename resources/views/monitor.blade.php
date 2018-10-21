@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<body style="container-fluid; overflow-x:hidden; background-image:url({{asset('img/log/bg-log.jpg')}}); ">
+<body style="container-fluid; overflow-x:hidden; background-size:cover; background-position:center; background-repeat:no-repeat; background-image:url({{url(Storage::url($bgMonitor->first()->filename))}});">
 
     <div class="container-fluid">
     {{-- <div class="row"> --}}
@@ -34,22 +34,22 @@
                         </div>
                     </span>
                 </div>
-                <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
+                <div class="col-md-12" style="height:3px; width:100%; background-color:#3badc9;">
                     </div>
-        <div class="col-md-12" style="width:100%; height:auto;  background-size:cover; background-position:center; background-repeat:no-repeat; ">
+        <div class="col-md-12" style="width:100%; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">
             <div class="container-fluid" style="margin-left:19px;">
               <div class="row" style="margin-top:0px; margin-left:5px; color:azure;">
                     <div class="col-sm-6" style="margin-top:1%; height:auto; width:auto; color:azure;">
                         <table class="table-responsive" style="position:static;">
                         <col width="90">
-                        <col width="400">
+                        <col width="430">
                         <col width="60">
                         <col width="100">
                         <td rowspan="0" style="background-color:#276a7b; color: white; height:40px; text-align:center; "><h1> <b> 1 </b></h1></td>
                         <?php $_1=1; ?>
                         @foreach ($MonitorLt1 as $Lt1)
                             <tr style="margin-right:15px;">
-                            <td style="background-color:#278698; height:40px;"> <p style="margin-left:5px;">{{$Lt1->nama_layanan}}</p></td>
+                            <td style="background-color:#278698; height:40px;"><p style="margin-left:5px;">{{$Lt1->nama_layanan}}</p></td>
                             <td style="background-color:#278698; height:40px;">{{$Lt1->kode}}</td>
                             <td style="background-color:#278698; height:40px;"><h4 style="float:left; margin-left:25px;">{{$Lt1->kode_antrian}} - </h4><h4 style="float:left; margin-left:8px;" id="lok1_{{ $_1 }}"></h4></td>
                             </tr>
@@ -61,7 +61,7 @@
                     <div class="col-sm-6" style="margin-top:1%;">
                         <table class="table-responsive" style=" position:static;">
                         <col width="90">
-                        <col width="400">
+                        <col width="430">
                         <col width="60">
                         <col width="100">
                         <td rowspan="0" style="background-color:#276a7b; color: white; height:40px; text-align:center; "><h1> <b> 2</b> </h1></td>
@@ -81,7 +81,7 @@
                     <div class="col-sm-6" style="margin-top:-2.3%;">
                         <table class="table-responsive" style=" position:static;">
                         <col width="90">
-                        <col width="400">
+                        <col width="430">
                         <col width="60">
                         <col width="100">
                         <td style="background-color:#276a7b; height:40px; color: white; text-align:center; " rowspan="0"><h1> <b> 3</b> </h1></td>
@@ -100,7 +100,7 @@
                     <div class="col-sm-6" style="margin-top:0.4%;">    
                         <table class="table-responsive" style=" position:static;">
                         <col width="90">
-                        <col width="400">
+                        <col width="430">
                         <col width="60">
                         <col width="100">    
                         <td style="background-color:#276a7b; height:40px; color: white; text-align:center; " rowspan="0"><h1> <b> 4</b> </h1></td>
@@ -119,7 +119,7 @@
                     <div class="col-sm-6" style="margin-top:0.4%;">
                         <table class="table-responsive" style=" position:static;">
                         <col width="90">
-                        <col width="400">
+                        <col width="430">
                         <col width="60">
                         <col width="100">
                         <td style="background-color:#276a7b; height:40px; color: white; text-align:center; " rowspan="0"><h1> <b> 5</b> </h1></td>
@@ -138,7 +138,7 @@
                     <div class="col-sm-6" style="margin-top:-6.9%;">
                         <table class="table-responsive" style=" position:static;">
                         <col width="90">
-                        <col width="400">
+                        <col width="430">
                         <col width="60">
                         <col width="100">    
                         <td style="background-color:#276a7b; height:40px; color: white; text-align:center; " rowspan="0"><h1> <b> 6</b> </h1></td>
@@ -172,7 +172,7 @@
             </div>
            
         </div>
-        <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
+        <div class="col-md-12" style="height:3px; width:100%; background-color:#3badc9;">
             </div>
         <div class="col-md-12" style="width:100%; height:35px; background-color:#e6e6e6;">
             <p style="size:18px; color:black; text-align:center; padding-top:5px; font-style:bold;"><b> SELAMAT DATANG DI KANTOR BADAN PENGAWAS OBAT DAN MAKANAN</b></p>

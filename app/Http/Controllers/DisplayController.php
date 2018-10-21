@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Loket;
 use App\Tulisan;
+use App\File;
 use Illuminate\Http\Request;
 
 class DisplayController extends Controller
@@ -16,7 +17,8 @@ class DisplayController extends Controller
         $MonitorLt5 = Loket::where('lantai','5')->get();
         $MonitorLt6 = Loket::where('lantai','6')->get();
         $textmonitor = Tulisan::where('lantai','monitor');
-        return view('monitor', compact('MonitorLt1','MonitorLt2','MonitorLt3','MonitorLt4','MonitorLt5','MonitorLt6','textmonitor'));
+        $bgMonitor  =   File::where('lantai','monitor')->where('type','background');
+        return view('monitor', compact('MonitorLt1','MonitorLt2','MonitorLt3','MonitorLt4','MonitorLt5','MonitorLt6','textmonitor','bgMonitor'));
         /*
         $data = DB::table('view_monitoring_utama')
             -> get();

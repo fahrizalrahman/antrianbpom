@@ -45,13 +45,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Type File</label>
-                        <select class="form-control" name="type" readonly>
-                            <option value="Image">Image</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
                         <label>Penempatan</label>
                         <select class="form-control" name="type" readonly>
                             <option value="background">Background</option>

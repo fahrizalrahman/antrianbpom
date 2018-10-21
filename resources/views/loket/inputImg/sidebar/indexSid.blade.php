@@ -37,7 +37,7 @@
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>
                   <td>{{$value->lantai}}</td>
-                  <td>
+                  <td align="center">
                       <a href="{{route('inputImgSid.edit', $value->id)}}" class="btn btn-warning btn-sm" title="Show or download value {{ $value->title }}">
                           <i class="nav-icon fa fa-wrench"></i>
                         </a> ||

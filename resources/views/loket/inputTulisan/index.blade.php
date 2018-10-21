@@ -34,9 +34,9 @@
                 <tbody>
                 @foreach($tampilTulisan as $value)
                  <tr>
-                  <td>{{$value->judul}}</td>
-                  <td>{{$value->isi}}</td>
-                  <td>
+                  <td width="150px">{{$value->judul}}</td>
+                  <td width="900px">{{$value->isi}}</td>
+                  <td align="center">
                     <a href="{{ route('inputTulisan.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                     
                      <a href="{{route('loket.delete',$value->id)}}" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>

@@ -191,20 +191,6 @@ class FileController extends Controller
         return view('loket.inputImg.editImg', compact('updateFile'));
     }
 
-     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function editBtn(Request $request)
-    {
-        if($request->ajax()){
-            $editBtn = ClassRoutine::Find($request->id);
-            return Response($editBtn);
-        }
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -221,8 +207,7 @@ class FileController extends Controller
         $editImg->type = $request->type;
         $editImg->save();
 
-        
-        return redirect()->route('inputImg.index');
+        return redirect()->route('inputImg.index')->with('message', 'Data Berhasil diubah');;
     }
 
     /**

@@ -36,11 +36,11 @@
                 <tbody>
                 @foreach($imgFooter as $value)
                  <tr>
-                  <td>{{$value->id}}</td>
-                  <td>{{$value->title}}</td>
-                  <td>{{$value->lantai}}</td>
-                  <td>{{$value->float}}</td>
-                  <td>
+                  <td align="center">{{$value->id}}</td>
+                  <td align="center">{{$value->title}}</td>
+                  <td align="center">{{$value->lantai}}</td>
+                  <td align="center">{{$value->float}}</td>
+                  <td align="center">
                       <a href="{{route('inputImgFoot.edit', $value->id)}}" class="btn btn-warning btn-sm" title="Show or download value {{ $value->title }}">
                           <i class="nav-icon fa fa-wrench"></i>
                         </a> ||
