@@ -11,7 +11,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header" >
-        <h4 class="modal-title">Pelayanan</h4>
+        <h4 class="modal-title"><span id="nama-petugas-pelayanan"></span></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -32,6 +32,9 @@
 					<tbody id="refresh-list-pelayanan">
 					</tbody>
 				</table>
+			</div>
+			<div class="modal-footer">
+				<h4>Total Layanan : <span id="count-list-pelayanan"></span></h4>
 			</div>
       </div>
 
@@ -174,8 +177,11 @@ table.dataTable thead tr {
 
          $("#myModal1").modal('show');
          $.get('{{ Url("lihat-list-pelayanan") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id_petugas:id_petugas,tglmulai:tglmulai,tglsampai:tglsampai}, function(resp){ 
-              $("#refresh-list-pelayanan").html(resp);
-              console.log(resp)
+              $("#refresh-list-pelayanan").html(resp.tables);
+		      $("#count-list-pelayanan").html(resp.count);
+		      $("#nama-petugas-pelayanan").html(resp.petugas);  
+
+
           });
 
      });
