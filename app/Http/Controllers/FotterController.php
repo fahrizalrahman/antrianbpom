@@ -95,6 +95,8 @@ class FotterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $value = Footer::findorfail($id);
+        $value->delete();
+        return redirect()->route('inputImgFoot.index');
     }
 }

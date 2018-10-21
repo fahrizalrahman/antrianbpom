@@ -135,7 +135,7 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-6" style="margin-top:-6.9%;">
+                    <div class="col-sm-6" style="margin-top:-6.4%;">
                         <table class="table-responsive" style=" position:static;">
                         <col width="90">
                         <col width="430">
@@ -154,27 +154,14 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-6" style=" margin-top:0.4%;">
-                        <table class="table-responsive" style="background-color:beige; width:680px; position:static; margin-bottom:4px;">
-                        <col width="600px">
-                        <col width="600px">    
-                            <tr>
-                                <td style="color:blue; width:680px; padding-left:20px;"> <b> <u> {{$textmonitor->first()->judul}}</u></b></td>
-                            </tr>
-                            <tr>
-                                <td style="color:black; font-size:11px; padding-left:20px; ">
-                                    {{$textmonitor->first()->isi}}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>                    
+ 
                 </div>
             </div>
            
         </div>
-        <div class="col-md-12" style="height:3px; width:100%; background-color:#3badc9;">
+        <div class="col-md-12" style="height:3px; width:100%; margin-top:5px; background-color:#3badc9;">
             </div>
-        <div class="col-md-12" style="width:100%; height:35px; background-color:#e6e6e6;">
+        <div class="col-md-12" style="width:100%; height:35px;  background-color:#e6e6e6;">
             <p style="size:18px; color:black; text-align:center; padding-top:5px; font-style:bold;"><b> SELAMAT DATANG DI KANTOR BADAN PENGAWAS OBAT DAN MAKANAN</b></p>
         </div>
     </div>

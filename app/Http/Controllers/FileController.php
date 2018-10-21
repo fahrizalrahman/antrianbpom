@@ -128,7 +128,7 @@ class FileController extends Controller
             'title'     => 'nullable|min:5',
             'lantai'    => 'required',
             'type'      => 'required',
-            'file'      => 'required|file|max:2000'
+            'file'      => 'required|file|max:3000'
         ]);
         
         $uploadFile = $request->file('file');
@@ -218,10 +218,8 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        $fileHapus = File::findorfail($id);
-        $fileHapus->delete();
-        dd($fileHapus);
-
-        return redirect()->route('inputImg.index');
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('imgHome.index');
     }
 }

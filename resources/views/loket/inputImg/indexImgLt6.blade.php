@@ -48,8 +48,8 @@
                   <td>{{$value->type}}</td>
                   <td><a href="{{ route('indexImg.editBtn', $value->id) }}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">{{$value->status}}</a></td>
                   <td align="center">
-                      <form action="{{route('inputImg.destroy', $value->id)}}" method="POST">
-                        <a href="{{ route('inputImg.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
+                      <form action="{{route('inputImgSid.destroy', $value->id)}}" method="POST">
+                        <a href="{{ route('inputImgSid.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger"><i class="nav-icon fa fa-trash"></i></button>
