@@ -11,7 +11,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header" >
-        <h4 class="modal-title">Kunjungan</h4>
+        <h4 class="modal-title"><span id="nama-pelanggan-kunjungan"></span></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -21,18 +21,21 @@
 				<table  class="table table-bordered table-striped table-responsive">
 					<thead>
 						<tr>
-							<th style="width:100px;"> Tanggal</th>
-							<th style="width:100px;"> Loket</th>
-							<th style="width:100px;"> Layanan</th>
-							<th style="width:100px;"> Sub Layanan</th>
-							<th style="width:100px;"> Petugas</th>
-							<th style="width:100px;"> Kepuasan</th>
+							<th style="width:200px;"> Tanggal</th>
+							<th style="width:200px;"> Loket</th>
+							<th style="width:200px;"> Layanan</th>
+							<th style="width:200px;"> Sub Layanan</th>
+							<th style="width:200px;"> Petugas</th>
+							<th style="width:200px;"> Kepuasan</th>
 						</tr>
 					</thead>
 					<tbody id="refresh-list-kunjungan">
 					</tbody>
 				</table>
 			</div>
+		<div class="modal-footer">
+			<h4>Total Kunjungan : <span id="count-list-kunjungan"></span></h4>
+		</div>
       </div>
 
       <!-- Modal footer -->
@@ -175,7 +178,10 @@ table.dataTable thead tr {
 
           $("#myModal1").modal('show');
           $.get('{{ Url("lihat-list-kunjungan") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id_user:id_user,tglmulai:tglmulai,tglsampai:tglsampai,petugas:petugas}, function(resp){ 
-              $("#refresh-list-kunjungan").html(resp);
+              $("#refresh-list-kunjungan").html(resp.tables);
+              $("#count-list-kunjungan").html(resp.count);
+              $("#nama-pelanggan-kunjungan").html(resp.pelanggan);
+
           });
 
      });

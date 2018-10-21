@@ -309,12 +309,25 @@ class HomeController extends Controller
 
 
         public function lihatListKunjungan(Request $request){
+
+            if ($request->petugas == 'all') {
+                
+                $datass = DB::table('view_pelayanan')
+                            -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan','pelanggan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
+                            ->where('id_user',$request->id_user);
+                            
+                }else{
+
                 $datass = DB::table('view_pelayanan')
                             -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan')
                             ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
                             ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
                             ->where('petugas',$request->petugas)
                             ->where('id_user',$request->id_user);
+
+                }
                 
                 $_i=0; 
                 $emosi = array("TIDAK SURVEY", "SANGAT PUAS", "PUAS", "TIDAK PUAS");
@@ -337,8 +350,10 @@ class HomeController extends Controller
                             }
                 $tables .=  '';
 
-
-                return $tables;
+                $response['count'] = $datass->count();
+                $response['pelanggan'] = strtoupper($datass->first()->pelanggan);
+                $response['tables'] = $tables;
+                return $response;
             }
 
 // function Petugas
@@ -380,7 +395,7 @@ class HomeController extends Controller
 
         public function lihatListPelayanan(Request $request){
                 $datass = DB::table('view_pelayanan')
-                            -> select('tanggal','nama_layanan','sub_layanan','kepuasan','pelanggan',DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, mulai, selesai)) as lama'))
+                            -> select('nama_petugas','tanggal','nama_layanan','sub_layanan','kepuasan','pelanggan',DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, mulai, selesai)) as lama'))
                             ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
                             ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
                             ->where('petugas',$request->id_petugas);
@@ -407,7 +422,10 @@ class HomeController extends Controller
                 $tables .=  '';
 
 
-                return $tables;
+                $response['count'] = $datass->count();
+                $response['petugas'] = $datass->first()->nama_petugas;                
+                $response['tables'] = $tables;
+                return $response;
             }
 
 
