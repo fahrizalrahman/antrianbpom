@@ -21,7 +21,12 @@
         }
     </style>
 </head>
-<body style="container-fluid; overflow-x:hidden; background-size:cover; background-position:center; background-repeat:no-repeat; background-image:url({{url(Storage::url($bgMonitor->first()->filename))}});">
+@if ($bgMonitor->count() > 0)
+    <body style="container-fluid; overflow-x:hidden; background-size:cover; background-position:center; background-repeat:no-repeat; background-image:url({{url(Storage::url($bgMonitor->first()->filename))}});">    
+@else
+<body style="container-fluid; overflow-x:hidden; background-size:cover; background-position:center; background-repeat:no-repeat; background-color:black;">
+@endif
+
 
     <div class="container-fluid">
     {{-- <div class="row"> --}}

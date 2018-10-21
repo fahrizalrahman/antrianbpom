@@ -136,7 +136,7 @@ class FileController extends Controller
         $file       = File::create([
             'title' => $request->title ?? $uploadFile->getClientOriginalName(),
             'lantai'    => $request->lantai,
-            'type'      => $request->type,
+            'type'      => $request->type->background,
             'filename'  => $path
         ]);
         return redirect()->route('imagebg.view');
@@ -220,6 +220,6 @@ class FileController extends Controller
     {
         $value = File::findorfail($id);
         $value->delete();
-        return redirect()->route('imgHome.index');
+        return redirect()->route('imagebg.view');
     }
 }
