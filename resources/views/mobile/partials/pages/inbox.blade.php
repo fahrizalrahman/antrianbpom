@@ -8,8 +8,6 @@
 					<span class="mif-menu fg-white"></span>
 				</button>
 				<ul class="d-menu place-right context" data-role="dropdown" style="box-shadow: 1px 1px 3px black;">
-					<li><a href="#">One</a></li>
-					<li><a href="#">Two</a></li>
 					<li>
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 							{{ __('Logout') }}
@@ -42,7 +40,7 @@
 						</div>
 						<div class="text-center w-100" style="border-bottom: 1px solid #aaaaaa; padding: 15px 0px 5px 0px; font-size: 10pt;">{{ \App\helper\Tanggal::konversi($data->tgl_antrian, '%A, %d %B %G') }}</div>
 						<div class="lb_footer">
-							<div style="width: calc(100% - 260px)">
+							<div style="width: calc(100% - 210px)">
 								<label>Antrian</label>
 								<footer>{{ $data->no_antrian }}</footer>
 							</div>
@@ -53,7 +51,7 @@ $selesai = new DateTime($data->selesai);
 $dteDiff  = $mulai->diff($selesai);
 $survey = array('','SANGAT PUSAT', 'PUAS', 'TIDAK PUAS');
 ?>
-							<div style="text-align: left; width: 250px;">
+							<div style="text-align: left; width: 200px;">
 								<div style="font-size: 10pt; font-family: arial;">
 								<label style="text-decoration: underline; font-weight: bold;">Keterangan</label><br />
 								<label>Lama Proses : {{ $dteDiff->format("%H:%I:%S") }}</label><br />

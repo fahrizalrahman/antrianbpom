@@ -36,7 +36,6 @@ if(isMobile()){
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<link href="{{asset('frontend/plugin/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('frontend/plugin/bootstrap/4.0.0/css/bootstrap.min.css')}}" rel="stylesheet" />
-	<link href="{{asset('frontend/plugin/font-awesome/5.0/css/fontawesome-all.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('frontend/plugin/animate/animate.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('frontend/plugin/transparent/style.min.css')}}" rel="stylesheet" />
 	<link href="{{asset('frontend/plugin/transparent/style-responsive.min.css')}}" rel="stylesheet" />
@@ -110,13 +109,11 @@ if(isMobile()){
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="{{asset('frontend/plugin/demo/login-v2.demo.min.js')}}"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
 	<script>
 		$(document).ready(function() {
 			App.init();
-			LoginV2.init();
 		});
 	</script>
 </body>

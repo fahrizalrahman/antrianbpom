@@ -5,7 +5,7 @@
 		<div class="grid">
 			<div class="row">
 				<div class="cell-12" style="text-align: center;">
-					<img class="logo" src="{{ url('/img/log/logo-bpom.png') }}">
+					<img class="logo" src="{{ asset('/img/log/logo-bpom.png') }}">
 				</div>
 			</div>
 			<div class="row">
@@ -33,7 +33,7 @@
 									<button class="button primary w-100">Login</button>
 								</div>
 								<div class="form-group mt-2">
-									<a href="#" style="font-size: 10pt;">Lupa Password</a>
+									<a href="{{ route('password.request') }}" style="font-size: 10pt;">Lupa Password</a>
 								</div>
 							</div>
 							<div class="w-100 bg-gray fg-white" style="text-align: center;">
@@ -79,39 +79,4 @@
 		</div>
 	</div>
 
-<script type="text/javascript">
-$(document).on('click', '.bt_login', function(e){
-	e.preventDefault();
-	if(e.which===1){
-		$('.bt_register').removeClass('bg-white');
-		$('#content_register').hide('fast', function(){
-			$('#content_login').show('fast');
-		});
-		$(this).addClass('bg-white');
-	}
-});
-
-$(document).on('click', '.bt_register', function(e){
-	e.preventDefault();
-	if(e.which===1){
-		$('.bt_login').removeClass('bg-white');
-		$('#content_login').hide('fast', function(){
-			$('#content_register').show('fast');
-		});
-		$(this).addClass('bg-white');
-	}
-});
-</script>
-<style type="text/css">
-.logo{
-	height: 50px;
-	margin: 20px 0px 0px 0px;
-}
-.page_over{
-	background: rgba(255,255,255,0.8);
-	position: fixed;
-	left: 0px; top: 0px; right: 0px; bottom: 0px;
-	overflow-y: auto;
-}
-</style>
 @endsection

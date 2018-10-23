@@ -311,7 +311,7 @@ class LoketController extends Controller
                 $data = DB::table('view_pelayanan')
                     -> select('tanggal', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'sub_layanan', 'nama_loket', DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, mulai, selesai)) as lama'))
                     -> where('petugas', '=', Auth()->user()->id)
-                    -> paginate(5);
+                    -> get();
                 return view('petugas_loket.daftar pengunjung')
                     -> with('_loket', $loket)
                     -> with('_data', $data);

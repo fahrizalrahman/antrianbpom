@@ -187,7 +187,11 @@ class mobileController extends Controller{
 
 	public function edit_profile(Request $request){
 		if(Auth::check()){
-			return view::make('mobile.partials.pages.subpages.edit_profile');
+			$user_profile = user_profile::select()
+				-> where('userid', '=', Auth()->user()->id)
+				-> first();
+			return view::make('mobile.partials.pages.subpages.edit_profile')
+				-> with('_user_profile', $user_profile);
 		}
 	}
 
@@ -199,7 +203,7 @@ class mobileController extends Controller{
 				$_content = view::make('/mobile/partials/pages/' . $request->data, compact('judulLayanan'));
 				return $_content;
 			}elseif($request->data==='account'){
-				$profile = user_profile::select('id', 'type', 'nama', 'alamat', 'no_telp', 'no_fax', 'email_1')
+				$profile = user_profile::select()
 					-> where('userid', Auth()->user()->id)
 					-> first();
 				if($profile){
@@ -235,6 +239,23 @@ class mobileController extends Controller{
 		}
 	}
 
+	public function update(Request $request){
+		if(Auth::check()){
+			$user_profile = DB::table('user_profiles')
+			-> where('userid', '=', Auth()->user()->id)
+			-> update([
+				'type'		=> $request->ed_type,
+				'nama'		=> $request->ed_nama,
+				'npwp'		=> $request->ed_npwp,
+				'alamat'	=> $request->ed_alamat,
+				'no_telp'	=> $request->ed_phone,
+				'no_fax'	=> $request->ed_fax,
+				'email_1'	=> $request->ed_email
+			]);
+			return Redirect::to('/home');
+		}
+	}
+
 	public function store(Request $request){
 		$_rowid = (DB::table('user_profiles')->count('id')) + 1;
 		$user_profile = user_profile::create([
@@ -242,6 +263,7 @@ class mobileController extends Controller{
 			'userid'	=> Auth()->user()->id,
 			'type'		=> $request->ed_type,
 			'nama'		=> $request->ed_nama,
+			'npwp'		=> $request->ed_npwp,
 			'alamat'	=> $request->ed_alamat,
 			'no_telp'	=> $request->ed_phone,
 			'no_fax'	=> $request->ed_fax,

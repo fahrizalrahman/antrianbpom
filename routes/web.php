@@ -232,5 +232,8 @@ Route::get('/mobile/content/booking/layanan', 'mobileController@booking_layanan'
 Route::get('/mobile/content/booking/booking_antrian', 'mobileController@ambil_antrian');
 
 Route::resource('mobile','mobileController');
+Route::post('/mobile/profile/update', 'mobileController@update');
 
 Route::resource('judulLayanan','judulLayanan');
+
+Route::get('petugas/filter-data-pengunjung', 'HomeController@filterDataPengunjung');

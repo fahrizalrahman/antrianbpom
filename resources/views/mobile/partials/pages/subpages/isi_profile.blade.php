@@ -1,22 +1,13 @@
 <div class="w3-container" style="padding: 0px; margin: 0px;">
 	<div class="w3-animate-right">
 		<div class="row">
-			<div class="cell-12">
-				<div class="layanan_label bg-darkCobalt">
-					<div id="search_layanan_container" style="display: block; width: 100%;">
-						<label class="fg-white">
-							<span data="account" id="bt_back" style="margin: 0px 10px; font-weight: bold;" class="mif-chevron-thin-left fg-yellow"></span> Edit User Profile
-						</label>
-					</div>
-				</div>
-			</div>
 			<div class="cell-12 text-center">
 				<div class="img_profile_edit">
 					<span class="mif-camera"></span>
 					<input type="file" id="ed_photo" hidden="hidden">
 				</div>
 			</div>
-			{!! Form::open(['url' => '/mobile/profile/update','method' => 'post']) !!}
+			{!! Form::open(['url' => route('mobile.store'),'method' => 'post']) !!}
 			<div class="cell-12 text-center">
 				<div class="row text-left">
 					<div class="cell-12 w-100 input_container">
@@ -56,4 +47,3 @@
 		</div>
 	</div>
 </div>
-<div style="height: 50px;"></div>

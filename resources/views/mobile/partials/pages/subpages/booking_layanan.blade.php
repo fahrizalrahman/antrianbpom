@@ -4,7 +4,7 @@
 			<div class="layanan_label bg-darkCobalt">
 				<div id="search_layanan_container" style="display: block; width: 100%;">
 					<label class="fg-white">
-						<span id="bt_back" style="margin: 0px 10px; font-weight: bold" class="mif-home fg-yellow"></span> Booking Antrian
+						<span data="booking" id="bt_back" style="margin: 0px 10px; font-weight: bold" class="mif-home fg-yellow"></span> Booking Antrian
 					</label>
 				</div>
 			</div>

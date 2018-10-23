@@ -91,13 +91,50 @@ class HomeController extends Controller
                 -> with('_nilai', substr($nilai, 0, -1));
                 
         }elseif(Auth::user()->jabatan == "petugas_loket"){
-            $layanan = Loket::select()
-                -> where('petugas', '=', Auth::user()->id)->first();
+            
+            $data = DB::table('summary_pelanggan')
+                -> select('tanggal', DB::raw('count(jumlah) AS jml'))
+                -> where('petugas',Auth()->user()->id)
+                -> groupBy('tanggal')
+                -> get();
+
+            $tanggal = '';
+            $batas =  date("t");
+            $nilai = '';
+            for($_i=1; $_i <= $batas; $_i++){
+                $tanggal = $tanggal . (string)$_i . ',';
+                $_check = false;
+                foreach($data as $_data){
+                    if((int)@$_data->tanggal === $_i){
+                        $nilai = $nilai . (string)$_data->jml . ',';
+                        $_check = true;
+                    }
+                }
+                if(!$_check){
+                    $nilai = $nilai . '0,';
+                }
+            }
+
+            $data1 = DB::table('view_pelayanan')
+                -> select('kepuasan', DB::raw('count(id_antrian) AS jml'))
+                -> where('petugas',Auth()->user()->id)
+                -> groupBy('kepuasan')
+                -> get();
+
+            $hasil = '';
+            foreach($data1 as $data){
+                if($data->kepuasan==='0'){$param = 'Tidak Survey';}
+                elseif($data->kepuasan==='1'){$param = 'Sangat Puas';}
+                elseif($data->kepuasan==='2'){$param = 'Puas';}
+                elseif($data->kepuasan==='3'){$param = 'Tidak Puas';}
+                $hasil = $hasil . '{name: "' . $param . '", y: ' . $data->jml . '},';
+            }
             return view('petugas_loket')
-                -> with('_layanan', $layanan);
-            /*
-            return view('loket_petugas.index');
-            */
+                -> with('_tanggal', substr($tanggal, 0,-1))
+                -> with('_hasil', substr($hasil, 0, -1))
+                -> with('_nilai', substr($nilai, 0, -1));
+
+
         }elseif (Auth::user()->jabatan == "pelanggan"){
 
             if($request->has('mobile')){
@@ -466,6 +503,30 @@ class HomeController extends Controller
                 $response['tables'] = $tables;
                 return $response;
             }
+
+        public function filterDataPengunjung(Request $request){
+
+               if ($request->pelayanan == 0) {
+                     $datass = DB::table('view_pelayanan')
+                            -> select('nama_petugas','nama_loket','id_user','tanggal','petugas')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->groupBy('petugas')
+                            ->get();
+                }else{
+                    $datass = DB::table('view_pelayanan')
+                            -> select('nama_petugas','nama_loket','id_user','tanggal','petugas')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('petugas',$request->petugas)
+                            ->groupBy('petugas')
+                            ->get();                    
+                }
+
+                return view('laporan.refresh_table_lap_petugas')
+                        ->with('_data',$datass);
+
+        }
 
 
 }

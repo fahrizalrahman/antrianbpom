@@ -22,19 +22,19 @@
 								<label class="label-input">Mulai : </label>
 							</div>
 							<div class="col-md-2">
-								<input class="input_date" name="ed_mulai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
+								<input class="input_date" name="ed_mulai" id="ed_mulai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
 							</div>
 							<div class="col-md-1">
 								<label class="label-input">Sampai : </label>
 							</div>
 							<div class="col-md-2">
-								<input class="input_date" name="ed_mulai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
+								<input class="input_date" name="ed_sampai" id="ed_sampai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
 							</div>
 							<div class="col-md-1">
 								<label class="label-input">Pelayanan : </label>
 							</div>
 							<div class="col-md-5">
-								<select class="input-custom" style="width: 100%;">
+								<select class="input-custom" name="pelayanan" id="pelayanan" style="width: 100%;">
 									<option value="0">SEMUA LAYANAN</option>
 									@foreach($_loket as $loket)
 										<option value="{{ $loket->id }}">{{ strtoupper($loket->nama_layanan) }}</option>
@@ -44,21 +44,12 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-success">Proses</button>
+								<button id="proses" class="btn btn-success">Proses</button>
 								<hr />
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-11">
-								<label class="label-input">Batas Data Yang Ditampilkan : </label>
-								<select name="page" class="input-custom">
-									<option value="10">10</option>
-									<option value="20">20</option>
-									<option value="30">30</option>
-									<option value="40">40</option>
-									<option value="50">50</option>
-								</select>
-								<label class="label-input">baris </label>
 							</div>
 							<div class="col-md-1" style="padding: 0px 0px 10px 0px;">
 								<button class="btn btn-danger bt_export_pdf"><span class="fa fa-file-pdf-o"></span></button>
@@ -66,7 +57,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<table width="100%">
+								<table id="example2" width="100%">
 									<thead>
 										<tr>
 											<th width="90px">Tanggal</th>
@@ -78,7 +69,7 @@
 											<th width="50px">Durasi</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="tbody_pengunjung">
 										<?php $_i=0; ?>
 										@foreach($_data as $data)
 											@if($_i % 2===0)
@@ -97,11 +88,7 @@
 											<?php $_i++;?>
 										@endforeach
 									</tbody>
-									<tfoot>
-										<tr style="border-top: 2px solid #aaaaaa;">
-											<td colspan="6" style="padding: 10px;">{{ $_data->render() }}</td>
-										</tr>
-									</tfoot>
+
 								</table>
 							</div>
 						</div>
@@ -135,6 +122,23 @@ $(document).on('click', '.bt_export_pdf', function(e){
 		});
 	}
 });
+
+
+$(document).on('click', '#proses', function (e) { 
+         
+         var ed_mulai = $("#ed_mulai").val();
+         var ed_sampai = $("#ed_sampai").val();
+         var pelayanan = $("#pelayanan").val();
+
+
+
+          $.get('{{ Url("petugas/filter-data-pengunjung") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,pelayanan:pelayanan}, function(resp){  
+
+            $("#refresh-table").html(resp);
+             
+          });
+    });
+
 
 </script>
 

@@ -26,13 +26,13 @@
 				<label class="profile_nama">{{ Auth()->user()->name }}</label>
 				<div class="row text-left profile_container" style="padding: 0px 10px">
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
-						<label class="profile_sub_title"><span class="mif-train"></span> Perseorangan</label>
+						<label class="profile_sub_title"><span class="mif-train"></span>{{ @$profile->type }}</label>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
 						<label class="profile_sub_title"><span class="mif-user"></span> {{ @$profile->nama }}</label>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
-						<label class="profile_sub_title"><span class="mif-pin"></span> {{ @$profile->jalan }}</label>
+						<p class="profile_sub_title"><span class="mif-pin"></span>{{ @$profile->alamat }}</p>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
 						<label class="profile_sub_title"><span class="mif-phone"></span> {{ @$profile->no_telp }}</label>
@@ -41,7 +41,7 @@
 						<label class="profile_sub_title"><span class="mif-phonelink"></span> {{ @$profile->no_fax }}</label>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
-						<label class="profile_sub_title"><span class="mif-envelop"></span> {{ @$profile->email }}</label>
+						<label class="profile_sub_title"><span class="mif-envelop"></span> {{ @$profile->email_1 }}</label>
 					</div>
 					<div class="cell-12 w-100 mt-5 text-center">
 						<button id="bt_edit_profile" class="button primary"><span class="mif-pencil"></span> Edit Profile</button>
