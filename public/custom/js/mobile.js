@@ -7,9 +7,11 @@ $(document).on('click', '#bt_edit_profile', function(e){
 
 $(document).ready(function(){
 	load_content('landing');
+	/*
 	window.setTimeout(function(){
 		load_content('booking');
 	}, 2000);
+	*/
 });
 
 $(document).on('click', '.booking_layanan', function(e){
@@ -36,7 +38,7 @@ $(document).on('click', '#bt_back_1', function(e){
 $(document).on('click', '#bt_back', function(e){
 	e.preventDefault();
 	if(e.which===1){
-		load_content('booking');
+		load_content($(this).attr('data'));
 	}
 });
 

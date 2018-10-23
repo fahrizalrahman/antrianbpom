@@ -8,8 +8,6 @@
 					<span class="mif-menu fg-white"></span>
 				</button>
 				<ul class="d-menu place-right context" data-role="dropdown" style="box-shadow: 1px 1px 3px black;">
-					<li><a href="#">One</a></li>
-					<li><a href="#">Two</a></li>
 					<li>
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 							{{ __('Logout') }}

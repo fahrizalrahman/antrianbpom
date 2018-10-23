@@ -53,6 +53,7 @@ class AntrianController extends Controller
                     'status'     => "antri",
                     'no_antrian'  => $no_antrian,
                     'id_user'   => Auth::user()->id,
+                    'tgl_antrian' => now()
                 ]);
 
             $data_loket = Loket::select()->where('id',$create_antrian->id_loket)->first();
@@ -72,6 +73,7 @@ class AntrianController extends Controller
                     'status'     => "antri",
                     'no_antrian'  => 1,
                     'id_user'   => Auth::user()->id,
+                    'tgl_antrian' => now()
                 ]);
            
             $data_loket = Loket::select()->where('id',$create_antrian->id_loket)->first();

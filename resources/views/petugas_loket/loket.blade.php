@@ -191,37 +191,6 @@ $(function(){
 	});
 });
 
-function refresh_antrian(){
-	$.ajax({
-		headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-		dataType: 'html',
-		url		: '/proses/layanan/update',
-		data 	: 'q=refresh antrian',
-		success	: function(data){
-			$('#body_antrian').html('');
-			$('#body_antrian').html(data);
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-			alert(xhr.responseText);
-		}
-	});
-}
-
-function refresh_lewati(){
-	$.ajax({
-		headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-		dataType: 'html',
-		url		: '/proses/layanan/update',
-		data 	: 'q=refresh lewati',
-		success	: function(data){
-			$('#body_lewati').html('');
-			$('#body_lewati').html(data);
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-			alert(xhr.responseText);
-		}
-	});
-}
 
 $(document).on('click', '.id_lewati', function(e){
 	e.preventDefault();
@@ -236,8 +205,8 @@ $(document).on('click', '.id_lewati', function(e){
 					if(data==='0'){
 						alert('Nomor Antrian berhasil dilewati');
 						load_data();
-						refresh_lewati();
-						refresh_antrian();
+						
+						
 					}
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
@@ -288,7 +257,7 @@ $(document).on('click', '.id_selesai', function(e){
 				if(data.length > 0){
 					alert('Data selesai diproses');
 					load_data();
-					refresh_antrian();
+					
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -310,8 +279,8 @@ $(document).on('click', '.bt_ulangi_proses', function(e){
 				if(data.length > 0){
 					alert('Data berhasil diterima');
 					load_data();
-					refresh_lewati();
-					refresh_antrian();
+					
+					
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -333,7 +302,7 @@ $(document).on('click', '.id_terima', function(e){
 				if(data.length > 0){
 					alert('Data berhasil diterima');
 					load_data();
-					refresh_antrian();
+					
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -370,7 +339,7 @@ $(document).on('click', '.id_panggil', function(e){
 								$("#id_audio").prop("currentTime",0);
 								$('#id_audio').trigger('play');
 							}
-							refresh_antrian();
+							
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
 							alert(xhr.responseText);
@@ -452,6 +421,18 @@ es.onmessage = function(e) {
 	}
 }
 
+	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
+          	$('#body_antrian').html('');
+			$('#body_antrian').html(resp);
+        });
+
+	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
+          	$('#body_lewati').html('');
+			$('#body_lewati').html(resp);
+        });
+
+
+
 }
 
 $(document).ready(function(){
@@ -524,6 +505,17 @@ es_status.onmessage = function(e) {
 	}
 }
 
+
+	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
+          	$('#body_antrian').html('');
+			$('#body_antrian').html(resp);
+        });
+
+	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
+          	$('#body_lewati').html('');
+			$('#body_lewati').html(resp);
+        });
+	
 });
 /*
 $(document).ready(function(){

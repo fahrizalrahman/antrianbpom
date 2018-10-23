@@ -88,8 +88,9 @@
   $_jumlah = substr($_jumlah, 0, -1) . ']';
   */
 ?>
-        <script src="/highchart/js/highcharts.js"></script>
-        <script src="/highchart/js/modules/exporting.js"></script>
+        <script src="{{asset('/highchart/js/highcharts.js')}}"></script>
+        <script src="{{asset('/highchart/js/modules/exporting.js')}}"></script>
+
 
        <script type="text/javascript">
 

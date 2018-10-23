@@ -9,15 +9,17 @@
 
     <title>{{ config('app.name', 'Sistem Antrian Online BPOM') }}</title>
     {{ Html::style('/plugins/metro/metro/css/metro-all.min.css') }}
+    {{ Html::style('/custom/css/login.css') }}
     {{ Html::script('/js/jquery-3.1.0.min.js') }}
     {{ Html::script('/plugins/metro/metro/js/metro.js') }}
+    {{ Html::script('/custom/js/login.js') }}
     <style type="text/css">
     body{
         height: 100%;
         width: 100%;
         padding: 0px;
         margin: 0px;
-        background-image: url('/img/log/bg-log.jpg');
+        background-image: url('{{ url('/img/log/bg-log.jpg') }}');
         background-repeat: no-repeat;
         background-position: center;
     }

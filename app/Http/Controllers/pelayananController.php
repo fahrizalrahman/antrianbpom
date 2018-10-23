@@ -300,7 +300,7 @@ class pelayananController extends Controller{
 								$data = DB::table('antrians AS a')
 				                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
 				                    -> select('a.no_antrian', 'b.name', 'a.status')
-				                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $id_lokets->id . '"')
+				                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
 				                    -> get();
 								$_content = '';
 								foreach($data as $_data){
@@ -314,7 +314,7 @@ class pelayananController extends Controller{
 				                $lewati = DB::table('antrians AS a')
 				                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
 				                    -> select('a.id', 'a.no_antrian', 'b.name')
-				                    -> whereRaw('a.status="lewati" And a.id_loket="' . $id_lokets->id . '" and substr(a.created_at, 1, 10) = date_format(now(), "%Y-%m-%d")')
+				                    -> whereRaw('a.status="lewati" And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
 				                    -> get();
 
 								$_content = '';
@@ -578,7 +578,7 @@ class pelayananController extends Controller{
 
 					if ($_loket > 0) {
 						$id_lokets = DB::table('lokets')
-						-> select('id', 'kode_antrian','loket')
+						-> selectRaw('substr(kode,7) AS loket, kode_antrian')
 						-> where('petugas', '=', Auth::user()->id)
 						->first();
 
