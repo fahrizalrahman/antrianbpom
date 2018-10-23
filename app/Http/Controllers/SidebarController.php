@@ -96,6 +96,8 @@ class SidebarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $value = Sidebar::findorfail($id);
+        $value->delete();
+        return redirect()->route('inputImgSid.index');
     }
 }

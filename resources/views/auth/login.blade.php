@@ -54,7 +54,7 @@ if(isMobile()){
 	<!-- end #page-loader -->
 	
 	<div class="login-cover">
-	    <div class="login-cover-image" style="background-image: url({{asset('img/log/bg-log.jpg')}})" data-id="login-cover-image"></div>
+	    <div class="login-cover-image" style="background-image: url({{asset('img/bg-login.png')}})" data-id="login-cover-image"></div>
 	    <div class="login-cover-bg"></div>
 	</div>
 	<!-- begin #page-container -->
@@ -64,9 +64,10 @@ if(isMobile()){
             <!-- begin brand -->
             <div class="login-header">
                 <div class="brand">
-                    <img src=" {{asset('img/log/logo-bpom.png')}} " width="100px" height="50px"/> <h1 tyle="font-size:8vw;">Antrian BPOM</h1>
-                    {{-- <small>Sistem Antrian Berbasis Web</small> --}}
-                </div>
+                    <center><img src=" {{asset('img/log/bpom.png')}}" style="margin-top:15px;" width="100px" height="100px"/> 
+						<h2 tyle="font-size:7px; margin-bottom:-15px;">Sistem Antrian BPOM</h2>
+					</div>
+				
                 <span class="icon">
                     <i class="fa fa-lock"></i>
 				</span>
@@ -86,8 +87,8 @@ if(isMobile()){
                     <div class="login-buttons">
                         <button type="submit" class="btn btn-success btn-block btn-lg">Masuk</button>
                     </div>
-                    <div class="m-t-20">
-                        Belum Punya Akun ? Daftar <a href="{{ route('register') }}">disini</a>.
+                    <div class="m-t-25">
+                       <center><h5> Badan Pengawas Obat dan Makanan</h5>
                     </div>
                 </form>
             </div>

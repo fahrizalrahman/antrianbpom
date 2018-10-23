@@ -37,14 +37,14 @@
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>
                   <td>{{$value->lantai}}</td>
-                  <td>
-                      <a href="{{route('inputImgSid.edit', $value->id)}}" class="btn btn-warning btn-sm" title="Show or download value {{ $value->title }}">
-                          <i class="nav-icon fa fa-wrench"></i>
-                        </a> ||
-                        <a href="{{route('inputImgSid.edit', $value->id)}}" class="btn btn-danger btn-sm" title="Show or download value {{ $value->title }}">
-                          <i class="nav-icon fa fa-trash"></i>
-                      </a>
-                  </td>
+                  <td align="center">
+                    <form action="{{route('inputImgFoot.destroy', $value->id)}}" method="POST">
+                      <a href="{{ route('inputImg.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
+                      @csrf
+                      <input type="hidden" name="_method" value="DELETE">
+                      <button type="submit" class="btn btn-danger"><i class="nav-icon fa fa-trash"></i></button>
+                    </form>
+                </td>
                 </tr>
                 @endforeach
                 </tbody>

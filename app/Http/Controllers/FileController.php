@@ -128,7 +128,7 @@ class FileController extends Controller
             'title'     => 'nullable|min:5',
             'lantai'    => 'required',
             'type'      => 'required',
-            'file'      => 'required|file|max:2000'
+            'file'      => 'required|file|max:3000'
         ]);
         
         $uploadFile = $request->file('file');
@@ -136,7 +136,7 @@ class FileController extends Controller
         $file       = File::create([
             'title' => $request->title ?? $uploadFile->getClientOriginalName(),
             'lantai'    => $request->lantai,
-            'type'      => $request->type,
+            'type'      => $request->type->background,
             'filename'  => $path
         ]);
         return redirect()->route('imagebg.view');
@@ -191,20 +191,6 @@ class FileController extends Controller
         return view('loket.inputImg.editImg', compact('updateFile'));
     }
 
-     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function editBtn(Request $request)
-    {
-        if($request->ajax()){
-            $editBtn = ClassRoutine::Find($request->id);
-            return Response($editBtn);
-        }
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -221,8 +207,7 @@ class FileController extends Controller
         $editImg->type = $request->type;
         $editImg->save();
 
-        
-        return redirect()->route('inputImg.index');
+        return redirect()->route('inputImg.index')->with('message', 'Data Berhasil diubah');;
     }
 
     /**
@@ -233,10 +218,8 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        $fileHapus = File::findorfail($id);
-        $fileHapus->delete();
-        dd($fileHapus);
-
-        return redirect()->route('inputImg.index');
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('imagebg.view');
     }
 }
