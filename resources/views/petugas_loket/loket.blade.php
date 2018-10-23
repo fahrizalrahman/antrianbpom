@@ -353,7 +353,6 @@ $(document).on('click', '.id_panggil', function(e){
 			data 	: 'q=update&id=' + $('.lb_no_berikut').html(),
 			success	: function(data){
 				if(data==='0'){
-					load_data();
 					$.ajax({
 						headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 						dataType: 'html',
@@ -377,6 +376,8 @@ $(document).on('click', '.id_panggil', function(e){
 							alert(xhr.responseText);
 						}
 					});
+					load_data();
+
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {

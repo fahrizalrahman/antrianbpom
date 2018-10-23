@@ -1,0 +1,23 @@
+/*
+
+@media screen and (max-width: 700px){
+	.card-header > label{font-size: 14pt; font-weight: bold;}
+}
+
+@media screen and (min-width: 701px){
+	.card-header > label{font-size: 16pt;}
+}
+
+.card-header > div > img{
+	display: inline-block;
+	height: 40px;
+}
+
+.card-header > label{
+	margin-top: 15px;
+	display: block;
+	font-family: 'arial narrow';
+	color: #888888;
+}
+*/
+

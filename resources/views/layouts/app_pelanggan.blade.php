@@ -44,6 +44,8 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
 
+      <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;"><strong>Sistem Antrian BPOM</strong></a></li>
+      
     </ul>
 
     <!-- Right navbar links -->

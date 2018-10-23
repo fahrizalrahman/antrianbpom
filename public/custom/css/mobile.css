@@ -1,0 +1,349 @@
+/*LANDING PAGE*/
+html, body {
+    color: #636b6f;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+}
+.full-height{height: 100vh;}
+.flex-center {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+.position-ref{position: relative;}
+.top-right {
+	position: absolute;
+	right: 10px;
+	top: 18px;
+}
+.content{text-align: center;}
+
+@media screen and (max-width: 725px){
+    .title {font-size: 16pt;}
+    .content > div > img{height: 75px;}
+}
+
+@media screen and (min-width: 726px){
+    .title {font-size: 32pt;}
+    .content > div > img{height: 125px;}
+}
+.m-b-md{margin-bottom: 30px;}
+.tm_active{
+	color: black !important;
+	font-weight: bold;
+	transition: all .5s;
+}
+.tab_menu_container > li > div > label{
+	display: block;
+	font-size: 8pt;
+	padding: 0px; margin: 0px;
+}
+.tab_menu_container > li > div > span{
+	display: block;
+	font-size: 16pt;
+	margin: 10px 0px 5px 0px;
+}
+.tab_menu_container > li > div{
+	display: block;
+	text-align: center;
+	width: 100%;
+}
+.tab_menu_container > li{
+	display: inline-flex;
+	width: 25%;
+	text-align: center;
+	color: white;
+	padding-bottom: 5px;
+}
+.tab_menu_container{
+	display: flex;
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+}
+.tab_menu{
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: auto;
+	position: fixed;
+	background-color: white;
+	padding-bottom: 5px;
+	box-shadow: 0px -1px 5px black;
+}
+
+/*PROFILE*/
+.background-profile > label{
+	font-size: 12pt;
+	color: white;
+	font-family: 'Nunito', sans-serif;
+	text-shadow: 1px 1px 3px #888888;
+}
+.drop-group > button{
+	background-color: rgba(0,0,0,0.15);
+	font-size: 18pt;
+}
+.drop-group{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+.background-profile{
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 100px;
+}
+.profile_sub_title > span{
+	padding-right: 15px;
+	color: black;
+}
+.profile_sub_title{
+	font-size: 11pt;
+	color: black;
+	width: 100%;
+}
+.input_container{
+	padding: 5px 20px;
+	font-family: arial;
+	font-size: 9pt;
+}
+.input_icon{
+	text-align: center;
+	padding: 0px 10px;
+	color: white;
+	text-shadow: 1px 1px 3px black;
+}
+.profile_container{
+	margin-top: 60px;
+}
+.profile_nama{
+	font-size: 16pt;
+	font-weight: bold;
+	color: black;
+}
+.img_profile > span{
+	font-size: 12pt;
+	color: white;
+	padding: 5px;
+	border: 3px solid #aaaaaa;
+	border-radius: 5px;
+	position: absolute;
+	background-color: rgba(0,0,0,0.75);
+	right: -25px;
+	bottom: 0px;
+}
+.img_profile{
+	width: 100px; height: 100px;
+	border-radius: 100px;
+	background-color: red;
+	border: 5px solid white;
+	position: absolute;
+	margin-left: calc(50% - 60px);
+	margin-top: -50px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/*HOME*/
+.background-home > label{
+	display: block;
+	font-size: 14pt;
+	color: white;
+	text-shadow: 1px 1px 4px black;
+	font-weight: bold;
+	font-family: arial;
+}
+body{
+	height: 100%;
+/*
+	background-image: url('/img/log/background-mobile.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: bottom;
+	*/
+	background-color: white;
+}
+
+/*HOME CONTENT*/
+::-webkit-scrollbar {
+    width: 2px;
+}
+.box_layanan > footer, .booking_layanan > footer, .sub_layanan > footer{
+	font-size: 8pt;
+	font-family: 'Nunito', sans-serif;
+	font-weight: bold;
+	width: calc(100% - 10px);
+	padding: 0px 5px;
+	margin-top: 5px;
+	text-align: left;
+	display: block;
+	max-height: 45px;
+	height: auto;
+	vertical-align: bottom;
+	overflow-y: hidden;
+	bottom: 2px;
+	color: black;
+}
+.box_layanan > span, .booking_layanan > span, .sub_layanan > span{
+	position: absolute;
+	font-size: 14pt;
+	right: 5px; top: 5px;
+	text-align: right;
+}
+.box_layanan > label, .booking_layanan > label, .sub_layanan > label{
+	font-size: 14pt;
+	color: #004282;
+	position: absolute;
+	top: 0px; left: 5px;
+	margin: 3px;
+}
+.box_layanan, .booking_layanan, .sub_layanan{
+	border-radius: 3px;
+	padding: 30px 0px 15px 0px;
+	margin: 3px 1px;
+	vertical-align: top;
+	display: inline-block;
+	width: 48%;
+	height: 85px;
+	background-color: white;
+	border: 1px solid blue;
+	text-align: left;
+}
+.isi_layanan{
+	text-align: left;
+	display: block;
+	width: 100%;
+	padding: 5px 8px;
+}
+.layanan_label > div > span{
+	position: absolute;
+	right: 5px;
+}
+.layanan_label > div > label{
+	font-weight: bold;
+	font-size: 11pt;
+	font-family: 'arial narrow';
+}
+.layanan_label{
+	padding: 10px 5px;
+	border-bottom: 4px solid green;
+}
+.layanan_container{
+	margin-top: 20px;
+	display: block;
+	width: 100%;
+}
+.image_slider{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.image_slider_container{
+	display: block;
+	width: 100%;
+	height: 100px;
+	background-color: orange;
+}
+.page_content{
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: calc(100% - 58px);
+	background-color: white;
+	overflow-y: auto;
+	/*
+	background-image: url('/img/log/background-mobile.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;
+	*/
+}
+
+/*BOOKING*/
+.input_layanan_group > span{
+	padding: 10px 5px;
+	display: inline-flex;
+}
+.input_layanan_group > input{
+	display: inline-flex;
+	border: none;
+	font-family: arial;
+	font-size: 9pt;
+	outline-width: 0px;
+	outline-style: none;
+	padding: 5px;
+}
+.input_layanan_group{
+	display: flex;
+}
+.input_search_layanan{
+	display: none;
+	border: 1px solid #dddddd;
+	background: white;
+	height: auto;
+}
+.search_layanan_container{
+	height: 40px;
+}
+
+/*MONITOR*/
+.lb_footer > div{
+	display: inline-block;
+	width: 45%;
+	text-align: center;
+}
+.lb_footer > div > footer{
+	font-size: 26pt;
+	font-weight: bold;
+}
+.lb_footer > div > label{
+	font-size: 10pt;
+}
+.lb_lantai{
+	font-size: 11pt;
+	font-weight: bold;
+	color: black;
+	display: inline-block;
+	width: 75px;
+	vertical-align: top;
+}
+.lb_nama_layanan{
+	width: calc(100% - 85px);
+	font-size: 10pt;
+	color: black;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.box_monitor{
+	display: block;
+	width: calc(100% - 20px);
+	padding: 5px;
+	margin: 10px;
+	border: 1px solid #888888;
+}
+
+/*survey*/
+@media screen and (max-width: 700px){
+  .emotion_container{
+    position: fixed; top: calc(50% - 125px); left: 0px; right: 0px; height: auto; background-color: white; border: 3px solid darkGreen; box-shadow: 0px 0px 10px white; padding: 20px
+  }
+}
+
+@media screen and (min-width: 701px){
+  .emotion_container{
+    position: fixed; top: 25px; left: 25px; right: 25px; bottom: 25px; background-color: white; border: 3px solid darkGreen; box-shadow: 0px 0px 10px white; padding: 20px
+  }
+}
+
+.lb_judul_survey{
+  width: 100%;
+  text-align: center;
+  font-size: 12pt;
+  color: black;
+}  

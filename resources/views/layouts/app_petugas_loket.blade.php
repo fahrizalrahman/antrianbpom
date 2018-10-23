@@ -38,6 +38,8 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
                 </li>
+
+                <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;"><strong>Sistem Antrian BPOM</strong></a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -62,7 +64,7 @@
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <center><a href="/home" class="brand-link" style="background-color:#17A2B8">
-                <img src="{{ asset('logo/logo-kecil.png') }}" style="height:50px;">
+                <img src="{{ asset('logo/logo-kecil.png') }}" style="height:35px;">
                 </a>
             </center>
             <div class="sidebar">

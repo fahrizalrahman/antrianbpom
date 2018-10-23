@@ -215,3 +215,19 @@ Route::get('lihat-list-kunjungan', 'HomeController@lihatListKunjungan');
 Route::get('laporan-petugas', 'HomeController@laporanPetugas');
 Route::get('filter-laporan-petugas', 'HomeController@filterLaporanPetugas');
 Route::get('lihat-list-pelayanan', 'HomeController@lihatListPelayanan');
+
+
+/*MOBILE ROUTE*/
+Route::post('/user/registration', 'registrationController@simpan');
+Route::get('/user/registration/success', 'registrationController@success');
+
+
+Route::get('/mobile/content/load', 'mobileController@load_content');
+Route::get('/mobile/content/edit/profile', 'mobileController@edit_profile');
+Route::get('/mobile/content/load/subcontent', 'mobileController@load_content_data');
+Route::get('/mobile/content/booking/layanan', 'mobileController@booking_layanan');
+Route::get('/mobile/content/booking/booking_antrian', 'mobileController@ambil_antrian');
+
+Route::resource('mobile','mobileController');
+
+Route::resource('judulLayanan','judulLayanan');

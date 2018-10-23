@@ -14,6 +14,8 @@ use App\Tulisan;
 use Storage;
 use Redirect;
 use DB;
+use App\judulLayanan;
+use App\user_profile;
 use Jenssegers\Agent\Agent;
 
 class HomeController extends Controller
@@ -45,7 +47,7 @@ class HomeController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->jabatan == "admin"){
             $data = DB::table('summary_pelanggan')
@@ -93,7 +95,24 @@ class HomeController extends Controller
                 -> where('petugas', '=', Auth::user()->id)->first();
             return view('petugas_loket')
                 -> with('_layanan', $layanan);
+            /*
+            return view('loket_petugas.index');
+            */
         }elseif (Auth::user()->jabatan == "pelanggan"){
+
+            if($request->has('mobile')){
+                $profile = user_profile::select('id', 'type', 'nama', 'alamat', 'no_telp', 'no_fax', 'email_1')
+                    -> where('userid', '=', Auth()->user()->id)
+                    -> first();
+                if($profile){
+                    $judulLayanan = judulLayanan::select('id', 'keterangan')->get();
+                    return view('mobile.index', compact('judulLayanan'));
+                }else{
+                    return view('mobile.wizard')
+                        -> with('_type', 'new');
+                }
+            }else{
+
             $agent = new Agent();
             $layanan_loket   = Loket::select()->where('lantai',1);
             $layanan_loket_2 = Loket::select()->where('lantai',2);
@@ -102,8 +121,22 @@ class HomeController extends Controller
             $layanan_loket_5 = Loket::select()->where('lantai',5);
             $layanan_loket_6 = Loket::select()->where('lantai',6);
             return view('home_pelanggan', ['layanan_loket' => $layanan_loket,'layanan_loket_2'=>$layanan_loket_2,'layanan_loket_3'=>$layanan_loket_3,'layanan_loket_4'=>$layanan_loket_4,'layanan_loket_5'=>$layanan_loket_5,'layanan_loket_6'=>$layanan_loket_6,'agent'=>$agent]);
-
-        }elseif (Auth::user()->jabatan ==="petugas_loket"){
+            }
+        }
+/*
+        elseif (Auth::user()->jabatan == "pelanggan_1"){
+            $profile = user_profile::select('id', 'type', 'nama', 'alamat', 'no_telp', 'no_fax', 'email_1')
+                -> first();
+            if($profile){
+                $judulLayanan = judulLayanan::select('id', 'keterangan')->get();
+                return view('mobile.index', compact('judulLayanan'));
+            }else{
+                return view('mobile.wizard')
+                    -> with('_type', 'new');
+            }
+        }
+*/
+        elseif (Auth::user()->jabatan ==="petugas_loket"){
             return view('petugas_loket.home');
         }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use View;
 use Auth;
 use App\Loket;
+use App\Sublayanan;
 use App\Antrian;
 use DB;
 use Alert;
@@ -57,23 +58,53 @@ class LoketController extends Controller
             }elseif(Auth::user()->jabatan==='petugas_loket'){
 
                 $loket = Loket::select('id', 'nama_layanan', 'kode', 'lantai', 'kode_antrian')
+                    -> where ('petugas', '=', Auth::user()->id);
+
+                if ($loket->count() > 0){
+
+                $lokets = Loket::select('id', 'nama_layanan', 'kode', 'lantai', 'kode_antrian')
                     -> where ('petugas', '=', Auth::user()->id)
-                    -> first();
+                    ->first();
 
                 $data = DB::table('antrians AS a')
                     -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
                     -> select('a.no_antrian', 'b.name', 'a.status')
-                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $loket->id . '"')
+                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $lokets->id . '"')
                     -> get();
 
                 $lewati = DB::table('antrians AS a')
                     -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
                     -> select('a.id', 'a.no_antrian', 'b.name')
-                    -> whereRaw('a.status="lewati" And a.id_loket="' . $loket->id . '" and substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d")')
+                    -> whereRaw('a.status="lewati" And a.id_loket="' . $lokets->id . '" and substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d")')
                     -> get();
 
+                }else{
+
+                $lokets = DB::table('sublayanans AS sub')
+                    -> leftJoin('lokets AS lok', 'lok.id', '=', 'sub.id_loket')
+                    -> select('sub.id as id', 'sub.nama_sublayanan as nama_layanan', 'sub.kode_loket as kode','lok.lantai as lantai','lok.kode_antrian as kode_antrian')
+                    -> where ('sub.petugas', '=', Auth::user()->id)
+                    ->first();
+
+
+                $data = DB::table('antrians AS a')
+                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+                    -> select('a.no_antrian', 'b.name', 'a.status')
+                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $lokets->id . '"')
+                    -> get();
+
+                $lewati = DB::table('antrians AS a')
+                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+                    -> select('a.id', 'a.no_antrian', 'b.name')
+                    -> whereRaw('a.status="lewati" And a.id_loket="' . $lokets->id . '" and substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d")')
+                    -> get();
+
+                }
+
+
+
                 return view('petugas_loket.loket')
-                    -> with('_loket', $loket)
+                    -> with('_loket', $lokets)
                     -> with('_data', $data)
                     -> with('_lewati', $lewati);
 
@@ -329,7 +360,7 @@ class LoketController extends Controller
 
     public function popup_pelanggan(Request $request){
         if(Auth::check()){
-            if(Auth()->user()->jabatan==='pelanggan'){
+            if((Auth()->user()->jabatan==='pelanggan') || (Auth()->user()->jabatan==='pelanggan_1')){
                 $content = '';
                 $check = DB::table('pelayanans as a')
                     -> leftJoin('antrians as b', 'a.id_antrian', '=', 'b.id')
