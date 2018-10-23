@@ -51,8 +51,14 @@ if(isMobile()){
                         <div class="col-sm-4">                  
                           <div class="card" >
                             <div class="card-body" style="height:200px;background: #ff9900">
-                              <center><h1 style="color:white">LANTAI </h1></center>
-                              <center><h1 style="color:white">1</h1></center>
+                              <center><h1 style="color:white">LANTAI 1</h1></center>
+                              <hr style="border-color:dimgray; margin-top:-5px;">
+                              @if ($judul_layanan->count() > 0)
+                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan->first()->keterangan}}</u></h4>  
+                              @else
+                                  judul_layanan
+                              @endif
+
                             </div>
                              <div class="card-footer" style="background-color:grey;">
                                 <div class="row">
@@ -81,8 +87,14 @@ if(isMobile()){
                          <div class="col-sm-4">                  
                           <div class="card" >
                             <div class="card-body" style="height:200px;background: #ff3300">
-                              <center><h1 style="color:white">LANTAI </h1></center>
-                              <center><h1 style="color:white">2</h1></center>
+                              <center><h1 style="color:white">LANTAI 2</h1></center>
+                              <hr style="border-color:dimgray; margin-top:-5px;">
+                              @if ($judul_layanan2->count() > 0)
+                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan2->first()->keterangan}}</u></h4>  
+                              @else
+                                  judul_layanan
+                              @endif
+
                             </div>
                              <div class="card-footer" style="background-color:grey;">
                                 <div class="row">
@@ -111,8 +123,13 @@ if(isMobile()){
                          <div class="col-sm-4">                  
                           <div class="card" >
                             <div class="card-body" style="height:200px;background: #85adad">
-                              <center><h1 style="color:white">LANTAI </h1></center>
-                              <center><h1 style="color:white">3</h1></center>
+                              <center><h1 style="color:white">LANTAI 3</h1></center>
+                              <hr style="border-color:dimgray; margin-top:-5px;">
+                              @if ($judul_layanan3->count() > 0)
+                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan3->first()->keterangan}}</u></h4>  
+                              @else
+                                  judul_layanan
+                              @endif
                             </div>
                              <div class="card-footer" style="background-color:grey;">
                                 <div class="row">
@@ -143,8 +160,13 @@ if(isMobile()){
                         <div class="col-sm-4">                  
                           <div class="card" >
                             <div class="card-body" style="height:200px;background: #1a53ff">
-                              <center><h1 style="color:white">LANTAI </h1></center>
-                              <center><h1 style="color:white">4</h1></center>
+                              <center><h1 style="color:white">LANTAI 4</h1></center>
+                              <hr style="border-color:dimgray; margin-top:-5px;">
+                              @if ($judul_layanan4->count() > 0)
+                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan4->first()->keterangan}}</u></h4>  
+                              @else
+                                  judul_layanan
+                              @endif
                             </div>
                              <div class="card-footer" style="background-color:grey;">
                                 <div class="row">
@@ -173,8 +195,13 @@ if(isMobile()){
                          <div class="col-sm-4">                  
                           <div class="card" >
                             <div class="card-body" style="height:200px;background: #33ff33">
-                              <center><h1 style="color:white">LANTAI </h1></center>
-                              <center><h1 style="color:white">5</h1></center>
+                              <center><h1 style="color:white">LANTAI 5</h1></center>
+                              <hr style="border-color:dimgray; margin-top:-5px;">
+                              @if ($judul_layanan5->count() > 0)
+                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan5->first()->keterangan}}</u></h4>  
+                              @else
+                                  judul_layanan
+                              @endif
                             </div>
                              <div class="card-footer" style="background-color:grey;">
                                 <div class="row">
@@ -203,8 +230,13 @@ if(isMobile()){
                          <div class="col-sm-4">                  
                           <div class="card" >
                             <div class="card-body" style="height:200px;background: #c44dff">
-                              <center><h1 style="color:white">LANTAI </h1></center>
-                              <center><h1 style="color:white">6</h1></center>
+                              <center><h1 style="color:white">LANTAI 6</h1></center>
+                              <hr style="border-color:dimgray; margin-top:-5px;">
+                              @if ($judul_layanan6->count() > 0)
+                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan6->first()->keterangan}}</u></h4>  
+                              @else
+                                  judul_layanan
+                              @endif
                             </div>
                              <div class="card-footer" style="background-color:grey;">
                                 <div class="row">

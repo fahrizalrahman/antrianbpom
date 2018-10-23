@@ -17,6 +17,9 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
+// Route Tampil judulLayanan
+// Route::get('judul_layanan','judulLayananController@judul_layanan')->name('homePelanggan.judul');
+
 // Route Lantai
 Route::get('/lantai', 'HomeController@lantai')->name('lantai');
 Route::get('/lantai2', 'HomeController@lantai2')->name('lantai2');

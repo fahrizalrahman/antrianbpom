@@ -43,18 +43,17 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
-
-      <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;"><strong>Sistem Antrian BPOM</strong></a></li>
-      
+      <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;">  <strong>Sistem Antrian BPOM</strong> </a> </li>
+      <li style="margin-left:870px; "><a class="nav-link" href="#"> <h5 style="color:white;" id="time-part"></h5></a></li>     
     </ul>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-                     <a class="nav-link" href="#" data-toggle="dropdown" style="color:white;">
+        <a class="nav-link" href="#" data-toggle="dropdown" style="color:white;">
          <i class="nav-icon fa fa-user" ></i> {{ Auth::user()->name }}        
-          </a>
+        </a>
+          
         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
           <a class="dropdown-item">
             <!-- Message Start -->
@@ -234,8 +233,16 @@ $(function () {
 
 </script>
 
-
  @yield('scripts')
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        var interval = setInterval(function() {
+        var momentNow = moment();
+        $('#time-part').html(momentNow.format('hh:mm'));
+        }, 100);
+    });
+  </script>
 
 </body>
 </html>
