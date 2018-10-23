@@ -41,28 +41,34 @@
 							</div>
 							</form>
 						</div>
-						
+
 						<div id="content_register" style="display: none">
+
+							<form method="post" action="{{ route('register') }}">
+							@csrf
 							<div class="p-5" style="background-color: rgba(255,255,255,0.5);">
+
 								<div class="form-group">
-									<input type="text" data-role="input" data-prepend="<span class='mif-user'>" placeholder="Nama Lengkap" data-validate="required">
+									<input name="name" type="text" data-role="input" data-prepend="<span class='mif-user'>" placeholder="Nama Lengkap" data-validate="required">
 								</div>
 								<div class="form-group">
-									<input type="email" data-role="input" data-prepend="<span class='mif-envelop'>" placeholder="Alamat Email" data-validate="required email">
+									<input name="email" type="email" data-role="input" data-prepend="<span class='mif-envelop'>" placeholder="Alamat Email" data-validate="required email">
 								</div>
 								<div class="form-group">
-									<input type="password" data-role="input" data-prepend="<span class='mif-key'>" placeholder="Password" data-validate="required minlength=6" data-clear-button="false">
+									<input name="password" type="password" data-role="input" data-prepend="<span class='mif-key'>" placeholder="Password" data-validate="required minlength=6" data-clear-button="false">
 								</div>
 								<div class="form-group">
-									<input type="password" data-role="input" data-prepend="<span class='mif-key'>" placeholder="Ulangi Password" data-validate="required minlength=6" data-clear-button="false">
+									<input name="password_confirmation" type="password" data-role="input" data-prepend="<span class='mif-key'>" placeholder="Ulangi Password" data-validate="required minlength=6" data-clear-button="false">
 								</div>
 								<div class="form-group mt-2">
 									<input type="checkbox" data-role="checkbox" data-caption="Menyetujui semua peraturan">
 								</div>
 								<div class="form-group mt-8">
-									<button class="button success w-100">Register</button>
+									<button type="submit" class="button success w-100">Register</button>
 								</div>
 							</div>
+							</form>
+
 							<div class="w-100 bg-gray fg-white" style="text-align: center;">
 								<label style="font-size: 9pt;">&copy Copyright Badan POM RI - 2018</label>
 							</div>
