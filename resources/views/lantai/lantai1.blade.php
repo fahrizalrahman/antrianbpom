@@ -8,7 +8,7 @@
     <link rel="stylesheet" href=" {{asset('css/file.css')}} ">
     <title>Dashboard Lantai 1</title>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url($Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
     <div class="container-fluid">
         <a class="dropdown-item">
             <!-- Message Start -->

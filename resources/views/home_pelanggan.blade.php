@@ -54,7 +54,7 @@ if(isMobile()){
                               <center><h1 style="color:white">LANTAI 1</h1></center>
                               <hr style="border-color:dimgray; margin-top:-5px;">
                               @if ($judul_layanan->count() > 0)
-                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan->first()->keterangan}}</u></h4>  
+                                  <h6 style="color:white; text-align:center;">{{$judul_layanan->first()->keterangan}}</h6>  
                               @else
                                   judul_layanan
                               @endif
@@ -90,7 +90,7 @@ if(isMobile()){
                               <center><h1 style="color:white">LANTAI 2</h1></center>
                               <hr style="border-color:dimgray; margin-top:-5px;">
                               @if ($judul_layanan2->count() > 0)
-                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan2->first()->keterangan}}</u></h4>  
+                                  <h6 style="color:white; text-align:center;">{{$judul_layanan2->first()->keterangan}}</h6>  
                               @else
                                   judul_layanan
                               @endif
@@ -126,7 +126,7 @@ if(isMobile()){
                               <center><h1 style="color:white">LANTAI 3</h1></center>
                               <hr style="border-color:dimgray; margin-top:-5px;">
                               @if ($judul_layanan3->count() > 0)
-                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan3->first()->keterangan}}</u></h4>  
+                                  <h6 style="color:white; text-align:center;">{{$judul_layanan3->first()->keterangan}}</h6>  
                               @else
                                   judul_layanan
                               @endif
@@ -163,7 +163,7 @@ if(isMobile()){
                               <center><h1 style="color:white">LANTAI 4</h1></center>
                               <hr style="border-color:dimgray; margin-top:-5px;">
                               @if ($judul_layanan4->count() > 0)
-                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan4->first()->keterangan}}</u></h4>  
+                                  <h6 style="color:white; text-align:center;">{{$judul_layanan4->first()->keterangan}}</h6>  
                               @else
                                   judul_layanan
                               @endif
@@ -198,7 +198,7 @@ if(isMobile()){
                               <center><h1 style="color:white">LANTAI 5</h1></center>
                               <hr style="border-color:dimgray; margin-top:-5px;">
                               @if ($judul_layanan5->count() > 0)
-                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan5->first()->keterangan}}</u></h4>  
+                                  <h6 style="color:white; text-align:center;">{{$judul_layanan5->first()->keterangan}}</h6>  
                               @else
                                   judul_layanan
                               @endif
@@ -233,7 +233,7 @@ if(isMobile()){
                               <center><h1 style="color:white">LANTAI 6</h1></center>
                               <hr style="border-color:dimgray; margin-top:-5px;">
                               @if ($judul_layanan6->count() > 0)
-                                  <h4 style="color:white; text-align:center;"><u>{{$judul_layanan6->first()->keterangan}}</u></h4>  
+                                  <h6 style="color:white; text-align:center;">{{$judul_layanan6->first()->keterangan}}</h6>  
                               @else
                                   judul_layanan
                               @endif

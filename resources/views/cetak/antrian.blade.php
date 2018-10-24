@@ -121,4 +121,5 @@ p{
   $( document ).ready(function() {
 		window.print();
 	  });
+    window.location.href = '/logout';
 </script>

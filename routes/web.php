@@ -108,6 +108,7 @@ Route::get('pilih-sublayanan', 'AntrianController@pilih_sublayanan');
 Route::get('count-antrian', 'AntrianController@count_antrian');
 Route::get('cek-setting-hari', 'AntrianController@cekSettingHari');
 Route::get('cek-setting-hari-sub', 'AntrianController@cekSettingHariSub');
+Route::get('logout', 'AntrianController@logout');
 
 
 

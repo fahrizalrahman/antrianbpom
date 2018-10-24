@@ -62,7 +62,8 @@ class AntrianController extends Controller
             }else{
                return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
             // return redirect()->route('monitor-tiket');
-                $this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
+                $this->logout(); 
+                return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             }
             
             
@@ -82,7 +83,8 @@ class AntrianController extends Controller
             }else{
                return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
             // return redirect()->route('monitor-tiket');
-            $this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
+               $this->logout(); 
+               return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             }
             
         }
@@ -152,10 +154,10 @@ class AntrianController extends Controller
     }
 
 
-    public function logout() {
-           Auth::logout();
-           return view('auth.login');
-    }
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/login');
+      }
     /**
      * Show the form for creating a new resource.
      *
