@@ -34,13 +34,12 @@
 
             <div class="col-md-12" style="height:2px; width:100%; background-color:#3badc9;">
             </div>
-            <div class="row">
-            @if($bgLantai2->first()->type == 'Video')
-                <div class="col-sm-7"  style="margin-right:115px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">          <video style="margin-top:-0px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+            @if(@$bgLantai2->first()->type == 'Video')
+                <div class="col-sm-7"  style="margin-right:0px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">          <video style="margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai2->first()->filename)}}" type="video/mp4">
                     </video>
                     @if ($Mainbar->count() > 0)
-                        <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); text-align:left; margin-top:-5px; width:906px; height:230px; background-size:cover; background-position:center; background-repeat:no-repeat">
+                        <div style="background-image:url({{url(Storage::url(@$Mainbar->first()->filename))}}); text-align:left; margin-top:-5px; width:906px; height:230px; background-size:cover; background-position:center; background-repeat:no-repeat">
                         </div>    
                     @else
                         <div style="background-color:34a1bc; text-align:left; margin-top:-5px; width:906px; height:230px; background-size:cover; background-position:center; background-repeat:no-repeat">
@@ -49,10 +48,10 @@
                     
                 </div>
             @else
-                <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai2->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+                <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai2->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
                 </div>
             @endif
-        </div>
+        
             <div class="col-sm-4" style="width:auto; height:auto;">
                 <table border="1px" style="width:134.5%; height:auto; margin-left:-13px;">
                     <?php $_i=1; ?>

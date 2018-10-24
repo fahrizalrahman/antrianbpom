@@ -49,17 +49,16 @@
                 @endforeach
         </table>
       </div>
-      <div class="row">
         @if($bgLantai3->first()->type == 'Video')
             <div class="col-sm-7"  style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 
-                <video style=" margin-left:129px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                <video style=" margin-left:125px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
                 </video>
                 @if ($Mainbar->count() > 0)
                     <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); margin-left:129px; margin-top:-5px; width:906px; height:229px;">
                     </div>    
                 @else
-                    <div style="background-color:#34a1bc; margin-left:129px; margin-top:-5px; width:906px; height:229px;">
+                    <div style="background-color:#34a1bc; margin-left:125px; margin-top:-5px; width:906px; height:229px;">
                     </div>
                 @endif
                 
@@ -69,7 +68,6 @@
             </div>
         @endif
             </div>
-    </div>
     {{-- <div class="row">
         <div class="col-md-12" style="height:3px; width:100%; background-color:#34a1bc;">
         </div>

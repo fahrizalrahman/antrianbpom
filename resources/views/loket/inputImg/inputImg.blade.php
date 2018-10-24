@@ -45,13 +45,13 @@
                         <label>Pilih Type</label>
                         <select class="form-control" name="type">
                             <option value="">-- Video/Image --</option>
-                            <option value="Video">Video</option>
                             <option value="Image">Image</option>
+                            <option value="Video">Video</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Pilih Status</label>
-                        <select class="form-control" name="type">
+                        <select class="form-control" name="status">
                             <option value="">-- Aktif/Non-Aktif --</option>
                             <option value="Aktif">Aktif</option>
                             <option value="Non-Aktfi">Non-Aktif</option>
