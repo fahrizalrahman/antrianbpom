@@ -233,4 +233,7 @@ Route::post('/mobile/profile/update', 'mobileController@update');
 
 Route::resource('judulLayanan','judulLayanan');
 
-Route::get('petugas/filter-data-pengunjung', 'HomeController@filterDataPengunjung');
+Route::get('laporan-data-pengunjung', 'HomeController@laporanDataPengunjung');
+Route::get('laporan-survey-pengunjung', 'HomeController@laporanSurveyPengunjung');
+Route::get('laporan-presensi-petugas', 'HomeController@laporanPresensiPetugas');
+Route::get('daftar-booking', 'HomeController@daftarBooking');

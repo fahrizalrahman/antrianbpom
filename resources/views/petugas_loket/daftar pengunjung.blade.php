@@ -22,24 +22,13 @@
 								<label class="label-input">Mulai : </label>
 							</div>
 							<div class="col-md-2">
-								<input class="input_date" name="ed_mulai" id="ed_mulai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
+								<input class="input_date" name="ed_mulai" id="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}"  onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
 							</div>
 							<div class="col-md-1">
 								<label class="label-input">Sampai : </label>
 							</div>
 							<div class="col-md-2">
-								<input class="input_date" name="ed_sampai" id="ed_sampai" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
-							</div>
-							<div class="col-md-1">
-								<label class="label-input">Pelayanan : </label>
-							</div>
-							<div class="col-md-5">
-								<select class="input-custom" name="pelayanan" id="pelayanan" style="width: 100%;">
-									<option value="0">SEMUA LAYANAN</option>
-									@foreach($_loket as $loket)
-										<option value="{{ $loket->id }}">{{ strtoupper($loket->nama_layanan) }}</option>
-									@endforeach
-								</select>
+								<input class="input_date" name="ed_sampai" id="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
 							</div>
 						</div>
 						<div class="row">
@@ -48,6 +37,7 @@
 								<hr />
 							</div>
 						</div>
+						<!--
 						<div class="row">
 							<div class="col-md-11">
 							</div>
@@ -55,17 +45,20 @@
 								<button class="btn btn-danger bt_export_pdf"><span class="fa fa-file-pdf-o"></span></button>
 							</div>
 						</div>
+						-->
 						<div class="row">
 							<div class="col-md-12">
-								<table id="example2" width="100%">
+								<table id="example2" width="100%" class="table-responsive">
 									<thead>
 										<tr>
 											<th width="90px">Tanggal</th>
 											<th width="175">Email</th>
 											<th width="175px">Nama Pengunjung</th>
 											<th width="100px">No. Telp</th>
-											<th>Pelayanan</th>
+											<th>Layanan</th>
 											<th width="80px">Loket</th>
+											<th>Sub Layanan</th>
+											<th width="80px">Loket Sub</th>
 											<th width="50px">Durasi</th>
 										</tr>
 									</thead>
@@ -79,10 +72,12 @@
 											@endif
 												<td align="center">{{ substr($data->tanggal,0,10) }}</td>
 												<td>{{ $data->email }}</td>
-												<td>{{ strtoupper($data->pelanggan) }}</td>
+												<td>{{ strtoupper($data->nama_pelanggan) }}</td>
 												<td>{{ strtoupper($data->no_telp) }}</td>
 												<td>{{ strtoupper($data->nama_layanan) }}</td>
 												<td>{{ strtoupper($data->nama_loket) }}</td>
+												<td>{{ strtoupper($data->sub_layanan) }}</td>
+												<td>{{ strtoupper($data->nama_loket_sub) }}</td>
 												<td align="center">{{ $data->lama }}</td>
 											</tr>
 											<?php $_i++;?>
@@ -128,14 +123,10 @@ $(document).on('click', '#proses', function (e) {
          
          var ed_mulai = $("#ed_mulai").val();
          var ed_sampai = $("#ed_sampai").val();
-         var pelayanan = $("#pelayanan").val();
 
+          $.get('{{ Url("laporan-data-pengunjung") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai}, function(resp){  
 
-
-          $.get('{{ Url("petugas/filter-data-pengunjung") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,pelayanan:pelayanan}, function(resp){  
-
-            $("#refresh-table").html(resp);
-             
+            $("#tbody_pengunjung").html(resp);             
           });
     });
 

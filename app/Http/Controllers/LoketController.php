@@ -188,7 +188,8 @@ class LoketController extends Controller
                 'nama_layanan'  => 'required|string',
                 'kode' => 'required',
                 'lantai' => 'required',
-                'kode_antrian'=>'required'
+                'kode_antrian'=>'required',
+                'petugas'   => 'unique:lokets'
                 ]);
 
   //INSERT MASTER DATA KAS WARUNG, JADI DEFAULT KAS
@@ -253,7 +254,8 @@ class LoketController extends Controller
                 'nama_layanan'  => 'required|string',
                 'kode' => 'required',
                 'lantai' => 'required',
-                'kode_antrian'=>'required'
+                'kode_antrian'=>'required',
+                'petugas'  =>'unique:lokets,petugas,'. $id
         ]);
 
 
@@ -305,16 +307,20 @@ class LoketController extends Controller
     public function laporan_pengunjung(Request $request){
         if(Auth::check()){
             if(Auth()->user()->jabatan==='petugas_loket'){
-                $loket = Loket::select('id', 'nama_layanan')
-                    -> where('petugas', '=', Auth()->user()->id)
-                    -> get();
-                $data = DB::table('view_pelayanan')
-                    -> select('tanggal', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'sub_layanan', 'nama_loket', DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, mulai, selesai)) as lama'))
-                    -> where('petugas', '=', Auth()->user()->id)
-                    -> get();
+
+                    $datas = DB::table('pelayanans as pel')
+                        -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as nama_pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub', DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, pel.mulai, pel.selesai)) as lama'))
+                        -> leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        -> leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        -> where(DB::raw('DATE(ans.tgl_antrian)'),'>=',DB::raw('curdate()'))
+                        -> where(DB::raw('DATE(ans.tgl_antrian)'),'<=',DB::raw('curdate()'))
+                        -> where('pel.id_petugas', '=', Auth()->user()->id)
+                        -> get();
+
                 return view('petugas_loket.daftar pengunjung')
-                    -> with('_loket', $loket)
-                    -> with('_data', $data);
+                    -> with('_data', $datas);
             }else{
                 return "Anda tidak memiliki hak akses";
             }
@@ -326,12 +332,19 @@ class LoketController extends Controller
     public function survey_pengunjung(Request $request){
         if(Auth::check()){
             if(Auth()->user()->jabatan==='petugas_loket'){
-                $data = DB::table('view_pelayanan')
-                    -> select('tanggal', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'sub_layanan', 'nama_loket', 'kepuasan')
-                    -> where('petugas', '=', Auth()->user()->id)
-                    -> paginate(5);
+                $datas = DB::table('pelayanans as pel')
+                        -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub','pel.kepuasan')
+                        -> leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        -> leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        -> where(DB::raw('DATE(ans.tgl_antrian)'),'>=',DB::raw('curdate()'))
+                        -> where(DB::raw('DATE(ans.tgl_antrian)'),'<=',DB::raw('curdate()'))
+                        -> where('pel.id_petugas', '=', Auth()->user()->id)
+                        -> get();
+
                 return view('petugas_loket.survey pengunjung')
-                    -> with('_data', $data);
+                    -> with('_data', $datas);
             }else{
                 return "Anda tidak memiliki hak akses";
             }
@@ -343,13 +356,19 @@ class LoketController extends Controller
     public function presensi(Request $request){
         if(Auth::check()){
             if(Auth()->user()->jabatan==='petugas_loket'){
-                $data = DB::table('antrians AS a')
-                    -> leftJoin('users AS b', 'a.id_user', '=', 'b.id')
-                    -> leftJoin('lokets AS c', 'a.id_loket', '=', 'c.id')
-                    -> select('a.created_at', 'a.no_antrian', 'b.name', 'c.kode', 'c.nama_layanan')
-                    -> paginate(5);
-                return view('petugas_loket.presensi')
-                    -> with('_data', $data);
+                   
+                $datas = DB::table('pelayanans as pel')
+                        -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub','pel.kepuasan',DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, pel.mulai, pel.selesai)) as lama'))
+                        -> leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        -> leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        -> where(DB::raw('DATE(ans.tgl_antrian)'),'>=',DB::raw('curdate()'))
+                        -> where(DB::raw('DATE(ans.tgl_antrian)'),'<=',DB::raw('curdate()'))
+                        -> where('pel.id_petugas', '=', Auth()->user()->id);
+
+                 return view('petugas_loket.presensi')
+                        -> with('_data', $datas);
             }else{
                 return "Anda tidak memiliki hak akses";
             }

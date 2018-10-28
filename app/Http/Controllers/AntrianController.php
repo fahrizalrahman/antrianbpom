@@ -102,7 +102,8 @@ class AntrianController extends Controller
                     'status'     => "antri",
                     'no_antrian'  => $no_antrian,
                     'id_user'   => Auth::user()->id,
-                    'id_sublayanan'=> $id_sub
+                    'id_sublayanan'=> $id_sub,
+                    'tgl_antrian' => now()
                 ]);
 
                   $data_loket = Sublayanan::select([
@@ -129,7 +130,9 @@ class AntrianController extends Controller
                     'status'     => "antri",
                     'no_antrian'  => 1,
                     'id_user'   => Auth::user()->id,
-                    'id_sublayanan'=> $id_sub
+                    'id_sublayanan'=> $id_sub,
+                    'tgl_antrian' => now()
+
                 ]);
            
                   $data_loket = Sublayanan::select([

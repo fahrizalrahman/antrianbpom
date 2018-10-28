@@ -30,7 +30,7 @@ class pelayananController extends Controller{
 
 						$total = DB::table('antrians')
 						-> whereRaw('id_loket=' . $id_lokets->id)
-						->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+						->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 						-> count('id');
 					
 					if($total){
@@ -41,7 +41,7 @@ class pelayananController extends Controller{
 
 	                $sisa = DB::table('antrians')
 				 		-> whereRaw('status="antri" and id_loket=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> count('id');
 				 	if($sisa){
 				 		$hasil['sisa'] = (string)@$sisa;
@@ -52,7 +52,7 @@ class pelayananController extends Controller{
 	                $berikut = DB::table('antrians')
 				 		-> select('no_antrian')
 				 		-> whereRaw('status="antri" and id_loket=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 				 	if($berikut){
 				 		$hasil['berikut'] = $id_lokets->kode_antrian . (string)@$berikut->no_antrian;
@@ -60,17 +60,19 @@ class pelayananController extends Controller{
 	                	$hasil['berikut'] = '0';
 	                }
 
-	                $saat_ini = DB::table('pelayanans')
-				 		-> select('no_antrian')
-				 		-> where(['keterangan'=>'Pemanggilan', 'id_petugas' => Auth()->user()->id])
-				 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+	                $saat_ini = DB::table('pelayanans as pels')
+				 		-> select('pels.no_antrian')
+				 		-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
+				 		-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
+				 		->where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
 				 		-> first();
 
 				 	if(is_null($saat_ini)){
-				 		$sekarang = DB::table('pelayanans')
-				 			-> select('no_antrian')
-					 		-> where(['keterangan'=>'Diterima', 'id_petugas' => Auth()->user()->id])
-					 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+				 		$sekarang = DB::table('pelayanans  as pels')
+				 			-> select('pels.no_antrian')
+				 			-> leftJoin('antrians as ans', 'ans.id', '=','pels.id_antrian')
+					 		-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
+					 		->where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
 					 		-> first();
 					 	if(is_null($sekarang)){
     	                	$hasil['sekarang'] = '0';
@@ -90,7 +92,7 @@ class pelayananController extends Controller{
 
 						$total = DB::table('antrians')
 						-> whereRaw('id_sublayanan=' . $id_lokets->id)
-						->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+						->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 						-> count('id');
 					
 					if($total){
@@ -101,7 +103,7 @@ class pelayananController extends Controller{
 
 	                $sisa = DB::table('antrians')
 				 		-> whereRaw('status="antri" and id_sublayanan=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> count('id');
 				 	if($sisa){
 				 		$hasil['sisa'] = (string)@$sisa;
@@ -112,7 +114,7 @@ class pelayananController extends Controller{
 	                $berikut = DB::table('antrians')
 				 		-> select('no_antrian')
 				 		-> whereRaw('status="antri" and id_sublayanan=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 				 	if($berikut){
 				 		$hasil['berikut'] = $id_lokets->kode_antrian . (string)@$berikut->no_antrian;
@@ -120,17 +122,19 @@ class pelayananController extends Controller{
 	                	$hasil['berikut'] = '0';
 	                }
 
-	                $saat_ini = DB::table('pelayanans')
-				 		-> select('no_antrian')
-				 		-> where(['keterangan'=>'Pemanggilan', 'id_petugas' => Auth()->user()->id])
-				 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+	                $saat_ini = DB::table('pelayanans as pels')
+				 		-> select('ans.no_antrian')
+				 		-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
+				 		-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
+				 		->where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 
 				 	if(is_null($saat_ini)){
-				 		$sekarang = DB::table('pelayanans')
-				 			-> select('no_antrian')
-					 		-> where(['keterangan'=>'Diterima', 'id_petugas' => Auth()->user()->id])
-					 		->where(DB::raw('DATE(created_at)'),DB::raw('curdate()'))
+				 		$sekarang = DB::table('pelayanans as pels')
+				 			-> select('ans.no_antrian')
+				 			-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
+					 		-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
+					 		->where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
 					 		-> first();
 					 	if(is_null($sekarang)){
     	                	$hasil['sekarang'] = '0';

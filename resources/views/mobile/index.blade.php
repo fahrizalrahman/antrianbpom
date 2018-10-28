@@ -1,7 +1,6 @@
 @extends('layouts.app_metro')
 
 @section('header_style_script')
-	{{ Html::style('/plugins/font-awesome/css/font-awesome.min.css') }}
 	{{ Html::style('/plugins/metro/metro/css/metro-all.css') }}
 	{{ Html::style('/custom/css/w3.css') }}
 	{{ Html::style('/custom/css/mobile.css') }}

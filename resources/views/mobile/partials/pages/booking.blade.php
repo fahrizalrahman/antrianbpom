@@ -7,10 +7,10 @@
 				<button class="button square dropdown-toggle bg-darkCobalt">
 					<span class="mif-menu fg-white"></span>
 				</button>
-				<ul class="d-menu place-right context" data-role="dropdown" style="box-shadow: 1px 1px 3px black;">
+				<ul class="d-menu place-right context bg-darkCobalt fg-white" data-role="dropdown" style="box-shadow: 1px 1px 3px black;">
 					<li>
-						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-							{{ __('Logout') }}
+						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><strong>
+							{{ __('Logout') }}</strong>
 						</a>
 						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
 					</li>

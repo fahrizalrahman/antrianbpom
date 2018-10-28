@@ -12,7 +12,7 @@
 			</div>
 			<div class="cell-12 text-center">
 				<div class="img_profile_edit">
-					<span class="mif-camera"></span>
+					<span class="mif-pencil"></span>
 					<input type="file" id="ed_photo" hidden="hidden">
 				</div>
 			</div>

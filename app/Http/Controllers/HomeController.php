@@ -498,29 +498,144 @@ class HomeController extends Controller
                 return $response;
             }
 
-        public function filterDataPengunjung(Request $request){
+        public function laporanDataPengunjung(Request $request){
 
-               if ($request->pelayanan == 0) {
-                     $datass = DB::table('view_pelayanan')
-                            -> select('nama_petugas','nama_loket','id_user','tanggal','petugas')
-                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
-                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
-                            ->groupBy('petugas')
-                            ->get();
-                }else{
-                    $datass = DB::table('view_pelayanan')
-                            -> select('nama_petugas','nama_loket','id_user','tanggal','petugas')
-                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
-                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
-                            ->where('petugas',$request->petugas)
-                            ->groupBy('petugas')
-                            ->get();                    
-                }
+                    $datas = DB::table('pelayanans as pel')
+                        -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as nama_pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub', DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, pel.mulai, pel.selesai)) as lama'))
+                        ->leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        ->leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'<=',$request->ed_sampai)
+                        ->where('pel.id_petugas', '=', Auth()->user()->id)
+                        ->get();
 
-                return view('laporan.refresh_table_lap_petugas')
-                        ->with('_data',$datass);
-
+                $_i=0; 
+                $tables = '';
+                    foreach ($datas as $data) {
+                        if ($_i % 2===0) {
+                $tables .=   '<tr>';
+                        }else{
+                $tables .=   '<tr style="background-color: #dddddd">';
+                        }
+                $tables .=   '<td align="center">'. substr($data->tanggal,0,10).'</td>
+                                <td>'. $data->email.'</td>
+                                <td>'. strtoupper($data->nama_pelanggan).'</td>
+                                <td>'. strtoupper($data->no_telp).'</td>
+                                <td>'. strtoupper($data->nama_layanan).'</td>
+                                <td>'. strtoupper($data->nama_loket).'</td>
+                                <td>'. strtoupper($data->sub_layanan).'</td>
+                                <td>'. strtoupper($data->nama_loket_sub).'</td>
+                                <td align="center">'. $data->lama.'</td>
+                            </tr>';
+                        $_i++;
+                            }
+                $tables .=  '';
+                return $tables;
         }
 
+        public function laporanSurveyPengunjung(Request $request){
+
+                    $datas = DB::table('pelayanans as pel')
+                        -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as nama_pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub','pel.kepuasan')
+                        ->leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        ->leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'<=',$request->ed_sampai)
+                        ->where('pel.id_petugas', '=', Auth()->user()->id)
+                        ->get();
+
+                $_i=0; 
+                $emosi = array("TIDAK SURVEY", "SANGAT PUAS", "PUAS", "TIDAK PUAS");
+                $tables = '';
+                    foreach ($datas as $data) {
+                        if ($_i % 2===0) {
+                $tables .=   '<tr>';
+                        }else{
+                $tables .=   '<tr style="background-color: #dddddd">';
+                        }
+                $tables .=   '<td align="center">'. substr($data->tanggal,0,10).'</td>
+                                <td>'. $data->email.'</td>
+                                <td>'. strtoupper($data->nama_pelanggan).'</td>
+                                <td>'. strtoupper($data->no_telp).'</td>
+                                <td>'. strtoupper($data->nama_layanan).'</td>
+                                <td>'. strtoupper($data->nama_loket).'</td>
+                                <td>'. strtoupper($data->sub_layanan).'</td>
+                                <td>'. strtoupper($data->nama_loket_sub).'</td>
+                                <td align="center">'. strtoupper($emosi[$data->kepuasan]) .'</td>
+                            </tr>';
+                        $_i++;
+                            }
+                $tables .=  '';
+                return $tables;
+        }
+
+
+                public function laporanPresensiPetugas(Request $request){
+
+                    $datas = DB::table('pelayanans as pel')
+                        ->select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub','pel.kepuasan',DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, pel.mulai, pel.selesai)) as lama'))
+                        ->leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        ->leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'<=',$request->ed_sampai)
+                        ->where('pel.id_petugas', '=', Auth()->user()->id)
+                        ;
+
+                $_i=0; 
+                $emosi = array("TIDAK SURVEY", "SANGAT PUAS", "PUAS", "TIDAK PUAS");
+                $tables = '';
+                    if($datas->count() > 0){
+                    foreach ($datas->get() as $data) {
+                        if ($_i % 2===0) {
+                $tables .=   '<tr>';
+                        }else{
+                $tables .=   '<tr style="background-color: #dddddd">';
+                        }
+                $tables .=   '<td align="center">'. substr($data->tanggal,0,10).'</td>
+                                <td>'. strtoupper($data->pelanggan).'</td>
+                                <td>'. strtoupper($data->nama_layanan).'</td>
+                                <td>'. strtoupper($data->nama_loket).'</td>
+                                <td>'. strtoupper($data->sub_layanan).'</td>
+                                <td>'. strtoupper($data->nama_loket_sub).'</td>
+                                <td align="center">'. $data->lama.'</td>
+                                <td align="center">'. strtoupper($emosi[$data->kepuasan]) .'</td>
+                            </tr>';
+                        $_i++;
+                            }
+                    }else{
+                       $tables .= '<tr>
+                            <td colspan="8"><center>Tidak Ada Data</center></td>
+                       </tr>'; 
+                    }
+                $tables .=  '';
+                return $tables;
+        }
+
+
+        public function daftarBooking(Request $request){
+                if(Auth::check()){
+                    if(Auth()->user()->jabatan==='petugas_loket'){
+                           
+                        $datas = DB::table('view_antrian')
+                                -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antri')
+                                -> where(DB::raw('DATE(tgl_antrian)'),'>',DB::raw('curdate()'))
+                                ->where('petugas_layanan',Auth()->user()->id)
+                                ->orWhere('petugas_sub_layanan',Auth()->user()->id);
+
+                         return view('petugas_loket.daftar_booking')
+                                -> with('_data', $datas->get());
+                    }else{
+                        return "Anda tidak memiliki hak akses";
+                    }
+                }else{
+                    return "Anda tidak memiliki hak akses";
+                }
+    }
 
 }

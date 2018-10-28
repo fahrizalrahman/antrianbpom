@@ -70,27 +70,21 @@
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!--
+
                         <li class="nav-item">
                             <a href="{{ route('home') }}" class="nav-link">
                                 <i class="fa fa-tachometer nav-icon"></i><p>Dashboard</p>
                             </a>
                         </li>
-                        -->
-                        <li class="nav-item has-treeview">
-                          <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-user"></i>
-                            <p>Loket<i class="right fa fa-angle-right"></i></p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                              <a href="/loket" class="nav-link">
+                   
+        
+                        <li class="nav-item">
+                              <a href="{{url('/loket')}}" class="nav-link">
                                 <i class="fa fa-angle-double-right nav-icon"></i>
                                 <p>Sistem Antrian</p>
                               </a>
-                            </li>
-                          </ul>
                         </li>
+
                         <li class="nav-item has-treeview">
                           <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-file-text-o"></i>
@@ -98,25 +92,33 @@
                           </a>
                           <ul class="nav nav-treeview">
                             <li class="nav-item">
-                              <a href="/laporan/daftar-pengunjung" class="nav-link">
+                              <a href="{{url('/laporan/daftar-pengunjung')}}" class="nav-link">
                                 <i class="fa fa-angle-double-right nav-icon"></i>
                                 <p>Daftar Pengunjung</p>
                               </a>
                             </li>
                             <li class="nav-item">
-                              <a href="/laporan/survey-pengunjung" class="nav-link">
+                              <a href="{{url('/laporan/survey-pengunjung')}}" class="nav-link">
                                 <i class="fa fa-angle-double-right nav-icon"></i>
                                 <p>Survey Pengunjung</p>
                               </a>
                             </li>
                             <li class="nav-item">
-                              <a href="/laporan/presensi-petugas" class="nav-link">
+                              <a href="{{url('/laporan/presensi-petugas')}}" class="nav-link">
                                 <i class="fa fa-angle-double-right nav-icon"></i>
                                 <p>Presensi Petugas</p>
                               </a>
                             </li>
                           </ul>
                         </li>
+
+                        <li class="nav-item">
+                              <a href="{{url('/daftar-booking')}}" class="nav-link">
+                                <i class="fa fa-shopping-bag nav-icon"></i>
+                                <p>Daftar Booking</p>
+                              </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>

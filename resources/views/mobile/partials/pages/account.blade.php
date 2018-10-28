@@ -7,7 +7,7 @@
 				<button class="button square dropdown-toggle">
 					<span class="mif-menu fg-white"></span>
 				</button>
-				<ul class="d-menu place-right context" data-role="dropdown" style="box-shadow: 1px 1px 3px black; background-color: rgba(255,255,255,0.5)">
+				<ul class="d-menu place-right context bg-darkCobalt fg-white" data-role="dropdown" style="box-shadow: 1px 1px 3px black; background-color: rgba(255,255,255,0.5)">
 					<li>
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 							{{ __('Logout') }}
@@ -19,7 +19,7 @@
 			</div>
 			<div class="cell-12">
 				<div class="img_profile" style="background-image: url('/img/default-avatar.png');">
-					<span class="mif-camera"></span>
+					<span class="mif-pencil"></span>
 				</div>
 			</div>
 			<div class="cell-12 text-center" style="margin-top: 50px;">

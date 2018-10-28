@@ -4,7 +4,7 @@
 			<div class="layanan_label bg-darkCobalt">
 				<div id="search_layanan_container" style="display: block; width: 100%;">
 					<label class="fg-white">
-						<span data="booking" id="bt_back" style="margin: 0px 10px; font-weight: bold" class="mif-chevron-thin-left fg-yellow"></span> {{ $layanan->keterangan }}
+						<span data="booking" id="bt_back" style="padding: 15px; font-weight: bold" class="mif-chevron-thin-left fg-yellow"></span> {{ $layanan->keterangan }}
 					</label>
 				</div>
 			</div>
