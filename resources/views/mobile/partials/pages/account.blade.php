@@ -26,7 +26,12 @@
 				<label class="profile_nama">{{ Auth()->user()->name }}</label>
 				<div class="row text-left profile_container" style="padding: 0px 10px">
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
-						<label class="profile_sub_title"><span class="mif-train"></span>{{ @$profile->type }}</label>
+						<label class="profile_sub_title"><span class="mif-train"></span>@if($profile->type === '1')
+							Perorangan
+						@elseif($profile->type === '2')
+							Perusahaan
+						@endif
+						 </label>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
 						<label class="profile_sub_title"><span class="mif-user"></span> {{ @$profile->nama }}</label>

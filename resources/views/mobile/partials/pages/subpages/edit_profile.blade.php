@@ -10,20 +10,23 @@
 					</div>
 				</div>
 			</div>
+
+			{!! Form::open(['url' => '/mobile/profile/update','method' => 'post','enctype'=>'multipart/form-data']) !!}
+			@csrf
 			<div class="cell-12 text-center">
 				<div class="img_profile_edit">
 					<span class="mif-pencil"></span>
 					<input type="file" id="ed_photo" hidden="hidden">
 				</div>
 			</div>
-			{!! Form::open(['url' => '/mobile/profile/update','method' => 'post']) !!}
+
 			<div class="cell-12 text-center">
 				<div class="row text-left">
 					<div class="cell-12 w-100 input_container">
 						<select name="ed_type" data-role="select" data-prepend="<span class='mif-train'></span>">
-							<option @if(@$_user_profile->type==='Belum dipilih') selected @endif value="0">Belum dipilih</option>
-							<option @if(@$_user_profile->type==='Perorangan') selected @endif value="1">Perorangan</option>
-							<option @if(@$_user_profile->type==='Perusahaan') selected @endif value="2">Perusahaan</option>
+							<option @if(@$_user_profile->type==='0') selected @endif value="0">Belum dipilih</option>
+							<option @if(@$_user_profile->type==='1') selected @endif value="1">Perorangan</option>
+							<option @if(@$_user_profile->type==='2') selected @endif value="2">Perusahaan</option>
 						</select>
 					</div>
 					<div class="cell-12 w-100 input_container">
