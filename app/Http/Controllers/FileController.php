@@ -102,6 +102,7 @@ class FileController extends Controller
             'title'     => 'nullable|min:5',
             'lantai'    => 'required',
             'type'      => 'required',
+            'status'    => 'required',
             'file'      => 'required|file|max:2000'
         ]);
         
@@ -111,6 +112,7 @@ class FileController extends Controller
             'title' => $request->title ?? $uploadFile->getClientOriginalName(),
             'lantai'    => $request->lantai,
             'type'      => $request->type,
+            'status'    => $request->status,
             'filename'  => $path
         ]);
         return redirect()->route('inputImg.index');

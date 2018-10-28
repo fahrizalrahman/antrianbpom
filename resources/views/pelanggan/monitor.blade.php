@@ -59,7 +59,7 @@
                   @else
                   <td><center><h4>{{$no_antrian_sekarang->first()->kode_antrian}}{{$no_antrian_sekarang->first()->no_antrian}}</h4></center></td>
                   @endif
-                  <td><a href="{{ route('lihat-tiket',$monitor_lokets->id) }}" style="background-color:#17A2B8;color:white;" class="btn btn-sm"><i class="nav-icon fa fa-eye" ></i> Lihat Tiket</a></td>
+                  <td><a href="{{ route('lihat-tiket',$monitor_lokets->id) }}" style="background-color:#17A2B8; color:white;" class="btn btn-sm"><i class="nav-icon fa fa-eye" ></i> Lihat Tiket</a></td>
                 </tr>
                 @endforeach
                 @endif

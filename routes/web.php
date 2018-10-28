@@ -17,6 +17,9 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
+// Route Tampil judulLayanan
+// Route::get('judul_layanan','judulLayananController@judul_layanan')->name('homePelanggan.judul');
+
 // Route Lantai
 Route::get('/lantai', 'HomeController@lantai')->name('lantai');
 Route::get('/lantai2', 'HomeController@lantai2')->name('lantai2');
@@ -105,6 +108,7 @@ Route::get('pilih-sublayanan', 'AntrianController@pilih_sublayanan');
 Route::get('count-antrian', 'AntrianController@count_antrian');
 Route::get('cek-setting-hari', 'AntrianController@cekSettingHari');
 Route::get('cek-setting-hari-sub', 'AntrianController@cekSettingHariSub');
+Route::get('logout', 'AntrianController@logout');
 
 
 

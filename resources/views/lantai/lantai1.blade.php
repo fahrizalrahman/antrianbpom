@@ -8,7 +8,7 @@
     <link rel="stylesheet" href=" {{asset('css/file.css')}} ">
     <title>Dashboard Lantai 1</title>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url($Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
     <div class="container-fluid">
         <a class="dropdown-item">
             <!-- Message Start -->
@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
             </div>
-            @if($bgLantai1->first()->type == 'Video')
+            @if(@$bgLantai1->first()->type == 'Video')
                 <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>
@@ -49,7 +49,7 @@
                     
                 </div>
             @else
-                <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai1->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+                <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai1->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
                 </div>
             @endif
                 

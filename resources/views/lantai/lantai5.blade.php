@@ -10,7 +10,7 @@
   <script src="{{asset('popper.min.js')}}"></script>
   <script src="{{asset('bootstrap.min.js')}}"></script>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url($Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
 
 <div class="container-fluid">
         <a class="dropdown-item">
@@ -78,8 +78,7 @@
                            
             </div>
         @else
-            <div class="col-md-7" style="background-color:white; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">               
-            </div>
+        <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
         @endif
 
         @if($imgFotL5->count() > 0)
@@ -97,7 +96,7 @@
             <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
             </div> 
         @endif
-            
+        </div>      
         <div class="col-md-12" style="width:103%;">
             <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
                 <tr>

@@ -14,7 +14,7 @@ class CreateJudulLayanansTable extends Migration
     public function up()
     {
         Schema::create('judul_layanans', function (Blueprint $table) {
-            $table->integer('id');
+            $table->string('id');
             $table->string('keterangan', 128)->default('-');
             $table->timestamps();
         });

@@ -28,7 +28,6 @@ class AntrianController extends Controller
         //
     }
 
-
     public function history(Request $request){
         if(Auth::check()){
             if(Auth()->user()->jabatan==='pelanggan'){
@@ -61,11 +60,12 @@ class AntrianController extends Controller
             if ($agent->isMobile()) {
                return redirect()->route('monitor-tiket'); 
             }else{
-               //return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
-            return redirect()->route('monitor-tiket');
+               return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
+            // return redirect()->route('monitor-tiket');
+                $this->logout(); 
+                return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             }
             
-            //$this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             
         }else{
                 $create_antrian =  Antrian::create([
@@ -81,11 +81,11 @@ class AntrianController extends Controller
             if ($agent->isMobile()) {
                return redirect()->route('monitor-tiket'); 
             }else{
-               //return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
-            return redirect()->route('monitor-tiket');
+               return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
+            // return redirect()->route('monitor-tiket');
+               $this->logout(); 
+               return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             }
-
-//            $this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             
         }
     }
@@ -107,10 +107,10 @@ class AntrianController extends Controller
                 ]);
 
                   $data_loket = Sublayanan::select([
-                        'sublayanans.nama_sublayanan as nama_layanan',
-                        'sublayanans.id as id',
-                        'lokets.lantai as lantai',
-                        'sublayanans.kode_loket as kode'
+                    'sublayanans.nama_sublayanan as nama_layanan',
+                    'sublayanans.id as id',
+                    'lokets.lantai as lantai',
+                    'sublayanans.kode_loket as kode'
                 ])
                 ->leftjoin('lokets','lokets.id', '=', 'sublayanans.id_loket')
                 ->where('sublayanans.id',$create_antrian->id_sublayanan)
@@ -119,10 +119,10 @@ class AntrianController extends Controller
             if ($agent->isMobile()) {
                return redirect()->route('monitor-tiket'); 
             }else{
-               //return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
-            return redirect()->route('monitor-tiket');
+               return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
+            // return redirect()->route('monitor-tiket');
             }
-            //$this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
+            $this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             
         }else{
                 $create_antrian =  Antrian::create([
@@ -148,20 +148,19 @@ class AntrianController extends Controller
             if ($agent->isMobile()) {
                return redirect()->route('monitor-tiket'); 
             }else{
-               //return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
-            return redirect()->route('monitor-tiket');
+                return Redirect::away(url('lihat-tiket/'.$create_antrian->id));
+            // return redirect()->route('monitor-tiket');
             }
-
-//            $this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
+                $this->logout(); return view('cetak.antrian',['data_antri' => $create_antrian,'data_loket'=>$data_loket]);
             
         }
     }
 
 
-    public function logout() {
-           Auth::logout();
-           return view('auth.login');
-    }
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/login');
+      }
     /**
      * Show the form for creating a new resource.
      *
@@ -276,9 +275,6 @@ class AntrianController extends Controller
 
         return $count;
     }
-
-
-
         public function monitorTiket(){
         $data_monitor_tiket = Antrian::select(
             'antrians.id AS id',
