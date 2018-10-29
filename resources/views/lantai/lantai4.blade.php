@@ -62,7 +62,7 @@
     
         @if($bgLantai4->first()->type == 'Video')
             <div class="col-md-8" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
-                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:458px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai4->first()->filename)}}" type="video/mp4">
                 </video>
                 @if ($TextUtama->count() > 0)

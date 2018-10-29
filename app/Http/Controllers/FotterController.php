@@ -72,7 +72,8 @@ class FotterController extends Controller
      */
     public function edit($id)
     {
-        //
+        $editFoot = Footer::findorfail($id);
+        return view('loket.inputImg.footer.editFooter', compact('editFoot'));
     }
 
     /**
@@ -84,7 +85,13 @@ class FotterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $editFoot = Footer::findorfail($id);
+        $editFoot->title = $request->title;
+        $editFoot->float = $request->float;
+        $editFoot->lantai = $request->lantai;
+        $editFoot->save();
+
+
     }
 
     /**

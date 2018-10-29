@@ -33,7 +33,7 @@
             <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
             </div>
             @if(@$bgLantai6->first()->type == 'Video')
-                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">            <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:457px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai6->first()->filename)}}" type="video/mp4">
                     </video>
                     @if ($TextUtama->count() > 0)
@@ -42,7 +42,7 @@
                             <p style="margin-left:10px; color:#e6e6e6;">{{$TextUtama->first()->isi}}</p>                     
                         </div>    
                     @else
-                        <div style="background-color:#34a1bc; color:azure; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
+                        <div style="background-color:#34a1bc; color:azure; margin-left:-14px; margin-top:-5px; width:913px; height:202px;">
                                                  
                         </div>
                     @endif

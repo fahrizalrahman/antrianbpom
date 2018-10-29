@@ -73,7 +73,8 @@ class SidebarController extends Controller
      */
     public function edit($id)
     {
-        //
+        $editSid = Sidebar::findorfail($id);
+        return view('loket.inputImg.sidebar.editSidebar', compact('editSid'));
     }
 
     /**
@@ -85,7 +86,11 @@ class SidebarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $editSid = Sidebar::findorfail($id);
+        $editSid->title = $request->title;
+        $editSid->lantai = $request->lantai;
+        // $editSid->file = $request->file;
+        $editSid->save();
     }
 
     /**

@@ -138,7 +138,7 @@ class FileController extends Controller
         $file       = File::create([
             'title' => $request->title ?? $uploadFile->getClientOriginalName(),
             'lantai'    => $request->lantai,
-            'type'      => $request->type->background,
+            'type'      => $request->type,
             'filename'  => $path
         ]);
         return redirect()->route('imagebg.view');

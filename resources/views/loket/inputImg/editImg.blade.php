@@ -36,18 +36,7 @@
                         <label for="exampleInputEmail1">Lantai</label>
                         <input type="text" class="form-control" id="lantai" name="lantai" value="{{$updateFile->lantai}} " readonly>
                       </div>
-
-                    {{-- <div class="form-group">
-                        <label>Lantai</label>
-                        <select class="form-control" name="lantai" value="{{$updateFile->lantai}}" readonly>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div> --}}
+                    </div> 
                     
                     <div class="form-group">
                       <label>Status</label>

@@ -27,9 +27,7 @@ class monitoringController extends Controller
                 }
             );
 			$response->send();
-
     }
-
     
     public function layanan_satu(Request $request){
     	$response = new StreamedResponse();

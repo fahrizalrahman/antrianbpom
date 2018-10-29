@@ -35,6 +35,8 @@ Route::get('/loket/delete/{id}', 'LoketController@delete')->name('loket.delete')
 Route::resource('inputTulisan','TulisanController');
 Route::get('inputTulisanUtama','TulisanController@createUtama')->name('tulisan.createUtama');
 Route::post('inputTulisanUtamaStore','TulisanController@storeUtama')->name('tulisan.storeUtama');
+Route::post('inputTulisanupdateUtama/{id}','TulisanController@updateUtama')->name('tulisan.updateUtama');
+Route::get('inputTulisaneditUtama/{id}','TulisanController@editUtama')->name('tulisan.editUtama');
 
 // Tambah Tulisan - Tampil
 Route::get('tampilTulisanHome','TulisanController@indexHome')->name('tampil.tulisan');
@@ -235,7 +237,7 @@ Route::get('/mobile/content/booking/booking_antrian', 'mobileController@ambil_an
 Route::resource('mobile','mobileController');
 Route::post('/mobile/profile/update', 'mobileController@update');
 
-Route::resource('judulLayanan','judulLayanan');
+// Route::resource('judulLayanan','judulLayanan');
 
 Route::get('laporan-data-pengunjung', 'HomeController@laporanDataPengunjung');
 Route::get('laporan-survey-pengunjung', 'HomeController@laporanSurveyPengunjung');
