@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Tambah Tulisan</h1>
+            <h1>Edit Running Text</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -19,7 +19,7 @@
             <!-- Content Header (Page header) -->
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">Edit Tulisan</h3>
+                <h3 class="card-title">Edit Running Text</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -50,13 +50,13 @@
                   </select>
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                   <label>Pilih Letak</label>
                   <select class="form-control" name="float" value="{{$editTulisan->float}}">
                       <option value="footer">Footer</option>
                       <option value="monitor">Monitor</option>
                   </select>
-              </div>
+              </div> --}}
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Edit Tulisan</button>

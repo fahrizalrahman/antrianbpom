@@ -40,7 +40,7 @@
                   <td align="center" width="100px">{{$value->lantai}}</td>
                   <td align="center">
                     <form action="{{route('inputTulisan.destroy', $value->id)}}" method="POST">
-                      <a href="{{ route('inputTulisan.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
+                      <a href="{{ route('tulisan.editUtama', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                       @csrf
                       <input type="hidden" name="_method" value="DELETE">
                       <button type="submit" class="btn btn-danger"><i class="nav-icon fa fa-trash"></i></button>

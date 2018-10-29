@@ -59,7 +59,10 @@
                     @foreach ($lantai1 as $lantai1)
                     <tr>
                         <td class="col-sm-5" style="background-color:#2b869d; height:55px; width:400px;color:white;">{{$lantai1->nama_layanan}}</td>
-                        <td id="td_style" rowspan="2" style="background-color:#236c7d; width:100px; height:55px; text-align:center; border-color:honeydew;color:white;"><h3 style="float:left; margin-left:25px;">{{$lantai1->kode_antrian}} - </h3><h3 style="float:left; margin-left:8px;" id="lok_{{ $_i }}"></h3></td>
+                        <td id="td_style" rowspan="2" style="background-color:#236c7d; width:100px; height:55px; text-align:center; border-color:honeydew;color:white;">
+                            <h3 style="float:left; margin-left:25px;">{{$lantai1->kode_antrian}} - </h3>
+                            <h3 style="float:left; margin-left:8px;" id="lok_{{ $_i }}"></h3>
+                        </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="background-color:#34a1bc; height:55px; width:400px;color:white;">{{$lantai1->kode}}</td>

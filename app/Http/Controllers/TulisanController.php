@@ -131,6 +131,34 @@ class TulisanController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editUtama($id)
+    {
+        $editUtama = Tulisan::findorfail($id);
+        return view('loket.inputTulisan.editUtama', compact('editUtama'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUtama(Request $request, $id)
+    {
+        $editUtama = Tulisan::findorfail($id);
+        $editUtama->judul = $request->judul;
+        $editUtama->isi = $request->isi;
+        $editUtama->save();
+        return redirect()->route('tampil.tulisan');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

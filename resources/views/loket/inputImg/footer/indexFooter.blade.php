@@ -42,7 +42,7 @@
                   <td align="center">{{$value->float}}</td>
                   <td align="center">
                     <form action="{{route('inputImgFoot.destroy', $value->id)}}" method="POST">
-                      <a href="{{ route('inputImg.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
+                      <a href="{{ route('inputImgFoot.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                       @csrf
                       <input type="hidden" name="_method" value="DELETE">
                       <button type="submit" class="btn btn-danger"><i class="nav-icon fa fa-trash"></i></button>

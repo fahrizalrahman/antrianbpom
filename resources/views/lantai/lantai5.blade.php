@@ -54,7 +54,7 @@
 
       <div>
           @if($imgSid5->count() > 0)
-          <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; background-position:center; height:350px; width:132%;">
+          <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; background-position:center; height:294px; width:115%;">
           @else
           <img  style="background-color:white;background-position:center;  margin-left:-15px; margin-right:-16px; height:310px; width:102.4%;">
           @endif
@@ -63,7 +63,7 @@
     </div>
         @if($bgLantai5->first()->type == 'Video')
             <div class="col-md-7" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">    
-                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:453px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai5->first()->filename)}}" type="video/mp4">
                 </video>
                 @if ($TextUtama->count() > 0)
