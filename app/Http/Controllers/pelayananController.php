@@ -598,7 +598,7 @@ class pelayananController extends Controller{
 					}else{
 						$id_lokets = DB::table('sublayanans as sub')
 						-> leftJoin('lokets as lok', 'lok.id', '=', 'sub.id_loket')
-						-> select('sub.id as id', 'lok.kode_antrian as kode_antrian','sub.kode_loket as loket')
+						-> select('sub.id as id', 'lok.kode_antrian as kode_antrian',DB::raw('substr(sub.kode_loket,7) as loket'))
 						-> where('sub.petugas', '=', Auth::user()->id)
 						->first();
 

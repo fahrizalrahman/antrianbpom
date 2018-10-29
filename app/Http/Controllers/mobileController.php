@@ -67,9 +67,9 @@ class mobileController extends Controller{
 			}elseif($request->jenis==='sub_layanan'){
 				/*Check Hari*/
 				$_hari = \App\helper\Tanggal::ambil_hari($request->tanggal);
-				$_check = DB::table('setting_haris')
+				$_check = DB::table('setting_hari_subs')
 					-> where([
-						'id_loket'	=> $request->data,
+						'id_sublayanan'	=> $request->data,
 						'hari'		=> strtolower($_hari)])
 					-> first();
 				if(is_null($_check)){
