@@ -24,8 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+            Antrians::where('no_antrian', '>', 2)
+                ->get()
+                ->each
+                ->delete();
+        })->daily();
     }
 
     /**
@@ -39,4 +43,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+    
 }

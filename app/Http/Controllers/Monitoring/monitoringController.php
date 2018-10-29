@@ -28,7 +28,7 @@ class monitoringController extends Controller
             );
 			$response->send();
     }
-    
+
     public function layanan_satu(Request $request){
     	$response = new StreamedResponse();
 			$response->headers->set('Content-Type', 'text/event-stream');
@@ -38,7 +38,8 @@ class monitoringController extends Controller
 				 function() {
 				 	$lt1 = DB::table('antrians')
 				 		-> select('no_antrian')
-				 		-> whereRaw('(status="dipanggil" or status="diproses" or status="selesai") and id_loket=1')
+						 -> whereRaw('(status="dipanggil" or status="diproses" or status="selesai") and id_loket=1')
+						 ->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> orderBy('updated_at', 'DESC')
 				 		-> first();
 
@@ -50,7 +51,8 @@ class monitoringController extends Controller
 
 	                $lt2 = DB::table('antrians')
 				 		-> select('no_antrian')
-				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=2')
+						 -> whereRaw('(status="dipanggil" or status="diproses") and id_loket=2')
+						 ->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 				 	if($lt2){
 				 		$hasil['l2'] = (string)@$lt2->no_antrian;
@@ -60,7 +62,8 @@ class monitoringController extends Controller
 
 	                $lt3 = DB::table('antrians')
 				 		-> select('no_antrian')
-				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=3')
+						 -> whereRaw('(status="dipanggil" or status="diproses") and id_loket=3')
+						 ->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 				 	if($lt3){
 				 		$hasil['l3'] = (string)@$lt3->no_antrian;
@@ -70,7 +73,8 @@ class monitoringController extends Controller
 
 	                $lt4 = DB::table('antrians')
 				 		-> select('no_antrian')
-				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=4')
+						 -> whereRaw('(status="dipanggil" or status="diproses") and id_loket=4')
+						 ->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 				 	if($lt4){
 				 		$hasil['l4'] = (string)@$lt4->no_antrian;
@@ -80,7 +84,8 @@ class monitoringController extends Controller
 
 	                $lt5 = DB::table('antrians')
 				 		-> select('no_antrian')
-				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=6')
+						 -> whereRaw('(status="dipanggil" or status="diproses") and id_loket=5')
+						 ->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 				 	if($lt5){
 				 		$hasil['l5'] = (string)@$lt5->no_antrian;
@@ -90,7 +95,8 @@ class monitoringController extends Controller
 
 	                $lt6 = DB::table('antrians')
 				 		-> select('no_antrian')
-				 		-> whereRaw('(status="dipanggil" or status="diproses") and id_loket=6')
+						 -> whereRaw('(status="dipanggil" or status="diproses") and id_loket=6')
+						 ->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> first();
 				 	if($lt6){
 				 		$hasil['l6'] = (string)@$lt6->no_antrian;
@@ -103,7 +109,6 @@ class monitoringController extends Controller
                     flush();
                 });
 			$response->send();
-
     }
 
     public function layanan_aktif(Request $request){
@@ -118,12 +123,22 @@ class monitoringController extends Controller
 				 		-> orderBy('updated_at', 'ASC')
 				 		-> first();
 
-                    echo "retry: 2000\n\n"; // no retry would default to 3 seconds.
+                    echo "retry: 1000\n\n"; // no retry would default to 3 seconds.
                     echo "data: " . (string)@$aktif->no_antrian . "\n\n";
                     ob_flush();
                     flush();
                 });
 			$response->send();
 	}
+
+	protected function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            Antrians::where('no_antrian', '>', 2)
+                ->get()
+                ->each
+                ->delete();
+        })->daily();
+    }
 	
 }

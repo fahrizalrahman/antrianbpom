@@ -28,7 +28,7 @@
                             <h1 style="text-align:center; color:#252525;; margin-top:8px;">Lantai 1</h1> 
                             
                         </div>
-                    </span>
+                </span>
             </div>
             <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
             </div>
@@ -144,6 +144,8 @@
             $('#td_style').css('background-color', '#34a1bc');
             $('#lok_' + f.data).parent('td').css('background-color', 'red');
         }
+
+    
     }
 
    </script>
