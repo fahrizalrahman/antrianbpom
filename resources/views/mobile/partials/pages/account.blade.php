@@ -19,7 +19,6 @@
 			</div>
 			<div class="cell-12">
 				<div class="img_profile" style="background-image: url('/img/default-avatar.png');">
-					<span class="mif-pencil"></span>
 				</div>
 			</div>
 			<div class="cell-12 text-center" style="margin-top: 50px;">

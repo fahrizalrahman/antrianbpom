@@ -174,6 +174,7 @@
         <script src="{{ asset('js/sweetalert2.all.min.js') }}" type="text/javascript"></script>
 
 
+
 <script>
     $(function () {
       $('#example2').DataTable({
