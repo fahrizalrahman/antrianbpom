@@ -482,9 +482,9 @@ class HomeController extends Controller
                 $tables = '';
                     foreach ($datass->get() as $value) {
                         if ($_i % 2===0) {
-                $tables .=   '<tr>';
+                $tables .=   '<tr id="table-modal">';
                         }else{
-                $tables .=   '<tr style="background-color: #dddddd">';
+                $tables .=   '<tr id="table-modal" style="background-color: #dddddd">';
                         }
                 $tables .=   '<td>'. $value->tanggal .'</td>
                                 <td>'. strtoupper($value->pelanggan) .'</td>

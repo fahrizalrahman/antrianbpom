@@ -200,6 +200,7 @@ html, body {
 }
 .box_layanan > label, .booking_layanan > label, .sub_layanan > label{
 	font-size: 14pt;
+	font-weight: bold;
 	color: #004282;
 	position: absolute;
 	top: 0px; left: 5px;
@@ -212,9 +213,9 @@ html, body {
 	vertical-align: top;
 	display: inline-block;
 	width: 48%;
-	height: 85px;
+	height: 100px;
 	background-color: white;
-	border: 1px solid blue;
+	border: 3px solid blue;
 	text-align: left;
 }
 .isi_layanan{
@@ -238,6 +239,7 @@ html, body {
 }
 .layanan_container{
 	margin-top: 20px;
+	margin-bottom: 70px;
 	display: block;
 	width: 100%;
 }
@@ -328,7 +330,7 @@ html, body {
 	width: calc(100% - 20px);
 	padding: 5px;
 	margin: 10px;
-	border: 1px solid #888888;
+	border: 3px solid #888888;
 }
 
 /*survey*/

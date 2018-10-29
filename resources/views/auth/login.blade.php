@@ -77,10 +77,10 @@ if(isMobile()){
 				<form action="{{ route('login') }}" method="POST" class="margin-bottom-0">
 					@csrf
                     <div class="form-group m-b-20">
-                        <input type="email" name="email" value="{{ old('email') }}" class="form-control form-control-lg" placeholder="Masukan Email" required />
+                        <input type="email" name="email" value="{{ old('email') }}" class="form-control form-control-lg" placeholder="Masukan Email" autocomplete required  />
                     </div>
                     <div class="form-group m-b-20">
-                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Masukan Password" required />
+                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Masukan Password" autocomplete required   />
                     </div>
           
                     <div class="login-buttons">

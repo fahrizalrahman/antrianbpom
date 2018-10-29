@@ -2,7 +2,7 @@
 	<div class="w3-animate-right">
 		<div class="bg-white w-100 p-1" style="border-bottom: 2px solid darkBlue; height: 45px">
 			<img src="{{ url('/logo/logo-kecil.png') }}" style="height: 30px; margin: 0px 10px;">
-			<label class="fg-black"><strong>Sistem Antrian BPOM</strong></label>
+			<label class="fg-black" style="font-size:14pt;"><strong>Sistem Antrian BPOM</strong></label>
 			<div class="drop-group">
 				<button class="button square dropdown-toggle bg-darkCobalt">
 					<span class="mif-menu fg-white"></span>

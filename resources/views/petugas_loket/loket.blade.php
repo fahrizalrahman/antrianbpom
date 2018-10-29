@@ -338,6 +338,7 @@ $(document).on('click', '.id_panggil', function(e){
 								$('#id_audio').html(_obj);
 								$("#id_audio").prop("currentTime",0);
 								$('#id_audio').trigger('play');
+								load_data();
 							}
 							
 						},
@@ -345,7 +346,7 @@ $(document).on('click', '.id_panggil', function(e){
 							alert(xhr.responseText);
 						}
 					});
-					load_data();
+					
 
 				}
 			},
@@ -455,6 +456,17 @@ es_total.onmessage = function(e) {
     $('.lb_sisa_antri').html(_data.sisa);
     $('.lb_no_berikut').html(_data.berikut);
     $('.lb_no_saat_ini').html(_data.sekarang);
+
+    $.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
+          	$('#body_antrian').html('');
+			$('#body_antrian').html(resp);
+        });
+
+	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
+          	$('#body_lewati').html('');
+			$('#body_lewati').html(resp);
+        });
+
 }
 
 var es_status = new EventSource("<?php echo action('pelayananController@check_status'); ?>");
@@ -470,6 +482,17 @@ es_status.onmessage = function(e) {
 			$('.id_terima').prop('disabled', true);
 			$('.id_selesai').prop('disabled', false);
 			$('.id_lewati').prop('disabled', true);
+
+			 $.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
+			          	$('#body_antrian').html('');
+						$('#body_antrian').html(resp);
+        		});
+
+			$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
+		          	$('#body_lewati').html('');
+					$('#body_lewati').html(resp);
+		        });
+
 	}else{
 
 	if($('.lb_sisa_antri').html()==='0'){
@@ -486,6 +509,17 @@ es_status.onmessage = function(e) {
 			$('.id_selesai').prop('disabled', true);
 			$('.id_lewati').prop('disabled', true);
 		}
+
+		$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
+			          	$('#body_antrian').html('');
+						$('#body_antrian').html(resp);
+        		});
+
+		$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
+		          	$('#body_lewati').html('');
+					$('#body_lewati').html(resp);
+		        });
+
 	}else{
 		if($('.lb_no_saat_ini').html()==='0'){
 			$('.id_panggil').prop('disabled', false);
@@ -500,21 +534,24 @@ es_status.onmessage = function(e) {
 			$('.id_selesai').prop('disabled', false);
 			$('.id_lewati').prop('disabled', false);
 		}
+
+			$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
+			          	$('#body_antrian').html('');
+						$('#body_antrian').html(resp);
+        		});
+
+			$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
+		          	$('#body_lewati').html('');
+					$('#body_lewati').html(resp);
+		        });
+
 	}
 
 	}
 }
 
 
-	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
-          	$('#body_antrian').html('');
-			$('#body_antrian').html(resp);
-        });
 
-	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
-          	$('#body_lewati').html('');
-			$('#body_lewati').html(resp);
-        });
 	
 });
 /*
