@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<div class="cell-12">
-				<div class="img_profile" style="background-image: url('/img/default-avatar.png');">
+				<div class="img_profile" style="background-image: url('/img/default-avatar.jpg');">
 				</div>
 			</div>
 			<div class="cell-12 text-center" style="margin-top: 50px;">
@@ -34,6 +34,9 @@
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
 						<label class="profile_sub_title"><span class="mif-user"></span> {{ @$profile->nama }}</label>
+					</div>
+					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
+						<label class="profile_sub_title"><span class="mif-qrcode"></span> {{ @$profile->npwp }}</label>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
 						<p class="profile_sub_title"><span class="mif-pin"></span>{{ @$profile->alamat }}</p>

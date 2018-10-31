@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tulisan;
 use Auth;
+use Session;
+
 class TulisanController extends Controller
 {
     /**
@@ -166,6 +168,15 @@ class TulisanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hapusText = Tulisan::findorfail($id);
+        $hapusText->delete();
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menghapus Tulisan"
+            ]);
+
+        return redirect()->route('tampil.tulisan');
+        
     }
 }

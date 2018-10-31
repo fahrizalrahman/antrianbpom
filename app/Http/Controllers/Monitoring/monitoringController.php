@@ -20,6 +20,7 @@ class monitoringController extends Controller
 				 function() {
 				 	$data = DB::table('view_monitoring_utama')
 				 		-> select('id_element', 'no_antri', 'nomor')
+				 		// -> where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> get();
 	                echo "data: " . json_encode($data) . "\n\n";
                     ob_flush();
@@ -130,15 +131,5 @@ class monitoringController extends Controller
                 });
 			$response->send();
 	}
-
-	protected function schedule(Schedule $schedule)
-    {
-        $schedule->call(function () {
-            Antrians::where('no_antrian', '>', 2)
-                ->get()
-                ->each
-                ->delete();
-        })->daily();
-    }
 	
 }
