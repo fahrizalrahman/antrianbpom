@@ -10,7 +10,7 @@
   <script src="{{asset('popper.min.js')}}"></script>
   <script src="{{asset('bootstrap.min.js')}}"></script>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}}); background-size:cover; background-position:center; background-repeat:no-repeat;">
 
 <div class="container-fluid">
         <a class="dropdown-item">
@@ -54,25 +54,25 @@
 
       <div>
           @if($imgSid5->count() > 0)
-          <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; background-position:center; height:294px; width:115%;">
+          <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; background-position:center; height:370px; width:132%;">
           @else
-          <img  style="background-color:white;background-position:center;  margin-left:-15px; margin-right:-16px; height:310px; width:102.4%;">
+          <img  style="background-color:white;background-position:center;  margin-left:-15px; margin-right:-16px; height:340px; width:102.4%;">
           @endif
 
       </div>
     </div>
         @if($bgLantai5->first()->type == 'Video')
             <div class="col-md-7" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">    
-                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:453px; position:center;" controls autoplay loop>
+                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:548px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai5->first()->filename)}}" type="video/mp4">
                 </video>
                 @if ($TextUtama->count() > 0)
-                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:198px;">
-                        <b><h4 style="margin-left:10px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
-                        <p style="margin-left:10px;">{{$TextUtama->first()->isi}}</p>
-                    </div>    
+                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:975px; height:180px;">
+                        <b><h4 style="margin-left:10px; color:gold; padding-top:15px; margin-top:-4px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
+                        <p style="margin-left:10px; color:white;">{{$TextUtama->first()->isi}}</p>
+                    </div>   
                 @else
-                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:198px;">
+                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:850px; height:198px;">
                     </div>
                 @endif
                            
@@ -98,7 +98,7 @@
         @endif
         </div>      
         <div class="col-md-12" style="width:103%;">
-            <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
+            <table border="0px" style="width:103.8%; height:40px; margin-left:-30px;">
                 <tr>
                     <td style="width:150px; margin-right:10px; padding-top:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                     @if ($Text->count() > 0)

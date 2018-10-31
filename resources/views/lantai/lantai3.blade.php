@@ -8,7 +8,7 @@
   <link rel="stylesheet" href=" {{asset('css/file.css')}} ">
 
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}}); background-size:cover; background-position:center; background-repeat:no-repeat;">
   <div class="container-fluid">
         <a class="dropdown-item">
                 <!-- Message Start -->
@@ -51,14 +51,14 @@
       </div>
         @if($bgLantai3->first()->type == 'Video')
             <div class="col-sm-7"  style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 
-                <video style=" margin-left:115px; min-width:480px; min-height:459px; position:center;" controls autoplay loop>
+                <video style=" margin-left:115px; min-width:480px; min-height:548px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
                 </video>
                 @if ($Mainbar->count() > 0)
-                    <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); margin-left:129px; margin-top:-5px; width:906px; height:229px;">
+                    <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); margin-left:116px; margin-top:-5px; width:975px; height:190px; background-size:cover; background-position:center; background-repeat:no-repeat;">
                     </div>    
                 @else
-                    <div style="background-color:#34a1bc; margin-left:115px; margin-top:-5px; width:919px; height:275px;">
+                    <div style="background-color:#34a1bc; margin-left:105px; margin-top:-5px; width:870px; height:275px;">
                     </div>
                 @endif
                 
@@ -73,9 +73,9 @@
         </div>
     </div> --}}
     <div class="col-md-12" style="width:103%;">
-        <table border="0px" style="width:104%; height:40px; margin-left:-29px;">
+        <table border="0px" style="width:103.8%; height:40px; margin-left:-29px;">
             <tr>
-                <td style="width:150px; margin-right:10px; background-color:#34a1bc; padding-top:10px; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
+                <td style="width:150px; margin-right:10px; background-color:#2b869d; padding-top:10px; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                 @if ($Text->count()> 0)
                     <td style="width:1500px; background-color:#e6e6e6; color:#252525; padding-top:5px; size:19px;"><marquee> <b>{{$Text->first()->isi}}</b></marquee></td>    
                 @else

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href=" {{asset('css/file.css')}} ">
     <title>Dashboard Lantai 1</title>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}}); background-size:cover; background-position:center; background-repeat:no-repeat;">
     <div class="container-fluid">
         <a class="dropdown-item">
             <!-- Message Start -->
@@ -33,11 +33,11 @@
             <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
             </div>
             @if(@$bgLantai1->first()->type == 'Video')
-                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:510px; position:center;" controls autoplay loop>
+                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:542px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>
                     @if ($TextUtama->count() > 0)
-                        <div style="background-color:#34a1bc; margin-left:-14px; margin-top:-5px; width:906px; height:147px;">
+                        <div style="background-color:#34a1bc; margin-left:-14px; margin-top:-5px; width:963px; height:120px;">
                             <b><h4 style="margin-left:10px; color:gold; padding-top:15px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
                             <p style="margin-left:10px; color:#e6e6e6;">{{$TextUtama->first()->isi}}</p>                     
                         </div>    
@@ -54,7 +54,7 @@
             @endif
                 
             <div class="col-sm-4" style="width:120.%; height:auto;">
-                <table border="1px;" style="width:132.8%; margin-left:-5px; border-color:gray;">
+                <table border="1px;" style="width:132.3%; margin-left:-5px; border-color:gray;">
                     <?php $_i=1; ?>
                     @foreach ($lantai1 as $lantai1)
                     <tr>
@@ -92,9 +92,9 @@
                 @endif
                 <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
                 </div>
-            <div class="col-md-12" style="width:102%;">
+            <div class="col-md-12" style="width:101.8%;">
                 
-                <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
+                <table border="0px" style="width:101.8%; height:40px; margin-left:-15px;">
                     <tr>
                         <td style="width:150px; margin-right:10px; padding-top:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                         @if ($Text->count() > 0)

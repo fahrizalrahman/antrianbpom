@@ -10,7 +10,7 @@
    
     <title>Contoh Lantai 2</title>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}}); background-size:cover; background-position:center; background-repeat:no-repeat;">
     <div class="container-fluid">
             <a class="dropdown-item">
                     <!-- Message Start -->

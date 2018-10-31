@@ -10,7 +10,7 @@
 
   <script src="{{asset('bootstrap.min.js')}}"></script>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}}); background-size:cover; background-position:center; background-repeat:no-repeat;">
 
 <div class="container-fluid">
         <a class="dropdown-item">
@@ -62,16 +62,16 @@
     
         @if($bgLantai4->first()->type == 'Video')
             <div class="col-md-8" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
-                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:458px; position:center;" controls autoplay loop>
+                <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:548px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai4->first()->filename)}}" type="video/mp4">
                 </video>
                 @if ($TextUtama->count() > 0)
-                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:220px;">
+                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:975px; height:180px;">
                         <b><h4 style="margin-left:10px; color:gold; padding-top:15px; margin-top:-4px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
                         <p style="margin-left:10px; color:white;">{{$TextUtama->first()->isi}}</p>
                     </div>    
                 @else
-                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:906px; height:220px;">
+                    <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:850px; height:250px;">
                         
                     </div>
                 @endif
@@ -85,8 +85,8 @@
     </div>
     
     <div class="row">
-        <div class="col-md-12" style="width:100%;">
-            <table border="0px" style="width:100%; height:40px;">
+        <div class="col-md-12" style="width:103%;">
+            <table border="0px" style="width:100.4%; height:40px;">
                 <tr>
                     <td style="width:150px; margin-right:10px; padding-top:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                     @if ($Text->count() > 0)

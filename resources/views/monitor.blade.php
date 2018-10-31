@@ -29,7 +29,7 @@
 
 
     <div class="container-fluid">
-    {{-- <div class="row"> --}}
+     <div class="row">
             <div class="col-md-12" style="height:70px; background-color:#e6e6e6;">
                     <img src="{{asset('img/log/logo-bpom.png')}}" style="margin-top:7px;" width="220px" height="55px" >
                     <span style="float:right; text-align:center; height:30px; margin-left:-15px;  margin-right:-35px; width:20%;">
@@ -42,7 +42,7 @@
                 <div class="col-md-12" style="height:3px; width:100%; background-color:#3badc9;">
                     </div>
         <div class="col-md-12" style="width:100%; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">
-            <div class="container-fluid" style="margin-left:19px;">
+            <div class="container-fluid" style="margin-left:auto;">
               <div class="row" style="margin-top:0px; margin-left:5px; color:azure;">
                     <div class="col-sm-6" style="margin-top:1%; height:auto; width:auto; color:azure;">
                         <table class="table-responsive" style="position:static;">
@@ -164,10 +164,10 @@
             </div>
            
         </div>
-        <div class="col-md-12" style="height:3px; width:100%; margin-top:5px; background-color:#3badc9;">
+        <div class="col-md-12" style="height:3px; width:100%; margin-top:15px; background-color:#3badc9;">
             </div>
-        <div class="col-md-12" style="width:100%; height:35px;  background-color:#e6e6e6;">
-            <p style="size:18px; color:black; text-align:center; padding-top:5px; font-style:bold;"><b> SELAMAT DATANG DI KANTOR BADAN PENGAWAS OBAT DAN MAKANAN</b></p>
+        <div class="col-md-12" style="width:100%; height:55px;  background-color:#e6e6e6;">
+            <p style="size:25px; color:black; text-align:center; padding-top:13px; font-style:bold;"><b> SELAMAT DATANG DI KANTOR BADAN PENGAWAS OBAT DAN MAKANAN</b></p>
         </div>
     </div>
 </div>

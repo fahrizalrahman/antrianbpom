@@ -8,7 +8,7 @@
     <link rel="stylesheet" href=" {{asset('css/file.css')}} ">
     <title>Dashboard Lantai 6</title>
 </head>
-<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}});">
+<body class="container-fluid" style="background-image:url({{url(Storage::url(@$Background->first()->filename))}}); background-size:cover; background-position:center; background-repeat:no-repeat;">
     <div class="container-fluid">
         <a class="dropdown-item">
             <!-- Message Start -->
@@ -91,7 +91,7 @@
                 </div>
             <div class="col-md-12" style="width:102%;">
                 
-                <table border="0px" style="width:102%; height:40px; margin-left:-15px;">
+                <table border="0px" style="width:101.8%; height:40px; margin-left:-15px;">
                     <tr>
                         <td style="width:150px; margin-right:10px; padding-top:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>
                         @if ($Text->count() > 0)

@@ -20,9 +20,11 @@
 					<div class="cell-12 w-100 input_container">
 						<input required name="ed_nama" value="{{ @$_user_profile->nama }}" type="text" data-role="input" data-clear-button="false" placeholder="Nama" data-prepend="<span class='mif-user'></span>">
 					</div>
+
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_npwp" value="{{ @$_user_profile->npwp }}" type="text" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
+						<input required name="ed_npwp" value="{{ @$_user_profile->npwp }}" type="text" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
 					</div>
+
 					<div class="cell-12 w-100 input_container">
 						<textarea name="ed_alamat" placeholder="Alamat" data-clear-button="false" data-role="textarea" data-auto-size="false" data-max-height="200" data-prepend="<span class='mif-map2'></span>">{{ @$_user_profile->alamat }}</textarea>
 					</div>
