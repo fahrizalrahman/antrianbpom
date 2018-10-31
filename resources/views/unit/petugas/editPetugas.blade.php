@@ -1,5 +1,5 @@
 
-@extends('layouts.app_admin')
+@extends('layouts.app_unit')
 
 @section('content')
   <div class="content-wrapper">
@@ -23,13 +23,13 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action=" {{route('petugas.update',$editPetugas->id)}}" method="POST">
+                    <form action=" {{route('unit.update',$petugas->id)}}" method="POST">
                         @csrf
                         @method('PUT')
                       <div class="card-body">
                           <div class="form-group">
                               <label>Pilih Unit</label>
-                              <select class="form-control" name="unit">
+                              <select class="form-control" name="unit" value="{{$petugas->unit}}">
                                   <option value="Direktorat_Pengawasan_Keamanan">Direktorat Pengawasan Keamanan, Mutu dan Ekspor Impor Obat, Narkotika, Psikotropika, Prekursor dan Zat Adiktif</option>
                                   <option value="Direktorat_Pengawasan_Produksi_Obat">Direktorat Pengawasan Produksi Obat, Narkotika, Psikotropika dan Prekursor</option>
                                   <option value="Pusat_Pengembangan">Pusat Pengembangan Pengujian Obat dan Makanan Nasional</option>
@@ -42,33 +42,33 @@
                           </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nama</label>
-                          <input type="text" class="form-control" value="{{$editPetugas->name}}" name="name" placeholder="Masukan Nama">
+                          <input type="text" class="form-control" value="{{$petugas->name}}" name="name" placeholder="Masukan Nama">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">E-Mail</label>
-                            <input type="email" class="form-control" value="{{$editPetugas->email}}" name="email" placeholder="Masukan Email">
+                            <input type="email" class="form-control" value="{{$petugas->email}}" name="email" placeholder="Masukan Email">
                         </div>
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">NIK</label>
-                          <input type="text" class="form-control" value="{{$editPetugas->nik}}" name="nik" placeholder="Masukan NIK">
+                          <input type="text" class="form-control" value="{{$petugas->nik}}" name="nik" placeholder="Masukan NIK">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">No Telpn</label>
-                        <input type="text" class="form-control" value="{{$editPetugas->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
+                        <input type="text" class="form-control" value="{{$petugas->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Alamat</label>
-                      <input type="text" class="form-control" value="{{$editPetugas->alamat}}" name="alamat" placeholder="Masukan Alamat">
+                      <input type="text" class="form-control" value="{{$petugas->alamat}}" name="alamat" placeholder="Masukan Alamat">
                     </div>
                     
                     <div class="form-group">
                         <label for="exampleInputEmail1">Lantai</label>
-                        <input type="text" class="form-control" value="{{$editPetugas->lantai}}" name="lantai" placeholder="Lantai" readonly>
+                        <input type="text" class="form-control" value="{{$petugas->lantai}}" name="lantai" placeholder="Lantai" readonly>
                       </div>
                   {{-- <div class="form-group">
                       <label>Pilih Lantai</label>
-                      <select class="form-control" value="{{$editPetugas->lantai}}" name="lantai">
+                      <select class="form-control" value="{{$petugas->lantai}}" name="lantai">
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -80,7 +80,7 @@
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Password</label>
-                    <input type="text" class="form-control" value="{{$editPetugas->password}}" name="password" placeholder="Masukan Password baru">
+                    <input type="text" class="form-control" value="{{$petugas->password}}" name="password" placeholder="Masukan Password baru">
                   </div>
                       </div>
                       <!-- /.card-body -->
