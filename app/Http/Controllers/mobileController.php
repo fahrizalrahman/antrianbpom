@@ -25,7 +25,7 @@ class mobileController extends Controller{
 						'hari'		=> strtolower($_hari)])
 					-> first();
 				if(is_null($_check)){
-					return "tidak bisa";
+					return "hari tidak bisa";
 				}else{
 					/*Check jam hari ini*/
 					$_hari_ini = \App\helper\Tanggal::ambil_hari(now());
@@ -39,20 +39,15 @@ class mobileController extends Controller{
 							])
 						-> count()) + 1;
 
-					if($_hari===$_hari_ini){
 						$_jam = date('H');
-						if((intval($_jam) >= $_waktu->batas_dari_jam) && (intval($_jam) < $_waktu->batas_sampai_jam) && ($_no_antri < $_waktu->batas_antrian)){
-
-							$_antri = 'masih bisa';
-
+						if((intval($_jam) >= $_waktu->batas_sampai_jam)){
+							return	$_antri = 'sudah tutup';
+						}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
+							return	$_antri = 'belum buka';
+						}elseif((intval($_no_antri) > $_waktu->batas_antrian)){
+							return	$_antri = 'tiket habis';
 						}else{
-							$_antri = 'tidak bisa';
-						}
-					}else{
-						$_antri = 'masih bisa';
-					}
-					if($_antri = 'masih bisa'){
-						DB::table('antrians')
+							DB::table('antrians')
 							-> insert([
 								'id_loket'		=> $request->data,
 								'status'		=> 'antri',
@@ -61,8 +56,12 @@ class mobileController extends Controller{
 								'created_at'	=> now(),
 								'updated_at'	=> now(),
 								'tgl_antrian'	=> $request->tanggal]);
-					return 'Nomor antrian berhasil dibuat!';
-					}
+
+						return	$_antri = 'masih bisa';
+						}
+
+					 
+					
 				}
 			}elseif($request->jenis==='sub_layanan'){
 				/*Check Hari*/
@@ -73,7 +72,7 @@ class mobileController extends Controller{
 						'hari'		=> strtolower($_hari)])
 					-> first();
 				if(is_null($_check)){
-					return "tidak bisa";
+					return "hari tidak bisa";
 				}else{
 					/*Check jam hari ini*/
 					$_hari_ini = \App\helper\Tanggal::ambil_hari(now());
@@ -94,20 +93,16 @@ class mobileController extends Controller{
 							])
 						-> count()) + 1;
 
-					if($_hari===$_hari_ini){
 						$_jam = date('H');
-						if((intval($_jam) >= $_waktu->batas_dari_jam) && (intval($_jam) < $_waktu->batas_sampai_jam) && ($_no_antri < $_waktu->batas_antrian)){
-
-							$_antri = 'masih bisa';
-
+						
+						if((intval($_jam) >= $_waktu->batas_sampai_jam)){
+							return	$_antri = 'sudah tutup';
+						}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
+							return	$_antri = 'belum buka';
+						}elseif((intval($_no_antri) > $_waktu->batas_antrian)){
+							return	$_antri = 'tiket habis';
 						}else{
-							$_antri = 'tidak bisa';
-						}
-					}else{
-						$_antri = 'masih bisa';
-					}
-					if($_antri = 'masih bisa'){
-						DB::table('antrians')
+							DB::table('antrians')
 							-> insert([
 								'id_loket'		=> $_head_loket->id_loket,
 								'status'		=> 'antri',
@@ -117,8 +112,10 @@ class mobileController extends Controller{
 								'created_at'	=> now(),
 								'updated_at'	=> now(),
 								'tgl_antrian'	=> $request->tanggal]);
-					return 'Nomor antrian berhasil dibuat!';
-					}
+
+							return $_antri = 'masih bisa';
+						}
+
 				}
 
 			}

@@ -26,7 +26,7 @@
 					@endif
 					<div class="form-group">
 						<label>Tanggal Booking Antrian</label>
-						<input id="ed_tanggal" data-role="datepicker">
+						<input id="ed_tanggal" class="booking_tanggal" data-role="datepicker">
 					</div>
 					<div class="form-group">
 						<button id="btn_ambil_antrian" rowid="{{ $rowid }}" jenis="{{ $jenis }}" class="button success w-100">Ambil Antrian</button>
