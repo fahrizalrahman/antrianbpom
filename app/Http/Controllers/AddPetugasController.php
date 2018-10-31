@@ -47,6 +47,7 @@ class AddPetugasController extends Controller
         $petugas->alamat = $request->alamat;
         $petugas->jabatan = $request->jabatan;
         $petugas->lantai = $request->lantai;
+        $petugas->unit = $request->unit;
         $petugas->password = bcrypt('123456');
         $petugas->save();
 
@@ -100,6 +101,7 @@ class AddPetugasController extends Controller
         $petugas->alamat = $request->alamat;
         // $petugas->jabatan = $request->jabatan;
         $petugas->lantai = $request->lantai;
+        $petugas->unit = $request->unit;
         $petugas->save();
 
         Session::flash("flash_notification", [

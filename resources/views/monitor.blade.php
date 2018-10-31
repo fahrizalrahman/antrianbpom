@@ -183,7 +183,7 @@ var es = new EventSource("<?php echo action('Monitoring\monitoringController@lay
     var _data = JSON.parse(e.data);
     var x = '';
     for (i in _data) {
-      x +=  _data[i].id_element + ",";
+      x +=  _data[i].id_element + "  ,";
       $('#' + _data[i].id_element).html(_data[i].nomor);
     }
   }

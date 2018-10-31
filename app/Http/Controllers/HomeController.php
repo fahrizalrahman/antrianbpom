@@ -182,6 +182,9 @@ class HomeController extends Controller
         elseif (Auth::user()->jabatan ==="petugas_loket"){
             return view('petugas_loket.home');
         }
+        elseif (Auth::user()->jabatan ==="admin_unit"){
+            return view('unit.home');
+        }
 
 
         /*}elseif (Auth::user()->jabatan == "petugas_loket" AND Auth::user()->lantai == 1 ){
@@ -625,23 +628,23 @@ class HomeController extends Controller
 
 
         public function daftarBooking(Request $request){
-                if(Auth::check()){
-                    if(Auth()->user()->jabatan==='petugas_loket'){
-                           
-                        $datas = DB::table('view_antrian')
-                                -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antri')
-                                -> where(DB::raw('DATE(tgl_antrian)'),'>',DB::raw('curdate()'))
-                                ->where('petugas_layanan',Auth()->user()->id)
-                                ->orWhere('petugas_sub_layanan',Auth()->user()->id);
+            if(Auth::check()){
+                if(Auth()->user()->jabatan==='petugas_loket'){
+                        
+                    $datas = DB::table('view_antrian')
+                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antri')
+                            -> where(DB::raw('DATE(tgl_antrian)'),'>',DB::raw('curdate()'))
+                            ->where('petugas_layanan',Auth()->user()->id)
+                            ->orWhere('petugas_sub_layanan',Auth()->user()->id);
 
-                         return view('petugas_loket.daftar_booking')
-                                -> with('_data', $datas->get());
-                    }else{
-                        return "Anda tidak memiliki hak akses";
-                    }
+                        return view('petugas_loket.daftar_booking')
+                            -> with('_data', $datas->get());
                 }else{
                     return "Anda tidak memiliki hak akses";
                 }
+            }else{
+                return "Anda tidak memiliki hak akses";
+            }
     }
 
 }

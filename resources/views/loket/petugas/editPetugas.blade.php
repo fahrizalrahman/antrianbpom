@@ -27,6 +27,19 @@
                         @csrf
                         @method('PUT')
                       <div class="card-body">
+                          <div class="form-group">
+                              <label>Pilih Unit</label>
+                              <select class="form-control" name="unit">
+                                  <option value="Direktorat_Pengawasan_Keamanan">Direktorat Pengawasan Keamanan, Mutu dan Ekspor Impor Obat, Narkotika, Psikotropika, Prekursor dan Zat Adiktif</option>
+                                  <option value="Direktorat_Pengawasan_Produksi_Obat">Direktorat Pengawasan Produksi Obat, Narkotika, Psikotropika dan Prekursor</option>
+                                  <option value="Pusat_Pengembangan">Pusat Pengembangan Pengujian Obat dan Makanan Nasional</option>
+                                  <option value="Biro_Hubungan_Masyarakat">Biro Hubungan Masyarakat dan Dukungan Strategis Pimpinan</option>
+                                  <option value="Pusat_Data_Informasi">Pusat Data dan Informasi Obat & Makanan</option>
+                                  <option value="Direktorat_Registrasi_Obat">Direktorat Registrasi Obat Tradisional, Suplemen Kesehatan dan Kosmetik</option>
+                                  <option value="Direktorat_Obat">Direktorat Obat</option>
+                                  <option value="Direktorat_Registrasi_Pangan">Direktorat Registrasi Pangan Olahan</option>
+                              </select>
+                          </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nama</label>
                           <input type="text" class="form-control" value="{{$editPetugas->name}}" name="name" placeholder="Masukan Nama">
@@ -47,9 +60,13 @@
                     <div class="form-group">
                       <label for="exampleInputEmail1">Alamat</label>
                       <input type="text" class="form-control" value="{{$editPetugas->alamat}}" name="alamat" placeholder="Masukan Alamat">
-                  </div>
-          
-                  <div class="form-group">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Lantai</label>
+                        <input type="text" class="form-control" value="{{$editPetugas->lantai}}" name="lantai" placeholder="Lantai" readonly>
+                      </div>
+                  {{-- <div class="form-group">
                       <label>Pilih Lantai</label>
                       <select class="form-control" value="{{$editPetugas->lantai}}" name="lantai">
                           <option value="1">1</option>
@@ -59,7 +76,7 @@
                           <option value="5">5</option>
                           <option value="6">6</option>
                       </select>
-                  </div>
+                  </div> --}}
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Password</label>

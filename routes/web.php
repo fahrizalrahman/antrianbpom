@@ -73,6 +73,35 @@ Route::get('/petugas-reset/{id}', 'addPetugasController@reset')->name('reset');
 Route::get('/print-antrian/{id}', 'AntrianController@print')->name('print-antrian');
 Route::get('/print-antrian-sub/{id}/{id_sub}', 'AntrianController@printSub')->name('print-antrian-sub');
 
+// Route Unit
+    // Tambah Background
+Route::get('unit/bgcreate','FileController@createBgUnit')->name('bgunit.create');
+Route::get('unit/bg','FileController@ImageBgUnit')->name('bgunit.index');
+
+    // Petugas
+Route::get('unit/petugas','UnitController@petugas')->name('unit.petugas');
+
+// Route Admin Unit
+Route::resource('AdminUnit','AdminUnitController');
+// Laporan Pengunjung (Admin Unit)
+// Route::get('unit/pengunjung','UnitController@laporan_pengunjung')->name('unit.pengunjung');
+// Route::get('unit/presensi','UnitController@presensi')->name('unit.presensi');
+// Route::get('unit/survey','UnitController@survey_pengunjung')->name('unit.survey');
+
+//survey
+Route::get('unit-survey-pengunjung', 'UnitController@survey_pengunjung');
+Route::get('unit-filter-data-survey', 'UnitController@filterDataSurvey');
+
+//pengunjung
+Route::get('unit-laporan-pengunjung', 'UnitController@laporanPengunjung');
+Route::get('unit-filter-laporan-pengunjung', 'UnitController@filterLaporanPengunjung');
+Route::get('unit-lihat-list-kunjungan', 'UnitController@lihatListKunjungan');
+
+//petugas
+Route::get('unit-laporan-petugas', 'UnitController@laporanPetugas');
+Route::get('unit-filter-laporan-petugas', 'UnitController@filterLaporanPetugas');
+Route::get('unit-lihat-list-pelayanan', 'UnitController@lihatListPelayanan');
+
 
 // Route User
 Route::get('/layanan/{id}', 'HomeController@layanan');
@@ -125,6 +154,8 @@ Route::get('cek-pilih-lantai', 'SettingHariController@cekPilihLantai');
 /*Route pelayanan loket*/
 Route::get('/layanan-antrian/{lantai}/{layanan}/{loket}', 'LoketController@petugas');
 
+//Route Unit
+Route::resource('unit','UnitController'); 
 
 Route::get('/monitor','DisplayController@Display')->name('monitor');
 

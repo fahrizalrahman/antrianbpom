@@ -170,6 +170,12 @@
                     <p>Petugas</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{route('AdminUnit.index')}}" class="nav-link">
+                    <i class="fa fa-circle-o nav-icon"></i>
+                    <p>Unit</p>
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="nav-item has-treeview">

@@ -1,5 +1,5 @@
 
-@extends('layouts.app_admin')
+@extends('layouts.app_unit')
 
 @section('content')
   <div class="content-wrapper">
@@ -23,7 +23,7 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action=" {{route('petugas.store')}}" method="POST">
+                    <form action=" {{route('unit.store')}}" method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
