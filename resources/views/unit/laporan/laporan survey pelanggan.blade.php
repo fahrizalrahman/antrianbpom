@@ -57,7 +57,7 @@
 						</div>
 						<div class="row">
 							<span id="refresh-table">
-							@include('unit.laporan.refresh_table_survey')
+							@include('laporan.refresh_table_survey')
 							</span> <!--penutup span-->
 						</div>
 					</div>
@@ -103,7 +103,7 @@
          var pelayanan = $("#pelayanan").val();
 
 
-          $.get('{{ Url("unit-filter-data-survey") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas,pelayanan:pelayanan}, function(resp){  
+          $.get('{{ Url("filter-data-survey") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas,pelayanan:pelayanan}, function(resp){  
 
             $("#refresh-table").html(resp);
              
@@ -117,9 +117,7 @@
          var petugas = $("#petugas").val();
          var pelayanan = $("#pelayanan").val();
 
-
-
-          $.get('{{ Url("unit-filter-data-survey") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas,pelayanan:pelayanan}, function(resp){  
+          $.get('{{ Url("filter-data-survey") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas,pelayanan:pelayanan}, function(resp){  
 
             $("#refresh-table").html(resp);
              

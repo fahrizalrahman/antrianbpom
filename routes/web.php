@@ -35,7 +35,7 @@ Route::get('/loket/delete/{id}', 'LoketController@delete')->name('loket.delete')
 Route::resource('inputTulisan','TulisanController');
 Route::get('inputTulisanUtama','TulisanController@createUtama')->name('tulisan.createUtama');
 Route::post('inputTulisanUtamaStore','TulisanController@storeUtama')->name('tulisan.storeUtama');
-Route::post('inputTulisanupdateUtama/{id}','TulisanController@updateUtama')->name('tulisan.updateUtama');
+Route::get('inputTulisanupdateUtama/{id}','TulisanController@updateUtama')->name('tulisan.updateUtama');
 Route::get('inputTulisaneditUtama/{id}','TulisanController@editUtama')->name('tulisan.editUtama');
 
 // Tambah Tulisan - Tampil

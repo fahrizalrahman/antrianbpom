@@ -17,7 +17,7 @@
               <div class="card">
 
               <div class="card-header">
-                <h3>HOME UNIT</h3>
+                <h3>Admin Unit {{ Auth::user()->name }}</h3>
               </div>
             <!-- /.card-header -->
             <div class="card-body">

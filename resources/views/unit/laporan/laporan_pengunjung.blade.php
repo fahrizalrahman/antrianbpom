@@ -147,7 +147,7 @@ table.dataTable thead tr {
          var petugas = $("#petugas").val();
 
 
-          $.get('{{ Url("filter-laporan-pengunjung") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas}, function(resp){  
+          $.get('{{ Url("unit-filter-laporan-pengunjung") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_mulai:ed_mulai,ed_sampai:ed_sampai,petugas:petugas}, function(resp){  
 
             $("#refresh-table").html(resp);
              

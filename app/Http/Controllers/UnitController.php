@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use DB;
 use Auth;
+use Session;
 
 class UnitController extends Controller
 {
@@ -93,7 +94,8 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $petugas = User::findorfail($id);
+        return view('unit.petugas.editPetugas', compact('petugas'));
     }
 
     /**
@@ -105,7 +107,26 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $petugas = User::findorfail($id);
+        $petugas->name = $request->name;
+        $petugas->email = $request->email;
+        $petugas->email_verified_at = now();
+        $petugas->nik = $request->nik;
+        $petugas->no_telp = $request->no_telp;
+        $petugas->alamat = $request->alamat;
+        $petugas->lantai = $request->lantai;
+        $petugas->unit = $request->unit;
+        $petugas->password = $request->password;
+        $petugas->save();
+
+        
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Mengedit Petugas"
+            ]);
+
+
+        return redirect()->route('unit.petugas');
     }
 
     /**
@@ -116,8 +137,19 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $petugas = User::findorfail($id);
+        $petugas->delete();
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menghapus Petugas"
+            ]);
+
+        return redirect()->route('unit.petugas');
+        
     }
+    
 
     // public function laporan_pengunjung(Request $request){
     //     if(Auth::check()){
@@ -202,9 +234,6 @@ class UnitController extends Controller
                        ->where(DB::raw('DATE(tanggal)'),'<=',DB::raw('curdate()'))
                        ->groupBy('id_user')
                        ->get();
-       
-
-
            return view('unit.laporan.laporan_pengunjung')
                    ->with('_data',$datass);
    }
@@ -217,6 +246,7 @@ class UnitController extends Controller
                        -> select('pelanggan','email','no_telp','id_user','tanggal')
                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                       ->where('petugas',$request->petugas)
                        ->groupBy('id_user')
                        ->get();
            }else{
@@ -243,6 +273,7 @@ class UnitController extends Controller
                        -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan','pelanggan')
                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
+                       ->where('petugas',$request->petugas)
                        ->where('id_user',$request->id_user);
                        
            }else{
@@ -303,6 +334,7 @@ class UnitController extends Controller
                        -> select('nama_petugas','nama_loket','id_user','tanggal','petugas')
                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                       ->where('petugas',$request->petugas)
                        ->groupBy('petugas')
                        ->get();
            }else{

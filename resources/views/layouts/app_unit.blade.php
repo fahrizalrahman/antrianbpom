@@ -84,7 +84,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item has-treeview">
+                        {{-- <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                               <i class="nav-icon fa fa-image"></i>
                               <p>
@@ -125,8 +125,8 @@
                               </li>
                             </ul>
                           </li>
-                     </li>
-                     <li class="nav-item has-treeview">
+                     </li> --}}
+                     {{-- <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                           <i class="nav-icon fa fa-pencil"></i>
                           <p>
@@ -148,7 +148,7 @@
                             </a>
                           </li>
                         </ul>
-                      </li>
+                      </li> --}}
 
                         <li class="nav-item has-treeview">
                           <a href="#" class="nav-link">
@@ -234,8 +234,6 @@
 
         <script src="{{ asset('js/sweetalert2.all.min.js') }}" type="text/javascript"></script>
 
-
-
 <script>
     $(function () {
       $('#example2').DataTable({
@@ -248,7 +246,7 @@
       });
     });
   </script>
+  @yield('scripts')
 
-@yield('footer_script')
 </body>
 </html>
