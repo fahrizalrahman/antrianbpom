@@ -38,6 +38,9 @@
                                   <option value="Direktorat_Registrasi_Obat">Direktorat Registrasi Obat Tradisional, Suplemen Kesehatan dan Kosmetik</option>
                                   <option value="Direktorat_Obat">Direktorat Obat</option>
                                   <option value="Direktorat_Registrasi_Pangan">Direktorat Registrasi Pangan Olahan</option>
+                                  <option value="Pengawasan_Produksi_ONPP">Pengawasan Produksi ONPP</option>
+                                  <option value="Standart_Pangan">Standart Pangan</option>
+                                  <option value="Distribusi_ONPP">Distribusi ONPP</option>
                               </select>
                           </div>
                         <div class="form-group">
