@@ -243,10 +243,10 @@ class UnitController extends Controller
 
            if ($request->petugas == 'all') {
                 $datass = DB::table('view_pelayanan')
-                       -> select('pelanggan','email','no_telp','id_user','tanggal')
+                       -> select('pelanggan','email','no_telp','id_user','tanggal','nama_unit')
                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
-                       ->where('petugas',$request->petugas)
+                       ->where('nama_unit', '=', Auth()->user()->unit)
                        ->groupBy('id_user')
                        ->get();
            }else{
@@ -270,10 +270,10 @@ class UnitController extends Controller
        if ($request->petugas == 'all') {
            
            $datass = DB::table('view_pelayanan')
-                       -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan','pelanggan')
+                       -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan','pelanggan','nama_unit')
                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
-                       ->where('petugas',$request->petugas)
+                       ->where('nama_unit', '=', Auth()->user()->unit)
                        ->where('id_user',$request->id_user);
                        
            }else{
@@ -331,10 +331,10 @@ class UnitController extends Controller
 
            if ($request->petugas == 'all') {
                 $datass = DB::table('view_pelayanan')
-                       -> select('nama_petugas','nama_loket','id_user','tanggal','petugas')
+                       -> select('nama_petugas','nama_loket','id_user','tanggal','petugas','nama_unit')
                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
-                       ->where('petugas',$request->petugas)
+                       ->where('nama_unit', '=', Auth()->user()->unit)
                        ->groupBy('petugas')
                        ->get();
            }else{
@@ -511,9 +511,10 @@ class UnitController extends Controller
     if(Auth::check()){
         if(Auth()->user()->jabatan==='admin_unit'){
             $data = DB::table('view_pelayanan')
-                -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan','nama_unit')
                  ->where(DB::raw('DATE(tanggal)'),'>=',DB::raw('curdate()'))
                  ->where(DB::raw('DATE(tanggal)'),'<=',DB::raw('curdate()'))
+                 ->where('nama_unit', '=', Auth()->user()->unit)
                 -> get();
             return view('unit.laporan.laporan survey pelanggan')
                 -> with('_data', $data);
@@ -525,16 +526,18 @@ public function filterDataSurvey(Request $request){
 
     if ($request->petugas == 'all' and $request->pelayanan == 'all') {
         $data = DB::table('view_pelayanan')
-                -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan','nama_unit')
                 ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
                 ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                ->where('nama_unit', '=', Auth()->user()->unit)
                 -> get();
     }elseif($request->petugas == 'all' and $request->pelayanan != 'all'){
         $data = DB::table('view_pelayanan')
-                -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan','nama_unit')
                 ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
                 ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
                 ->where('kepuasan',$request->pelayanan)
+                ->where('nama_unit', '=', Auth()->user()->unit)
                 -> get();                    
     }elseif($request->petugas != 'all' and $request->pelayanan == 'all'){
         $data = DB::table('view_pelayanan')
@@ -542,6 +545,7 @@ public function filterDataSurvey(Request $request){
                 ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
                 ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
                 ->where('petugas',$request->petugas)
+                ->where('nama_unit', '=', Auth()->user()->unit)
                 -> get();
      }else{
        $data = DB::table('view_pelayanan')
