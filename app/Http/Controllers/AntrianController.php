@@ -252,7 +252,7 @@ class AntrianController extends Controller
     {   
 
         $layanan_lantai = Antrian::select()->where('id_loket',$request->id)
-        ->where(DB::raw('DATE(created_at)'), '=', DB::raw('curdate()'))->count();
+        ->where(DB::raw('DATE(tgl_antrian)'), '=', DB::raw('curdate()'))->count();
 
         return $layanan_lantai;
     }

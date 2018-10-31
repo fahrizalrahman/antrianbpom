@@ -51,7 +51,30 @@ $(document).on('click', '#btn_ambil_antrian', function(e){
 			url		: '/mobile/content/booking/booking_antrian',
 			data 	: 'q=booking_antrian&data=' + $(this).attr('rowid') + '&jenis=' + $(this).attr('jenis') + '&tanggal=' + $('#ed_tanggal').val(),
 			success	: function(data){
-				alert(data);
+				if (data == "hari tidak bisa") {
+					swal({
+		                html: "Hari ini Tidak Melayani Layanan yang Anda Pilih !!"
+		             });
+				}else if (data == "sudah tutup"){
+					swal({
+                          html: "Batas Pengambilan Tiket Sudah Ditutup !!"
+                     });
+				}else if (data == "belum buka"){
+					swal({
+                          html: "Batas Pengambilan Tiket Belum Dibuka !!"
+                    });
+				}else if (data == "tiket habis"){
+					swal({
+                          html: "Batas Pengambilan Tiket Habis !!"
+                    });
+				} else if (data == "masih bisa"){
+					swal({
+                            html :  "Berhasil Mengambil Antrian",
+                            showConfirmButton :  false,
+                            type: "success",
+                            timer: 1000
+                        });
+				}
 				load_content('booking');
 			},
 			error: function (xhr, ajaxOptions, thrownError){
@@ -131,3 +154,5 @@ $(document).on('click', '.tm_normal', function(e){
 		load_content($(this).attr('data'));
 	}
 });
+
+

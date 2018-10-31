@@ -13,7 +13,10 @@
 @endsection
 
 @section('footer_style_script')
+	{{ Html::script('/js/sweetalert2.all.min.js') }}
 	{{ Html::script('/plugins/metro/metro/js/metro.js') }}
 	{{ Html::script('/custom/js/mobile.js') }}
 	{{ Html::script('/custom/js/custom.js') }}
+	{{ Html::script('js/moment.min.js') }}
+
 @endsection
