@@ -9,7 +9,7 @@
 					<div class="col-md-12">
 						<div class="card card-info">
 							<div class="card-header">
-								<h3 class="card-title"><strong>{{ $_loket->nama_layanan }} <br /> Lantai {{ $_loket->lantai . ' - ' . $_loket->kode }}</strong></h3>
+								<h3 class="card-title"><strong>{{ @$_loket->nama_layanan }} <br /> Lantai {{ @$_loket->lantai . ' - ' . @$_loket->kode }}</strong></h3>
 								<div class="card-tools">
 									<button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 									<button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -107,6 +107,7 @@
 								</tr>
 							</thead>
 							<tbody id="body_antrian">
+								@if($kosong > 0)
 								@foreach($_data as $data)
 								<tr>
 									<td align="center">{{ $_loket->kode_antrian . $data->no_antrian }}</td>
@@ -114,6 +115,7 @@
 									<td align="center">{{ strtoupper($data->status) }}</td>
 								</tr>
 								@endforeach
+								@endif
 							</tbody>
 						</table>
 					</div>
@@ -124,17 +126,22 @@
 								<tr>
 									<th width="75px;" align="center">No.</th>
 									<th>Nama</th>
-									<th width="150px" align="center">Proses</th>
+									<th width="130px" align="center">Proses</th>
 								</tr>
 							</thead>
 							<tbody id="body_lewati">
+								@if($kosong > 0)
 								@foreach($_lewati as $lewati)
 								<tr id="{{ $lewati-> id }}">
 									<td align="center">{{ $_loket->kode_antrian . $lewati->no_antrian }}</td>
 									<td>{{ $lewati->name }}</td>
-									<td align="center"><button class="bt_ulangi_proses btn btn-success">Proses</button></td>
+									<td align="center">
+										<button class="bt_ulangi_proses">Proses</button>
+										<button class="bt_panggil_lewati" data="{{ $_loket->kode_antrian . $lewati->no_antrian }}"><span class="fa fa-microphone"></span></button>
+									</td>
 								</tr>
 								@endforeach
+								@endif
 							</tbody>
 						</table>
 						<label class="test" style="color: white"></label>
@@ -204,9 +211,6 @@ $(document).on('click', '.id_lewati', function(e){
 				success	: function(data){
 					if(data==='0'){
 						alert('Nomor Antrian berhasil dilewati');
-						load_data();
-						
-						
 					}
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
@@ -216,6 +220,35 @@ $(document).on('click', '.id_lewati', function(e){
 		}
 	}
 });
+
+$(document).on('click', '.bt_panggil_lewati', function(e){
+	e.preventDefault();
+	if(e.which===1){
+		$.ajax({
+			headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			dataType: 'html',
+			url		: '/proses/konversi_nomor',
+			data 	: 'jenis=ulang&q=' + $(this).attr('data'),
+			success	: function(data){
+				if(data.length > 0){
+					_data = 'in.wav,nomor antrian.wav,' + data.replace(/\s+/g, '.wav,') + '.wav,out.wav';
+					_obj = '<source src="/custom/audio/in.wav" type="audio/mpeg">' +
+						'<source src="/custom/audio/nomor antrian.wav" type="audio/mpeg">' +
+						'<source src="/custom/audio/' +  data.replace(/\s+/g, '.wav" type="audio/mpeg">,<source src="/custom/audio/') +
+						'.wav" type="audio/mpeg"><source src="/custom/audio/out.wav" type="audio/mpeg">';
+					$('#id_audio').html(null);
+					$('#id_audio').html(_obj);
+					$("#id_audio").prop("currentTime",0);
+					$('#id_audio').trigger('play');
+				}
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert(xhr.responseText);
+			}
+		});
+	}
+});
+
 
 $(document).on('click', '.id_ulang', function(e){
 	e.preventDefault();
@@ -248,67 +281,66 @@ $(document).on('click', '.id_ulang', function(e){
 $(document).on('click', '.id_selesai', function(e){
 	e.preventDefault();
 	if(e.which===1){
-		$.ajax({
-			headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-			dataType: 'html',
-			url		: '/proses/layanan/update',
-			data 	: 'q=selesai&data=' + $('.lb_no_saat_ini').html(),
-			success	: function(data){
-				if(data.length > 0){
-					alert('Data selesai diproses');
-					load_data();
-					
+		if(confirm('Anda yakin proses sudah selesai?')){
+			$.ajax({
+				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				dataType: 'html',
+				url		: '/proses/layanan/update',
+				data 	: 'q=selesai&data=' + $('.lb_no_saat_ini').html(),
+				success	: function(data){
+					if(data.length > 0){
+						alert('Data selesai diproses');
+					}
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.responseText);
 				}
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				alert(xhr.responseText);
-			}
-		});
+			});
+		}
 	}
 });
 
 $(document).on('click', '.bt_ulangi_proses', function(e){
 	e.preventDefault();
 	if(e.which===1){
-		$.ajax({
-			headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-			dataType: 'html',
-			url		: '/proses/layanan/update',
-			data 	: 'q=proses ulang&data=' + $(this).parent('td').parent('tr').attr('id'),
-			success	: function(data){
-				if(data.length > 0){
-					alert('Data berhasil diterima');
-					load_data();
-					
-					
+		if(confirm('Anda yakin ingin melakukan proses ulang?')){
+			$.ajax({
+				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				dataType: 'html',
+				url		: '/proses/layanan/update',
+				data 	: 'q=proses ulang&data=' + $(this).parent('td').parent('tr').attr('id'),
+				success	: function(data){
+					if(data.length > 0){
+						alert('Data berhasil diterima');
+					}
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.responseText);
 				}
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				alert(xhr.responseText);
-			}
-		});
+			});
+		}
 	}
 });
 
 $(document).on('click', '.id_terima', function(e){
 	e.preventDefault();
 	if(e.which===1){
-		$.ajax({
-			headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-			dataType: 'html',
-			url		: '/proses/layanan/update',
-			data 	: 'q=terima&data=' + $('.lb_no_saat_ini').html(),
-			success	: function(data){
-				if(data.length > 0){
-					alert('Data berhasil diterima');
-					load_data();
-					
+		if(confirm('Anda yakin data akan diterima?')){
+			$.ajax({
+				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				dataType: 'html',
+				url		: '/proses/layanan/update',
+				data 	: 'q=terima&data=' + $('.lb_no_saat_ini').html(),
+				success	: function(data){
+					if(data.length > 0){
+						alert('Data berhasil diterima');
+					}
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.responseText);
 				}
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-				alert(xhr.responseText);
-			}
-		});
+			});
+		}
 	}
 });
 
@@ -340,14 +372,11 @@ $(document).on('click', '.id_panggil', function(e){
 								$('#id_audio').trigger('play');
 								load_data();
 							}
-							
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
 							alert(xhr.responseText);
 						}
 					});
-					
-
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -357,196 +386,66 @@ $(document).on('click', '.id_panggil', function(e){
 	}
 });
 
-function load_data(){
-
-var es = new EventSource('/proses/total');
-es_total.addEventListener('error', function(e) {
-  if (e.readyState == EventSource.CLOSED) {
-    // Connection was closed.
-  }
-}, false);
-es_total.onmessage = function(e) {
-	var dt = new Date();
-	var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-	$('.test').html(time);
-
-
-	var _text = e.data;
-    var _data = JSON.parse(_text);
-    $('.lb_total_antri').html(_data.total);
-    $('.lb_sisa_antri').html(_data.sisa);
-    $('.lb_no_berikut').html(_data.berikut);
-    $('.lb_no_saat_ini').html(_data.sekarang);
-}
-
-var es = new EventSource("<?php echo action('pelayananController@check_status'); ?>");
-es.onmessage = function(e) {
-	if(e.data==='a'){
-		$('.id_panggil').prop('disabled', true);
-			$('.id_ulang').prop('disabled', true);
-			$('.id_terima').prop('disabled', true);
-			$('.id_selesai').prop('disabled', false);
-			$('.id_lewati').prop('disabled', true);
-	}else{
-
-	if($('.lb_sisa_antri').html()==='0'){
-		if($('.lb_no_saat_ini').html()==='0'){
-			$('.id_panggil').prop('disabled', true);
-			$('.id_ulang').prop('disabled', true);
-			$('.id_terima').prop('disabled', true);
-			$('.id_selesai').prop('disabled', true);
-			$('.id_lewati').prop('disabled', true);
-		}else{
-			$('.id_panggil').prop('disabled', true);
-			$('.id_ulang').prop('disabled', false);
-			$('.id_terima').prop('disabled', false);
-			$('.id_selesai').prop('disabled', false);
-			$('.id_lewati').prop('disabled', false);
-		}
-	}else{
-		if($('.lb_no_saat_ini').html()==='0'){
-			$('.id_panggil').prop('disabled', false);
-			$('.id_ulang').prop('disabled', true);
-			$('.id_terima').prop('disabled', true);
-			$('.id_selesai').prop('disabled', true);
-			$('.id_lewati').prop('disabled', true);
-		}else{
-			$('.id_panggil').prop('disabled', true);
-			$('.id_ulang').prop('disabled', false);
-			$('.id_terima').prop('disabled', false);
-			$('.id_selesai').prop('disabled', false);
-			$('.id_lewati').prop('disabled', false);
-		}
-	}
-
-	}
-}
-
-	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
-          	$('#body_antrian').html('');
-			$('#body_antrian').html(resp);
-        });
-
-	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
-          	$('#body_lewati').html('');
-			$('#body_lewati').html(resp);
-        });
-
-
-
-}
 
 $(document).ready(function(){
-
 var es_total = new EventSource('/proses/total');
 es_total.addEventListener('error', function(e) {
   if (e.readyState == EventSource.CLOSED) {
     // Connection was closed.
   }
 }, false);
+
 es_total.onmessage = function(e) {
 	var dt = new Date();
 	var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 	$('.test').html(time);
-
-
 	var _text = e.data;
     var _data = JSON.parse(_text);
     $('.lb_total_antri').html(_data.total);
     $('.lb_sisa_antri').html(_data.sisa);
     $('.lb_no_berikut').html(_data.berikut);
     $('.lb_no_saat_ini').html(_data.sekarang);
-
-    $.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
-          	$('#body_antrian').html('');
-			$('#body_antrian').html(resp);
-        });
-
-	$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
-          	$('#body_lewati').html('');
-			$('#body_lewati').html(resp);
-        });
-
+    $('#body_antrian').html('');
+	$('#body_antrian').html(_data.antrian);
+	$('#body_lewati').html('');
+	$('#body_lewati').html(_data.lewati);
 }
 
-var es_status = new EventSource("<?php echo action('pelayananController@check_status'); ?>");
+var es_status = new EventSource('/proses/check status');
 es_status.addEventListener('error', function(e) {
   if (e.readyState == EventSource.CLOSED) {
     // Connection was closed.
   }
 }, false);
 es_status.onmessage = function(e) {
-	if(e.data==='a'){
-		$('.id_panggil').prop('disabled', true);
-			$('.id_ulang').prop('disabled', true);
-			$('.id_terima').prop('disabled', true);
-			$('.id_selesai').prop('disabled', false);
-			$('.id_lewati').prop('disabled', true);
-
-			 $.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
-			          	$('#body_antrian').html('');
-						$('#body_antrian').html(resp);
-        		});
-
-			$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
-		          	$('#body_lewati').html('');
-					$('#body_lewati').html(resp);
-		        });
-
-	}else{
-
-	if($('.lb_sisa_antri').html()==='0'){
-		if($('.lb_no_saat_ini').html()!=='0'){
-			$('.id_panggil').prop('disabled', true);
-			$('.id_ulang').prop('disabled', false);
-			$('.id_terima').prop('disabled', false);
-			$('.id_selesai').prop('disabled', false);
-			$('.id_lewati').prop('disabled', false);
-		}else{
-			$('.id_panggil').prop('disabled', true);
-			$('.id_ulang').prop('disabled', true);
-			$('.id_terima').prop('disabled', true);
-			$('.id_selesai').prop('disabled', true);
-			$('.id_lewati').prop('disabled', true);
-		}
-
-		$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
-			          	$('#body_antrian').html('');
-						$('#body_antrian').html(resp);
-        		});
-
-		$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
-		          	$('#body_lewati').html('');
-					$('#body_lewati').html(resp);
-		        });
-
-	}else{
+	if(e.data==='0'){
 		if($('.lb_no_saat_ini').html()==='0'){
-			$('.id_panggil').prop('disabled', false);
-			$('.id_ulang').prop('disabled', true);
-			$('.id_terima').prop('disabled', true);
-			$('.id_selesai').prop('disabled', true);
-			$('.id_lewati').prop('disabled', true);
+			if($('.lb_sisa_antri').html()==='0'){
+				$('.id_panggil').prop('disabled', true);
+				$('.id_ulang').prop('disabled', true);
+				$('.id_terima').prop('disabled', true);
+				$('.id_selesai').prop('disabled', true);
+				$('.id_lewati').prop('disabled', true);
+			}else{
+				$('.id_panggil').prop('disabled', false);
+				$('.id_ulang').prop('disabled', true);
+				$('.id_terima').prop('disabled', true);
+				$('.id_selesai').prop('disabled', true);
+				$('.id_lewati').prop('disabled', true);
+			}
 		}else{
 			$('.id_panggil').prop('disabled', true);
 			$('.id_ulang').prop('disabled', false);
 			$('.id_terima').prop('disabled', false);
-			$('.id_selesai').prop('disabled', false);
+			$('.id_selesai').prop('disabled', true);
 			$('.id_lewati').prop('disabled', false);
 		}
-
-			$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh antrian'}, function(resp){  
-			          	$('#body_antrian').html('');
-						$('#body_antrian').html(resp);
-        		});
-
-			$.get('{{ Url("/proses/layanan/update") }}',{'_token': $('meta[name=csrf-token]').attr('content'),q:'refresh lewati'}, function(resp){  
-		          	$('#body_lewati').html('');
-					$('#body_lewati').html(resp);
-		        });
-
-	}
-
+	}else{
+		$('.id_panggil').prop('disabled', true);
+		$('.id_ulang').prop('disabled', true);
+		$('.id_terima').prop('disabled', true);
+		$('.id_selesai').prop('disabled', false);
+		$('.id_lewati').prop('disabled', true);
 	}
 }
 
@@ -554,14 +453,6 @@ es_status.onmessage = function(e) {
 
 	
 });
-/*
-$(document).ready(function(){
 
-	window.setInterval(function(){
-		get_data();
-	}, 5000);
-	
-});
-*/
 </script>
 @endsection

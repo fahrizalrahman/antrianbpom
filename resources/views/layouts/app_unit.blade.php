@@ -67,7 +67,7 @@
                 <img src="{{ asset('logo/logo-kecil.png') }}" style="height:35px;">
                 </a>
             </center>
-            <div class="sidebar">
+           <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
@@ -83,72 +83,6 @@
                                 <i class="fa fa-user nav-icon"></i><p>Petugas</p>
                             </a>
                         </li>
-
-                        {{-- <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                              <i class="nav-icon fa fa-image"></i>
-                              <p>
-                                Tambah Gambar
-                                <i class="right fa fa-angle-left"></i>
-                              </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                <a href="{{route('inputImg.index')}}" class="nav-link">
-                                  <i class="fa fa-circle-o nav-icon"></i>
-                                  <p> Gambar Utama</p>
-                                </a>
-                              </li>
-                              <li class="nav-item">
-                                <a href="{{route('inputImgSid.index')}} " class="nav-link">
-                                  <i class="fa fa-circle-o nav-icon"></i>
-                                  <p>Gambar Sidebar</p>
-                                </a>
-                              </li>
-                              <li class="nav-item">
-                                <a href="{{route('inputImgFoot.index')}}" class="nav-link">
-                                  <i class="fa fa-circle-o nav-icon"></i>
-                                  <p>Gambar Footer</p>
-                                </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{route('imgHome.view')}}" class="nav-link">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>Gambar Mainbar</p>
-                                  </a>
-                                </li>
-                              <li class="nav-item">
-                                <a href="{{route('bgunit.index')}}" class="nav-link">
-                                  <i class="fa fa-circle-o nav-icon"></i>
-                                  <p>Gambar Background</p>
-                                </a>
-                              </li>
-                            </ul>
-                          </li>
-                     </li> --}}
-                     {{-- <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                          <i class="nav-icon fa fa-pencil"></i>
-                          <p>
-                            Tambah Text
-                            <i class="right fa fa-angle-left"></i>
-                          </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                            <a href="{{ route('inputTulisan.index') }}" class="nav-link">
-                              <i class="fa fa-circle-o nav-icon"></i>
-                              <p> Running Text</p>
-                            </a>
-                          </li> 
-                          <li class="nav-item">
-                            <a href="{{route('tampil.tulisan')}} " class="nav-link">
-                              <i class="fa fa-circle-o nav-icon"></i>
-                              <p>Home Text</p>
-                            </a>
-                          </li>
-                        </ul>
-                      </li> --}}
 
                         <li class="nav-item has-treeview">
                           <a href="#" class="nav-link">
@@ -176,9 +110,7 @@
                               </a>
                             </li>
                           </ul>
-                        </li>
-
-                        
+                        </li>  
 
                     </ul>
                 </nav>
@@ -234,6 +166,8 @@
 
         <script src="{{ asset('js/sweetalert2.all.min.js') }}" type="text/javascript"></script>
 
+
+
 <script>
     $(function () {
       $('#example2').DataTable({
@@ -246,7 +180,7 @@
       });
     });
   </script>
-  @yield('scripts')
 
+@yield('footer_script')
 </body>
 </html>

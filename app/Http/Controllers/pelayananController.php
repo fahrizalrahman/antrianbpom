@@ -16,321 +16,354 @@ class pelayananController extends Controller{
 			$response->headers->set('Content-Type', 'text/event-stream');
 			$response->headers->set('Cache-Control', 'no-cache');
 			$response->setCallback(
-				 function() {
+				function() {
 				 	$id_loket = DB::table('lokets')
 						-> select('id', 'kode_antrian')
 						-> where('petugas', '=', Auth::user()->id)
-						->count();
+						-> count();
 
 					if ($id_loket > 0) {
 						$id_lokets = DB::table('lokets')
-						-> select('id', 'kode_antrian')
-						-> where('petugas', '=', Auth::user()->id)
-						->first();
+							-> select('id', 'kode_antrian')
+							-> where('petugas', '=', Auth::user()->id)
+							-> first();
 
 						$total = DB::table('antrians')
-						-> whereRaw('id_loket=' . $id_lokets->id)
-						->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
-						-> count('id');
-					
-					if($total){
-				 		$hasil['total'] = (string)@$total;
-	                }else{
-	                	$hasil['total'] = '0';
-	                }
+							-> whereRaw('id_loket=' . $id_lokets->id)
+							->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
+							-> count('id');
 
-	                $sisa = DB::table('antrians')
-				 		-> whereRaw('status="antri" and id_loket=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
-				 		-> count('id');
-				 	if($sisa){
-				 		$hasil['sisa'] = (string)@$sisa;
-	                }else{
-	                	$hasil['sisa'] = '0';
-	                }
+						if($total){
+							$hasil['total'] = (string)@$total;
+						}else{
+							$hasil['total'] = '0';
+						}
 
-	                $berikut = DB::table('antrians')
-				 		-> select('no_antrian')
-				 		-> whereRaw('status="antri" and id_loket=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
-				 		-> first();
-				 	if($berikut){
-				 		$hasil['berikut'] = $id_lokets->kode_antrian . (string)@$berikut->no_antrian;
-	                }else{
-	                	$hasil['berikut'] = '0';
-	                }
+						$sisa = DB::table('antrians')
+				 			-> whereRaw('status="antri" and id_loket=' . $id_lokets->id)
+				 			-> where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
+				 			-> count('id');
 
-	                $saat_ini = DB::table('pelayanans as pels')
-				 		-> select('pels.no_antrian')
-				 		-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
-				 		-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
-				 		->where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
-				 		-> first();
+				 		if($sisa){
+				 			$hasil['sisa'] = (string)@$sisa;
+				 		}else{
+				 			$hasil['sisa'] = '0';
+				 		}
 
-				 	if(is_null($saat_ini)){
-				 		$sekarang = DB::table('pelayanans  as pels')
+				 		$berikut = DB::table('antrians')
+				 			-> select('no_antrian')
+				 			-> whereRaw('status="antri" and id_loket=' . $id_lokets->id)
+				 			-> where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
+				 			-> first();
+
+				 		if($berikut){
+				 			$hasil['berikut'] = $id_lokets->kode_antrian . (string)@$berikut->no_antrian;
+				 		}else{
+				 			$hasil['berikut'] = '0';
+				 		}
+
+				 		$saat_ini = DB::table('pelayanans as pels')
 				 			-> select('pels.no_antrian')
-				 			-> leftJoin('antrians as ans', 'ans.id', '=','pels.id_antrian')
-					 		-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
-					 		->where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
-					 		-> first();
-					 	if(is_null($sekarang)){
-    	                	$hasil['sekarang'] = '0';
-    	            	}else{
-    	                	$hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$sekarang->no_antrian;
-    	            	}
-				 	}else{
-	                    $hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$saat_ini->no_antrian;
-				 	}
+				 			-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
+				 			-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
+				 			-> where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
+				 			-> first();
+
+				 		if(is_null($saat_ini)){
+				 			$sekarang = DB::table('pelayanans  as pels')
+				 				-> select('pels.no_antrian')
+				 				-> leftJoin('antrians as ans', 'ans.id', '=','pels.id_antrian')
+					 			-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
+					 			-> where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
+					 			-> first();
+
+					 		if(is_null($sekarang)){
+					 			$hasil['sekarang'] = '0';
+					 		}else{
+					 			$hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$sekarang->no_antrian;
+					 		}
+					 	}else{
+					 		$hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$saat_ini->no_antrian;
+					 	}
 
 					}else{
 						$id_lokets = DB::table('sublayanans as sub')
-						-> leftJoin('lokets as lok', 'lok.id', '=', 'sub.id_loket')
-						-> select('sub.id as id', 'lok.kode_antrian as kode_antrian')
-						-> where('sub.petugas', '=', Auth::user()->id)
-						->first();
+							-> leftJoin('lokets as lok', 'lok.id', '=', 'sub.id_loket')
+							-> select('sub.id as id', 'lok.kode_antrian as kode_antrian')
+							-> where('sub.petugas', '=', Auth::user()->id)
+							-> first();
 
 						$total = DB::table('antrians')
-						-> whereRaw('id_sublayanan=' . $id_lokets->id)
-						->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
-						-> count('id');
-					
-					if($total){
-				 		$hasil['total'] = (string)@$total;
-	                }else{
-	                	$hasil['total'] = '0';
-	                }
+							-> whereRaw('id_sublayanan=' . $id_lokets->id)
+							-> where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
+							-> count('id');
+						
+						if($total){
+							$hasil['total'] = (string)@$total;
+						}else{
+							$hasil['total'] = '0';
+						}
 
-	                $sisa = DB::table('antrians')
-				 		-> whereRaw('status="antri" and id_sublayanan=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
-				 		-> count('id');
-				 	if($sisa){
-				 		$hasil['sisa'] = (string)@$sisa;
-	                }else{
-	                	$hasil['sisa'] = '0';
-	                }
+						$sisa = DB::table('antrians')
+							-> whereRaw('status="antri" and id_sublayanan=' . $id_lokets->id)
+							-> where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
+							-> count('id');
 
-	                $berikut = DB::table('antrians')
-				 		-> select('no_antrian')
-				 		-> whereRaw('status="antri" and id_sublayanan=' . $id_lokets->id)
-				 		->where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
-				 		-> first();
-				 	if($berikut){
-				 		$hasil['berikut'] = $id_lokets->kode_antrian . (string)@$berikut->no_antrian;
-	                }else{
-	                	$hasil['berikut'] = '0';
-	                }
+						if($sisa){
+							$hasil['sisa'] = (string)@$sisa;
+						}else{
+							$hasil['sisa'] = '0';
+						}
 
-	                $saat_ini = DB::table('pelayanans as pels')
-				 		-> select('ans.no_antrian')
-				 		-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
-				 		-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
-				 		->where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
-				 		-> first();
+						$berikut = DB::table('antrians')
+							-> select('no_antrian')
+				 			-> whereRaw('status="antri" and id_sublayanan=' . $id_lokets->id)
+				 			-> where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
+				 			-> first();
 
-				 	if(is_null($saat_ini)){
-				 		$sekarang = DB::table('pelayanans as pels')
+				 		if($berikut){
+				 			$hasil['berikut'] = $id_lokets->kode_antrian . (string)@$berikut->no_antrian;
+				 		}else{
+				 			$hasil['berikut'] = '0';
+				 		}
+
+				 		$saat_ini = DB::table('pelayanans as pels')
 				 			-> select('ans.no_antrian')
 				 			-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
-					 		-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
-					 		->where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
-					 		-> first();
-					 	if(is_null($sekarang)){
-    	                	$hasil['sekarang'] = '0';
-    	            	}else{
-    	                	$hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$sekarang->no_antrian;
-    	            	}
-				 	}else{
-	                    $hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$saat_ini->no_antrian;
-				 	}
+				 			-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
+				 			-> where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
+				 			-> first();
+
+				 		if(is_null($saat_ini)){
+				 			$sekarang = DB::table('pelayanans as pels')
+				 				-> select('ans.no_antrian')
+				 				-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
+					 			-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
+					 			-> where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
+					 			-> first();
+					 		if(is_null($sekarang)){
+					 			$hasil['sekarang'] = '0';
+					 		}else{
+					 			$hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$sekarang->no_antrian;
+					 		}
+					 	}else{
+					 		$hasil['sekarang'] = $id_lokets->kode_antrian . (string)@$saat_ini->no_antrian;
+					 	}
 					}
 
-					
+					$data = DB::table('antrians AS a')
+						-> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+						-> select('a.no_antrian', 'b.name', 'a.status')
+						-> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
+						-> get();
 
+					$_content = '';
+					foreach($data as $_data){
+						$_content = $_content . '<tr><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
+						'<td>' . strtoupper($_data->name) . '</td>' .
+						'<td align="center">' . strtoupper($_data->status) . '</td></tr>'; 
+						}
+					$hasil['antrian'] = $_content;
+
+					$lewati = DB::table('antrians AS a')
+						-> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+						-> select('a.id', 'a.no_antrian', 'b.name')
+						-> whereRaw('a.status="lewati" And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
+						-> get();
+
+					$_content = '';
+					foreach($lewati as $_data){
+						$_content = $_content  . '<tr id="' . $_data->id . '"><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
+						'<td>' . strtoupper($_data->name) . '</td>' .
+						'<td align="center"><button class="bt_ulangi_proses">Proses</button>&nbsp;<button class="bt_panggil_lewati" data="' . $id_lokets->kode_antrian . $_data->no_antrian . '"><span class="fa fa-microphone"></span></button></td></tr>'; 
+					}
+					$hasil['lewati'] = $_content;
+
+					echo "retry: 5000\n";
                     echo "data: " . json_encode($hasil) . "\n\n";
                     ob_flush();
            	        flush();
                 });
 			$response->send();
+		}else{
+			Auth::logout();
+			return redirect('/login');
 		}
 	}
 
 	public function update_status(Request $request){
 		if(Auth::check()){
-
 			$id_loket = DB::table('lokets')
-					-> select('id')
-					-> where('petugas', '=', Auth::user()->id)
-					->count();
+				-> select('id')
+				-> where('petugas', '=', Auth::user()->id)
+				-> count();
 
-					if ($id_loket > 0) {
-						$id_lokets = DB::table('lokets')
+				if ($id_loket > 0) {
+					$id_lokets = DB::table('lokets')
 						-> select('id', 'kode_antrian')
 						-> where('petugas', '=', Auth::user()->id)
 						->first();
 
-						//proses layanan
-						if($request->q==='update'){
-								DB::table('antrians')
-									-> where([
-										'id_loket'=>$id_lokets->id,
-										'no_antrian'=>intval(substr($request->id, 1)),
-										'status'	=> 'antri'
-										])
-									-> update([
-										'status'=>'dipanggil',
-										'updated_at'=>now()
-									]);
+					//proses layanan
+					if($request->q==='update'){
+						DB::table('antrians')
+							-> where([
+								'id_loket'=>$id_lokets->id,
+								'no_antrian'=>intval(substr($request->id, 1)),
+								'status'	=> 'antri'
+							])
+							-> update([
+								'status'=>'dipanggil',
+								'updated_at'=>now()
+							]);
 
-								$dipanggil = DB::table('antrians AS a')
-									-> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
-									-> select('a.id', 'a.id_loket', 'a.no_antrian', 'a.id_user', 'b.name')
-									-> where([
-										'a.status'	=> 'dipanggil',
-										'a.id_loket'	=> $id_lokets->id
-									])->first();
+						$dipanggil = DB::table('antrians AS a')
+							-> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+							-> select('a.id', 'a.id_loket', 'a.no_antrian', 'a.id_user', 'b.name')
+							-> where([
+								'a.status'	=> 'dipanggil',
+								'a.id_loket'	=> $id_lokets->id
+							])->first();
 
-								$rowid = (DB::table('pelayanans')->count()) + intval(1);
-								DB::table('pelayanans')
-									-> insert([
-										'rowid'			=> $rowid,
-										'id_antrian'	=> $dipanggil->id,
-										'no_antrian'	=> $dipanggil->no_antrian,
-										'id_petugas'	=> Auth()->user()->id,
-										'keterangan'	=> 'Pemanggilan',
-										'created_at'	=> now(),
-										'updated_at'	=> now()
-									]);
-								return '0';
-							}elseif($request->q==='lewati'){
+						$rowid = (DB::table('pelayanans')->count()) + intval(1);
+						DB::table('pelayanans')
+							-> insert([
+								'rowid'			=> $rowid,
+								'id_antrian'	=> $dipanggil->id,
+								'no_antrian'	=> $dipanggil->no_antrian,
+								'id_petugas'	=> Auth()->user()->id,
+								'nama_unit'		=> Auth()->user()->unit,
+								'keterangan'	=> 'Pemanggilan',
+								'created_at'	=> now(),
+								'updated_at'	=> now()
+							]);
+						return '0';
+					}elseif($request->q==='lewati'){
+						DB::table('antrians')
+							-> where([
+								'id_loket'	=> $id_lokets->id,
+								'no_antrian'=> intval(substr($request->data,1)),
+								'status'	=> 'dipanggil'
+							])
+							-> update([
+								'status'=>'lewati',
+								'updated_at'=>now()
+							]);
 
-								DB::table('antrians')
-									-> where([
-										'id_loket'	=> $id_lokets->id,
-										'no_antrian'=> intval(substr($request->data,1)),
-										'status'	=> 'dipanggil'
-										])
-									-> update([
-										'status'=>'lewati',
-										'updated_at'=>now()
-									]);
+						DB::table('pelayanans')
+							-> where([
+								'id_petugas'	=> Auth()->user()->id,
+								'no_antrian'	=> intval(substr($request->data,1)),
+								'keterangan'	=> 'Pemanggilan'
+							])
+							-> update([
+								'keterangan'=>'Lewati',
+								'updated_at'=>now()
+							]);
+							
+						return '0';
+					}elseif($request->q==='terima'){
+						DB::table('antrians')
+							-> where([
+								'id_loket'	=> $id_lokets->id,
+								'no_antrian'=> substr($request->data,1),
+								'status'	=> 'dipanggil'
+							])
+							-> update([
+								'status'=>'diterima',
+								'updated_at'=>now()
+							]);
 
-								DB::table('pelayanans')
-									-> where([
-										'id_petugas'	=> Auth()->user()->id,
-										'no_antrian'	=> intval(substr($request->data,1)),
-										'keterangan'	=> 'Pemanggilan'
-										])
-									-> update([
-										'keterangan'=>'Lewati',
-										'updated_at'=>now()
-									]);
+						DB::table('pelayanans')
+							-> where([
+								'id_petugas'	=> Auth()->user()->id,
+								'no_antrian'	=> substr($request->data,1),
+								'keterangan'	=> 'Pemanggilan'
+							])
+							-> update([
+								'keterangan'=>'Diterima',
+								'mulai'			=> now(),
+								'updated_at'=>now()
+							]);
 									
-								return '0';
-							}elseif($request->q==='terima'){
-								DB::table('antrians')
-									-> where([
-										'id_loket'	=> $id_lokets->id,
-										'no_antrian'=> substr($request->data,1),
-										'status'	=> 'dipanggil'
-										])
-									-> update([
-										'status'=>'diterima',
-										'updated_at'=>now()
-									]);
+						return '0';
+					}elseif($request->q==='proses ulang'){
+						DB::table('antrians')
+							-> where([
+								'id'		=> $request->data
+							])
+							-> update([
+								'status'=>'diterima',
+								'updated_at'=>now()
+							]);
 
-								DB::table('pelayanans')
-									-> where([
-										'id_petugas'	=> Auth()->user()->id,
-										'no_antrian'	=> substr($request->data,1),
-										'keterangan'	=> 'Pemanggilan'
-										])
-									-> update([
-										'keterangan'=>'Diterima',
-										'mulai'			=> now(),
-										'updated_at'=>now()
-									]);
+						DB::table('pelayanans')
+							-> where([
+								'id_antrian'	=> $request->data
+							])
+							-> update([
+								'keterangan'=>'Diterima',
+								'mulai'			=> now(),
+								'updated_at'=>now()
+							]);
 									
-								return '0';
-							}elseif($request->q==='proses ulang'){
-								DB::table('antrians')
-									-> where([
-										'id'		=> $request->data
-										])
-									-> update([
-										'status'=>'diterima',
-										'updated_at'=>now()
-									]);
+						return '0';
+					}elseif($request->q==='selesai'){
+						DB::table('antrians')
+							-> where([
+								'id_loket'	=> $id_lokets->id,
+								'no_antrian'=> substr($request->data,1),
+								'status'	=> 'diterima'
+							])
+							-> update([
+								'status'=>'selesai',
+								'updated_at'=>now()
+							]);
 
-								DB::table('pelayanans')
-									-> where([
-										'id_antrian'	=> $request->data
-										])
-									-> update([
-										'keterangan'=>'Diterima',
-										'mulai'			=> now(),
-										'updated_at'=>now()
-									]);
+						DB::table('pelayanans')
+							-> where([
+								'id_petugas'	=> Auth()->user()->id,
+								'no_antrian'	=> substr($request->data,1),
+								'keterangan'	=> 'Diterima'
+							])
+							-> update([
+								'keterangan'=>'selesai',
+								'selesai'	=> now(),
+								'updated_at'=>now()
+							]);
 									
-								return '0';
-							}elseif($request->q==='selesai'){
-								DB::table('antrians')
-									-> where([
-										'id_loket'	=> $id_lokets->id,
-										'no_antrian'=> substr($request->data,1),
-										'status'	=> 'diterima'
-										])
-									-> update([
-										'status'=>'selesai',
-										'updated_at'=>now()
-									]);
+						return '0';
+					}elseif($request->q==='refresh antrian'){
+						$data = DB::table('antrians AS a')
+		                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+		                    -> select('a.no_antrian', 'b.name', 'a.status')
+		                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
+		                    -> get();
 
-								DB::table('pelayanans')
-									-> where([
-										'id_petugas'	=> Auth()->user()->id,
-										'no_antrian'	=> substr($request->data,1),
-										'keterangan'	=> 'Diterima'
-										])
-									-> update([
-										'keterangan'=>'selesai',
-										'selesai'	=> now(),
-										'updated_at'=>now()
-									]);
-									
-								return '0';
-							}elseif($request->q==='refresh antrian'){
+						$_content = '';
+						foreach($data as $_data){
+							$_content = $_content . '<tr><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
+								'<td>' . strtoupper($_data->name) . '</td>' .
+								'<td align="center">' . strtoupper($_data->status) . '</td></tr>'; 
+						}
+						return $_content;
+					}elseif($request->q==='refresh lewati'){
+		                $lewati = DB::table('antrians AS a')
+		                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+		                    -> select('a.id', 'a.no_antrian', 'b.name')
+		                    -> whereRaw('a.status="lewati" And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
+		                    -> get();
 
-								$data = DB::table('antrians AS a')
-				                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
-				                    -> select('a.no_antrian', 'b.name', 'a.status')
-				                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
-				                    -> get();
-								$_content = '';
-								foreach($data as $_data){
-									$_content = $_content . '<tr><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
-										'<td>' . strtoupper($_data->name) . '</td>' .
-										'<td align="center">' . strtoupper($_data->status) . '</td></tr>'; 
-								}
-								return $_content;
-							}elseif($request->q==='refresh lewati'){
+						$_content = '';
+						foreach($lewati as $_data){
+							$_content = $_content  . '<tr id="' . $_data->id . '"><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
+								'<td>' . strtoupper($_data->name) . '</td>' .
+								'<td align="center"><button class="bt_ulangi_proses btn btn-success">Proses</button></td></tr>'; 
+						}
+						return $_content;
+					}
 
-				                $lewati = DB::table('antrians AS a')
-				                    -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
-				                    -> select('a.id', 'a.no_antrian', 'b.name')
-				                    -> whereRaw('a.status="lewati" And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
-				                    -> get();
-
-								$_content = '';
-								foreach($lewati as $_data){
-									$_content = $_content  . '<tr id="' . $_data->id . '"><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
-										'<td>' . strtoupper($_data->name) . '</td>' .
-										'<td align="center"><button class="bt_ulangi_proses btn btn-success">Proses</button></td></tr>'; 
-								}
-								return $_content;
-							}
-
-					}else{
+				}else{
 						$id_lokets = DB::table('sublayanans as sub')
 						-> leftJoin('lokets as lok', 'lok.id', '=', 'sub.id_loket')
 						-> select('sub.id as id', 'lok.kode_antrian as kode_antrian')
@@ -365,6 +398,7 @@ class pelayananController extends Controller{
 										'id_antrian'	=> $dipanggil->id,
 										'no_antrian'	=> $dipanggil->no_antrian,
 										'id_petugas'	=> Auth()->user()->id,
+										'nama_unit'		=> Auth()->user()->unit,
 										'keterangan'	=> 'Pemanggilan',
 										'created_at'	=> now(),
 										'updated_at'	=> now()
@@ -498,10 +532,9 @@ class pelayananController extends Controller{
 							}
 
 					}
-
-
 		}else{
-			return '404. Page Not Found!';
+			Auth::logout();
+			return redirect('/login');
 		}
 	}
 
@@ -615,6 +648,9 @@ class pelayananController extends Controller{
 			}else{
 				return 'Angka kosong!';
 			}
+		}else{
+			Auth::logout();
+			return redirect('/login');
 		}
 	}
 
@@ -629,7 +665,7 @@ class pelayananController extends Controller{
 				 		-> select('no_antrian')
 				 		-> where(['keterangan'=>'Diterima', 'id_petugas' => Auth()->user()->id])
 				 		-> first();
-
+				 	echo "retry: 5000\n";
 				 	if(!is_null($saat_ini)){
 						echo "data: " . @$saat_ini->no_antrian . "\n\n";
 					}else{
@@ -639,6 +675,9 @@ class pelayananController extends Controller{
            	        flush();
 				});
 			$response->send();
+		}else{
+			Auth::logout();
+			return redirect('/login');
 		}
 	}
 

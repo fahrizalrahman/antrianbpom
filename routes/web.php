@@ -235,6 +235,7 @@ Route::get('/laporan/presensi-petugas', 'LoketController@presensi');
 
 Route::get('/pelanggan/popup', 'LoketController@popup_pelanggan');
 Route::get('/pelanggan/popup/survey', 'LoketController@survey_pelanggan');
+Route::get('/pelanggan/popup/show', 'LoketController@show_popup');
 
 Route::get('/petugas/report/create_pdf','LoketController@generatePDF');
 

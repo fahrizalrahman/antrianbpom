@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use View;
 use Auth;
 use App\Loket;
@@ -63,51 +64,58 @@ class LoketController extends Controller
                 if ($loket->count() > 0){
 
                 $lokets = Loket::select('id', 'nama_layanan', 'kode', 'lantai', 'kode_antrian')
-                    -> where ('petugas', '=', Auth::user()->id)
-                    ->first();
+                    -> where ('petugas', '=', Auth::user()->id);
 
                 $data = DB::table('antrians AS a')
                     -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
                     -> select('a.no_antrian', 'b.name', 'a.status')
-                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $lokets->id . '"')
+                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $lokets->first()->id . '"')
                     -> get();
 
                 $lewati = DB::table('antrians AS a')
                     -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
                     -> select('a.id', 'a.no_antrian', 'b.name')
-                    -> whereRaw('a.status="lewati" And a.id_loket="' . $lokets->id . '" and substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d")')
+                    -> whereRaw('a.status="lewati" And a.id_loket="' . $lokets->first()->id . '" and substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d")')
                     -> get();
+                $kosong = 1;
 
                 }else{
 
                 $lokets = DB::table('sublayanans AS sub')
                     -> leftJoin('lokets AS lok', 'lok.id', '=', 'sub.id_loket')
                     -> select('sub.id as id', 'sub.nama_sublayanan as nama_layanan', 'sub.kode_loket as kode','lok.lantai as lantai','lok.kode_antrian as kode_antrian')
-                    -> where ('sub.petugas', '=', Auth::user()->id)
-                    ->first();
+                    -> where ('sub.petugas', '=', Auth::user()->id);
 
-
-                $data = DB::table('antrians AS a')
+                if ($lokets->count() > 0) {
+                    $data = DB::table('antrians AS a')
                     -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
                     -> select('a.no_antrian', 'b.name', 'a.status')
-                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $lokets->id . '"')
+                    -> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $lokets->first()->id . '"')
                     -> get();
 
-                $lewati = DB::table('antrians AS a')
+                    $lewati = DB::table('antrians AS a')
                     -> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
                     -> select('a.id', 'a.no_antrian', 'b.name')
-                    -> whereRaw('a.status="lewati" And a.id_loket="' . $lokets->id . '" and substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d")')
+                    -> whereRaw('a.status="lewati" And a.id_loket="' . $lokets->first()->id . '" and substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d")')
                     -> get();
+
+                    $kosong = 1;
+                }else{
+                    $data = "";
+                    $lewati= "";
+                    $kosong = 0;
+                }
+
 
                 }
 
 
 
                 return view('petugas_loket.loket')
-                    -> with('_loket', $lokets)
+                    -> with('_loket', $lokets->first())
                     -> with('_data', $data)
-                    -> with('_lewati', $lewati);
-
+                    -> with('_lewati', $lewati)
+                    -> with('kosong', $kosong);
             }elseif(Auth::user()->jabatan==='pelanggan'){
                 return "Pelanggan";
             }
@@ -325,7 +333,8 @@ class LoketController extends Controller
                 return "Anda tidak memiliki hak akses";
             }
         }else{
-            return "Anda tidak memiliki hak akses";
+            Auth::logout();
+            return redirect('/login');
         }
     }
 
@@ -349,7 +358,8 @@ class LoketController extends Controller
                 return "Anda tidak memiliki hak akses";
             }
         }else{
-            return "Anda tidak memiliki hak akses";
+            Auth::logout();
+            return redirect('/login');
         }
     }
 
@@ -373,13 +383,41 @@ class LoketController extends Controller
                 return "Anda tidak memiliki hak akses";
             }
         }else{
-            return "Anda tidak memiliki hak akses";
+            Auth::logout();
+            return redirect('/login');
         }
     }
 
     public function popup_pelanggan(Request $request){
         if(Auth::check()){
-            if((Auth()->user()->jabatan==='pelanggan') || (Auth()->user()->jabatan==='pelanggan_1')){
+            $response = new StreamedResponse();
+            $response->headers->set('Content-Type', 'text/event-stream');
+            $response->headers->set('Cache-Control', 'no-cache');
+            $response->setCallback(
+                function() {
+                    $check = DB::table('pelayanans as a')
+                        -> leftJoin('antrians as b', 'a.id_antrian', '=', 'b.id')
+                        -> select('a.rowid', 'a.kepuasan')
+                        -> whereRaw('substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d") and b.id_user="' . Auth()->user()->id . '" and a.kepuasan="0" and a.keterangan="selesai"')
+                        -> first();
+
+                    echo "retry: 5000\n";
+                    if(!is_null($check)){
+                        echo "data: 1\n\n";
+                    }else{
+                        echo "data: 0\n\n";
+                    }
+                    ob_flush();
+                    flush();
+                });
+            $response->send();
+        }else{
+            Auth::logout();
+            return redirect('/login');
+        }
+        /*
+        if(Auth::check()){
+            if((Auth()->user()->jabatan==='pelanggan')){
                 $content = '';
                 $check = DB::table('pelayanans as a')
                     -> leftJoin('antrians as b', 'a.id_antrian', '=', 'b.id')
@@ -393,6 +431,30 @@ class LoketController extends Controller
                 }
                 return $content;
             }
+        }
+        */
+    }
+
+    public function show_popup(Request $request){
+        if(Auth::check()){
+            if($request->q==='show popup'){
+                $check = DB::table('pelayanans as a')
+                    -> leftJoin('antrians as b', 'a.id_antrian', '=', 'b.id')
+                    -> select('a.rowid', 'a.kepuasan')
+                    -> whereRaw('substr(a.created_at, 1, 10)=date_format(now(), "%Y-%m-%d") and b.id_user="' . Auth()->user()->id . '" and a.kepuasan="0" and a.keterangan="selesai"')
+                    -> first();
+                if($check){
+                    $content = View::make('pelanggan.popup survey')
+                        -> with('_check', $check)
+                        -> render();
+                }
+                return $content;
+            }else{
+                return "0";
+            }
+        }else{
+            Auth::logout();
+            return redirect('/login');
         }
     }
 
@@ -413,6 +475,9 @@ class LoketController extends Controller
             }else{
                 return '404. Page not found!';
             }
+        }else{
+            Auth::logout();
+            return redirect('/login');
         }
     }
 }
