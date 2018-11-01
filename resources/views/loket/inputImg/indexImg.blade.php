@@ -10,6 +10,12 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
+      <div class="card-body">
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h5><i class="icon fa fa-ban"></i> Informasi !</h5>
+            Gambar atau Video yang diupload pada halaman (<i>Gambar Utama</i>) ini akan ditampilkan dilayar utama masing-masing lantai. 
+        </div>
     </section>
 
     <!-- Main content -->
@@ -65,41 +71,7 @@
           </div>
           <!-- /.card -->
       </div>
-       <!-- The Modal -->
-      <div class="modal fade" id="myModal">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-        
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Edit Status</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          
-          <!-- Modal body -->
-          <div class="modal-body">
-              {{-- <form role="form" action="{{route('inputImg.update', $editBtn->id)}}" method="POST" enctype="multipart/form-data">
-                  @csrf
-                  @method('PUT')
-                  <div class="form-group">
-                      <label>Status</label>
-                      <select class="form-control" name="status" value="">
-                          <option value="Aktif">Aktif</option>
-                          <option value="Non-Aktif">Tidak Aktif</option>
-                      </select>
-                  </div>
-              </form> --}}
-          </div>
-          
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    {{-- End Modal --}}
+      
   </section>
   </div>
 

@@ -10,6 +10,12 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
+      <div class="card-body">
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h5><i class="icon fa fa-ban"></i> Informasi !</h5>
+            Gambar atau Video yang diupload pada halaman (<i>Gambar Mainbar</i>) ini akan ditampilkan dilayar utama bagian tengah di masing-masing lantai. 
+        </div>
     </section>
 
     <!-- Main content -->
