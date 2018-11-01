@@ -37,9 +37,9 @@
     <div class="register register-with-news-feed">
         <!-- begin news-feed -->
         <div class="news-feed">
-            <div class="news-image" style="background-image: url({{asset('img/log/bg-log.jpg')}})"></div>
+            <div class="news-image" style="background-image: url({{asset('img/register.jpg')}})" data-id="login-cover-image"></div>
             <div class="news-caption">
-                <h4 class="caption-title"><b>Antrian Laravel</b>
+                <h4 class="caption-title"><b>Sistem Antrian BPOM</b>
 
             </div>
         </div>
@@ -48,16 +48,14 @@
         <div class="right-content">
             <!-- begin register-header -->
             <h1 class="register-header">
-                    <img src=" {{asset('img/log/logo-bpom.png')}} " width="100px" height="50px"/>
-                Sign Up
-                {{-- <small>Buat akun untuk mengakses sistem</small> --}}
+                <center><img src="{{asset('img/log/bpom.png')}}" width="100px" height="100px"/></center>
             </h1>
             <!-- end register-header -->
             <!-- begin register-content -->
             <div class="register-content">
                 <form action=" {{route('register')}} " file="true" method="POST" class="margin-bottom-0">
                     @csrf
-                    <label class="control-label">Nama <span class="text-danger">*</span></label>
+                    <label class="control-label">Nama Lengkap <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
                             <input type="text" id="name" name="name" value="{{ old('name')}}" class="form-control" placeholder="Masukan Nama" required />
@@ -76,43 +74,6 @@
                             @if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <label class="control-label">NIK <span class="text-danger">*</span></label>
-                    <div class="row row-m-b-15">
-                        <div class="col-md-12 m-b-15">
-                            <input type="text" id="nik" name="nik" value="{{ old('nik')}}" class="form-control" placeholder="Masukan Nama" required />
-                            @if ($errors->has('nik'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('nik') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                    
-
-                    <label class="control-label">No Telp <span class="text-danger">*</span></label>
-                    <div class="row row-m-b-15">
-                        <div class="col-md-12 m-b-15">
-                            <input type="text" id="no_telp" name="no_telp" value="{{ old('no_telp')}}" class="form-control" placeholder="Masukan Nama" required />
-                            @if ($errors->has('no_telp'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('no_telp') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <label class="control-label">Alamat<span class="text-danger">*</span></label>
-                    <div class="row row-m-b-15">
-                        <div class="col-md-12 m-b-15">
-                            <input type="text" id="alamat" name="alamat" value="{{ old('alamat')}}" class="form-control" placeholder="Masukan Nama" required />
-                            @if ($errors->has('alamat'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('alamat') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -143,6 +104,7 @@
                     <div class="m-t-20 m-b-40 p-b-40">
                         Sudah Punya Akun ? Login <a href=" {{route('login')}} ">disini</a>.
                     </div>
+                    <h4 style="text-align:center;">Badan Pengawas Obat dan Makanan</h4 style="text-align:center;">
                     <hr />
                     <p class="text-center">
                         &copy;  2018

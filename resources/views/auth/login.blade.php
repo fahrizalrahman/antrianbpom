@@ -84,8 +84,8 @@ if(isMobile()){
                     </div>
           
                     <div class="login-buttons">
-                        <button type="submit" class="btn btn-success btn-block btn-lg">Masuk</button>
-                    </div>
+						<button type="submit" class="btn btn-success btn-block btn-lg">Masuk</button>
+						<a href="{{route('register')}} " class="btn btn-primary btn-block btn-lg"> Registrasi</a>                    </div>
                     <div class="m-t-25">
                        <center><h5> Badan Pengawas Obat dan Makanan</h5>
                     </div>
