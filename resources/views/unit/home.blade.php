@@ -71,7 +71,7 @@
   <!-- /.control-sidebar -->
 @endsection
 
-@section('footer_script')
+@section('scripts')
 <?php
 
 

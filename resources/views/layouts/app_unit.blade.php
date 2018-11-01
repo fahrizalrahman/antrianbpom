@@ -197,6 +197,6 @@
         });
       </script>
 
-@yield('footer_script')
+@yield('scripts')
 </body>
 </html>
