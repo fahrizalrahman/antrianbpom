@@ -44,7 +44,10 @@
                 {
                   extend: 'pdfHtml5',
                   title: $('.judul').html(),
-                  orientation: 'landscape',
+									customize: function(doc) {
+  								doc.content[1].margin = [ 100, 0, 100, 0 ] //left, top, right, bottom
+									},
+                  orientation: 'potrait',
                   pageSize: 'A4',
                   pageMargins: [ 0, 0, 0, 0 ],
                   margin: [ 0, 0, 0, 0 ],

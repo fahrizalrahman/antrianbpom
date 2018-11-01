@@ -1,5 +1,5 @@
 							<div class="col-md-12">
-									<table id="example1" class="table table-bordered table-striped table-responsive">
+									<table align="center" id="pdf" class="table table-bordered table-striped table-responsive" style="width:100%; text-align:center;">
 										<thead>
 											<tr>
 												<th width="300px">Nama Pelanggan</th>
@@ -14,7 +14,7 @@
 											<td>{{ strtoupper($data->pelanggan) }}</td>
 											<td>{{ $data->email }}</td>
 											<td>{{ strtoupper($data->no_telp) }}</td>
-											<td><button style="background-color:#17A2B8;color:white;" class="btn btn-sm modal-list" data-user="{{$data->id_user}}" ><i class="nav-icon fa fa-eye"></i> Kunjungan</button></td>
+											<td><button style="background-color:#17A2B8;color:white;" class="btn btn-sm modal-list" data-user="{{$data->id_user}}" ><i class="nav-icon fa fa-eye"></i>Kunjungan</button></td>
 											</td>
 											</tr>
 											@endforeach
@@ -26,16 +26,21 @@
 
 <script type="text/javascript">
       $(document).ready(function() {
-            $("#example1").DataTable({
+            $("#pdf").DataTable({
               dom: 'Bfrtip',
-              buttons: ['copy', 
-                {
+              buttons: ['copy', 							
+                {								
                   extend: 'pdfHtml5',
                   title: $('.judul').html(),
-                  orientation: 'landscape',
+									customize: function(doc) {
+  								doc.content[1].margin = [ 100, 0, 100, 0 ] //left, top, right, bottom
+									},
+                  orientation: 'potrait',
                   pageSize: 'A4',
                   pageMargins: [ 0, 0, 0, 0 ],
-                  margin: [ 0, 0, 0, 0 ],
+									margin: [0, 15, 0, 15],
+									
+									download: 'open',
                   text: 'Export PDF',
                 }
               ]

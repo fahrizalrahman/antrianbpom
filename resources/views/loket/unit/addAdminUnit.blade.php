@@ -35,7 +35,7 @@
                                   <option value="Biro_Hubungan_Masyarakat">Biro Hubungan Masyarakat dan Dukungan Strategis Pimpinan</option>
                                   <option value="Pusat_Data_Informasi">Pusat Data dan Informasi Obat & Makanan</option>
                                   <option value="Direktorat_Registrasi_Obat">Direktorat Registrasi Obat Tradisional, Suplemen Kesehatan dan Kosmetik</option>
-                                  <option value="Direktorat_Obat">Direktorat Obat</option>
+                                  <option value="Direktorat_Obat">Direktorat Registrasi Obat</option>
                                   <option value="Direktorat_Registrasi_Pangan">Direktorat Registrasi Pangan Olahan</option>
                               </select>
                           </div>

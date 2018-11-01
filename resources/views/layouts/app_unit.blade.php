@@ -76,8 +76,6 @@
                                 <i class="fa fa-tachometer nav-icon"></i><p>Dashboard</p>
                             </a>
                         </li>
-                   
-        
                         <li class="nav-item">
                             <a href=" {{route('unit.petugas')}}" class="nav-link">
                                 <i class="fa fa-user nav-icon"></i><p>Petugas</p>
@@ -110,8 +108,8 @@
                               </a>
                             </li>
                           </ul>
-                        </li>  
 
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -167,19 +165,37 @@
         <script src="{{ asset('js/sweetalert2.all.min.js') }}" type="text/javascript"></script>
 
 
-
-<script>
-    $(function () {
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
-      });
-    });
-  </script>
+        <script>
+          $(function () {
+            $("#example2").DataTable({
+              dom: 'Bfrtip',
+              buttons: ['copy', 
+                {
+                  extend: 'pdfHtml5',
+                  title: $('.judul').html(),
+                  orientation: 'landscape',
+                  pageSize: 'A4',
+                  pageMargins: [ 0, 0, 0, 0 ],
+                  margin: [ 0, 0, 0, 0 ],
+                  download: 'open',
+                  text: 'Export PDF',
+                }
+              ]
+            });
+          });
+        </script>
+      <script>
+        $(function () {
+          $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+          });
+        });
+      </script>
 
 @yield('footer_script')
 </body>

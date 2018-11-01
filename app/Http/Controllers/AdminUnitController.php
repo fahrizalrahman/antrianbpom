@@ -79,7 +79,8 @@ class AdminUnitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $AddAdminUnit = User::findorfail($id);
+        return view('loket.unit.editAdminUnit', compact('AddAdminUnit'));
     }
 
     /**
@@ -91,7 +92,25 @@ class AdminUnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $AddAdminUnit = User::findorfail($id);
+        $AddAdminUnit->name = $request->name;
+        $AddAdminUnit->email = $request->email;
+        $AddAdminUnit->email_verified_at = now();
+        $AddAdminUnit->nik = $request->nik;
+        $AddAdminUnit->no_telp = $request->no_telp;
+        $AddAdminUnit->alamat = $request->alamat;
+        $AddAdminUnit->lantai = $request->lantai;
+        $AddAdminUnit->unit = $request->unit;
+        $AddAdminUnit->password = $request->password;
+        $AddAdminUnit->save();
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Mengedit Admin Unit"
+            ]);
+
+
+        return redirect()->route('AdminUnit.index');
     }
 
     /**
@@ -102,7 +121,15 @@ class AdminUnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $AddAdminUnit = User::findorfail($id);
+        $AddAdminUnit->delete();
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menghapus Admin Unit"
+            ]);
+
+        return redirect()->route('AdminUnit.index');
     }
 
     
