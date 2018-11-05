@@ -22,7 +22,7 @@
 					</div>
 
 					<div class="cell-12 w-100 input_container">
-						<input required name="ed_npwp" value="{{ @$_user_profile->npwp }}" type="text" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
+						<input required name="ed_npwp" value="{{ @$_user_profile->npwp }}" minlength="20" maxlength="20" type="text" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
 					</div>
 
 					<div class="cell-12 w-100 input_container">
@@ -32,7 +32,7 @@
 						<input name="ed_phone" type="text" value="{{ @$_user_profile->no_telp }}" data-role="input" data-clear-button="false" placeholder="Telpon" data-prepend="<span class='mif-phone'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_fax" type="text" value="{{ @$_user_profile->no_fax }}" data-role="input" data-clear-button="false" placeholder="Fax" data-prepend="<span class='mif-phonelink'></span>">
+						<input name="ed_nik" type="text" value="{{ @$_user_profile->nik }}" minlength="16" maxlength="16" data-role="input" data-clear-button="false" placeholder="NIK" data-prepend="<span class='mif-phonelink'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
 						<input name="ed_email" type="email" value="{{ @$_user_profile->email_1 }}" data-role="input" data-clear-button="false" placeholder="Email alternatif" data-prepend="<span class='mif-envelop'></span>">

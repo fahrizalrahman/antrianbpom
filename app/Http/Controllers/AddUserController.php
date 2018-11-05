@@ -49,7 +49,7 @@ class AddUserController extends Controller
     {
 
        $this->validate($request, [ 
-         'nik' => 'required|unique:users',
+         'nik' => 'required|unique:users|max:16',
          'no_telp' => 'required|unique:users',
          'email' => 'required|unique:users',
         ]);

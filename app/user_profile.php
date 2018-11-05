@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class user_profile extends Model
 {
   	protected $fillable = [
-        'id','userid','type','nama','alamat','no_telp','no_fax','email_1'
+        'id','userid','type','nama','alamat','no_telp','nik','email_1'
     ];
 
     // relasi ke user

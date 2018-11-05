@@ -140,7 +140,7 @@ class HomeController extends Controller
         }elseif (Auth::user()->jabatan == "pelanggan"){
 
             if($request->has('mobile')){
-                $profile = user_profile::select('id', 'type', 'nama', 'alamat', 'no_telp', 'no_fax', 'email_1')
+                $profile = user_profile::select('id', 'type', 'nama', 'alamat', 'no_telp', 'nik', 'email_1')
                     -> where('userid', '=', Auth()->user()->id)
                     -> first();
                 if($profile){
