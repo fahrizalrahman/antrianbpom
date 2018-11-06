@@ -4,14 +4,14 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{route('store-perusahaan')}}" role="form" method="POST">
+                    <form action="{{route('store-perusahaan')}}" role="form" method="POST" onsubmit="return validasi_input(this)">
                         @csrf
                         {{ method_field('post') }}
                       <div class="card-body">
 
                          <div class="form-group">
                             <label for="npwp">NPWP</label>
-                            <input type="text" class="form-control" id="npwp" name="npwp" placeholder="Masukan No NPWP" required>
+                            <input type="text" class="form-control" id="npwp" name="npwp" placeholder="Masukan No NPWP" minlength="20" maxlength="20" required>
                            @if ($errors->has('npwp'))
                                 <span class="invalid-feedback" role="alert">
                                   <strong>{{ $errors->first('npwp') }}</strong>
@@ -81,7 +81,7 @@
 
                         <div class="form-group">
                             <label for="nik">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
+                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" minlength="16" maxlength="16" required>
                         @if ($errors->has('nik'))
                                 <span class="invalid-feedback" role="alert">
                                   <strong>{{ $errors->first('nik') }}</strong>
@@ -115,4 +115,16 @@
                       </div>
                     </form>
                   </div>
-            </div>
+                </div>
+
+            {{-- <script type="text/javascript">
+              function validasi_input(form){
+                var maxcar = 20;
+                if (form.npwp.value.length < maxcar){
+                  alert("Panjang Angka NPWP Harus 20 Karater!");
+                  form.npwp.focus();
+                  return (false);
+                }
+                 return (true);
+              }
+            </script> --}}

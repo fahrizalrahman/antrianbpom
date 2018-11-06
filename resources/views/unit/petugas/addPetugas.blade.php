@@ -26,7 +26,7 @@
                     <form action=" {{route('unit.store')}}" method="POST">
                         @csrf
                         <div class="card-body">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Pilih Unit</label>
                                 <select class="form-control" name="unit">
                                     <option value="Direktorat_Pengawasan_Keamanan">Direktorat Pengawasan Keamanan, Mutu dan Ekspor Impor Obat, Narkotika, Psikotropika, Prekursor dan Zat Adiktif</option>
@@ -38,7 +38,12 @@
                                     <option value="Direktorat_Obat">Direktorat Obat</option>
                                     <option value="Direktorat_Registrasi_Pangan">Direktorat Registrasi Pangan Olahan</option>
                                 </select>
+                            </div> --}}
+                            <div class="form-group">
+                              <label for="unit">Unit</label>
+                              <input type="text" class="form-control" id="unit" name="unit" placeholder="Masukan Unit" value="{{Auth::user()->unit }}" required readonly>
                             </div>
+
                           <div class="form-group">
                             <label for="name">Nama</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Masukan Nama" required>
@@ -64,17 +69,24 @@
                               <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
                           </div>
   
-        
                           <div class="form-group">
+                            <label for="jabatan">Jabatan</label>
+                            <input type="text" class="form-control" id="jabatan" name="jabatan" value=" petugas_loket " placeholder="Masukan Jabatan" readonly required>
+                          </div>
+
+                          {{-- <div class="form-group">
                               <label>Pilih Petugas</label>
                               <select class="form-control" name="jabatan">
-                                  <option value="admin">Admin</option>
-                                  <option value="petugas_loket">Petugas Loket</option>
-                                
+                                  <option value="petugas_loket">Petugas Loket</option>                              
                               </select>
+                          </div> --}}
+
+                          <div class="form-group">
+                            <label for="lantai">Lantai</label>
+                            <input type="text" class="form-control" id="lantai" name="lantao" placeholder="Masukan Lantai" value=" {{Auth::user()->lantai}} " required>
                           </div>
                         
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Pilih Lantai</label>
                             <select class="form-control" name="lantai">
                                 <option value="1">1</option>
@@ -84,7 +96,7 @@
                                 <option value="5">5</option>
                                 <option value="6">6</option>
                             </select>
-                        </div>
+                        </div> --}}
 
 
                       <div class="card-footer">

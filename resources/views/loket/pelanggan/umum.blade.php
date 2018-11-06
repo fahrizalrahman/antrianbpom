@@ -1,10 +1,10 @@
-            <div class="card card-info">
+             <div class="card card-info">
                     <div class="card-header">
                       <h3 class="card-title">Tambah Perorangan</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{route('user.store')}}" role="form" method="POST">
+                    <form action="{{route('user.store')}}" role="form" method="POST" data-parsley-validate>
                         @csrf
                         {{ method_field('post') }}
                       <div class="card-body">
@@ -30,7 +30,7 @@
 
                         <div class="form-group">
                             <label for="nik">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
+                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" maxlength="16" minlength="16" required>
                         @if ($errors->has('nik'))
                                 <span class="invalid-feedback" role="alert">
                                   <strong>{{ $errors->first('nik') }}</strong>
@@ -59,10 +59,22 @@
                         </div>
 
 
-      
                       <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                       </div>
                     </form>
                   </div>
             </div>
+
+            {{-- <script type="text/javascript">
+              function validasi_input(form){
+                var mincar = 16;
+                if (form.nik.value.length < mincar){
+                  alert("Panjang Angka NIK Harus 16 Karater!");
+                  form.nik.focus();
+                  return (false);
+                }
+                 return (true);
+              }
+    
+              </script> --}}

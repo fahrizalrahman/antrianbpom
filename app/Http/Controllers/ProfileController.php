@@ -87,6 +87,7 @@ class ProfileController extends Controller
                 'name'  => 'required|string',
                 'email' => 'required|unique:users,email,'. $id,
                 'nik' => 'unique:users,nik,'. $id,
+                'npwp' => 'unique:users,npwp,'. $id,
                 'no_telp'=>'required|unique:users,no_telp,'. $id,
 
         ]);
@@ -97,6 +98,7 @@ class ProfileController extends Controller
             'name'      => $request->name,
             'email'     => $request->email,
             'nik'       => $request->nik,
+            'npwp'       => $request->npwp,
             'no_telp'   => $request->no_telp,
             'alamat'    => $request->alamat,
         ]);

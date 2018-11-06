@@ -11,7 +11,7 @@
 				</div>
 			</div>
 
-			{!! Form::open(['url' => '/mobile/profile/update','method' => 'post','enctype'=>'multipart/form-data']) !!}
+			{!! Form::open(['url' => '/mobile/profile/update','method' => 'post','enctype'=>'multipart/form-data' ]) !!}
 			@csrf
 			<div class="cell-12 text-center">
 				<div class="img_profile_edit">
@@ -33,7 +33,7 @@
 						<input required name="ed_nama" value="{{ @$_user_profile->nama }}" type="text" data-role="input" data-clear-button="false" placeholder="Nama" data-prepend="<span class='mif-user'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_npwp" value="{{ @$_user_profile->npwp }}" type="text" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
+						<input name="ed_npwp" value="{{ @$_user_profile->npwp }}" type="text" maxlength="20" minlength="20" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
 						<textarea name="ed_alamat" placeholder="Alamat" data-clear-button="false" data-role="textarea" data-auto-size="false" data-max-height="200" data-prepend="<span class='mif-map2'></span>">{{ @$_user_profile->alamat }}</textarea>
@@ -42,7 +42,7 @@
 						<input name="ed_phone" type="text" value="{{ @$_user_profile->no_telp }}" data-role="input" data-clear-button="false" placeholder="Telpon" data-prepend="<span class='mif-phone'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_fax" type="text" value="{{ @$_user_profile->no_fax }}" data-role="input" data-clear-button="false" placeholder="Fax" data-prepend="<span class='mif-phonelink'></span>">
+						<input name="ed_nik" type="text" value="{{ @$_user_profile->nik }}" minlength="16" maxlength="16" data-role="input" data-clear-button="false" placeholder="NIK" data-prepend="<span class='mif-phonelink'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
 						<input name="ed_email" type="email" value="{{ @$_user_profile->email_1 }}" data-role="input" data-clear-button="false" placeholder="Email alternatif" data-prepend="<span class='mif-envelop'></span>">
@@ -60,3 +60,16 @@
 	</div>
 </div>
 <div style="height: 50px;"></div>
+
+<script type="text/javascript">
+              function validasi_input(form){
+                var mincar = 16;
+                if (form.nik.value.length < mincar){
+                  alert("Panjang Angka NIK Harus 16 Karater!");
+                  form.nik.focus();
+                  return (false);
+                }
+                 return (true);
+              }
+    
+              </script>

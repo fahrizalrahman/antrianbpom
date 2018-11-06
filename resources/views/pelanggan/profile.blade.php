@@ -51,10 +51,22 @@
                     <label class="control-label">NIK <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
-                            <input type="text" id="nik" name="nik" value="{{$data_user->nik}}" class="form-control" placeholder="Masukan Nama" required />
+                            <input type="text" id="nik" maxlength="16" minlength="16" name="nik" value="{{$data_user->nik}}" class="form-control" placeholder="Masukan Nama" required />
                             @if ($errors->has('nik'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('nik') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <label class="control-label">NPWP <span class="text-danger">*</span></label>
+                    <div class="row row-m-b-15">
+                        <div class="col-md-12 m-b-15">
+                            <input type="text" id="npwp" maxlength="20" minlength="20" name="npwp" value="{{$data_user->npwp}}" class="form-control" placeholder="Masukan Nama" required />
+                            @if ($errors->has('npwp'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('npwp') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -134,6 +146,10 @@
                   <tr>
                     <td style="background-color:grey;">NIK : </td>
                     <td>{{$data_user->nik}}</td>
+                  </tr>
+                  <tr>
+                    <td style="background-color:grey;">NPWP : </td>
+                    <td>{{$data_user->npwp}}</td>
                   </tr>
                   <tr>
                     <td style="background-color:grey;">No Telp : </td>

@@ -45,7 +45,7 @@
 						<label class="profile_sub_title"><span class="mif-phone"></span> {{ @$profile->no_telp }}</label>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
-						<label class="profile_sub_title"><span class="mif-phonelink"></span> {{ @$profile->no_fax }}</label>
+						<label class="profile_sub_title"><span class="mif-phonelink"></span> {{ @$profile->nik }}</label>
 					</div>
 					<div class="cell-12 w-100 input_container" style="border-bottom: 1px solid #aaaaaa">
 						<label class="profile_sub_title"><span class="mif-envelop"></span> {{ @$profile->email_1 }}</label>

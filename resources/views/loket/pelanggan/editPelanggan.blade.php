@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">NIK</label>
-                          <input type="text" class="form-control" value="{{$editpelanggan->nik}}" name="nik" placeholder="Masukan NIK">
+                          <input type="text" class="form-control" value="{{$editpelanggan->nik}}" name="nik" maxlength="16" minlength="16" placeholder="Masukan NIK">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">No Telpn</label>

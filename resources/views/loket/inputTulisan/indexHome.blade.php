@@ -10,6 +10,12 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
+      <div class="card-body">
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <h5><i class="icon fa fa-ban"></i> Informasi !</h5>
+            Tulisan yang diinputkan pada halaman (<i>Home Text</i>) ini akan ditampilkan dilayar utama bagian tengah sebagai berita singkat di masing-masing lantai. 
+        </div>
     </section>
 
     <!-- Main content -->

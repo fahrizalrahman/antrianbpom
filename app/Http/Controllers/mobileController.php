@@ -246,7 +246,7 @@ class mobileController extends Controller{
 				'npwp'		=> $request->ed_npwp,
 				'alamat'	=> $request->ed_alamat,
 				'no_telp'	=> $request->ed_phone,
-				'no_fax'	=> $request->ed_fax,
+				'nik'		=> $request->ed_nik,
 				'email_1'	=> $request->ed_email
 			]);
 			return Redirect::to('/home');
@@ -263,7 +263,7 @@ class mobileController extends Controller{
 			'npwp'		=> $request->ed_npwp,
 			'alamat'	=> $request->ed_alamat,
 			'no_telp'	=> $request->ed_phone,
-			'no_fax'	=> $request->ed_fax,
+			'nik'		=> $request->ed_nik,
 			'email_1'	=> $request->ed_email
 		]);
 		return Redirect::to('/home');
