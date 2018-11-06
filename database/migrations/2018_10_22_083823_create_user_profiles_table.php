@@ -21,6 +21,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('alamat', 255)->default('-');
             $table->string('no_telp', 64)->default('-');
             $table->string('nik', 64)->default('-');
+            $table->string('npwp', 64)->default('-');
             $table->string('email_1', 64)->unique();
             $table->timestamps();
         });

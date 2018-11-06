@@ -33,7 +33,7 @@ html, body {
 }
 
 button > span{
-  font-size: 32pt !important;
+  font-size: 10pt !important;
   color: white;
   display: block !important;
 }
@@ -174,7 +174,7 @@ table > tr > td{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-image: url('/img/default-avatar.png');	
+	background-image: url('/img/default-avatar.jpg');	
 }
 .img_profile{
 	width: 100px; height: 100px;
