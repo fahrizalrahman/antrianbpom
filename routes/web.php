@@ -275,3 +275,5 @@ Route::get('laporan-data-pengunjung', 'HomeController@laporanDataPengunjung');
 Route::get('laporan-survey-pengunjung', 'HomeController@laporanSurveyPengunjung');
 Route::get('laporan-presensi-petugas', 'HomeController@laporanPresensiPetugas');
 Route::get('daftar-booking', 'HomeController@daftarBooking');
+
+Route::get('table-lantai-layanan', 'LoketController@tableLantaiLayanan');

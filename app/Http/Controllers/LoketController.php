@@ -41,21 +41,8 @@ class LoketController extends Controller
         //  
         if (Auth::check()) {
             if(Auth::user()->jabatan==='admin'){
-                $loket = Loket::select(
-                    'lokets.id AS id',
-                     'lokets.nama_layanan',
-                     'lokets.kode',
-                     'users.name AS petugas',
-                     'lokets.lantai', 
-                     'lokets.batas_dari_jam',
-                     'lokets.batas_sampai_jam',
-                     'lokets.batas_antrian'
-                 )
-                ->leftJoin('users', 'users.id', '=', 'lokets.petugas')
-                ->orderBy('id','asc')
-                ->orderBy('lantai','asc')
-                ->get();  
-                return view('loket.index')->with(compact('loket'));
+
+                return view('loket.index');
             }elseif(Auth::user()->jabatan==='petugas_loket'){
 
                 $loket = Loket::select('id', 'nama_layanan', 'kode', 'lantai', 'kode_antrian')
@@ -480,4 +467,44 @@ class LoketController extends Controller
             return redirect('/login');
         }
     }
+
+
+    public function tableLantaiLayanan(Request $request){
+                $loket = Loket::select(
+                    'lokets.id AS id',
+                     'lokets.nama_layanan',
+                     'lokets.kode',
+                     'users.name AS petugas',
+                     'lokets.lantai', 
+                     'lokets.batas_dari_jam',
+                     'lokets.batas_sampai_jam',
+                     'lokets.batas_antrian'
+                 )
+                ->leftJoin('users', 'users.id', '=', 'lokets.petugas')
+                ->where('lokets.lantai',$request->data_lantai)
+                ->orderBy('id','asc')
+                ->get();  
+
+                $tables = '';
+                    foreach ($loket as $value) {
+                $tables .= '<tr>
+                            <td>'.$value->kode.'</td>
+                            <td>'.$value->nama_layanan.'</td>
+                            <td>'.$value->lantai.'</td>
+                            <td>'.$value->petugas.'</td>
+                            <td>'.$value->batas_dari_jam.'</td>
+                            <td>'.$value->batas_sampai_jam.'</td>
+                            <td>'.$value->batas_antrian.'</td>
+                            <td align="center">
+                            <a href="'. route('loket.edit', $value->id) .'" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
+                            
+                             <a href="'.route('loket.delete',$value->id).'" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>
+                             </td>
+                            </tr>';
+                            }
+                $tables .=  '';
+
+                return $tables;
+             
+            }
 }
