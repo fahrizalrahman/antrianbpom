@@ -8,9 +8,9 @@ $(document).on('click', '.bt_sangat_puas, .bt_puas, .bt_tidak_puas', function(e)
       data  : 'q=popup&data=' + $(this).attr('data') + '&rowid=' + $('#survey_container').attr('data'),
       success : function(data){
         $('#survey_container').remove();
-        swal([
+        swal({
           html: 'Terima kasih atas survey yang anda berikan!'
-          ]);
+          });
       },
       error: function (xhr, ajaxOptions, thrownError) {
         alert(xhr.responseText);

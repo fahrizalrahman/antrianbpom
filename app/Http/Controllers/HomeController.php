@@ -673,7 +673,7 @@ class HomeController extends Controller
                 if(Auth()->user()->jabatan==='petugas_loket'){
                         
                     $datas = DB::table('view_antrian')
-                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antri')
+                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antrian as no_antrian')
                             -> where(DB::raw('DATE(tgl_antrian)'),'>',DB::raw('curdate()'))
                             ->where('petugas_layanan',Auth()->user()->id)
                             ->orWhere('petugas_sub_layanan',Auth()->user()->id);

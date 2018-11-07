@@ -51,7 +51,7 @@
 												<td>{{ $data->email }}</td>
 												<td>{{ strtoupper($data->nama_pelanggan) }}</td>
 												<td>{{ strtoupper($data->no_telp) }}</td>
-												<td>{{ $data->no_antri }}</td>
+												<td>{{ $data->no_antrian }}</td>
 												<td>{{ strtoupper($data->nama_layanan) }}</td>
 												<td>{{ strtoupper($data->nama_loket) }}</td>
 												<td>{{ strtoupper($data->sub_layanan) }}</td>
