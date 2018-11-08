@@ -57,6 +57,9 @@
 								@endif
 							</div>
 						</div>
+						<div class="lb_button_batal">
+							<button id="btn_batal_booking" data-id="{{ $data->id_antrian }}" class="button alert w-100">Batal Booking</button>
+						</div>
 					</div>
 				</div>
 				@endforeach
@@ -65,3 +68,18 @@
 	</div>
 </div>
 
+
+<style type="text/css">
+	.swal2-popup .swal2-title {
+    color: #595959;
+    font-size: 15px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: none;
+    position: relative;
+    margin: 0 0 .4em;
+    padding: 0;
+    display: block;
+    word-wrap: break-word;
+}
+</style>

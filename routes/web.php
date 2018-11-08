@@ -277,4 +277,6 @@ Route::get('laporan-presensi-petugas', 'HomeController@laporanPresensiPetugas');
 Route::get('daftar-booking', 'HomeController@daftarBooking');
 
 Route::get('table-lantai-layanan', 'LoketController@tableLantaiLayanan');
+
 Route::get('/mobile/content/cek_quota_booking', 'mobileController@cekQuotaBooking');
+Route::get('/mobile/content/update_batal_keterangan', 'mobileController@updateKeteranganBooking');

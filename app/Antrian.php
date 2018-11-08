@@ -8,7 +8,7 @@ class Antrian extends Model
 {
     //
      protected $fillable = [
-        'id_loket', 'status', 'no_antrian','id_user','id_sublayanan','tgl_antrian'
+        'id_loket', 'status', 'no_antrian','id_user','id_sublayanan','tgl_antrian','keterangan_batal'
     ];
 
      // relasi ke user

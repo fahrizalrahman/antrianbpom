@@ -238,8 +238,8 @@ class mobileController extends Controller{
 				}
 			}elseif($request->data==='monitor'){
 				$data = DB::table('view_antrian')
-					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'panggilan', 'status')
-					-> whereRaw('id_user=' . Auth()->user()->id . ' And status<>"selesai"')
+					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'panggilan', 'status','id_antrian')
+					-> whereRaw('id_user=' . Auth()->user()->id . ' And status<>"selesai" And status<>"batal"')
 					-> get();
 				$_content = view::make('/mobile/partials/pages/' . $request->data)
 					-> with('_data', $data)
@@ -365,9 +365,24 @@ class mobileController extends Controller{
 			}
 
 			return $show_table;
-			
+
 		}else{
 			Auth::logout();
+		}
+	}
+
+
+	public function updateKeteranganBooking(Request $request){
+		if(Auth::check()){
+			$update	=  DB::table('antrians')
+							-> where([
+								'id'=> $request->id_antrian,
+							])
+							-> update([
+								'status'=>'batal',
+								'keterangan_batal'=> $request->ket,
+						]);
+			return $update;
 		}
 	}
 }
