@@ -333,38 +333,39 @@ class mobileController extends Controller{
 			
 			$hitung_sisa = intval($cek_qouta->batas_antrian) - intval($count_booking);
 			if ($hitung_sisa <= 0) {
-				$show_table = '<table class="table compact table-border" style="background-color:grey;color:white">
-									<thead>
+				$show_table = '<table class="table compact table-border">
+									<thead style="background-color:#0036a3;">
 										<tr>
-											<th align="center"><center>Quota Antrian</center></th>
-											<th align="center"><center>Sisa Antrian</center></th>
+										<th style="height:45px;color:white;"><center>Quota Antrian</center></th>
+										<th style="height:45px;color:white;"><center>Sisa Antrian</center></th>
 										</tr>
 									</thead>
-									<tbody>	
+									<tbody >	
 										<tr>
-											<td align="center" >'.$cek_qouta->batas_antrian.'</td>
-											<td align="center">Antrian Penuh</td>		
+										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
+										<td align="center" style="font-size:20pt;color:red;"><b>Antrian Penuh</b></td>		
 										</tr>
 									</tbody>
 							</table>';
 			}else{
-				$show_table = '<table class="table compact table-border" style="background-color:grey;color:white">
-										<thead>
+				$show_table = '<table class="table compact table-border">
+										<thead style="background-color:#0036a3;">
 											<tr>
-												<th align="center"><center>Quota Antrian</center></th>
-												<th align="center"><center>Sisa Antrian</center></th>
+											<th style="height:45px;color:white;"><center>Quota Antrian</center></th>
+											<th style="height:45px;color:white;"><center>Sisa Antrian</center></th>
 											</tr>
 										</thead>
-										<tbody>	
+										<tbody >	
 											<tr>
-												<td align="center" >'.$cek_qouta->batas_antrian.'</td>
-												<td align="center" >'.$hitung_sisa.'</td>		
+											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
+											<td align="center" style="font-size:20pt;color:red;"><b>'.$hitung_sisa.'</b></td>		
 											</tr>
 										</tbody>
 								</table>';
 			}
 
 			return $show_table;
+			
 		}else{
 			Auth::logout();
 		}
