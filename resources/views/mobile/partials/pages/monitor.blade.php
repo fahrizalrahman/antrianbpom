@@ -58,7 +58,11 @@
 							</div>
 						</div>
 						<div class="lb_button_batal">
+							@if($data->hitung_mundur < -11)
 							<button id="btn_batal_booking" data-id="{{ $data->id_antrian }}" class="button alert w-100">Batal Booking</button>
+							@else
+							<button id="btn_batal_booking" disabled="true" data-id="{{ $data->id_antrian }}" class="button alert w-100">Batal Booking</button>
+							@endif							
 						</div>
 					</div>
 				</div>

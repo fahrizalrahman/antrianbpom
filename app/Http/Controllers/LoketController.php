@@ -23,20 +23,57 @@ class LoketController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function generatePDF(Request $request){
-        if(Auth::check()){
-            if(Auth()->user()->jabatan==='petugas_loket'){
-                $_data = ['title' => 'Laporan Daftar Pengunjung - BPOM'];
-                if($request->has('download')){
-                    $pdf = PDF::loadView('layouts.layout_laporan_pengunjung', $_data);
-                    return $pdf->download('test');
-                }
-                return view('layouts.layout_laporan_pengunjung')
-                    -> with('data', $_data);
-            }
-        }
+    public function generatePDFPengunjung(Request $request){
+                $datas = DB::table('pelayanans as pel')
+                        -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as nama_pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub', DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, pel.mulai, pel.selesai)) as lama'))
+                        ->leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        ->leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'<=',$request->ed_sampai)
+                        ->where('pel.id_petugas', '=', Auth()->user()->id)
+                        ->get();
+
+             $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_pengunjung',['_data' => $datas,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=> Auth()->user()->name]);
+      
+            return $pdf->download('layout_laporan_pengunjung.pdf');
     }
 
+    public function generatePDFSurvey(Request $request){
+                    $datas = DB::table('pelayanans as pel')
+                        -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as nama_pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub','pel.kepuasan')
+                        ->leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        ->leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'<=',$request->ed_sampai)
+                        ->where('pel.id_petugas', '=', Auth()->user()->id)
+                        ->get();
+            
+             $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_survey',['_data' => $datas,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=> Auth()->user()->name]);
+      
+            return $pdf->download('layout_laporan_survey.pdf');
+    }
+
+    public function generatePDFPresensi(Request $request){
+                    $datas = DB::table('pelayanans as pel')
+                        ->select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub','pel.kepuasan',DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, pel.mulai, pel.selesai)) as lama'))
+                        ->leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                        ->leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                        ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                        ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(ans.tgl_antrian)'),'<=',$request->ed_sampai)
+                        ->where('pel.id_petugas', '=', Auth()->user()->id)
+                        ->get();
+            
+             $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_presensi',['_data' => $datas,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=> Auth()->user()->name]);
+      
+            return $pdf->download('layout_laporan_presensi.pdf');
+    }
+    
     public function index(){
         //  
         if (Auth::check()) {

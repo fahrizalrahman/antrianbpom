@@ -238,7 +238,7 @@ class mobileController extends Controller{
 				}
 			}elseif($request->data==='monitor'){
 				$data = DB::table('view_antrian')
-					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'panggilan', 'status','id_antrian')
+					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'panggilan', 'status','id_antrian',DB::raw('TIMESTAMPDIFF(HOUR,tgl_antrian,now()) as hitung_mundur'))
 					-> whereRaw('id_user=' . Auth()->user()->id . ' And status<>"selesai" And status<>"batal"')
 					-> get();
 				$_content = view::make('/mobile/partials/pages/' . $request->data)

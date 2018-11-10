@@ -67,7 +67,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-8">
 								<button type="button" disabled="true" class="id_panggil btn btn-primary btn-lg">
 									<span class="fa fa-microphone"></span>Panggil
 								</button>
@@ -81,7 +81,7 @@
 									<span class="fa fa-hourglass-end"></span>Selesai
 								</button>								
 							</div>
-							<div class="col-md-6 text-right">
+							<div class="col-md-4 text-right">
 								<button type="button" disabled="true" class="id_lewati btn btn-danger btn-lg">
 									<span class="fa fa-fast-forward"></span>Lewati
 								</button>

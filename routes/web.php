@@ -237,7 +237,6 @@ Route::get('/pelanggan/popup', 'LoketController@popup_pelanggan');
 Route::get('/pelanggan/popup/survey', 'LoketController@survey_pelanggan');
 Route::get('/pelanggan/popup/show', 'LoketController@show_popup');
 
-Route::get('/petugas/report/create_pdf','LoketController@generatePDF');
 
 //laporan (ADMIN)
 //survey
@@ -280,3 +279,11 @@ Route::get('table-lantai-layanan', 'LoketController@tableLantaiLayanan');
 
 Route::get('/mobile/content/cek_quota_booking', 'mobileController@cekQuotaBooking');
 Route::get('/mobile/content/update_batal_keterangan', 'mobileController@updateKeteranganBooking');
+
+//DAFTAR PEMBATALAN
+Route::get('daftar-pembatalan', 'HomeController@daftarPembatalan');
+
+//download pdf petugas loket
+Route::get('/petugas/report/create_pdf_pengunjung','LoketController@generatePDFPengunjung');
+Route::get('/petugas/report/create_pdf_survey','LoketController@generatePDFSurvey');
+Route::get('/petugas/report/create_pdf_presensi','LoketController@generatePDFPresensi');

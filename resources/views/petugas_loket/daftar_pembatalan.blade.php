@@ -6,7 +6,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Daftar Booking</h3>
+					<h3>Daftar Pembatalan</h3>
 				</div>
 			</div>
 			<div class="row">
@@ -25,11 +25,10 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<table id="example2" width="100%" class="table table-stripedtable-responsive">
+								<table id="example2" width="100%" class="table table-striped table-responsive">
 									<thead>
 										<tr>
 											<th width="90px">Tanggal</th>
-											<th width="175">Email</th>
 											<th width="175px">Nama Pengunjung</th>
 											<th width="100px">No. Telp</th>
 											<th>No Antrian</th>
@@ -37,6 +36,7 @@
 											<th width="80px">Loket</th>
 											<th>Sub Layanan</th>
 											<th width="80px">Loket Sub</th>
+											<th>Keterangan Batal</th>
 										</tr>
 									</thead>
 									<tbody id="tbody_pengunjung">
@@ -48,7 +48,6 @@
 												<tr style="background-color: #dddddd">
 											@endif
 												<td align="center">{{ substr($data->tanggal,0,10) }}</td>
-												<td>{{ $data->email }}</td>
 												<td>{{ strtoupper($data->nama_pelanggan) }}</td>
 												<td>{{ strtoupper($data->no_telp) }}</td>
 												<td>{{ $data->no_antrian }}</td>
@@ -56,6 +55,7 @@
 												<td>{{ strtoupper($data->nama_loket) }}</td>
 												<td>{{ strtoupper($data->sub_layanan) }}</td>
 												<td>{{ strtoupper($data->nama_loket_sub) }}</td>
+												<td>{{ $data->keterangan_batal }}</td>
 											</tr>
 											<?php $_i++;?>
 										@endforeach
@@ -70,5 +70,4 @@
 		</div>
 	</section>
 </div>
-
 @endsection
