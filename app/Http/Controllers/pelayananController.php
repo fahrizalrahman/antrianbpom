@@ -66,7 +66,7 @@ class pelayananController extends Controller{
 				 			-> select('pels.no_antrian')
 				 			-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
 				 			-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
-				 			-> where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
+				 			-> where(DB::raw('DATE(pels.created_at)'),DB::raw('curdate()'))
 				 			-> first();
 
 				 		if(is_null($saat_ini)){
@@ -74,7 +74,7 @@ class pelayananController extends Controller{
 				 				-> select('pels.no_antrian')
 				 				-> leftJoin('antrians as ans', 'ans.id', '=','pels.id_antrian')
 					 			-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
-					 			-> where(DB::raw('DATE(ans.created_at)'),DB::raw('curdate()'))
+					 			-> where(DB::raw('DATE(pels.created_at)'),DB::raw('curdate()'))
 					 			-> first();
 
 					 		if(is_null($sekarang)){
@@ -131,7 +131,7 @@ class pelayananController extends Controller{
 				 			-> select('ans.no_antrian')
 				 			-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
 				 			-> where(['pels.keterangan'=>'Pemanggilan', 'pels.id_petugas' => Auth()->user()->id])
-				 			-> where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
+				 			-> where(DB::raw('DATE(pels.created_at)'),DB::raw('curdate()'))
 				 			-> first();
 
 				 		if(is_null($saat_ini)){
@@ -139,7 +139,7 @@ class pelayananController extends Controller{
 				 				-> select('ans.no_antrian')
 				 				-> leftJoin('antrians as ans', 'ans.id', '=', 'pels.id_antrian')
 					 			-> where(['pels.keterangan'=>'Diterima', 'pels.id_petugas' => Auth()->user()->id])
-					 			-> where(DB::raw('DATE(ans.tgl_antrian)'),DB::raw('curdate()'))
+					 			-> where(DB::raw('DATE(pels.created_at)'),DB::raw('curdate()'))
 					 			-> first();
 					 		if(is_null($sekarang)){
 					 			$hasil['sekarang'] = '0';

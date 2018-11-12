@@ -74,6 +74,36 @@ class LoketController extends Controller
             return $pdf->download('layout_laporan_presensi.pdf');
     }
     
+
+        public function generatePDFBooking(Request $request){
+            
+                $datas = DB::table('view_antrian')
+                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antrian as no_antrian')
+                            -> where(DB::raw('DATE(tgl_antrian)'),'>',DB::raw('curdate()'))
+                            ->where('petugas_layanan',Auth()->user()->id)
+                            ->orWhere('petugas_sub_layanan',Auth()->user()->id)
+                            ->get();
+
+             $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_booking',['_data' => $datas,'petugas'=> Auth()->user()->name]);
+      
+            return $pdf->download('layout_laporan_booking.pdf');
+    }
+    
+        public function generatePDFPembatalan(Request $request){
+
+                        $datas = DB::table('view_antrian')
+                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antrian as no_antrian','keterangan_batal as keterangan_batal')
+                            -> where('status','batal')
+                            ->where('petugas_layanan',Auth()->user()->id)
+                            ->orWhere('petugas_sub_layanan',Auth()->user()->id)
+                            ->get();
+
+             $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_pembatalan',['_data' => $datas,'petugas'=> Auth()->user()->name]);
+      
+            return $pdf->download('layout_laporan_pembatalan.pdf');
+
+    }
+
     public function index(){
         //  
         if (Auth::check()) {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laporan Pengunjung</title>
+	<title>Laporan Presensi Petugas</title>
 
 </head>
 <body style="font-family: Arial, Helvetica, sans-serif;font-size:15px;">

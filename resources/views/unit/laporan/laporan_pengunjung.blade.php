@@ -12,6 +12,8 @@
       <!-- Modal Header -->
       <div class="modal-header" >
         <h4 class="modal-title"><span id="nama-pelanggan-kunjungan"></span></h4>
+
+						
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -34,6 +36,8 @@
 				</table>
 			</div>
 		<div class="modal-footer">
+			<button class="btn btn-success bt_export_pdf" data-id="0"  style="align-items:left;">Download <span class="fa fa-file-pdf-o"></span></button>
+
 			<h4>Total Kunjungan : <span id="count-list-kunjungan"></span></h4>
 		</div>
       </div>
@@ -68,15 +72,15 @@
 						<div class="row">
 							<div class="col-md-2">
 								<label class="label-input">Mulai : </label>
-								<input class="input_date" id="ed_mulai" name="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
+								<input class="form-control" id="ed_mulai" name="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
 							</div>
 							<div class="col-md-2">
 								<label class="label-input">Sampai : </label>
-								<input class="input_date" id="ed_sampai" name="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
+								<input class="form-control" id="ed_sampai" name="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<label class="label-input">Petugas : </label>
-								<select id="petugas" class="ed_sel_petugas input_date full-width">
+								<select id="petugas" class="form-control">
 									<option value="all">Semua Petugas</option>
 									<?php
 									$data_petugas = App\User::select('id','name')->where('unit', Auth::user()->unit)->get();
@@ -86,14 +90,10 @@
 									@endforeach									
 								</select>
 							</div>
-
-						</div>
-						<div class="row">
-							<div class="col-md-12" style="margin-top: 10px;">
+							<div class="col-md-5" style="margin-top:30px">
 								<button id="proses" class="btn btn-success">Proses</button>
-								<hr />
 							</div>
-						</div>
+						</div><br>
 						<div class="row">
 							<span id="refresh-table">
 								@include('unit.laporan.refresh_table_lap_pengunjung')
@@ -181,10 +181,79 @@ table.dataTable thead tr {
               $("#refresh-list-kunjungan").html(resp.tables);
               $("#count-list-kunjungan").html(resp.count);
               $("#nama-pelanggan-kunjungan").html(resp.pelanggan);
+              $(".bt_export_pdf").attr("data-id",id_user);
 
           });
 
      });
+
+
+     $(document).on('click', '.bt_export_pdf', function(e){
+	e.preventDefault();
+	if(e.which===1){
+		 var id_user  = $(this).attr("data-id");
+         var tglmulai = $("#ed_mulai").val();
+         var tglsampai = $("#ed_sampai").val();
+         var petugas = $("#petugas").val();
+
+		$.ajax({
+            cache: false,
+            type: 'GET',
+            url: '/petugas/report/create_pdf_pengunjung_unit',
+            contentType: false,
+            processData: false,
+            data: 'q=create_pdf&tglmulai=' + tglmulai + '&tglsampai=' + tglsampai+ '&id_user=' + id_user+ '&petugas=' + petugas,
+             //xhrFields is what did the trick to read the blob to pdf
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response, status, xhr) {
+
+                var filename = "";                   
+                var disposition = xhr.getResponseHeader('Content-Disposition');
+
+                 if (disposition) {
+                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                    var matches = filenameRegex.exec(disposition);
+                    if (matches !== null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+                } 
+                var linkelem = document.createElement('a');
+                try {
+                    var blob = new Blob([response], { type: 'application/octet-stream' });                        
+
+                    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                        //   IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+                        window.navigator.msSaveBlob(blob, filename);
+                    } else {
+                        var URL = window.URL || window.webkitURL;
+                        var downloadUrl = URL.createObjectURL(blob);
+
+                        if (filename) { 
+                            // use HTML5 a[download] attribute to specify filename
+                            var a = document.createElement("a");
+
+                            // safari doesn't support this yet
+                            if (typeof a.download === 'undefined') {
+                                window.location = downloadUrl;
+                            } else {
+                                a.href = downloadUrl;
+                                a.download = filename;
+                                document.body.appendChild(a);
+                                a.target = "_blank";
+                                a.click();
+                            }
+                        } else {
+                            window.location = downloadUrl;
+                        }
+                    }   
+
+                } catch (ex) {
+                    console.log(ex);
+                } 
+            }
+ 		});
+	}
+});
 </script>
 @endsection
 

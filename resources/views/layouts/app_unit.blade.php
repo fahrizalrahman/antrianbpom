@@ -108,8 +108,23 @@
                               </a>
                             </li>
                           </ul>
-
                         </li>
+
+                        <li class="nav-item">
+                              <a href="{{url('/daftar-booking/unit')}}" class="nav-link">
+                                <i class="fa fa-shopping-bag nav-icon"></i>
+                                <p>Daftar Booking</p>
+                              </a>
+                        </li>
+
+                        <li class="nav-item">
+                              <a href="{{url('/daftar-pembatalan/unit')}}" class="nav-link">
+                                <i class="fa fa-ban nav-icon"></i>
+                                <p>Daftar Pembatalan</p>
+                              </a>
+                        </li>
+
+
                     </ul>
                 </nav>
             </div>
@@ -168,20 +183,6 @@
         <script>
           $(function () {
             $("#example2").DataTable({
-              dom: 'Bfrtip',
-              buttons: ['copy', 
-                {
-                  extend: 'pdfHtml5',
-                  title: $('.judul').html(),
-                  orientation: 'landscape',
-                  pageSize: 'A4',
-                  pageMargins: [ 0, 0, 0, 0 ],
-                  margin: [ 0, 0, 0, 0 ],
-                  download: 'open',
-                  text: 'Export PDF',
-                }
-              ]
-            });
           });
         </script>
       <script>

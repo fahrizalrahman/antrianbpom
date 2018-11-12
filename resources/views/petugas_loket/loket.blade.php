@@ -370,7 +370,6 @@ $(document).on('click', '.id_panggil', function(e){
 								$('#id_audio').html(_obj);
 								$("#id_audio").prop("currentTime",0);
 								$('#id_audio').trigger('play');
-								load_data();
 							}
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
@@ -411,7 +410,7 @@ es_total.onmessage = function(e) {
 	$('#body_lewati').html(_data.lewati);
 }
 
-var es_status = new EventSource('/proses/check status');
+var es_status = new EventSource('/proses/check_status');
 es_status.addEventListener('error', function(e) {
   if (e.readyState == EventSource.CLOSED) {
     // Connection was closed.
