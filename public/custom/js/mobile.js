@@ -74,6 +74,11 @@ $(document).on('click', '#btn_ambil_antrian', function(e){
                             type: "success",
                             timer: 1000
                         });
+
+				}else if(data == "bulan over"){
+					swal({
+                          html: "Booking hanya bisa 2 kali dalam sebulan !!"
+                    });
 				}
 				load_content('booking');
 			},
@@ -155,4 +160,76 @@ $(document).on('click', '.tm_normal', function(e){
 	}
 });
 
+ $(document).on('change', '#ed_tanggal', function () { 	
+	cek_quota_booking($(this).attr('rowid'), $(this).attr('jenis'), $(this).val());
+});
 
+function cek_quota_booking(_data,_jenis,_tanggal){
+	 $.ajax({
+			headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			dataType: 'html',
+			url		: '/mobile/content/cek_quota_booking',
+			data 	: 'q=cek_quota_booking&data=' + _data + '&jenis=' + _jenis + '&tanggal=' + _tanggal,
+			success	: function(data){
+				$('#table_quota').html(data);
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert(xhr.responseText);
+			}
+		});
+}
+
+$(document).on('click', '#btn_batal_booking', function(e){
+	var id_antrian = $(this).attr('data-id');
+	e.preventDefault();
+	if(e.which===1){
+		swal({
+		  title: 'Apakah Anda Ingin Membatalkan Booking , Silakan Tulis Keterangan Alasan',
+		  input: 'select',
+		  inputOptions: {
+		    'Keperluan Mendadak': 'Keperluan Mendadak',
+		    'Sakit': 'Sakit',
+		    'Alasan Lain': 'Alasan Lain'
+		  },
+		  inputPlaceholder: '-- Pilih Alasan --',
+		  showCancelButton: true,
+		  inputValidator: (value) => {
+		    return new Promise((resolve) => {
+		      if (value === 'Alasan Lain') {
+		         swal({
+					  input: 'text',
+					  inputPlaceholder:'Isi Alasan Disini ...',
+					}).then(function (text) {
+							update_keterangan(String(text.value),id_antrian);
+					})
+		      }else{
+		      	update_keterangan(value,id_antrian);
+		      }
+		    })
+		  }
+		})
+	}
+});
+
+function update_keterangan(ket,id_antrian){						
+					$.ajax({
+						headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						dataType: 'html',
+						url		: '/mobile/content/update_batal_keterangan',
+						data 	: 'q=update_batal_keterangan&ket=' + ket + '&id_antrian=' + id_antrian,
+						success	: function(data){
+								swal({
+									html: 'Berhasil Membatalkan Booking',
+		                            showConfirmButton :  false,
+		                            type: "success",
+		                            timer: 1000
+								 });
+								  	load_content('monitor');
+						},
+						error: function (xhr, ajaxOptions, thrownError) {
+						swal({
+			                 html: "Terjadi Kesalahan , Silakan Hubungi IT"
+			             });
+					}
+				});
+}

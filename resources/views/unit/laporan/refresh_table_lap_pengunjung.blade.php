@@ -27,23 +27,6 @@
 <script type="text/javascript">
       $(document).ready(function() {
             $("#pdf").DataTable({
-              dom: 'Bfrtip',
-              buttons: ['copy', 							
-                {								
-                  extend: 'pdfHtml5',
-                  title: $('.judul').html(),
-									customize: function(doc) {
-  								doc.content[1].margin = [ 100, 0, 100, 0 ] //left, top, right, bottom
-									},
-                  orientation: 'potrait',
-                  pageSize: 'A4',
-                  pageMargins: [ 0, 0, 0, 0 ],
-									margin: [0, 15, 0, 15],
-									
-									download: 'open',
-                  text: 'Export PDF',
-                }
-              ]
             });
           });
 </script>

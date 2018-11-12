@@ -570,7 +570,6 @@ class HomeController extends Controller
                 $tables .=   '<tr style="background-color: #dddddd">';
                         }
                 $tables .=   '<td align="center">'. substr($data->tanggal,0,10).'</td>
-                                <td>'. $data->email.'</td>
                                 <td>'. strtoupper($data->nama_pelanggan).'</td>
                                 <td>'. strtoupper($data->no_telp).'</td>
                                 <td>'. strtoupper($data->nama_layanan).'</td>
@@ -608,7 +607,6 @@ class HomeController extends Controller
                 $tables .=   '<tr style="background-color: #dddddd">';
                         }
                 $tables .=   '<td align="center">'. substr($data->tanggal,0,10).'</td>
-                                <td>'. $data->email.'</td>
                                 <td>'. strtoupper($data->nama_pelanggan).'</td>
                                 <td>'. strtoupper($data->no_telp).'</td>
                                 <td>'. strtoupper($data->nama_layanan).'</td>
@@ -673,7 +671,7 @@ class HomeController extends Controller
                 if(Auth()->user()->jabatan==='petugas_loket'){
                         
                     $datas = DB::table('view_antrian')
-                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antri')
+                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antrian as no_antrian')
                             -> where(DB::raw('DATE(tgl_antrian)'),'>',DB::raw('curdate()'))
                             ->where('petugas_layanan',Auth()->user()->id)
                             ->orWhere('petugas_sub_layanan',Auth()->user()->id);
@@ -681,10 +679,31 @@ class HomeController extends Controller
                         return view('petugas_loket.daftar_booking')
                             -> with('_data', $datas->get());
                 }else{
-                    return "Anda tidak memiliki hak akses";
+                    Auth::logout();
                 }
             }else{
-                return "Anda tidak memiliki hak akses";
+                Auth::logout();
+            }
+    }
+
+
+    public function daftarPembatalan(Request $request){
+            if(Auth::check()){
+                if(Auth()->user()->jabatan==='petugas_loket'){
+                        
+                    $datas = DB::table('view_antrian')
+                            -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antrian as no_antrian','keterangan_batal as keterangan_batal')
+                            -> where('status','batal')
+                            ->where('petugas_layanan',Auth()->user()->id)
+                            ->orWhere('petugas_sub_layanan',Auth()->user()->id);
+
+                        return view('petugas_loket.daftar_pembatalan')
+                            -> with('_data', $datas->get());
+                }else{
+                    Auth::logout();
+                }
+            }else{
+                Auth::logout();
             }
     }
 

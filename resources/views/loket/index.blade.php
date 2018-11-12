@@ -19,7 +19,10 @@
            <div class="card">
             <div class="card-header">
                 <a href="{{ route('loket.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Layanan</a>
-            
+              
+               <?php for ($x = 1; $x <= 6; $x++) { ?>
+                  <button type="button" class="btn btn-default btn-lantai"  style="background-color:#17A2B8;color:white;" data-lantai="{{$x}}">lantai {{$x}}</button>
+                <?php } ?>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -36,24 +39,8 @@
                   <th width="75px">Aksi</th>
                 </tr>
                 </thead>
-                <tbody>
-                @foreach($loket as $value)
-                 <tr>
-                  <td>{{$value->kode}}</td>
-                  <td>{{$value->nama_layanan}}</td>
-                  <td>{{$value->lantai}}</td>
-                  <td>{{$value->petugas}}</td>
-                  <td>{{$value->batas_dari_jam}}</td>
-                  <td>{{$value->batas_sampai_jam}}</td>
-                  <td>{{$value->batas_antrian}}</td>
-                  <td align="center">
-                    <a href="{{ route('loket.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
-                    
-                     <a href="{{route('loket.delete',$value->id)}}" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>
+                <tbody id="refresh-table">
 
-                  </td>
-                </tr>
-                @endforeach
                 </tbody>
               </table>
             </div>
@@ -75,4 +62,29 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+      $(document).ready(function() {
+
+          $.get('{{ Url("table-lantai-layanan") }}',{'_token': $('meta[name=csrf-token]').attr('content'),data_lantai:1}, function(resp){
+
+            $("#refresh-table").html(resp);
+             
+          });
+    });
+      
+        $(document).on('click', '.btn-lantai', function (e) { 
+         var data_lantai = $(this).attr('data-lantai');
+
+          $.get('{{ Url("table-lantai-layanan") }}',{'_token': $('meta[name=csrf-token]').attr('content'),data_lantai:data_lantai}, function(resp){  
+
+            $("#refresh-table").html(resp);
+            $(this).attr('style','background-color:#ffffff;');
+             
+          });
+    });
+</script>
 @endsection

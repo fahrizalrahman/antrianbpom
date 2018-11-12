@@ -7,6 +7,7 @@ use App\User;
 use DB;
 use Auth;
 use Session;
+use PDF;
 
 class UnitController extends Controller
 {
@@ -19,7 +20,48 @@ class UnitController extends Controller
     {
         if (Auth::check()) {
             if (Auth()->user()->jabatan==='admin_unit') {
-                return view('unit.home');
+              
+              $data = DB::table('summary_pelanggan')
+                -> select('tanggal', DB::raw('count(jumlah) AS jml'))
+                -> where('nama_unit',Auth()->user()->unit)
+                -> groupBy('tanggal')
+                -> get();
+
+            $tanggal = '';
+            $batas =  31;
+            $nilai = '';
+            for($_i=1; $_i <= $batas; $_i++){
+                $tanggal = $tanggal . (string)$_i . ',';
+                $_check = false;
+                foreach($data as $_data){
+                    if((int)@$_data->tanggal === $_i){
+                        $nilai = $nilai . (string)$_data->jml . ',';
+                        $_check = true;
+                    }
+                }
+                if(!$_check){
+                    $nilai = $nilai . '0,';
+                }
+            }
+
+            $data1 = DB::table('view_pelayanan')
+                -> select('kepuasan', DB::raw('count(id_antrian) AS jml'))
+                -> where('nama_unit',Auth()->user()->unit)
+                -> groupBy('kepuasan')
+                -> get();
+
+            $hasil = '';
+            foreach($data1 as $data){
+                if($data->kepuasan==='0'){$param = 'Tidak Survey';}
+                elseif($data->kepuasan==='1'){$param = 'Sangat Puas';}
+                elseif($data->kepuasan==='2'){$param = 'Puas';}
+                elseif($data->kepuasan==='3'){$param = 'Tidak Puas';}
+                $hasil = $hasil . '{name: "' . $param . '", y: ' . $data->jml . '},';
+            }
+            return view('unit.home')
+                -> with('_tanggal', substr($tanggal, 0,-1))
+                -> with('_hasil', substr($hasil, 0, -1))
+                -> with('_nilai', substr($nilai, 0, -1));
             }
         } else {
             return "Anda Tidak Memiliki Akses";
@@ -561,5 +603,55 @@ public function filterDataSurvey(Request $request){
         ->with('_data', $data);
 
 }
+
+    public function generatePDFPengunjung(Request $request){
+                     
+                     if ($request->petugas == 'all') {
+           
+                       $datass = DB::table('view_pelayanan')
+                                   -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan')
+                                   ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
+                                   ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
+                                   ->where('id_user',$request->id_user)
+                                   ->get();
+                                   
+                       }else{
+
+                       $datass = DB::table('view_pelayanan')
+                                   -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan')
+                                   ->where(DB::raw('DATE(tanggal)'),'>=',$request->tglmulai)
+                                   ->where(DB::raw('DATE(tanggal)'),'<=',$request->tglsampai)
+                                   ->where('petugas',$request->petugas)
+                                   ->where('id_user',$request->id_user)
+                                   ->get();
+
+                       }
+
+             $pdf = PDF::loadView('pdf_laporan_unit.layout_laporan_pengunjung',['_data' => $datass,'ed_mulai'=>$request->tglmulai,'ed_sampai'=>$request->tglsampai,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit]);
+      
+            return $pdf->download('layout_laporan_pengunjung_unit.pdf');
+    }
+
+    public function daftarBooking(Request $request){
+            if(Auth::check()){
+                if(Auth()->user()->jabatan==='admin_unit'){
+                        
+                    $datas = DB::table('view_antrian as va')
+                            -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian')
+                            ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
+                            ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
+                            -> where(DB::raw('DATE(va.tgl_antrian)'),'>',DB::raw('curdate()'))
+                            ->where('upl.unit', '=', Auth()->user()->unit)
+                            ->orWhere('ups.unit', '=', Auth()->user()->unit);
+
+                        return view('unit.laporan.daftar_booking')
+                            -> with('_data', $datas->get());
+                }else{
+                    Auth::logout();
+                }
+            }else{
+                Auth::logout();
+            }
+    }
 
 }

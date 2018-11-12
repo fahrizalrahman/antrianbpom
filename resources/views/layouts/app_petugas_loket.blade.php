@@ -125,6 +125,13 @@
                             </a>
                       </li>
 
+                        <li class="nav-item">
+                              <a href="{{url('/daftar-pembatalan')}}" class="nav-link">
+                                <i class="fa fa-ban nav-icon"></i>
+                                <p>Daftar Pembatalan</p>
+                              </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
@@ -195,5 +202,49 @@
   </script>
 
 @yield('footer_script')
+
+<style type="text/css">
+table.dataTable thead tr {
+  padding: 0px;
+  margin: 0px;
+  color: white;
+  background-color: green;
+}
+
+</style>
+
+<style type="text/css">
+.full-width{
+  width: 100% !important;
+  display: block;
+}
+.input_date{
+  border: 1px solid #aaaaaa;
+  width: 160px;
+  height: 30px;
+  outline-width: 0px;
+  font-family: arial;
+  color: black;
+  padding: 5px 10px;
+}
+.input-custom{
+  padding: 5px 10px;
+}
+.label-input{
+  font-weight: normal !important;
+}
+.table-container{
+  padding: 10px;
+  border: 1px solid #dddddd;
+  font-size:15px;
+}
+table.dataTable thead tr {
+  padding: 0px;
+  margin: 0px;
+  color: white;
+  background-color: green;
+
+}
+</style>
 </body>
 </html>

@@ -39,7 +39,17 @@ class mobileController extends Controller{
 							])
 						-> count()) + 1;
 
+					$cek_antri = DB::table('antrians')
+							->whereRaw('id_loket=' . $request->data)
+							->whereMonth('tgl_antrian','=',date("m", strtotime($request->tanggal)))
+							->whereYear('tgl_antrian','=',date("Y", strtotime($request->tanggal)))
+							->where('status','=','antri')
+							-> count();
+
 						$_jam = date('H');
+
+					if ($cek_antri < 2) {
+
 						if((intval($_jam) >= $_waktu->batas_sampai_jam)){
 							return	$_antri = 'sudah tutup';
 						}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
@@ -47,6 +57,7 @@ class mobileController extends Controller{
 						}elseif((intval($_no_antri) > $_waktu->batas_antrian)){
 							return	$_antri = 'tiket habis';
 						}else{
+							
 							DB::table('antrians')
 							-> insert([
 								'id_loket'		=> $request->data,
@@ -57,10 +68,19 @@ class mobileController extends Controller{
 								'updated_at'	=> now(),
 								'tgl_antrian'	=> $request->tanggal]);
 
-						return	$_antri = 'masih bisa';
+							return	$_antri = 'masih bisa';
 						}
+<<<<<<< HEAD
+=======
+
+					}else{
+						return $_antri = 'bulan over';
+					}
+>>>>>>> 6452cfaff91053c69914f401588da250833f3f2b
 					
 				}
+					
+			}
 			}elseif($request->jenis==='sub_layanan'){
 				/*Check Hari*/
 				$_hari = \App\helper\Tanggal::ambil_hari($request->tanggal);
@@ -91,8 +111,17 @@ class mobileController extends Controller{
 							])
 						-> count()) + 1;
 
+					$cek_antri = DB::table('antrians')
+							->whereRaw('id_loket=' . $request->data)
+							->whereMonth('tgl_antrian','=',date("m", strtotime($request->tanggal)))
+							->whereYear('tgl_antrian','=',date("Y", strtotime($request->tanggal)))
+							->where('status','=','selesai')
+							-> count();
+
 						$_jam = date('H');
-						
+					
+					if ($cek_antri < 2) {
+
 						if((intval($_jam) >= $_waktu->batas_sampai_jam)){
 							return	$_antri = 'sudah tutup';
 						}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
@@ -113,11 +142,14 @@ class mobileController extends Controller{
 
 							return $_antri = 'masih bisa';
 						}
+					}else{
+						 return $_antri = 'bulan over';
+					}
 
 				}
 
 			}
-		}
+		
 	}
 
 	public function booking_layanan(Request $request){
@@ -209,8 +241,8 @@ class mobileController extends Controller{
 				}
 			}elseif($request->data==='monitor'){
 				$data = DB::table('view_antrian')
-					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'panggilan', 'status')
-					-> whereRaw('id_user=' . Auth()->user()->id . ' And status<>"selesai"')
+					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'panggilan', 'status','id_antrian',DB::raw('TIMESTAMPDIFF(HOUR,tgl_antrian,now()) as hitung_mundur'))
+					-> whereRaw('id_user=' . Auth()->user()->id . ' And status<>"selesai" And status<>"batal"')
 					-> get();
 				$_content = view::make('/mobile/partials/pages/' . $request->data)
 					-> with('_data', $data)
@@ -268,10 +300,102 @@ class mobileController extends Controller{
 		return Redirect::to('/home');
 	}
 
+<<<<<<< HEAD
 	// public function sanksi(Request $request)
 	// {
 	// 	if(Auth::check()){
 	// 		if()
 	// 	}
 	// }
+=======
+	public function cekQuotaBooking(Request $request){
+		if(Auth::check()){
+			if($request->jenis==='layanan'){
+				
+				$count_booking = DB::table('antrians')
+				 			-> where('id_loket',$request->data)
+				 			-> where('tgl_antrian',$request->tanggal)
+				 			-> where('status','antri')
+				 			-> count();
+
+				$cek_qouta = DB::table('lokets')
+							-> select('batas_antrian as batas_antrian')
+				 			-> where('id',$request->data)
+				 			-> first();
+			}
+			elseif($request->jenis==='sub_layanan'){
+
+
+				$_head_loket = DB::table('sublayanans')
+						-> select('id_loket')
+						-> where('id', '=', $request->data)
+						-> first();
+
+				$count_booking = DB::table('antrians')
+				 			-> where('id_loket',$_head_loket->id_loket)
+				 			-> where('tgl_antrian',$request->tanggal)
+				 			-> where('status','antri')
+				 			-> count();
+
+				$cek_qouta = DB::table('sublayanans')
+							-> select('batas_antrian as batas_antrian')
+				 			-> where('id',$request->data)
+				 			-> first();
+			}
+			
+			$hitung_sisa = intval($cek_qouta->batas_antrian) - intval($count_booking);
+			if ($hitung_sisa <= 0) {
+				$show_table = '<table class="table compact table-border">
+									<thead style="background-color:#0036a3;">
+										<tr>
+										<th style="height:45px;color:white;"><center>Quota Antrian</center></th>
+										<th style="height:45px;color:white;"><center>Sisa Antrian</center></th>
+										</tr>
+									</thead>
+									<tbody >	
+										<tr>
+										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
+										<td align="center" style="font-size:20pt;color:red;"><b>Antrian Penuh</b></td>		
+										</tr>
+									</tbody>
+							</table>';
+			}else{
+				$show_table = '<table class="table compact table-border">
+										<thead style="background-color:#0036a3;">
+											<tr>
+											<th style="height:45px;color:white;"><center>Quota Antrian</center></th>
+											<th style="height:45px;color:white;"><center>Sisa Antrian</center></th>
+											</tr>
+										</thead>
+										<tbody >	
+											<tr>
+											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
+											<td align="center" style="font-size:20pt;color:red;"><b>'.$hitung_sisa.'</b></td>		
+											</tr>
+										</tbody>
+								</table>';
+			}
+
+			return $show_table;
+
+		}else{
+			Auth::logout();
+		}
+	}
+
+
+	public function updateKeteranganBooking(Request $request){
+		if(Auth::check()){
+			$update	=  DB::table('antrians')
+							-> where([
+								'id'=> $request->id_antrian,
+							])
+							-> update([
+								'status'=>'batal',
+								'keterangan_batal'=> $request->ket,
+						]);
+			return $update;
+		}
+	}
+>>>>>>> 6452cfaff91053c69914f401588da250833f3f2b
 }

@@ -67,7 +67,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-8">
 								<button type="button" disabled="true" class="id_panggil btn btn-primary btn-lg">
 									<span class="fa fa-microphone"></span>Panggil
 								</button>
@@ -81,7 +81,7 @@
 									<span class="fa fa-hourglass-end"></span>Selesai
 								</button>								
 							</div>
-							<div class="col-md-6 text-right">
+							<div class="col-md-4 text-right">
 								<button type="button" disabled="true" class="id_lewati btn btn-danger btn-lg">
 									<span class="fa fa-fast-forward"></span>Lewati
 								</button>
@@ -370,7 +370,6 @@ $(document).on('click', '.id_panggil', function(e){
 								$('#id_audio').html(_obj);
 								$("#id_audio").prop("currentTime",0);
 								$('#id_audio').trigger('play');
-								load_data();
 							}
 						},
 						error: function (xhr, ajaxOptions, thrownError) {
@@ -411,7 +410,7 @@ es_total.onmessage = function(e) {
 	$('#body_lewati').html(_data.lewati);
 }
 
-var es_status = new EventSource('/proses/check status');
+var es_status = new EventSource('/proses/check_status');
 es_status.addEventListener('error', function(e) {
   if (e.readyState == EventSource.CLOSED) {
     // Connection was closed.
