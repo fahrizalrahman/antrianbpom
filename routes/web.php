@@ -20,6 +20,9 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 // Route Tampil judulLayanan
 // Route::get('judul_layanan','judulLayananController@judul_layanan')->name('homePelanggan.judul');
 
+Route::get('cek_npwp', 'ProfileController@ceknpwp');
+
+
 // Route Lantai
 Route::get('/lantai', 'HomeController@lantai')->name('lantai');
 Route::get('/lantai2', 'HomeController@lantai2')->name('lantai2');
@@ -114,6 +117,7 @@ Route::get('/display', 'HomeController@display')->name('antrian');
 //route dashboard pelanggan
 Route::get('/profile-edit','ProfileController@editProfile')->name('profile');
 Route::resource('profile','ProfileController');
+Route::get('updatenpwp', 'ProfileController@updatenpwp');
 Route::get('/history/pelanggan', 'AntrianController@history')->name('history');
 Route::get('/monitor-tiket','AntrianController@monitorTiket')->name('monitor-tiket');
 Route::get('/lihat-tiket/{id}','AntrianController@lihatTiket')->name('lihat-tiket');
@@ -268,10 +272,12 @@ Route::get('/mobile/content/booking/booking_antrian', 'mobileController@ambil_an
 
 Route::resource('mobile','mobileController');
 Route::post('/mobile/profile/update', 'mobileController@update');
-
-// Route::resource('judulLayanan','judulLayanan');
+Route::get('/mobile/profile/updatenpwp', 'mobileController@updatenpwp');
+Route::get('/mobile/cek_npwp', 'mobileController@ceknpwp');
 
 Route::get('laporan-data-pengunjung', 'HomeController@laporanDataPengunjung');
 Route::get('laporan-survey-pengunjung', 'HomeController@laporanSurveyPengunjung');
 Route::get('laporan-presensi-petugas', 'HomeController@laporanPresensiPetugas');
 Route::get('daftar-booking', 'HomeController@daftarBooking');
+
+Route::get('daftar-sanksi', 'HomeController@daftarSanksi');

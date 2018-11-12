@@ -59,8 +59,6 @@ class mobileController extends Controller{
 
 						return	$_antri = 'masih bisa';
 						}
-
-					 
 					
 				}
 			}elseif($request->jenis==='sub_layanan'){
@@ -249,6 +247,7 @@ class mobileController extends Controller{
 				'nik'		=> $request->ed_nik,
 				'email_1'	=> $request->ed_email
 			]);
+			
 			return Redirect::to('/home');
 		}
 	}
@@ -268,4 +267,11 @@ class mobileController extends Controller{
 		]);
 		return Redirect::to('/home');
 	}
+
+	// public function sanksi(Request $request)
+	// {
+	// 	if(Auth::check()){
+	// 		if()
+	// 	}
+	// }
 }

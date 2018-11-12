@@ -81,20 +81,24 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
+    {
+        // 
+    }
+
+    public function updatenpwp(Request $request)
     {
         $this->validate($request, [
-                'name'  => 'required|string',
-                'email' => 'required|unique:users,email,'. $id,
-                'nik' => 'unique:users,nik,'. $id,
-                'npwp' => 'unique:users,npwp,'. $id,
-                'no_telp'=>'required|unique:users,no_telp,'. $id,
-
+            'name'  => 'required|string',
+            'email' => 'required|unique:users,email,'. $request->id,
+            'nik' => 'unique:users,nik,'. $request->id,
+            'npwp' => 'required:users,npwp,'. $request->id,
+            'no_telp'=>'required|unique:users,no_telp,'. $request->id,
         ]);
 
-
-        $update_user = User::find($id);
-        $update_user->update([
+   
+            $update_user = User::find($request->id);
+            $update_user->update([
             'name'      => $request->name,
             'email'     => $request->email,
             'nik'       => $request->nik,
@@ -102,38 +106,19 @@ class ProfileController extends Controller
             'no_telp'   => $request->no_telp,
             'alamat'    => $request->alamat,
         ]);
+                 return $update_user;
 
-
-        if ($request->hasFile('foto')) {
-                // Mengambil file yang diupload
-                $foto          = $request->file('foto');
-                $uploaded_foto = $foto;
-                // mengambil extension file
-                $extension = $uploaded_foto->getClientOriginalExtension();
-                // membuat nama file random berikut extension
-                $filename     = str_random(40) . '.' . $extension;
-                $image_resize = Image::make($foto->getRealPath());
-                $image_resize->fit(200);
-                $image_resize->save(public_path('foto_user/' . $filename));
-                // hapus foto_home lama, jika ada
-                if ($update_user->foto) {
-                    $old_foto = $update_user->foto;
-                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto_user'
-                    . DIRECTORY_SEPARATOR . $update_user->foto;
-                    try {
-                        File::delete($filepath);
-                    } catch (FileNotFoundException $e) {
-                        // File sudah dihapus/tidak ada
-                    }
-                }
-                $update_user->foto = $filename;
-                $update_user->save();
-            }
-
-
-       return view('pelanggan.profile',['data_user' => $update_user]);    
     }
 
+    public function ceknpwp(Request $request)
+    {
+        $update_user = User::where('npwp', $request->npwp)->count();
+        if($update_user > 2) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *
