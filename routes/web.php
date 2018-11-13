@@ -312,3 +312,6 @@ Route::get('/petugas/report/create_pdf_presensi_unit','UnitController@generatePD
 Route::get('/petugas/report/create_pdf_booking_unit','UnitController@generatePDFBooking');
 Route::get('/petugas/report/create_pdf_pembatalan_unit','UnitController@generatePDFPembatalan');
 
+
+Route::get('cek_npwp_over', 'mobileController@ceknpwp');
+Route::get('/mobile/cek_sanksi_pengunjung', 'mobileController@cekSanksiPengunjung');

@@ -10,7 +10,7 @@
 					</div>
 				</div>
 			</div>
-			{{-- {!! Form::open(['url' => '/mobile/profile/update','method' => 'post','enctype'=>'multipart/form-data' ]) !!} --}}
+			 {!! Form::open(['url' => '/mobile/profile/update','method' => 'post','enctype'=>'multipart/form-data' ]) !!}
 			<form>
 			@csrf
 			<div class="cell-12 text-center">
@@ -61,33 +61,17 @@
 </div>
 <div style="height: 50px;"></div>
 
-{{-- <script type="text/javascript">
-    
-    $(document).on('click', '#update', function (e) { 
-     
-     var ed_nama = $("#nama").val();
-     var ed_email = $("#ed_email").val();
-     var ed_nik = $("#ed_nik").val();
-     var ed_npwp = $("#ed_npwp").val();
-     var ed_phone= $("#ed_phone").val();
-     var ed_alamat = $("#ed_alamat").val();
-  
-      $.get('{{ Url("cek_npwp") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_npwp:ed_npwp}, function(resp){  
-          if (resp == 0 ){
-              swal({
-                        html: "NPWP "+npwp+" SUDAH DIGUNAKAN 3 KALI!!"
-                   });
-          } else {
-              $.get('{{ Url("updatenpwp") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_nama:ed_nama,ed_email:ed_email,ed_nik:ed_nik,ed_npwp:ed_npwp,ed_phone:ed_phone,ed_alamat:ed_alamat,id:id}, function(resp){
-                    swal({
-                          html :  "Berhasil Melakukan Update Profile",
-                          showConfirmButton :  false,
-                          type: "success",
-                          timer: 1000
-                      });
-                      location.reload()
-              });
-          } 
-      });
-  });
-  </script> --}}
+{{ Html::script('/js/sweetalert2.all.min.js') }}
+<script type="text/javascript">
+	$(document).on('blur', '#ed_npwp', function(e){
+	var ed_npwp = $(this).val();
+				$.get('{{ Url("cek_npwp_over") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_npwp:ed_npwp}, function(resp){  
+           					if (resp == 0) {
+								swal({
+				                 html: "NPWP <br><b>("+ed_npwp+")</b></br> sudah digunakan 3 kali!!"
+				             	});
+				             	$('#ed_npwp').val('');
+							}
+         		 });
+});
+</script>
