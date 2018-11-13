@@ -157,6 +157,22 @@ class pelayananController extends Controller{
 						-> whereRaw('(a.status="antri" or a.status="dipanggil" or a.status="diterima") And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
 						-> get();
 
+
+					$_content = '';
+					foreach($data as $_data){
+						$_content = $_content . '<tr><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
+						'<td>' . strtoupper($_data->name) . '</td>' .
+						'<td align="center">' . strtoupper($_data->status) . '</td></tr>'; 
+						}
+					$hasil['antrian'] = $_content;
+
+					$sanksi = DB::table('antrians AS a')
+						-> leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+						-> select('a.id', 'a.no_antrian', 'b.name')
+						-> whereRaw('a.status="sanksi" And a.id_loket="' . $id_lokets->id . '" and DATE(a.tgl_antrian) = curdate()')
+						-> get();
+
+
 					$_content = '';
 					foreach($data as $_data){
 						$_content = $_content . '<tr><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
@@ -175,7 +191,7 @@ class pelayananController extends Controller{
 					foreach($lewati as $_data){
 						$_content = $_content  . '<tr id="' . $_data->id . '"><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian . '</td>' .
 						'<td>' . strtoupper($_data->name) . '</td>' .
-						'<td align="center"><button class="bt_ulangi_proses">Proses</button>&nbsp;<button class="bt_panggil_lewati" data="' . $id_lokets->kode_antrian . $_data->no_antrian . '"><span class="fa fa-microphone"></span></button></td></tr>'; 
+						'<td align="center"><button class="bt_sanksi btn btn-danger">Sanksi</button>&nbsp;<button class="bt_ulangi_proses btn btn-success">Proses</button>&nbsp;<button class="bt_panggil_lewati" data="' . $id_lokets->kode_antrian . $_data->no_antrian . '"><span class="fa fa-microphone"></span></button></td></tr>'; 
 					}
 					$hasil['lewati'] = $_content;
 
@@ -308,7 +324,39 @@ class pelayananController extends Controller{
 							]);
 									
 						return '0';
-					}elseif($request->q==='selesai'){
+					}elseif($request->q==='sanksi'){
+						DB::table('antrians')
+							->where([
+								'id' => $request->sata
+							])
+							-> upsate([
+								'status' => 'sanksi',
+								'update_at'=>now()
+							]);
+						
+						DB::table('pelayanans')
+							-> where([
+								'id_antrian' => $request->data
+							])
+							->update([
+								'keterangan'=>'sanksi',
+								'mulai'		=>now(),
+								'updated_at'=>now()
+							]);
+						DB::table('sanksi')
+							-> insert([
+								// 'rowid'			=> $rowid,
+								// 'id_antrian'	=> $dipanggil->id,
+								// 'no_antrian'	=> $dipanggil->no_antrian,
+								'id_petugas'	=> Auth()->user()->id,
+								'nama_unit'		=> Auth()->user()->unit,
+								'keterangan'	=> 'sanksi',
+								'created_at'	=> now(),
+								'updated_at'	=> now()
+							]);
+						
+					} 
+					elseif($request->q==='selesai'){
 						DB::table('antrians')
 							-> where([
 								'id_loket'	=> $id_lokets->id,
@@ -529,12 +577,82 @@ class pelayananController extends Controller{
 										'<td align="center"><button class="bt_ulangi_proses btn btn-success">Proses</button></td></tr>'; 
 								}
 								return $_content;
+
+							}elseif($request->q==='refresh sanksi'){
+								$sanksi = DB::table('antrians AS a')
+								->leftJoin('users AS b', 'b.id', '=', 'a.id_user')
+								->select('a.id', 'a.no_antrian', 'b.name')
+								->whereRaw('a.status="sanksi" And a.id_sublayanan="' .$id_lokets->id . '" and substr(a.created_at, 1,10) = date_format(now(), 
+								"%Y-%m-%d")')
+								->get();
+								
+								$_content = '';
+								foreach($sanksi as $_data){
+									$_content = $_content . '<tr id="' . $_data->id . '"><td align="center">' . $id_lokets->kode_antrian . $_data->no_antrian .
+									'</td>' .
+										'<td>'. strtoupper($data->name) . '</td>' .
+										'<td> align="center"><button class="bt_sanksi btn btn-success">Sanksi</button></td></tr>';
+								}
+								return $_content;
+								
 							}
 
 					}
 		}else{
 			Auth::logout();
 			return redirect('/login');
+		}
+	}
+
+	public function proses_sanksi(Request $request)
+	{
+		if(Auth::check()){
+			$id_loket = DB::table('lokets')
+				-> select('id')
+				-> where('petugas', '=', Auth::user()->id)
+				-> count();
+			if($request->q==='proses sanksi'){
+				DB::table('antrians')
+					-> where([
+						'id'		=> $request->data
+					])
+					-> update([
+						'status'=>'sanksi',
+						'updated_at'=>now()
+					]);
+
+				DB::table('pelayanans')
+					-> where([
+						'id_antrian'	=> $request->data
+					])
+					-> update([
+						'keterangan'=>'sanksi',
+						'mulai'			=> now(),
+						'updated_at'=>now()
+					]);
+				DB::table('sanksis')
+				-> insert([
+					'id_antrian'	=> $request->data,
+					'created_at'	=> now(),
+					'updated_at'	=> now()
+				]);
+		}elseif($request->q==='buka'){
+			DB::table('sanksis')
+				-> where([
+					'id_antrian' => $request->data,
+				])
+				-> delete();
+			DB::table('antrians')
+				->where([
+					'id' => $request->data,
+			])
+				-> delete();
+			DB::table('pelayanans')
+				->where([
+					'id_antrian' => $request->data,
+			])
+				-> delete();
+			}
 		}
 	}
 
