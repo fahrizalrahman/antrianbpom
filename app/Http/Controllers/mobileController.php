@@ -70,6 +70,10 @@ class mobileController extends Controller{
 
 							return	$_antri = 'masih bisa';
 						}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 59d2c557816e58b04d771bb1e2b2c4655fc285dc
 
 					}else{
 						return $_antri = 'bulan over';
@@ -297,6 +301,10 @@ class mobileController extends Controller{
 		return Redirect::to('/home');
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 59d2c557816e58b04d771bb1e2b2c4655fc285dc
 	public function cekQuotaBooking(Request $request){
 		if(Auth::check()){
 			if($request->jenis==='layanan'){

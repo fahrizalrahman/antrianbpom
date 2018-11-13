@@ -638,9 +638,9 @@ public function filterDataSurvey(Request $request){
                             ->get();                    
            }
 
-           $nama_petugas = User::where('id',$request->petugas);
+          $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
 
-             $pdf = PDF::loadView('pdf_laporan_unit.layout_laporan_booking',['_data' => $datas,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit,'nama_petugas'=>$nama_petugas->first()->name ]);
+             $pdf = PDF::loadView('pdf_laporan_unit.layout_laporan_booking',['_data' => $datas,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit,'nama_petugas'=>$nama_petugas ]);
       
             return $pdf->download('layout_laporan_booking_unit.pdf');
     }
