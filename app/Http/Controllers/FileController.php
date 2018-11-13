@@ -259,6 +259,15 @@ class FileController extends Controller
     {
         $value = File::findorfail($id);
         $value->delete();
+        $lantai = 1;
+        $lantai = 1;
+        $lantai = 1;
+        $lantai = 1;
+        $lantai = 5;
+        $lantai = 6;
+        if ($lantai = 5 ) {
+            return redirect()->route('loket.inputImg.indexImgLt5');
+        }
         return redirect()->route('imagebg.view');
     }
 }
