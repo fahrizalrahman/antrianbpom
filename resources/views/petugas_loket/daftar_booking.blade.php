@@ -24,14 +24,13 @@
 								<table id="example2" width="100%" class="table table-stripedtable-responsive">
 									<thead>
 										<tr>
-											<th width="90px">Tanggal</th>
-											<th width="175">Email</th>
-											<th width="175px">Nama Pengunjung</th>
+											<th width="60px">Tanggal</th>
+											<th width="130px">Nama Pengunjung</th>
 											<th width="100px">No. Telp</th>
-											<th>No Antrian</th>
-											<th>Layanan</th>
+											<th width="100px">No Antrian</th>
+											<th width="150px">Layanan</th>
 											<th width="80px">Loket</th>
-											<th>Sub Layanan</th>
+											<th width="150px">Sub Layanan</th>
 											<th width="80px">Loket Sub</th>
 										</tr>
 									</thead>
@@ -44,7 +43,6 @@
 												<tr style="background-color: #dddddd">
 											@endif
 												<td align="center">{{ substr($data->tanggal,0,10) }}</td>
-												<td>{{ $data->email }}</td>
 												<td>{{ strtoupper($data->nama_pelanggan) }}</td>
 												<td>{{ strtoupper($data->no_telp) }}</td>
 												<td>{{ $data->no_antrian }}</td>

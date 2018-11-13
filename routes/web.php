@@ -105,6 +105,8 @@ Route::get('unit-lihat-list-pelayanan', 'UnitController@lihatListPelayanan');
 // Laporan Admin Unit (Daftar Booking & Daftar Pembatalan)
 Route::get('daftar-booking/unit', 'UnitController@daftarBooking');
 Route::get('daftar-pembatalan/unit', 'UnitController@daftarPembatalan');
+Route::get('unit-filter-daftar-booking', 'UnitController@filterDaftarBooking');
+Route::get('unit-filter-daftar-pembatalan', 'UnitController@filterDaftarPembatalan');
 
 
 // Route User
@@ -297,3 +299,7 @@ Route::get('/petugas/report/create_pdf_pembatalan','LoketController@generatePDFP
 
 //download pdf admin unit
 Route::get('/petugas/report/create_pdf_pengunjung_unit','UnitController@generatePDFPengunjung');
+Route::get('/petugas/report/create_pdf_survey_unit','UnitController@generatePDFSurvey');
+Route::get('/petugas/report/create_pdf_presensi_unit','UnitController@generatePDFPresensi');
+Route::get('/petugas/report/create_pdf_booking_unit','UnitController@generatePDFBooking');
+Route::get('/petugas/report/create_pdf_pembatalan_unit','UnitController@generatePDFPembatalan');
