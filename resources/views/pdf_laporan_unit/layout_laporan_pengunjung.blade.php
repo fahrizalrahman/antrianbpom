@@ -13,7 +13,7 @@
 <p style="margin-top:-2px;margin-bottom:-2px;"><b>Unit</b> : {{$unit}}</p>
 <p style="margin-top:-2px;margin-bottom:-2px;"><b>Petugas</b> : @if($petugas == "all") 
 Semua 
-@else{{$petugas}}
+@else{{$nama_petugas}}
 @endif</p>
 <hr>
 								<table class="table table-border">
@@ -48,8 +48,5 @@ Semua
 										@endforeach
 									</tbody>
 							</table>
-							</center>
-					</div>
-			</div>
-</body>
-</html>
+				</body>
+				</html>

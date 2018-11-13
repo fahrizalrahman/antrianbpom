@@ -23,7 +23,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Petugas</th>
@@ -33,7 +33,6 @@
                   <th>Unit</th>
                   <th>Lantai</th>
                   <th>Aksi</th>
-                   {{-- <th style="width:auto">Aksi</th>  --}}
                 </tr>
                 </thead>
                 <tbody>
@@ -77,4 +76,19 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+
+<script>
+    $(function () {
+    $("#example1").DataTable();
+    });
+  </script>
+
+<style type="text/css">
+table.dataTable thead tr {
+  padding: 0px;
+  margin: 0px;
+  color: white;
+  background-color: green;
+}
+</style>
 @endsection

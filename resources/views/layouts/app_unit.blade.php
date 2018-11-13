@@ -182,21 +182,9 @@
 
         <script>
           $(function () {
-            $("#example2").DataTable({
+            $("#example2").DataTable();
           });
         </script>
-      <script>
-        $(function () {
-          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
-          });
-        });
-      </script>
 
 @yield('scripts')
 </body>
