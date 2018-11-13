@@ -51,7 +51,7 @@ $(document).on('click', '#btn_ambil_antrian', function(e){
 			var date_plus = moment(date_now).add(7 , 'days').format('YYYY-MM-DD');
 				if (date_pesan > date_plus || date_pesan < date_now) {
 						swal({
-				  	           html: "Tanggal Booking Hanya 1 Minggu Kedepan !!"
+				  	           html: "Pengambilan waktu booking hanya bisa dilakukan 1 minggu kedepan !!"
 				          });
 				}else{
 					$.ajax({
@@ -220,6 +220,8 @@ $(document).on('click', '#btn_batal_booking', function(e){
 		})
 	}
 });
+
+
 
 function update_keterangan(ket,id_antrian){						
 					$.ajax({

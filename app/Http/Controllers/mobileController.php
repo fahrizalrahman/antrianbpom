@@ -11,6 +11,7 @@ use App\Loket;
 use App\judulLayanan;
 use App\user_profile;
 use App\Sublayanan;
+use App\Antrian;
 
 class mobileController extends Controller{
 
@@ -224,7 +225,9 @@ class mobileController extends Controller{
 			if($request->data==='booking'){
 				$judulLayanan = judulLayanan::select('id', 'keterangan')
 					-> get();
-				$_content = view::make('/mobile/partials/pages/' . $request->data, compact('judulLayanan'));
+				$cek_sanksi = Antrian::where('id_user', Auth()->user()->id)->where('status','sanksi')->count();
+				$_content = view::make('/mobile/partials/pages/' . $request->data, compact('judulLayanan','cek_sanksi'));
+
 				return $_content;
 			}elseif($request->data==='account'){
 				$profile = user_profile::select()
@@ -296,6 +299,18 @@ class mobileController extends Controller{
 		]);
 		return Redirect::to('/home');
 	}
+
+
+	    public function ceknpwp(Request $request)
+    {
+        $update_user = user_profile::where('npwp', $request->ed_npwp)->count();
+        if($update_user > 2) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
 
 	public function cekQuotaBooking(Request $request){
 		if(Auth::check()){
@@ -386,4 +401,6 @@ class mobileController extends Controller{
 			return $update;
 		}
 	}
+
+
 }

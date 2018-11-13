@@ -83,7 +83,7 @@
 
                           <div class="form-group">
                             <label for="lantai">Lantai</label>
-                            <input type="text" class="form-control" id="lantai" name="lantao" placeholder="Masukan Lantai" value=" {{Auth::user()->lantai}} " required>
+                            <input type="text" class="form-control" id="lantai" name="lantai" placeholder="Masukan Lantai" value=" {{Auth::user()->lantai}} " required>
                           </div>
                         
                         {{-- <div class="form-group">

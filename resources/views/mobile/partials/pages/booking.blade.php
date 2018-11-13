@@ -21,15 +21,22 @@
 			<div class="image_slider" style="background-image: url('{{ url("/img/slider/001.png") }}');"></div>
 		</div>
 		<div class="layanan_container">
+			@if($cek_sanksi > 0)
+			<div class="isi_layanan">
+					<center style="color:red;font-size:20px;"><p>Mohon Maaf untuk sementara , Anda tidak bisa mengambil antrian</p>
+					<p>Terkena sanksi 1 bulan , semenjak pengambilan tiket terakhir</p></center>
+			</div>
+			@else
 			<div class="isi_layanan">
 				@foreach($judulLayanan as $_judulLayanan)
-				<div id="{{ $_judulLayanan->id }}" class="box_layanan">
+				<div  id="{{ $_judulLayanan->id }}" class="box_layanan">
 					<label>Lantai {{ $_judulLayanan->id }}</label>
 					<span class="mif-library fg-green"></span>
 					<footer>{{ $_judulLayanan->keterangan }}</footer>
 				</div>
 				@endforeach
 			</div>
+			@endif
 		</div>
 	</div>
 </div>

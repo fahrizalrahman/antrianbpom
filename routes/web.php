@@ -316,3 +316,6 @@ Route::get('/petugas/report/create_pdf_pembatalan_unit','UnitController@generate
 // Download PDF Admin Utama
 Route::get('/petugas/report/create_pdf_pengunjung_admin','LoketController@generatePDFAdminPengunjung');
 
+
+Route::get('cek_npwp_over', 'mobileController@ceknpwp');
+Route::get('/mobile/cek_sanksi_pengunjung', 'mobileController@cekSanksiPengunjung');

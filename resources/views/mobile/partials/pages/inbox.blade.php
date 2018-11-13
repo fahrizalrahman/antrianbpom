@@ -49,7 +49,7 @@
 							$selesai = new DateTime($data->selesai);
 
 							$dteDiff  = $mulai->diff($selesai);
-							$survey = array('','SANGAT PUSAT', 'PUAS', 'TIDAK PUAS');
+							$survey = array('TIDAK SURVEY','SANGAT PUAS', 'PUAS', 'TIDAK PUAS');
 							?>
 							<div style="text-align: left; width: 200px;">
 								<div style="font-size: 10pt; font-family: arial;">
