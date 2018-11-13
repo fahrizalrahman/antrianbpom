@@ -59,7 +59,7 @@ Route::get('inputImgLt6','FileController@Lt6')->name('loket.inputImg.indexImgLt6
 
 // Route Hapus File
 Route::delete('inputImgLt2/destroy2/{id}','FileController@destroy2')->name('inputImgLt2.destroy2');
-Route::delete('inputImgLt3/destroy3/{id}','FileController@destroy3')->name('inputImgLt2.destroy3');
+Route::delete('inputImgLt3/destroy3/{id}','FileController@destroy3')->name('inputImgLt3.destroy3');
 Route::delete('inputImgLt4/destroy4/{id}','FileController@destroy4')->name('inputImgLt4.destroy4');
 Route::delete('inputImgLt5/destroy5/{id}','FileController@destroy5')->name('inputImgLt5.destroy5');
 Route::delete('inputImgLt6/destroy6/{id}','FileController@destroy6')->name('inputImgLt6.destroy6');
@@ -125,7 +125,7 @@ Route::get('/display', 'HomeController@display')->name('antrian');
 //route dashboard pelanggan
 Route::get('/profile-edit','ProfileController@editProfile')->name('profile');
 Route::resource('profile','ProfileController');
-Route::get('updatenpwp', 'ProfileController@updatenpwp');
+Route::get('update-user', 'ProfileController@updateUser');
 Route::get('/history/pelanggan', 'AntrianController@history')->name('history');
 Route::get('/monitor-tiket','AntrianController@monitorTiket')->name('monitor-tiket');
 Route::get('/lihat-tiket/{id}','AntrianController@lihatTiket')->name('lihat-tiket');

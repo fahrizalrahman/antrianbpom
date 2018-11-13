@@ -46,7 +46,7 @@
                     <label class="control-label">NIK <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
-                            <input type="text" id="nik"  name="nik" value="{{$data_user->nik}}" minlength="16" maxlength="16" class="form-control" placeholder="Masukan Nama" required />
+                            <input type="text" id="nik"  name="nik" value="{{$data_user->nik}}" minlength="16" maxlength="16" class="form-control" placeholder="Masukan NIK" required />
                             @if ($errors->has('nik'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('nik') }}</strong>
@@ -58,7 +58,7 @@
                     <label class="control-label">NPWP <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
-                            <input type="text" id="npwp" name="npwp" value="{{$data_user->npwp}}" class="form-control" minlength="20" maxlength="20" placeholder="Masukan Nama" required />
+                            <input type="text" id="npwp" name="npwp" value="{{$data_user->npwp}}" class="form-control" minlength="20" maxlength="20" placeholder="Masukan NPWP" required />
                             @if ($errors->has('npwp'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('npwp') }}</strong>
@@ -71,7 +71,7 @@
                     <label class="control-label">No Telp <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
-                            <input type="text" id="no_telp" name="no_telp" value="{{$data_user->no_telp}}" class="form-control" placeholder="Masukan Nama" required />
+                            <input type="text" id="no_telp" name="no_telp" value="{{$data_user->no_telp}}" class="form-control" placeholder="Masukan No Telp" required />
                             @if ($errors->has('no_telp'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('no_telp') }}</strong>
@@ -83,7 +83,7 @@
                     <label class="control-label">Alamat<span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
-                            <input type="text" id="alamat" name="alamat" value="{{$data_user->alamat}}" class="form-control" placeholder="Masukan Nama" required />
+                            <input type="text" id="alamat" name="alamat" value="{{$data_user->alamat}}" class="form-control" placeholder="Masukan Alamat" required />
                             @if ($errors->has('alamat'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('alamat') }}</strong>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                <label class="control-label">Foto<span class="text-danger">*</span></label>
+<!--                <label class="control-label">Foto<span class="text-danger">*</span></label>
                 <div class="row row-m-b-15">
                      <div class="col-md-12 m-b-15">
                         <div class="fileinput fileinput-new text-center" data-provides="fileinput">
@@ -114,7 +114,7 @@
                         <a style="color: red;">Size Foto ( Max : 3MB || Ukuran : 200 X 200)</a>
                     </div>
                 </div>
-                </div>
+                </div>-->
                 <div class="register-buttons" style="padding-top:10px;padding-bottom:10px">
                         <button type="button" id="ubah" class="btn btn-primary btn-block btn-lg">Ubah</button>
                 </div>
@@ -208,7 +208,7 @@
                         html: "NPWP "+npwp+" SUDAH DIGUNAKAN 3 KALI!!"
                    });
           } else {
-              $.get('{{ Url("updatenpwp") }}',{'_token': $('meta[name=csrf-token]').attr('content'),name:name,email:email,nik:nik,npwp:npwp,no_telp:no_telp,alamat:alamat,id:id}, function(resp){
+              $.get('{{ Url("update-user") }}',{'_token': $('meta[name=csrf-token]').attr('content'),name:name,email:email,nik:nik,npwp:npwp,no_telp:no_telp,alamat:alamat,id:id}, function(resp){
                     swal({
                           html :  "Berhasil Melakukan Update Profile",
                           showConfirmButton :  false,

@@ -12,6 +12,7 @@ use App\Footer;
 use App\Sidebar;
 use App\Tulisan;
 use App\TulisanUtama;
+use App\User;
 use Storage;
 use Redirect;
 use DB;
@@ -153,20 +154,33 @@ class HomeController extends Controller
                 }
             }else{
 
-            $agent = new Agent();
-            $layanan_loket   = Loket::select()->where('lantai',1);
-            $judul_layanan   = judulLayanan::where('id','1');
-            $layanan_loket_2 = Loket::select()->where('lantai',2);
-            $judul_layanan2   = judulLayanan::where('id','2');
-            $layanan_loket_3 = Loket::select()->where('lantai',3);
-            $judul_layanan3   = judulLayanan::where('id','3');
-            $layanan_loket_4 = Loket::select()->where('lantai',4);
-            $judul_layanan4   = judulLayanan::where('id','4');
-            $layanan_loket_5 = Loket::select()->where('lantai',5);
-            $judul_layanan5   = judulLayanan::where('id','5');
-            $layanan_loket_6 = Loket::select()->where('lantai',6);
-            $judul_layanan6   = judulLayanan::where('id','6');
-            return view('home_pelanggan', ['judul_layanan' => $judul_layanan,'layanan_loket' => $layanan_loket,'judul_layanan2' => $judul_layanan2,'layanan_loket_2'=>$layanan_loket_2,'judul_layanan3' => $judul_layanan3,'layanan_loket_3'=>$layanan_loket_3,'judul_layanan4' => $judul_layanan4,'layanan_loket_4'=>$layanan_loket_4,'judul_layanan5' => $judul_layanan5,'layanan_loket_5'=>$layanan_loket_5,'judul_layanan6' => $judul_layanan6,'layanan_loket_6'=>$layanan_loket_6,'agent'=>$agent]);
+             $profile = user_profile::select('id', 'type', 'nama', 'alamat', 'no_telp', 'nik', 'email_1')
+                    -> where('userid', '=', Auth()->user()->id)
+                    -> first();
+                if($profile){
+                        $agent = new Agent();
+                        $layanan_loket   = Loket::select()->where('lantai',1);
+                        $judul_layanan   = judulLayanan::where('id','1');
+                        $layanan_loket_2 = Loket::select()->where('lantai',2);
+                        $judul_layanan2   = judulLayanan::where('id','2');
+                        $layanan_loket_3 = Loket::select()->where('lantai',3);
+                        $judul_layanan3   = judulLayanan::where('id','3');
+                        $layanan_loket_4 = Loket::select()->where('lantai',4);
+                        $judul_layanan4   = judulLayanan::where('id','4');
+                        $layanan_loket_5 = Loket::select()->where('lantai',5);
+                        $judul_layanan5   = judulLayanan::where('id','5');
+                        $layanan_loket_6 = Loket::select()->where('lantai',6);
+                        $judul_layanan6   = judulLayanan::where('id','6');
+
+                        $cek_sanksi = Antrian::where('id_user', Auth()->user()->id)->where('status','sanksi')->count();
+
+                        return view('home_pelanggan', ['judul_layanan' => $judul_layanan,'layanan_loket' => $layanan_loket,'judul_layanan2' => $judul_layanan2,'layanan_loket_2'=>$layanan_loket_2,'judul_layanan3' => $judul_layanan3,'layanan_loket_3'=>$layanan_loket_3,'judul_layanan4' => $judul_layanan4,'layanan_loket_4'=>$layanan_loket_4,'judul_layanan5' => $judul_layanan5,'layanan_loket_5'=>$layanan_loket_5,'judul_layanan6' => $judul_layanan6,'layanan_loket_6'=>$layanan_loket_6,'agent'=>$agent,'cek_sanksi'=>$cek_sanksi]);
+                 }else{
+                    $profile = User::select()
+                    -> where('id', '=', Auth()->user()->id)
+                    -> first();
+                    return view('pelanggan.profile',['data_user' => $profile]);
+                 }
             }
         }
 /*
