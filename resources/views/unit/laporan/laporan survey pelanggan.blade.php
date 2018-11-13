@@ -49,7 +49,8 @@
 								</select>	
 							</div>
 							<div class="col-md-4" style="margin-top: 30px;">
-								<button id="proses" class="btn btn-success">Proses</button> 							<button class="btn btn-danger bt_export_pdf" data-id="0"  style="align-items:left;">Download <span class="fa fa-file-pdf-o"></span></button>		
+								<button id="proses" class="btn btn-success">Proses</button> 							
+								<button class="btn btn-danger bt_export_pdf" data-id="0"  style="align-items:left;">Download <span class="fa fa-file-pdf-o"></span></button>		
 							</div>
 						</div>
 						<br>

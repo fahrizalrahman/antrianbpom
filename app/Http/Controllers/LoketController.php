@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use View;
 use Auth;
 use App\Loket;
+use App\User;
 use App\Sublayanan;
 use App\Antrian;
 use DB;
@@ -116,8 +117,37 @@ class LoketController extends Controller
             $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_sanksi',['_data' => $datas,'petugas'=> Auth()->user()->name]);
 
             return $pdf->download('layout_laporan_sanksi.pdf');
+        }
+        
+        public function generatePDFAdminPengunjung(Request $request){
+           
+            if ($request->petugas == 'all') {
+                
+                $datass = DB::table('view_pelayanan')
+                            -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan','pelanggan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('id_user',$request->id_user)
+                            ->get();
+                            
+                }else{
 
+                $datass = DB::table('view_pelayanan')
+                            -> select('tanggal','nama_loket','nama_layanan','sub_layanan','nama_petugas','kepuasan')
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('petugas',$request->petugas)
+                            ->where('id_user',$request->id_user)
+                            ->get();
+
+                }
+            $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
+
+         $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_pengunjung',['_data' => $datass,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
+  
+        return $pdf->download('layout_laporan_pengunjung.pdf');
 }
+
 
     public function index(){
         //  

@@ -244,53 +244,41 @@
             </ul>
           </li>
      </li>
-        <!--
-          <li class="nav-item">
-            <a href="{{ route('home') }}" class="nav-link">
-              <i class="nav-icon fa fa-universal-access"></i>
-              <p>
-                Presensi 
-              </p>
-            </a>
-          </li>
-          -->
-          <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fa fa-id-badge"></i>
-                  <p>
-                    Laporan
-                    <i class="right fa fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{ url('/laporan-pengunjung') }}" class="nav-link">
-                      <i class="nav-icon fa fa-circle-o"></i>
-                      <p>
-                        Pengunjung 
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ url('/laporan-petugas') }}" class="nav-link">
-                      <i class="nav-icon fa fa-circle-o"></i>
-                      <p>
-                        Petugas
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{ url('/survey-pengunjung') }}" class="nav-link">
-                      <i class="nav-icon fa fa-circle-o"></i>
-                      <p>
-                        Survey 
-                      </p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-
+    <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-id-badge"></i>
+            <p>
+              Laporan
+              <i class="right fa fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ url('/laporan-pengunjung') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>
+                  Pengunjung 
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/laporan-petugas') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>
+                  Petugas
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/survey-pengunjung') }}" class="nav-link">
+                <i class="nav-icon fa fa-circle-o"></i>
+                <p>
+                  Survey 
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
 
         </ul> <!-- penutup ul nav nav-pills nav-sidebar flex-column-->
       </nav>
