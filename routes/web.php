@@ -135,6 +135,7 @@ Route::get('/proses/berikut', 'pelayananController@nomor_berikut');
 Route::get('/proses/konversi_nomor', 'pelayananController@konversi');
 Route::get('/proses/check_status', 'pelayananController@check_status');
 Route::get('/proses/layanan/update', 'pelayananController@update_status');
+Route::get('/proses/layanan/sanksi', 'pelayananController@proses_sanksi');
 
 
 //sublayanan
@@ -282,10 +283,6 @@ Route::get('laporan-data-pengunjung', 'HomeController@laporanDataPengunjung');
 Route::get('laporan-survey-pengunjung', 'HomeController@laporanSurveyPengunjung');
 Route::get('laporan-presensi-petugas', 'HomeController@laporanPresensiPetugas');
 Route::get('daftar-booking', 'HomeController@daftarBooking');
-<<<<<<< HEAD
-
-Route::get('daftar-sanksi', 'HomeController@daftarSanksi');
-=======
 Route::get('daftar-pembatalan', 'HomeController@daftarPembatalan');
 
 
@@ -293,6 +290,8 @@ Route::get('table-lantai-layanan', 'LoketController@tableLantaiLayanan');
 
 Route::get('/mobile/content/cek_quota_booking', 'mobileController@cekQuotaBooking');
 Route::get('/mobile/content/update_batal_keterangan', 'mobileController@updateKeteranganBooking');
+
+Route::get('daftar-sanksi', 'HomeController@daftarSanksi');
 
 //DAFTAR PEMBATALAN
 
@@ -302,7 +301,6 @@ Route::get('/petugas/report/create_pdf_survey','LoketController@generatePDFSurve
 Route::get('/petugas/report/create_pdf_presensi','LoketController@generatePDFPresensi');
 Route::get('/petugas/report/create_pdf_booking','LoketController@generatePDFBooking');
 Route::get('/petugas/report/create_pdf_pembatalan','LoketController@generatePDFPembatalan');
-
+Route::get('/petugas/report/create_pdf_sanksi','LoketController@generatePDFSanksi');
 //download pdf admin unit
 Route::get('/petugas/report/create_pdf_pengunjung_unit','UnitController@generatePDFPengunjung');
->>>>>>> 6452cfaff91053c69914f401588da250833f3f2b

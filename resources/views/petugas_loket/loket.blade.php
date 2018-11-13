@@ -126,7 +126,7 @@
 								<tr>
 									<th width="75px;" align="center">No.</th>
 									<th>Nama</th>
-									<th width="130px" align="center">Proses</th>
+									<th width="200px" align="center">Proses</th>
 								</tr>
 							</thead>
 							<tbody id="body_lewati">
@@ -136,7 +136,8 @@
 									<td align="center">{{ $_loket->kode_antrian . $lewati->no_antrian }}</td>
 									<td>{{ $lewati->name }}</td>
 									<td align="center">
-										<button class="bt_ulangi_proses">Proses</button>
+										<button class="bt_sanksi">Sanksi</button>
+										<button class="bt_ulangi_proses">Prosess</button>
 										<button class="bt_panggil_lewati" data="{{ $_loket->kode_antrian . $lewati->no_antrian }}"><span class="fa fa-microphone"></span></button>
 									</td>
 								</tr>
@@ -300,6 +301,28 @@ $(document).on('click', '.id_selesai', function(e){
 	}
 });
 
+$(document).on('click', '.bt_sanksi', function(e){
+	e.preventDefault();
+	if(e.which===1){
+		if(confirm('Anda yakin ingin memberikan sanksi?')){
+			$.ajax({
+				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				dataType: 'html',
+				url		: '/proses/layanan/sanksi',
+				data 	: 'q=proses sanksi&data=' + $(this).parent('td').parent('tr').attr('id'),
+				success	: function(data){
+					if(data.length > 0){
+						alert('Data berhasil diterima');
+					}
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.responseText);
+				}
+			});
+		}
+	}
+});
+
 $(document).on('click', '.bt_ulangi_proses', function(e){
 	e.preventDefault();
 	if(e.which===1){
@@ -448,9 +471,6 @@ es_status.onmessage = function(e) {
 	}
 }
 
-
-
-	
 });
 
 </script>

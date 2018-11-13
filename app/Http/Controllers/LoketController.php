@@ -104,6 +104,21 @@ class LoketController extends Controller
 
     }
 
+        public function generatePDFSanksi(Request $request){
+
+                    $datas = DB::table('view_antrian')
+                        -> select('tgl_antrian as tanggal', 'email as email', 'name as nama_pelanggan', 'no_telp as no_telp', 'nama_layanan as nama_layanan', 'nama_sub_layanan as sub_layanan', 'nama_loket as nama_loket','nama_loket_sub_layanan as nama_loket_sub','no_antri','status', 'id_antrian as id')
+                        -> where('status','sanksi')
+                        ->where('petugas_layanan',Auth()->user()->id)
+                        ->orWhere('petugas_sub_layanan',Auth()->user()->id)
+                        ->get();
+
+            $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_sanksi',['_data' => $datas,'petugas'=> Auth()->user()->name]);
+
+            return $pdf->download('layout_laporan_sanksi.pdf');
+
+}
+
     public function index(){
         //  
         if (Auth::check()) {
