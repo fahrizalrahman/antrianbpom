@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSidebarsTable extends Migration
+class CreateTulisanUtamasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSidebarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sidebars', function (Blueprint $table) {
+        Schema::create('tulisan_utamas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->enum('lantai', array('4','5'));
-            $table->string('filename');
+            $table->text('judul');
+            $table->text('isi');
+            $table->enum('float', array('utama'));
+            $table->enum('lantai', array('1','4','5','6'));
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSidebarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sidebars');
+        Schema::dropIfExists('tulisan_utamas');
     }
 }

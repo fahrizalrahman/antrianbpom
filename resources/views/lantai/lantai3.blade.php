@@ -49,13 +49,13 @@
                 @endforeach
         </table>
       </div>
-        @if($bgLantai3->first()->type == 'Video')
+        @if(@$bgLantai3->first()->type == 'Video')
             <div class="col-sm-7"  style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 
                 <video style=" margin-left:115px; min-width:480px; min-height:548px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
                 </video>
                 @if ($Mainbar->count() > 0)
-                    <div style="background-image:url({{url(Storage::url($Mainbar->first()->filename))}}); margin-left:116px; margin-top:-5px; width:975px; height:190px; background-size:cover; background-position:center; background-repeat:no-repeat;">
+                    <div style="background-image:url({{url(Storage::url(@$Mainbar->first()->filename))}}); margin-left:116px; margin-top:-5px; width:975px; height:190px; background-size:cover; background-position:center; background-repeat:no-repeat;">
                     </div>    
                 @else
                     <div style="background-color:#34a1bc; margin-left:105px; margin-top:-5px; width:870px; height:275px;">
@@ -64,7 +64,7 @@
                 
             </div>
         @else
-            <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai3->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai3->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
             </div>
         @endif
             </div>

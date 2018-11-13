@@ -72,7 +72,6 @@ class mobileController extends Controller{
 							return	$_antri = 'masih bisa';
 						}
 
-
 					}else{
 						return $_antri = 'bulan over';
 					}
@@ -301,6 +300,7 @@ class mobileController extends Controller{
 		return Redirect::to('/home');
 	}
 
+
 	    public function ceknpwp(Request $request)
     {
         $update_user = user_profile::where('npwp', $request->ed_npwp)->count();
@@ -310,6 +310,7 @@ class mobileController extends Controller{
             return 1;
         }
     }
+
 
 	public function cekQuotaBooking(Request $request){
 		if(Auth::check()){

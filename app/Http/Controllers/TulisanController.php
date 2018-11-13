@@ -21,17 +21,6 @@ class TulisanController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexHome()
-    {
-        $tampilTulHome = Tulisan::where('float','utama')->get();
-        return view('loket.inputTulisan.indexHome', compact('tampilTulHome'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -39,16 +28,6 @@ class TulisanController extends Controller
     public function create()
     {
         return view('loket.inputTulisan.create');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createUtama()
-    {
-        return view('loket.inputTulisan.createUtama');
     }
 
     /**
@@ -75,23 +54,6 @@ class TulisanController extends Controller
         return redirect()->route('inputTulisan.index');
     }
 
-    public function storeUtama(Request $request)
-    {
-        $this->validate($request, [
-            'judul' => 'required',
-            'isi'   => 'required',
-            'lantai'   => 'required',
-            'float'   => 'required'
-        ]);
-
-        $Tulisan = new Tulisan;
-        $Tulisan->judul = $request->judul;
-        $Tulisan->isi = $request->isi;
-        $Tulisan->lantai = $request->lantai;
-        $Tulisan->float = $request->float;
-        $Tulisan->save();
-        return redirect()->route('tampil.tulisan');
-    }
 
     /**
      * Display the specified resource.
@@ -128,36 +90,9 @@ class TulisanController extends Controller
         $editTulisan = Tulisan::findorfail($id);
         $editTulisan->judul = $request->judul;
         $editTulisan->isi = $request->isi;
+        $editTulisan->lantai = $request->lantai;
         $editTulisan->save();
         return redirect()->route('inputTulisan.index');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function editUtama($id)
-    {
-        $editUtama = Tulisan::findorfail($id);
-        return view('loket.inputTulisan.editUtama', compact('editUtama'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateUtama(Request $request, $id)
-    {
-        $editUtama = Tulisan::findorfail($id);
-        $editUtama->judul = $request->judul;
-        $editUtama->isi = $request->isi;
-        $editUtama->save();
-        return redirect()->route('tampil.tulisan');
     }
 
     /**
@@ -175,8 +110,6 @@ class TulisanController extends Controller
             "level"=>"success",
             "message"=>"Berhasil Menghapus Tulisan"
             ]);
-
         return redirect()->route('tampil.tulisan');
-        
     }
 }

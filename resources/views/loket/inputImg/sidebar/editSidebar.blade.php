@@ -25,6 +25,7 @@
               <!-- form start -->
               <form role="form" action="{{route('inputImgSid.update', $editSid->id)}} " method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                   <div class="card-body">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Judul File</label>
@@ -33,12 +34,8 @@
                     <div class="form-group">
                         <label>Pilih Lantai</label>
                         <select class="form-control" name="lantai" value="{{$editSid->lantai}} ">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
-                            <option value="6">6</option>
                         </select>
                     </div>
 

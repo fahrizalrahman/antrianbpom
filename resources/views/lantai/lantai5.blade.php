@@ -36,8 +36,8 @@
     <div class="col-md-12" style="height:5px; width:100%; background-color:deepskyblue;">
     </div>
 
-    <div class="col-md-4" style="width:132%; height:auto;">
-      <table border="1px" style="margin-left:-15px; margin-right:-14px; width:132%;">
+    <div class="col-md-4" style="width:119%; height:auto;">
+    <table border="1px" style=" width:132%; height:auto; margin-left:-15px; ">
         <?php $_i = 1; ?>
           @foreach ($lantai5 as $lantai5)
           <tr>
@@ -53,23 +53,22 @@
       </table>
 
       <div>
-          @if($imgSid5->count() > 0)
-          <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="margin-left:-15px; background-position:center; height:370px; width:132%;">
-          @else
-          <img  style="background-color:white;background-position:center;  margin-left:-15px; margin-right:-16px; height:340px; width:102.4%;">
-          @endif
-
-      </div>
+            @if(@$imgSid5->count() > 0)
+              <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:400px; margin-left:-15px; width:132%;">
+            @else
+             <img style="background-color:white; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:132%;">
+             @endif
+          </div>
     </div>
-        @if($bgLantai5->first()->type == 'Video')
+        @if(@$bgLantai5->first()->type == 'Video')
             <div class="col-md-7" style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">    
                 <video style="margin-top:-0px; margin-left:114px; min-width:480px; min-height:548px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai5->first()->filename)}}" type="video/mp4">
                 </video>
-                @if ($TextUtama->count() > 0)
+                @if (@$TextUtama->count() > 0)
                     <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:975px; height:180px;">
-                        <b><h4 style="margin-left:10px; color:gold; padding-top:15px; margin-top:-4px; text-decoration:underline;">{{$TextUtama->first()->judul}}</h4></b>
-                        <p style="margin-left:10px; color:white;">{{$TextUtama->first()->isi}}</p>
+                        <b><h4 style="margin-left:10px; color:gold; padding-top:15px; margin-top:-4px; text-decoration:underline;">{{@$TextUtama->first()->judul}}</h4></b>
+                        <p style="margin-left:10px; color:white;">{{@$TextUtama->first()->isi}}</p>
                     </div>   
                 @else
                     <div style="background-color:#2b869d; margin-left:114px; margin-top:-5px; width:850px; height:198px;">
@@ -78,19 +77,19 @@
                            
             </div>
         @else
-        <div class="col-sm-7" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
+        <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai5->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
         @endif
 
-        @if($imgFotL5->count() > 0)
-            <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotL5->first()->filename))}}); width:auto; height:75px;">
+        @if(@$imgFotL5->count() > 0)
+            <div class="col-md-6" style="background-image:url({{url(Storage::url(@$imgFotL5->first()->filename))}}); width:auto; height:75px;">
         </div>
         @else
-            <div class="col-md-8" style="background-image:url({{url(Storage::url($bgLantai5->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;" >
+            <div class="col-md-8" style="background-image:url({{url(Storage::url(@$bgLantai5->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;" >
         </div> 
         @endif
 
         @if($imgFotR5->count() > 0)
-            <div class="col-md-6" style="background-image:url({{url(Storage::url($imgFotR5->first()->filename))}}); width:auto; height:75px;">
+            <div class="col-md-6" style="background-image:url({{url(Storage::url(@$imgFotR5->first()->filename))}}); width:auto; height:75px;">
             </div>
         @else
             <div class="col-md-6" style="background-color:white; width:auto; height:75px;">

@@ -23,7 +23,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{route('tulisan.updateUtama', $editUtama->id)}}" role="form" method="POST">
+              <form action="{{route('inputTulisanUtama.update', $editUtama->id)}}" role="form" method="POST">
                 @csrf
                 @method('PUT')
               <div class="card-body">
@@ -34,28 +34,25 @@
                 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Isi Tulisan</label>
-                    <textarea name="isi" class="form-control" value="{{$editUtama->isi}}" placeholder="Edit Text" id="isi" cols="30" rows="10">{{$editUtama->isi}}</textarea>
+                    <textarea name="isi" class="form-control" placeholder="Edit Text" id="isi" cols="30" rows="10">{{$editUtama->isi}}</textarea>
                 </div>
 
                 <div class="form-group">
-                  <label>Pilih Lantai</label>
-                  <select class="form-control" name="lantai" value="{{$editUtama->lantai}}">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="monitor">Monitor</option>
-                  </select>
-                </div>
-
-                {{-- <div class="form-group">
-                  <label>Pilih Letak</label>
-                  <select class="form-control" name="float" value="{{$editUtama->float}}">
-                      <option value="utama">UTAMA</option>
-                  </select>
-              </div> --}}
+                    <label>Pilih Lantai</label>
+                    <select class="form-control" name="lantai">
+                        <option value="1">1</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                  </div>
+  
+                  <div class="form-group">
+                      <label>Pilih Tempat</label>
+                      <select class="form-control" name="float" readonly>
+                          <option value="utama">Utama</option>
+                      </select>
+                    </div>
 
               <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Edit Tulisan</button>

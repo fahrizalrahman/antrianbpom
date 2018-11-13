@@ -24,7 +24,7 @@
           @include('layouts._flash')
            <div class="card">
             <div class="card-header">
-                <a href="{{ route('tulisan.createUtama') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Tulisan</a>
+                <a href="{{ route('inputTulisanUtama.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Tulisan</a>
             
             </div>
             <!-- /.card-header -->
@@ -39,14 +39,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($tampilTulHome as $value)
+                @foreach($tulisanHome as $value)
                  <tr>
                   <td width="200px">{{$value->judul}}</td>
                   <td width="700px">{{$value->isi}}</td>
                   <td align="center" width="100px">{{$value->lantai}}</td>
                   <td align="center">
-                    <form action="{{route('inputTulisan.destroy', $value->id)}}" method="POST">
-                      <a href="{{ route('tulisan.editUtama', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
+                    <form action="{{route('inputTulisanUtama.destroy', $value->id)}}" method="POST">
+                      <a href="{{ route('inputTulisanUtama.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                       @csrf
                       <input type="hidden" name="_method" value="DELETE">
                       <button type="submit" class="btn btn-danger"><i class="nav-icon fa fa-trash"></i></button>

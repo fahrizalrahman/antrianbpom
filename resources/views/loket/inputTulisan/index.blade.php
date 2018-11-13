@@ -34,6 +34,7 @@
                 <tr>
                   <th>Judul</th>
                   <th>Isi Tulisan</th>
+                  <th>Lantai</th>
                   <th >Action</th>
                 </tr>
                 </thead>
@@ -42,6 +43,7 @@
                  <tr>
                   <td width="150px">{{$value->judul}}</td>
                   <td width="900px">{{$value->isi}}</td>
+                  <td width="150px">{{$value->lantai}}</td>
                   <td align="center">
                     <form action="{{route('inputTulisan.destroy', $value->id)}}" method="POST">
                       <a href="{{ route('inputTulisan.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 

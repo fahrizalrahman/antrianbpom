@@ -260,5 +260,34 @@ class FileController extends Controller
         $value = File::findorfail($id);
         $value->delete();
         return redirect()->route('imagebg.view');
+    } 
+        
+
+    public function destroy2($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt2');
+    }
+
+    public function destroy3($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt3');
+    }
+
+    public function destroy4($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt5');
+    }
+
+    public function destroy6($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt6');
     }
 }

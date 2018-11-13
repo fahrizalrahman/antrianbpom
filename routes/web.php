@@ -36,13 +36,8 @@ Route::get('/loket/delete/{id}', 'LoketController@delete')->name('loket.delete')
 
 // Tambah Tulisan
 Route::resource('inputTulisan','TulisanController');
-Route::get('inputTulisanUtama','TulisanController@createUtama')->name('tulisan.createUtama');
-Route::post('inputTulisanUtamaStore','TulisanController@storeUtama')->name('tulisan.storeUtama');
-Route::get('inputTulisanupdateUtama/{id}','TulisanController@updateUtama')->name('tulisan.updateUtama');
-Route::get('inputTulisaneditUtama/{id}','TulisanController@editUtama')->name('tulisan.editUtama');
-
-// Tambah Tulisan - Tampil
-Route::get('tampilTulisanHome','TulisanController@indexHome')->name('tampil.tulisan');
+// Tambah Tulisan - Home
+Route::resource('inputTulisanUtama','TulisanUtamaController');
 
 // Route Tambah Gambar
 Route::resource('inputImg','FileController');
@@ -61,6 +56,13 @@ Route::get('inputImgLt3','FileController@Lt3')->name('loket.inputImg.indexImgLt3
 Route::get('inputImgLt4','FileController@Lt4')->name('loket.inputImg.indexImgLt4');
 Route::get('inputImgLt5','FileController@Lt5')->name('loket.inputImg.indexImgLt5');
 Route::get('inputImgLt6','FileController@Lt6')->name('loket.inputImg.indexImgLt6');
+
+// Route Hapus File
+Route::delete('inputImgLt2/destroy2/{id}','FileController@destroy2')->name('inputImgLt2.destroy2');
+Route::delete('inputImgLt3/destroy3/{id}','FileController@destroy3')->name('inputImgLt2.destroy3');
+Route::delete('inputImgLt4/destroy4/{id}','FileController@destroy4')->name('inputImgLt4.destroy4');
+Route::delete('inputImgLt5/destroy5/{id}','FileController@destroy5')->name('inputImgLt5.destroy5');
+Route::delete('inputImgLt6/destroy6/{id}','FileController@destroy6')->name('inputImgLt6.destroy6');
 
 Route::get('editImgBtn/{id}/status','FileController@editBtn')->name('indexImg.editBtn');
 
