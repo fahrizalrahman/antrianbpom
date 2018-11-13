@@ -259,15 +259,35 @@ class FileController extends Controller
     {
         $value = File::findorfail($id);
         $value->delete();
-        $lantai = 1;
-        $lantai = 1;
-        $lantai = 1;
-        $lantai = 1;
-        $lantai = 5;
-        $lantai = 6;
-        if ($lantai = 5 ) {
-            return redirect()->route('loket.inputImg.indexImgLt5');
-        }
         return redirect()->route('imagebg.view');
+    } 
+        
+
+    public function destroy2($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt2');
+    }
+
+    public function destroy3($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt3');
+    }
+
+    public function destroy4($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt5');
+    }
+
+    public function destroy6($id)
+    {
+        $value = File::findorfail($id);
+        $value->delete();
+        return redirect()->route('loket.inputImg.indexImgLt6');
     }
 }

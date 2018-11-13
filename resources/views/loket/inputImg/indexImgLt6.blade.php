@@ -54,7 +54,7 @@
                   <td>{{$value->type}}</td>
                   <td><a href="{{ route('indexImg.editBtn', $value->id) }}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">{{$value->status}}</a></td>
                   <td align="center">
-                      <form action="{{route('inputImg.destroy', $value->id)}}" method="POST">
+                      <form action="{{route('inputImgLt6.destroy6', $value->id)}}" method="POST">
                         
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">

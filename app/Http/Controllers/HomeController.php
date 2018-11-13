@@ -311,7 +311,7 @@ class HomeController extends Controller
         $imgFotL5    = Footer::where('lantai','5')->where('float','footer_L')->orderby('id','desc');
         $imgFotR5    = Footer::where('lantai','5')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','5')->where('float','footer')->orderby('id','desc');
-        $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
+        $Background  = File::where('lantai','1')->where('type','background')->orderby('id','desc');
         $TextUtama   = TulisanUTama::where('lantai','5')->where('float','utama')->orderby('id','desc');
         return view('lantai.lantai5', compact('lantai5','bgLantai5','imgSid5','imgFotL5','imgFotR5','Text','Background','TextUtama'));
     }
