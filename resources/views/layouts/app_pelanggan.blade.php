@@ -233,7 +233,7 @@ $(function () {
 
 </script>
 
- @yield('scripts')
+
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -243,6 +243,8 @@ $(function () {
         }, 100);
     });
   </script>
+
+@yield('scripts')
 
 </body>
 </html>

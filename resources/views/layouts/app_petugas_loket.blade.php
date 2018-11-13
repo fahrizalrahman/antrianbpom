@@ -118,6 +118,12 @@
                                 <p>Daftar Booking</p>
                               </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{url('/daftar-sanksi')}}" class="nav-link">
+                              <i class="fa fa-shopping-bag nav-icon"></i>
+                              <p>Daftar Sanksi</p>
+                            </a>
+                      </li>
 
                         <li class="nav-item">
                               <a href="{{url('/daftar-pembatalan')}}" class="nav-link">

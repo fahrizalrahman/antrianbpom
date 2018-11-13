@@ -10,8 +10,8 @@
 					</div>
 				</div>
 			</div>
-
-			{!! Form::open(['url' => '/mobile/profile/update','method' => 'post','enctype'=>'multipart/form-data' ]) !!}
+			{{-- {!! Form::open(['url' => '/mobile/profile/update','method' => 'post','enctype'=>'multipart/form-data' ]) !!} --}}
+			<form>
 			@csrf
 			<div class="cell-12 text-center">
 				<div class="img_profile_edit">
@@ -30,46 +30,64 @@
 						</select>
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input required name="ed_nama" value="{{ @$_user_profile->nama }}" type="text" data-role="input" data-clear-button="false" placeholder="Nama" data-prepend="<span class='mif-user'></span>">
+						<input required name="ed_nama" value="{{ @$_user_profile->nama }}" id="ed_nama" type="text" data-role="input" data-clear-button="false" placeholder="Nama" data-prepend="<span class='mif-user'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_npwp" value="{{ @$_user_profile->npwp }}" type="text" maxlength="20" minlength="20" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
+						<input name="ed_npwp" value="{{ @$_user_profile->npwp }}" type="text" id="ed_npwp" maxlength="20" minlength="20" data-role="input" data-clear-button="false" placeholder="NPWP" data-prepend="<span class='mif-qrcode'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<textarea name="ed_alamat" placeholder="Alamat" data-clear-button="false" data-role="textarea" data-auto-size="false" data-max-height="200" data-prepend="<span class='mif-map2'></span>">{{ @$_user_profile->alamat }}</textarea>
+						<textarea name="ed_alamat" placeholder="Alamat" id="ed_alamat" data-clear-button="false" data-role="textarea" data-auto-size="false" data-max-height="200" data-prepend="<span class='mif-map2'></span>">{{ @$_user_profile->alamat }}</textarea>
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_phone" type="text" value="{{ @$_user_profile->no_telp }}" data-role="input" data-clear-button="false" placeholder="Telpon" data-prepend="<span class='mif-phone'></span>">
+						<input name="ed_phone" type="text" value="{{ @$_user_profile->no_telp }}" id="ed_phone" data-role="input" data-clear-button="false" placeholder="Telpon" data-prepend="<span class='mif-phone'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_nik" type="text" value="{{ @$_user_profile->nik }}" minlength="16" maxlength="16" data-role="input" data-clear-button="false" placeholder="NIK" data-prepend="<span class='mif-phonelink'></span>">
+						<input name="ed_nik" type="text" value="{{ @$_user_profile->nik }}" id="ed_nik" minlength="16" maxlength="16" data-role="input" data-clear-button="false" placeholder="NIK" data-prepend="<span class='mif-phonelink'></span>">
 					</div>
 					<div class="cell-12 w-100 input_container">
-						<input name="ed_email" type="email" value="{{ @$_user_profile->email_1 }}" data-role="input" data-clear-button="false" placeholder="Email alternatif" data-prepend="<span class='mif-envelop'></span>">
+						<input name="ed_email" type="email" value="{{ @$_user_profile->email_1 }}" id="ed_email" data-role="input" data-clear-button="false" placeholder="Email alternatif" data-prepend="<span class='mif-envelop'></span>">
 					</div>
 					<div class="cell-12 w-100 mt-5 text-center">
-						<button type="submit" class="image-button primary">
+						<button type="submit" id="update" class="image-button primary">
 							<span class="mif-floppy-disk icon"></span>
-							<span class="caption">Update Profile</span>
+							<span class="caption" id="update">Update Profile</span>
 						</button>
 					</div>
 				</div>
 			</div>
-			{!! Form::close() !!}
+		</form>
 		</div>
 	</div>
 </div>
 <div style="height: 50px;"></div>
 
-<script type="text/javascript">
-              function validasi_input(form){
-                var mincar = 16;
-                if (form.nik.value.length < mincar){
-                  alert("Panjang Angka NIK Harus 16 Karater!");
-                  form.nik.focus();
-                  return (false);
-                }
-                 return (true);
-              }
+{{-- <script type="text/javascript">
     
-              </script>
+    $(document).on('click', '#update', function (e) { 
+     
+     var ed_nama = $("#nama").val();
+     var ed_email = $("#ed_email").val();
+     var ed_nik = $("#ed_nik").val();
+     var ed_npwp = $("#ed_npwp").val();
+     var ed_phone= $("#ed_phone").val();
+     var ed_alamat = $("#ed_alamat").val();
+  
+      $.get('{{ Url("cek_npwp") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_npwp:ed_npwp}, function(resp){  
+          if (resp == 0 ){
+              swal({
+                        html: "NPWP "+npwp+" SUDAH DIGUNAKAN 3 KALI!!"
+                   });
+          } else {
+              $.get('{{ Url("updatenpwp") }}',{'_token': $('meta[name=csrf-token]').attr('content'),ed_nama:ed_nama,ed_email:ed_email,ed_nik:ed_nik,ed_npwp:ed_npwp,ed_phone:ed_phone,ed_alamat:ed_alamat,id:id}, function(resp){
+                    swal({
+                          html :  "Berhasil Melakukan Update Profile",
+                          showConfirmButton :  false,
+                          type: "success",
+                          timer: 1000
+                      });
+                      location.reload()
+              });
+          } 
+      });
+  });
+  </script> --}}

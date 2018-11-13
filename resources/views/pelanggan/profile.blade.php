@@ -15,14 +15,9 @@
         <div class="row">
 
           <div class="col-md-6">
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-           Ubah Profil
-          </a>
-          <br>
-          <br>
-          <div class="collapse" id="collapseExample">
+          <div >
             <!-- LINE CHART -->
-             {!! Form::model($data_user, ['url' => route('profile.update', $data_user->id), 'method' => 'put']) !!}
+             <form>
               {{csrf_field()}}
                     <label class="control-label">Nama <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
@@ -51,7 +46,7 @@
                     <label class="control-label">NIK <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
-                            <input type="text" id="nik" maxlength="16" minlength="16" name="nik" value="{{$data_user->nik}}" class="form-control" placeholder="Masukan Nama" required />
+                            <input type="text" id="nik"  name="nik" value="{{$data_user->nik}}" minlength="16" maxlength="16" class="form-control" placeholder="Masukan Nama" required />
                             @if ($errors->has('nik'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('nik') }}</strong>
@@ -63,7 +58,7 @@
                     <label class="control-label">NPWP <span class="text-danger">*</span></label>
                     <div class="row row-m-b-15">
                         <div class="col-md-12 m-b-15">
-                            <input type="text" id="npwp" maxlength="20" minlength="20" name="npwp" value="{{$data_user->npwp}}" class="form-control" placeholder="Masukan Nama" required />
+                            <input type="text" id="npwp" name="npwp" value="{{$data_user->npwp}}" class="form-control" minlength="20" maxlength="20" placeholder="Masukan Nama" required />
                             @if ($errors->has('npwp'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('npwp') }}</strong>
@@ -121,9 +116,9 @@
                 </div>
                 </div>
                 <div class="register-buttons" style="padding-top:10px;padding-bottom:10px">
-                        <button type="submit" class="btn btn-primary btn-block btn-lg">Ubah</button>
+                        <button type="button" id="ubah" class="btn btn-primary btn-block btn-lg">Ubah</button>
                 </div>
-             {!! Form::close() !!}
+             </form>
           </div>
             <!-- /.card -->
         </div><!-- penutup div col sm -->
@@ -133,7 +128,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="refresh-table-cek">
 
                   <tr>
                     <td style="background-color:grey;">Nama : </td>
@@ -162,7 +157,7 @@
                   <tr>
                     <td style="background-color:grey;">Foto : </td>
                     @if($data_user->foto == null)
-                    <td><img src="{{asset('img/default-avatar.png')}}" style="height:50px;"></td>
+                    <td><img src="{{asset('img/default-avatar.jpg')}}" style="height:50px;"></td>
                     @else
                     <td><img src="{{asset('foto_user/$data_user->foto')}}" style="height:50px;"></td>
                     @endif
@@ -192,4 +187,38 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+  @endsection
+  @section('scripts')
+
+  <script type="text/javascript">
+    
+    $(document).on('click', '#ubah', function (e) { 
+     
+     var name = $("#name").val();
+     var email = $("#email").val();
+     var nik = $("#nik").val();
+     var npwp = $("#npwp").val();
+     var no_telp = $("#no_telp").val();
+     var alamat = $("#alamat").val();
+     var id = {{$data_user->id}}
+  
+      $.get('{{ Url("cek_npwp") }}',{'_token': $('meta[name=csrf-token]').attr('content'),npwp:npwp}, function(resp){  
+          if (resp == 0 ){
+              swal({
+                        html: "NPWP "+npwp+" SUDAH DIGUNAKAN 3 KALI!!"
+                   });
+          } else {
+              $.get('{{ Url("updatenpwp") }}',{'_token': $('meta[name=csrf-token]').attr('content'),name:name,email:email,nik:nik,npwp:npwp,no_telp:no_telp,alamat:alamat,id:id}, function(resp){
+                    swal({
+                          html :  "Berhasil Melakukan Update Profile",
+                          showConfirmButton :  false,
+                          type: "success",
+                          timer: 1000
+                      });
+                      location.reload()
+              });
+          } 
+      });
+  });
+  </script>
 @endsection

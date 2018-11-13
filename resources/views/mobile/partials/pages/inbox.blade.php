@@ -44,13 +44,13 @@
 								<label>Antrian</label>
 								<footer>{{ $data->no_antrian }}</footer>
 							</div>
-<?php
-$mulai = new DateTime($data->mulai);
-$selesai = new DateTime($data->selesai);
+							<?php
+							$mulai = new DateTime($data->mulai);
+							$selesai = new DateTime($data->selesai);
 
-$dteDiff  = $mulai->diff($selesai);
-$survey = array('','SANGAT PUSAT', 'PUAS', 'TIDAK PUAS');
-?>
+							$dteDiff  = $mulai->diff($selesai);
+							$survey = array('','SANGAT PUSAT', 'PUAS', 'TIDAK PUAS');
+							?>
 							<div style="text-align: left; width: 200px;">
 								<div style="font-size: 10pt; font-family: arial;">
 								<label style="text-decoration: underline; font-weight: bold;">Keterangan</label><br />
