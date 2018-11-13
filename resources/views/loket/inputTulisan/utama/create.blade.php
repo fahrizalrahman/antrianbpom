@@ -23,7 +23,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="{{route('tulisan.storeUtama')}}" role="form" method="POST">
+              <form action="{{route('inputTulisanUtama.store')}}" role="form" method="POST">
                 @csrf
                 {{ method_field('post') }}
               <div class="card-body">

@@ -25,6 +25,7 @@
               <!-- form start -->
               <form role="form" action="{{route('inputImgSid.update', $editSid->id)}} " method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                   <div class="card-body">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Judul File</label>

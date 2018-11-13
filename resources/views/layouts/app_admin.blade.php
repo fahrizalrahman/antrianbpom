@@ -236,7 +236,7 @@
                 </a>
               </li> 
               <li class="nav-item">
-                <a href="{{route('tampil.tulisan')}} " class="nav-link">
+                <a href="{{route('inputTulisanUtama.index')}} " class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Home Text</p>
                 </a>

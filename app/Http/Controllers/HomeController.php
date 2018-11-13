@@ -11,6 +11,7 @@ use App\File;
 use App\Footer;
 use App\Sidebar;
 use App\Tulisan;
+use App\TulisanUtama;
 use Storage;
 use Redirect;
 use DB;
@@ -265,7 +266,7 @@ class HomeController extends Controller
         $imgFotL1    = Footer::where('lantai','1')->where('float','footer_L')->orderby('id','desc');
         $imgFotR1    = Footer::where('lantai','1')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','1')->where('float','footer')->orderby('id','desc');
-        $TextUtama   = Tulisan::where('lantai','1')->where('float','utama')->orderby('id','desc');
+        $TextUtama   = TulisanUTama::where('lantai','1')->where('float','utama')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
         return view('lantai.lantai1', compact('lantai1','bgLantai1','imgFooter','imgFotL1','imgFotR1','Text','TextUtama','Background'));
     }
@@ -275,7 +276,7 @@ class HomeController extends Controller
         $lantai2 = Loket::where('lantai','2')->get();
         $bgLantai2 = File::where('lantai','2')->where('status','Aktif')->whereNotIn('type',['background','ImgHome'])->orderby('id','desc');
         $Text        = Tulisan::where('lantai','2')->where('float','footer')->orderby('id','desc');
-        $TextUtama   = Tulisan::where('lantai','2')->where('float','utama')->orderby('id','desc');
+        $TextUtama   = TulisanUTama::where('lantai','2')->where('float','utama')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
         $Mainbar    = File::where('lantai','2')->where('type','ImgHome')->orderby('id','desc');
         return view('lantai.lantai2', compact('lantai2','bgLantai2','Text','TextUtama','Background','Mainbar'));
@@ -311,7 +312,7 @@ class HomeController extends Controller
         $imgFotR5    = Footer::where('lantai','5')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','5')->where('float','footer')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
-        $TextUtama   = Tulisan::where('lantai','5')->where('float','utama')->orderby('id','desc');
+        $TextUtama   = TulisanUTama::where('lantai','5')->where('float','utama')->orderby('id','desc');
         return view('lantai.lantai5', compact('lantai5','bgLantai5','imgSid5','imgFotL5','imgFotR5','Text','Background','TextUtama'));
     }
 
@@ -323,7 +324,7 @@ class HomeController extends Controller
         $imgFotR6    = Footer::where('lantai','6')->where('float','footer_R')->orderby('id','desc');
         $Text        = Tulisan::where('lantai','6')->where('float','footer')->orderby('id','desc');
         $Background   = File::where('lantai','1')->where('type','background')->orderby('id','desc');
-        $TextUtama   = Tulisan::where('lantai','6')->where('float','utama')->orderby('id','desc');
+        $TextUtama   = TulisanUTama::where('lantai','6')->where('float','utama')->orderby('id','desc');
         return view('lantai.lantai6', compact('lantai6','bgLantai6','imgFotL6','imgFotR6','Text','Background','TextUtama'));
     }
 
