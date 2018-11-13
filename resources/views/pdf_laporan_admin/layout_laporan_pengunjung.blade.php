@@ -10,44 +10,42 @@
 <center><h3>LAPORAN DAFTAR PENGUNJUNG</h3></center>
 <hr>
 <p style="margin-top:-2px;margin-bottom:-2px;"><b>Periode</b> : {{$ed_mulai}} sd {{$ed_sampai}}</p>
-<p style="margin-top:-2px;margin-bottom:-2px;"><b>Petugas</b> : {{$petugas}}</p>
+<p style="margin-top:-2px;margin-bottom:-2px;"><b>Petugas</b> : @if($petugas == "all") 
+Semua 
+@else{{$nama_petugas}}
+@endif</p>
 <hr>
 								<table class="table table-border">
 									<thead>
 										<tr>
-											<th>Tanggal</th>
-											<th>Nama</th>
-											<th>No. Telp</th>
-											<th>Layanan</th>
-											<th>Loket</th>
-											<th>Sub Layanan</th>
-											<th>Loket Sub</th>
-											<th>Durasi</th>
+											<th> Tanggal</th>
+											<th> Loket</th>
+											<th> Layanan</th>
+											<th> Sub Layanan</th>
+											<th> Petugas</th>
+											<th> Kepuasan</th>
 										</tr>
 									</thead>
 									<tbody id="tbody_pengunjung">
-												<?php $_i=0; ?>
-												@foreach($_data as $data)
-													@if($_i % 2===0)
+												<?php $_i=0; 
+												 $emosi = array("TIDAK SURVEY", "SANGAT PUAS", "PUAS", "TIDAK PUAS");
+												 ?>
+												 @foreach ($_data as $value)
+                  								 @if ($_i % 2===0)
 														<tr>
 													@else
 														<tr style="background-color: #dddddd">
 													@endif
-												<td align="center">{{ substr($data->tanggal,0,10) }}</td>
-												<td>{{ $data->nama_pelanggan }}</td>
-												<td>{{ $data->no_telp }}</td>
-												<td>{{ $data->nama_layanan }}</td>
-												<td>{{ $data->nama_loket }}</td>
-												<td>{{ $data->sub_layanan }}</td>
-												<td>{{ $data->nama_loket_sub }}</td>
-												<td align="center">{{ $data->lama }}</td>
+												<td>{{ $value->tanggal }}</td>
+												<td>{{ $value->nama_loket }}</td>
+												<td>{{ $value->nama_layanan }}</td>
+												<td>{{ $value->sub_layanan }}</td>
+												<td>{{ $value->nama_petugas }}</td>
+												<td>{{ strtoupper($emosi[$value->kepuasan]) }}</td>
 											</tr>
 											<?php $_i++;?>
 										@endforeach
 									</tbody>
 							</table>
-							</center>
-					</div>
-			</div>
-</body>
-</html>
+				</body>
+				</html>
