@@ -46,10 +46,15 @@ if(isMobile()){
         <div class="row">
           <div class="col-md-12">
                 <div class="container"> 
-                <section class="main" style="margin-top:20px;">   
-                    <div class="row">    
+                <section class="main" style="margin-top:20px;"> 
+                   @if($cek_sanksi > 0)
+                      <center style="color:red;font-size:20px;"><p>Mohon Maaf untuk sementara , Anda tidak bisa mengambil antrian</p>
+                    <p>Terkena sanksi 1 bulan , semenjak pengambilan tiket terakhir</p></center>
+                    @else    
+                    <div class="row"> 
                         <div class="col-sm-4">                  
                           <div class="card" >
+
                             <div class="card-body" style="height:200px;background: #ff9900">
                               <center><h1 style="color:white">LANTAI 1</h1></center>
                               <hr style="border-color:dimgray; margin-top:-5px;">
@@ -263,6 +268,7 @@ if(isMobile()){
                           </div>
                         </div> 
                         </div>
+                        @endif
                   </section>
                 </div>
             <!-- /.card -->

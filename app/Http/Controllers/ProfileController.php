@@ -7,6 +7,7 @@ use App\User;
 use App\Antrian;
 use App\Loket;
 use App\Sublayanan;
+use App\user_profile;
 use Auth;
 use File;
 use DB;
@@ -86,18 +87,10 @@ class ProfileController extends Controller
         // 
     }
 
-    public function updatenpwp(Request $request)
+    public function updateUser(Request $request)
     {
-        $this->validate($request, [
-            'name'  => 'required|string',
-            'email' => 'required|unique:users,email,'. $request->id,
-            'nik' => 'unique:users,nik,'. $request->id,
-            'npwp' => 'required:users,npwp,'. $request->id,
-            'no_telp'=>'required|unique:users,no_telp,'. $request->id,
-        ]);
 
-   
-            $update_user = User::find($request->id);
+       $update_user = User::find($request->id);
             $update_user->update([
             'name'      => $request->name,
             'email'     => $request->email,
@@ -106,7 +99,19 @@ class ProfileController extends Controller
             'no_telp'   => $request->no_telp,
             'alamat'    => $request->alamat,
         ]);
-                 return $update_user;
+
+            $user_profile = DB::table('user_profiles')
+            -> where('userid', '=', $request->id)
+            -> update([
+                'nama'      => $request->name,
+                'npwp'      => $request->npwp,
+                'alamat'    => $request->alamat,
+                'no_telp'   => $request->no_telp,
+                'nik'       => $request->nik,
+                'email_1'   => $request->email
+            ]);
+        
+        return $update_user;
 
     }
 

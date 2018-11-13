@@ -279,6 +279,16 @@ class mobileController extends Controller{
 				'nik'		=> $request->ed_nik,
 				'email_1'	=> $request->ed_email
 			]);
+
+			$update_user = User::find(Auth()->user()->id);
+		            $update_user->update([
+		            'name'      => $request->ed_nama,
+		            'email'     => $request->ed_email,
+		            'nik'       => $request->ed_nik,
+		            'npwp'       => $request->ed_npwp,
+		            'no_telp'   => $request->ed_phone,
+		            'alamat'    => $request->ed_alamat,
+		        ]);
 			
 			return Redirect::to('/home');
 		}
@@ -297,6 +307,16 @@ class mobileController extends Controller{
 			'nik'		=> $request->ed_nik,
 			'email_1'	=> $request->ed_email
 		]);
+
+		$update_user = User::find(Auth()->user()->id);
+            $update_user->update([
+            'name'      => $request->ed_nama,
+            'email'     => $request->ed_email,
+            'nik'       => $request->ed_nik,
+            'npwp'       => $request->ed_npwp,
+            'no_telp'   => $request->ed_phone,
+            'alamat'    => $request->ed_alamat,
+        ]);
 		return Redirect::to('/home');
 	}
 
