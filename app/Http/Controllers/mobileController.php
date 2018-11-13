@@ -70,13 +70,11 @@ class mobileController extends Controller{
 
 							return	$_antri = 'masih bisa';
 						}
-<<<<<<< HEAD
-=======
+
 
 					}else{
 						return $_antri = 'bulan over';
 					}
->>>>>>> 6452cfaff91053c69914f401588da250833f3f2b
 					
 				}
 					
@@ -300,14 +298,7 @@ class mobileController extends Controller{
 		return Redirect::to('/home');
 	}
 
-<<<<<<< HEAD
-	// public function sanksi(Request $request)
-	// {
-	// 	if(Auth::check()){
-	// 		if()
-	// 	}
-	// }
-=======
+
 	public function cekQuotaBooking(Request $request){
 		if(Auth::check()){
 			if($request->jenis==='layanan'){
@@ -397,5 +388,4 @@ class mobileController extends Controller{
 			return $update;
 		}
 	}
->>>>>>> 6452cfaff91053c69914f401588da250833f3f2b
 }

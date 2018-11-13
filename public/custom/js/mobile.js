@@ -45,49 +45,59 @@ $(document).on('click', '#bt_back', function(e){
 $(document).on('click', '#btn_ambil_antrian', function(e){
 	e.preventDefault();
 	if(e.which===1){
-		$.ajax({
-			headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-			dataType: 'html',
-			url		: '/mobile/content/booking/booking_antrian',
-			data 	: 'q=booking_antrian&data=' + $(this).attr('rowid') + '&jenis=' + $(this).attr('jenis') + '&tanggal=' + $('#ed_tanggal').val(),
-			success	: function(data){
-				if (data == "hari tidak bisa") {
-					swal({
-		                html: "Hari ini Tidak Melayani Layanan yang Anda Pilih !!"
-		             });
-				}else if (data == "sudah tutup"){
-					swal({
-                          html: "Batas Pengambilan Tiket Sudah Ditutup !!"
-                     });
-				}else if (data == "belum buka"){
-					swal({
-                          html: "Batas Pengambilan Tiket Belum Dibuka !!"
-                    });
-				}else if (data == "tiket habis"){
-					swal({
-                          html: "Batas Pengambilan Tiket Habis !!"
-                    });
-				} else if (data == "masih bisa"){
-					swal({
-                            html :  "Berhasil Mengambil Antrian",
-                            showConfirmButton :  false,
-                            type: "success",
-                            timer: 1000
-                        });
+			var date_pesan = $('#ed_tanggal').val()
+			var date  =	new Date();
+			var date_now  = moment(date).format('YYYY-MM-DD')
+			var date_plus = moment(date_now).add(7 , 'days').format('YYYY-MM-DD');
+				if (date_pesan > date_plus || date_pesan < date_now) {
+						swal({
+				  	           html: "Tanggal Booking Hanya 1 Minggu Kedepan !!"
+				          });
+				}else{
+					$.ajax({
+						headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						dataType: 'html',
+						url		: '/mobile/content/booking/booking_antrian',
+						data 	: 'q=booking_antrian&data=' + $(this).attr('rowid') + '&jenis=' + $(this).attr('jenis') + '&tanggal=' + $('#ed_tanggal').val(),
+						success	: function(data){
+							if (data == "hari tidak bisa") {
+								swal({
+					                html: "Hari ini Tidak Melayani Layanan yang Anda Pilih !!"
+					             });
+							}else if (data == "sudah tutup"){
+								swal({
+			                          html: "Batas Pengambilan Tiket Sudah Ditutup !!"
+			                     });
+							}else if (data == "belum buka"){
+								swal({
+			                          html: "Batas Pengambilan Tiket Belum Dibuka !!"
+			                    });
+							}else if (data == "tiket habis"){
+								swal({
+			                          html: "Batas Pengambilan Tiket Habis !!"
+			                    });
+							} else if (data == "masih bisa"){
+								swal({
+			                            html :  "Berhasil Mengambil Antrian",
+			                            showConfirmButton :  false,
+			                            type: "success",
+			                            timer: 1000
+			                        });
 
-				}else if(data == "bulan over"){
-					swal({
-                          html: "Booking hanya bisa 2 kali dalam sebulan !!"
-                    });
+							}else if(data == "bulan over"){
+								swal({
+			                          html: "Booking hanya bisa 2 kali dalam sebulan !!"
+			                    });
+							}
+							load_content('booking');
+						},
+						error: function (xhr, ajaxOptions, thrownError){
+							alert(xhr.responseText);
+							load_content('monitor');
+						}
+					});
 				}
-				load_content('booking');
-			},
-			error: function (xhr, ajaxOptions, thrownError){
-				alert(xhr.responseText);
-				load_content('monitor');
-			}
-		});
-	}
+		}
 });
 
 function booking_layanan(_content, _data, _jenis){

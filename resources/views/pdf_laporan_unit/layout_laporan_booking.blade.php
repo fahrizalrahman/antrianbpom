@@ -12,7 +12,7 @@
 <p style="margin-top:-2px;margin-bottom:-2px;"><b>Unit</b> : {{$unit}}</p>
 <p style="margin-top:-2px;margin-bottom:-2px;"><b>Petugas</b> : @if($petugas == "all") 
 Semua 
-@else{{$nama_petugas}}
+@else{{$nama_petugas->name}}
 @endif</p>
 <hr>
 						<table class="table table-bordered">
