@@ -69,15 +69,15 @@
 						<div class="row">
 							<div class="col-md-2">
 								<label class="label-input">Mulai : </label>
-								<input class="input_date" id="ed_mulai" name="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
+								<input class="form-control" id="ed_mulai" name="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
 							</div>
 							<div class="col-md-2">
 								<label class="label-input">Sampai : </label>
-								<input class="input_date" id="ed_sampai" name="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
+								<input class="form-control" id="ed_sampai" name="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
 							</div>
 							<div class="col-md-4">
 								<label class="label-input">Petugas : </label>
-								<select id="petugas" class="ed_sel_petugas input_date full-width">
+								<select id="petugas" class="form-control">
 									<option value="all">Semua Petugas</option>
 									<?php
 									$data_petugas = App\User::select('id','name')->where('jabatan','petugas_loket')->get();

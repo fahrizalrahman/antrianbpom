@@ -143,10 +143,66 @@ class LoketController extends Controller
                 }
             $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
 
-         $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_pengunjung',['_data' => $datass,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
-  
-        return $pdf->download('layout_laporan_pengunjung.pdf');
-}
+            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_pengunjung',['_data' => $datass,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
+    
+            return $pdf->download('layout_laporan_pengunjung.pdf');
+        }
+
+        public function generatePDFAdminPetugas(Request $request){
+           
+            $datass = DB::table('view_pelayanan')
+                            -> select('nama_petugas','tanggal','nama_layanan','sub_layanan','kepuasan','pelanggan',DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, mulai, selesai)) as lama'))
+                            ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                            ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                            ->where('petugas',$request->petugas)
+                            ->get();    
+                
+            $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
+
+            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_petugas',['_data' => $datass,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
+    
+            return $pdf->download('layout_laporan_petugas.pdf');
+        }
+
+        public function generatePDFAdminSurvey(Request $request)
+        {
+            if ($request->petugas == 'all' and $request->pelayanan == 'all') {
+                $data = DB::table('view_pelayanan')
+                        -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                        -> get();
+            }elseif($request->petugas == 'all' and $request->pelayanan != 'all'){
+                $data = DB::table('view_pelayanan')
+                        -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                        ->where('kepuasan',$request->pelayanan)
+                        -> get();                    
+            }elseif($request->petugas != 'all' and $request->pelayanan == 'all'){
+                $data = DB::table('view_pelayanan')
+                        -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                        ->where('petugas',$request->petugas)
+                        -> get();
+             }else{
+               $data = DB::table('view_pelayanan')
+                        -> select('tanggal', 'nama_petugas', 'email', 'pelanggan', 'no_telp', 'nama_layanan', 'kepuasan')
+                        ->where(DB::raw('DATE(tanggal)'),'>=',$request->ed_mulai)
+                        ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
+                        ->where('petugas',$request->petugas)
+                        ->where('kepuasan',$request->pelayanan)
+                        -> get();  
+
+            $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
+
+            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
+            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulaied_mulai,'ed_sampai'=>$request->tglsampai,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit,'nama_petugas'=>$data->first()->nama_petugas]);
+    
+            return $pdf->download('layout_laporan_survey.pdf');
+            }
+        }
 
 
     public function index(){
