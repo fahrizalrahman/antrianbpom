@@ -120,7 +120,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/daftar-sanksi')}}" class="nav-link">
-                              <i class="fa fa-shopping-bag nav-icon"></i>
+                              <i class="fa fa-exclamation-circle nav-icon"></i>
                               <p>Daftar Sanksi</p>
                             </a>
                       </li>

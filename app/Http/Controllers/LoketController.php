@@ -116,8 +116,25 @@ class LoketController extends Controller
             $pdf = PDF::loadView('pdf_laporan_petugas.layout_laporan_sanksi',['_data' => $datas,'petugas'=> Auth()->user()->name]);
 
             return $pdf->download('layout_laporan_sanksi.pdf');
+        }
 
+        public function generatePDFAdminPengunjung(Request $request){
+            $datas = DB::table('pelayanans as pel')
+                    -> select('ans.tgl_antrian as tanggal', 'us.email as email', 'us.name as nama_pelanggan', 'us.no_telp as no_telp', 'lok.nama_layanan as nama_layanan', 'sub.nama_sublayanan as sub_layanan', 'lok.kode as nama_loket','sub.kode_loket as nama_loket_sub', DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND, pel.mulai, pel.selesai)) as lama'))
+                    ->leftJoin('antrians as ans', 'ans.id', '=', 'pel.id_antrian')
+                    ->leftJoin('users as us', 'us.id', '=', 'ans.id_user')
+                    ->leftJoin('lokets as lok', 'lok.id', '=', 'ans.id_loket')
+                    ->leftJoin('sublayanans as sub', 'sub.id', '=', 'ans.id_sublayanan')
+                    ->where(DB::raw('DATE(ans.tgl_antrian)'),'>=',$request->ed_mulai)
+                    ->where(DB::raw('DATE(ans.tgl_antrian)'),'<=',$request->ed_sampai)
+                    ->where('pel.id_petugas', '=', Auth()->user()->id)
+                    ->get();
+
+         $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_pengunjung',['_data' => $datas,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=> Auth()->user()->name]);
+  
+        return $pdf->download('layout_laporan_pengunjung.pdf');
 }
+
 
     public function index(){
         //  
