@@ -56,6 +56,8 @@ class HomeController extends Controller
         if (Auth::user()->jabatan == "admin"){
             $data = DB::table('summary_pelanggan')
                 -> select('tanggal', DB::raw('count(jumlah) AS jml'))
+                ->whereYear('full_date','=',date("Y", strtotime(now())))
+                ->whereMonth('full_date','=',date("m", strtotime(now())))
                 -> groupBy('tanggal')
                 -> get();
 
@@ -78,6 +80,8 @@ class HomeController extends Controller
 
             $data1 = DB::table('view_pelayanan')
                 -> select('kepuasan', DB::raw('count(id_antrian) AS jml'))
+                ->whereYear('tanggal','=',date("Y", strtotime(now())))
+                ->whereMonth('tanggal','=',date("m", strtotime(now())))
                 -> groupBy('kepuasan')
                 -> get();
 
@@ -99,6 +103,8 @@ class HomeController extends Controller
             $data = DB::table('summary_pelanggan')
                 -> select('tanggal', DB::raw('count(jumlah) AS jml'))
                 -> where('petugas',Auth()->user()->id)
+                ->whereYear('full_date','=',date("Y", strtotime(now())))
+                ->whereMonth('full_date','=',date("m", strtotime(now())))
                 -> groupBy('tanggal')
                 -> get();
 
@@ -122,6 +128,8 @@ class HomeController extends Controller
             $data1 = DB::table('view_pelayanan')
                 -> select('kepuasan', DB::raw('count(id_antrian) AS jml'))
                 -> where('petugas',Auth()->user()->id)
+                ->whereYear('tanggal','=',date("Y", strtotime(now())))
+                ->whereMonth('tanggal','=',date("m", strtotime(now())))
                 -> groupBy('kepuasan')
                 -> get();
 
@@ -183,24 +191,14 @@ class HomeController extends Controller
                  }
             }
         }
-/*
-        elseif (Auth::user()->jabatan == "pelanggan_1"){
-            $profile = user_profile::select('id', 'type', 'nama', 'alamat', 'no_telp', 'no_fax', 'email_1')
-                -> first();
-            if($profile){
-                $judulLayanan = judulLayanan::select('id', 'keterangan')->get();
-                return view('mobile.index', compact('judulLayanan'));
-            }else{
-                return view('mobile.wizard')
-                    -> with('_type', 'new');
-            }
-        }
-*/
+
         elseif (Auth::user()->jabatan ==="admin_unit"){
 
             $data = DB::table('summary_pelanggan')
                 -> select('tanggal', DB::raw('count(jumlah) AS jml'))
                 -> where('nama_unit',Auth()->user()->unit)
+                ->whereYear('full_date','=',date("Y", strtotime(now())))
+                ->whereMonth('full_date','=',date("m", strtotime(now())))
                 -> groupBy('tanggal')
                 -> get();
 
@@ -224,6 +222,8 @@ class HomeController extends Controller
             $data1 = DB::table('view_pelayanan')
                 -> select('kepuasan', DB::raw('count(id_antrian) AS jml'))
                 -> where('nama_unit',Auth()->user()->unit)
+                ->whereYear('tanggal','=',date("Y", strtotime(now())))
+                ->whereMonth('tanggal','=',date("m", strtotime(now())))
                 -> groupBy('kepuasan')
                 -> get();
 
@@ -242,20 +242,6 @@ class HomeController extends Controller
 
         }
 
-
-        /*}elseif (Auth::user()->jabatan == "petugas_loket" AND Auth::user()->lantai == 1 ){
-            return view('lantai.lantai1'); 
-        }elseif (Auth::user()->jabatan == "petugas_loket" AND Auth::user()->lantai == 2 ){
-            return view('lantai.lantai2'); 
-        }elseif (Auth::user()->jabatan == "petugas_loket" AND Auth::user()->lantai == 3 ){
-            return view('lantai.lantai3'); 
-        }elseif (Auth::user()->jabatan == "petugas_loket" AND Auth::user()->lantai == 4 ){
-            return view('lantai.lantai4'); 
-        }elseif (Auth::user()->jabatan == "petugas_loket" AND Auth::user()->lantai == 5 ){
-            return view('lantai.lantai5'); 
-        }elseif (Auth::user()->jabatan == "petugas_loket" AND Auth::user()->lantai == 6 ){
-            return view('lantai.lantai6'); 
-        }*/
         
     }
 
