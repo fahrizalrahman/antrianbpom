@@ -50,6 +50,8 @@ Route::get('inputImgHome','FileController@createImgHome')->name('imgHome.create'
 Route::post('inputImgHome','FileController@storeHome')->name('imgHome.storeHome');
 Route::get('viewImgHome','FileController@ImgHome')->name('imgHome.view');
 
+Route::get('/proses/image/status','FileController@proses_status');
+
 // Route Tambah File per-lantai
 Route::get('inputImgLt2','FileController@Lt2')->name('loket.inputImg.indexImgLt2');
 Route::get('inputImgLt3','FileController@Lt3')->name('loket.inputImg.indexImgLt3');
@@ -64,7 +66,7 @@ Route::delete('inputImgLt4/destroy4/{id}','FileController@destroy4')->name('inpu
 Route::delete('inputImgLt5/destroy5/{id}','FileController@destroy5')->name('inputImgLt5.destroy5');
 Route::delete('inputImgLt6/destroy6/{id}','FileController@destroy6')->name('inputImgLt6.destroy6');
 
-Route::get('editImgBtn/{id}/status','FileController@editBtn')->name('indexImg.editBtn');
+// Route::get('editImgBtn/{id}/status','FileController@editBtn')->name('indexImg.editBtn');
 
 // Route Tambah User
 Route::resource('user','AddUserController');
@@ -293,6 +295,7 @@ Route::get('daftar-pembatalan', 'HomeController@daftarPembatalan');
 
 
 Route::get('table-lantai-layanan', 'LoketController@tableLantaiLayanan');
+Route::get('jv','HomeController@jv')->name('jv');
 
 Route::get('/mobile/content/cek_quota_booking', 'mobileController@cekQuotaBooking');
 Route::get('/mobile/content/update_batal_keterangan', 'mobileController@updateKeteranganBooking');

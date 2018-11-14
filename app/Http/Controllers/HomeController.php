@@ -740,14 +740,10 @@ class HomeController extends Controller
         }
     }
 
-    // public function prosesSanksi(Request $request)
-    // {
-    //     if(Auth::check()){
-    //         if(Auth()->user()->jabatan==='petugas_loket'){
-    //                 $sanksi = DB::table('antrians');
-    //                 -> Select('')
-    //         }
-    //     }
-    // }
+    public function jv(Request $request)
+    {
+        return view('petugas_loket.jv');
+    }
 
+    
 }

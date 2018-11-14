@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\File;
+use DB;
 use Storage;
 class FileController extends Controller
 {
@@ -289,5 +290,36 @@ class FileController extends Controller
         $value = File::findorfail($id);
         $value->delete();
         return redirect()->route('loket.inputImg.indexImgLt6');
+    }
+
+    public function proses_status(Request $request)
+	{
+        if($request->q==='proses aktif'){
+            $updatestatus = DB::table('files')
+                -> where([
+                    'id'		=> $request->data
+                ])
+                -> update([
+                    'status'=>'Aktif',
+                    'updated_at'=>now()
+                ]);
+            // return $updatestatus;    
+        }elseif($request->q==='proses non'){
+            $updatestatus = DB::table('files')
+                -> where([
+                    'id'		=> $request->data
+                ])
+                -> update([
+                    'status'=>'Non-Aktif',
+                    'updated_at'=>now()
+                ]);
+        }elseif($request->q==='proses del'){
+            $updatestatus = DB::table('files')
+            -> where([
+                'id'        => $request->data
+            ])
+            ->delete();
+        } 
+        return $updatestatus;
     }
 }
