@@ -322,3 +322,5 @@ Route::get('/petugas/report/create_pdf_survey_admin','LoketController@generatePD
 
 Route::get('cek_npwp_over', 'mobileController@ceknpwp');
 Route::get('/mobile/cek_sanksi_pengunjung', 'mobileController@cekSanksiPengunjung');
+
+Route::resource('banner-mobile','BannerMobileController');
