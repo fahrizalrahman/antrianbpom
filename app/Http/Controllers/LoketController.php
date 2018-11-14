@@ -193,12 +193,12 @@ class LoketController extends Controller
                         ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
                         ->where('petugas',$request->petugas)
                         ->where('kepuasan',$request->pelayanan)
-                        -> get();  
+                        -> get(); 
 
             $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
 
-            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
-            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulaied_mulai,'ed_sampai'=>$request->tglsampai,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit,'nama_petugas'=>$data->first()->nama_petugas]);
+            // $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
+            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=> $request->petugas,'nama_petugas'=>$data->first()->nama_petugas]);
     
             return $pdf->download('layout_laporan_survey.pdf');
             }

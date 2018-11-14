@@ -38,20 +38,7 @@
 							</div>
 	<script>
           $(function () {
-            $("#example1").DataTable({
-              dom: 'Bfrtip',
-              buttons: ['copy', 
-                {
-                  extend: 'pdfHtml5',
-                  title: $('.judul').html(),
-                  orientation: 'landscape',
-                  pageSize: 'A4',
-                  pageMargins: [ 0, 0, 0, 0 ],
-                  margin: [ 0, 0, 0, 0 ],
-                  text: 'Export PDF',
-                }
-              ]
-            });
+            $("#example1").DataTable();
           });
 	</script>
 

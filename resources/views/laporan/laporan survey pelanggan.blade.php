@@ -51,7 +51,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12" style="margin-top: 10px;">
-									<button class="btn btn-danger bt_export_pdf" data-id="0"  style="align-items:left;">Download <span class="fa fa-file-pdf-o"></span></button>
+									<button class="btn btn-danger bt_export_pdf" data-id="0" style="align-items:left;">Download <span class="fa fa-file-pdf-o"></span></button>
 								<button id="proses" class="btn btn-success">Proses</button>
 								<hr />
 							</div>
@@ -117,6 +117,7 @@
          var ed_sampai = $("#ed_sampai").val();
          var petugas = $("#petugas").val();
          var pelayanan = $("#pelayanan").val();
+		 $(".bt_export_pdf").attr('data-id',petugas);
 
 
 
@@ -163,8 +164,9 @@
 		  if(e.which===1){
 		   var ed_mulai = $("#ed_mulai").val();
 		   var ed_sampai = $("#ed_sampai").val();
-		   var petugas = $("#petugas").val();
+		   var petugas = $(this).attr('data-id');
 		   var pelayanan = $("#pelayanan").val();
+		   
 
 	  $.ajax({
 		  cache: false,
