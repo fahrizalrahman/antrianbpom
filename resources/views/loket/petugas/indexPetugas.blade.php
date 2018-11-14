@@ -26,16 +26,14 @@
               <table id="admin" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Petugas</th>
-                  {{-- <th>Email </th> --}}
-                  {{-- <th>NIK </th> --}}
-                  <th>No Telp</th>
-                  <th>Jabatan</th>
-                  <th>Lantai</th>
-                  <th>Unit</th>
-                  <th>Reset</th>
-                  <th style="width:auto">Aksi</th> 
+                  <th >ID</th>
+                  <th >Petugas</th>
+                  <th >No Telp</th>
+                  <th >Jabatan</th>
+                  <th >Lantai</th>
+                  <th >Unit</th>
+                  <th >Reset</th>
+                  <th style="width:100px">Aksi</th> 
                 </tr>
                 </thead>
                 <tbody>
@@ -43,21 +41,15 @@
                  <tr>
                   <td>{{$value->id}}</td>
                   <td>{{$value->name}}</td>
-                  {{-- <td>{{$value->email}}</td> --}}
                   <td>{{$value->no_telp}}</td> 
                   <td>{{$value->jabatan}}</td>
                   <td>{{$value->lantai}}</td>
                   <td>{{$value->unit}}</td>
-                  <td align="center">
-                      <a href="{{ route('reset', $value->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fa fa-refresh"></i></a> 
-                     </td>
-                  <td align="center">
-                      <form action="{{route('petugas.destroy', $value->id)}}" method="POST">
-                        <a href="{{ route('petugas.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> |
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></button>
-                      </form>
+                  <td><a href="{{ route('reset', $value->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fa fa-refresh"></i></a> 
+                  </td>
+                  <td>
+                      
+                        <a href="{{ route('petugas.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> |  <a href="{{ route('loket.delete',$value->id) }}" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>
                   </td>
                   
                   

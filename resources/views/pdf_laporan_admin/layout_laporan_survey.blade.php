@@ -14,6 +14,14 @@
 Semua 
 @else{{$petugas->name}}
 @endif</p>
+<?php 
+	$emosi = array("TIDAK SURVEY", "SANGAT PUAS", "PUAS", "TIDAK PUAS");
+?>
+<p style="margin-top:-2px;margin-bottom:-2px;"><b>Survey Kepuasan</b> : @if($kepuasan == "all") 
+Semua 
+@else {{ strtoupper($emosi[$kepuasan]) }}
+@endif</p>
+
 <hr>
 								<table class="table table-border">
 									<thead>

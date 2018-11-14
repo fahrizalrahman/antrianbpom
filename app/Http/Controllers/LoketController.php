@@ -145,7 +145,7 @@ class LoketController extends Controller
 
             $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_pengunjung',['_data' => $datass,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
     
-            return $pdf->download('layout_laporan_pengunjung.pdf');
+            return $pdf->download('layout_laporan_pengunjung_admin.pdf');
         }
 
         public function generatePDFAdminPetugas(Request $request){
@@ -193,15 +193,20 @@ class LoketController extends Controller
                         ->where(DB::raw('DATE(tanggal)'),'<=',$request->ed_sampai)
                         ->where('petugas',$request->petugas)
                         ->where('kepuasan',$request->pelayanan)
-                        -> get(); 
-
-            $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
-
-            // $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas ]);
-            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=> $request->petugas,'nama_petugas'=>$data->first()->nama_petugas]);
-    
-            return $pdf->download('layout_laporan_survey.pdf');
+                        -> get();  
             }
+
+            if ($request->petugas != 'all') {
+                $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
+            }else{
+                $nama_petugas = 'Semua';
+            }
+
+            $pdf = PDF::loadView('pdf_laporan_admin.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->ed_mulai,'ed_sampai'=>$request->ed_sampai,'petugas'=>$request->petugas,'nama_petugas'=>$nama_petugas,'kepuasan'=>$request->pelayanan ]);
+            
+    
+            return $pdf->download('layout_laporan_survey_admin.pdf');
+            
         }
 
 

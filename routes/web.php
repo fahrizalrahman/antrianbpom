@@ -73,6 +73,7 @@ Route::post('/user-perusahaan', 'AddUserController@storePerusahaan')->name('stor
 // Tambah Petugas
 Route::resource('petugas','addPetugasController');
 Route::get('/petugas-reset/{id}', 'addPetugasController@reset')->name('reset');
+Route::get('/petugas/delete/{id}', 'addPetugasController@delete')->name('petugas.delete');
 
 // Route Antrian
 Route::get('/print-antrian/{id}', 'AntrianController@print')->name('print-antrian');
