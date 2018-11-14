@@ -16,7 +16,7 @@ class AddPetugasController extends Controller
      */
     public function index()
     {
-        $petugas = User::where('jabatan','!=','pelanggan')->get();
+        $petugas = User::where('jabatan','!=','pelanggan')->where('jabatan','!=','admin_unit')->get();
         return view('loket.petugas.indexPetugas', compact('petugas'));
     }
 
@@ -120,8 +120,12 @@ class AddPetugasController extends Controller
      */
     public function destroy($id)
     {
-        $petugas = User::findorfail($id);
-        $petugas->delete();
+     
+    }
+
+   public function delete($id){
+          $petugas = User::findorfail($id);
+          $petugas->delete();
 
         Session::flash("flash_notification", [
             "level"=>"success",

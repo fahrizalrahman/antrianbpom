@@ -41,15 +41,15 @@
                 <tbody>
                 @foreach($tulisanHome as $value)
                  <tr>
-                  <td width="200px">{{$value->judul}}</td>
-                  <td width="700px">{{$value->isi}}</td>
-                  <td align="center" width="100px">{{$value->lantai}}</td>
-                  <td align="center">
+                  <td>{{$value->judul}}</td>
+                  <td>{{$value->isi}}</td>
+                  <td>{{$value->lantai}}</td>
+                  <td>
                     <form action="{{route('inputTulisanUtama.destroy', $value->id)}}" method="POST">
                       <a href="{{ route('inputTulisanUtama.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                       @csrf
                       <input type="hidden" name="_method" value="DELETE">
-                      <button type="submit" class="btn btn-danger"><i class="nav-icon fa fa-trash"></i></button>
+                      <button type="submit" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></button>
                     </form>
                 </td>
                 </tr>

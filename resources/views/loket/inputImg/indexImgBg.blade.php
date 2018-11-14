@@ -47,7 +47,7 @@
                   <td>{{$value->title}}</td>
                   <td>{{$value->lantai}}</td>
                   <td>{{$value->type}}</td>
-                  <td><a href="{{ route('indexImg.editBtn', $value->id) }}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">{{$value->status}}</a></td>
+                  <td>{{$value->status}}</td>
                   <td align="center">
                       <form action="{{route('inputImg.destroy', $value->id)}}" method="POST">
                         

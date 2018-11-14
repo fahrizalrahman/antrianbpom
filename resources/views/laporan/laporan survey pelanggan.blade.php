@@ -20,15 +20,15 @@
 						<div class="row">
 							<div class="col-md-2">
 								<label class="label-input">Mulai : </label>
-								<input class="input_date" id="ed_mulai" name="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
+								<input class="form-control" id="ed_mulai" name="ed_mulai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Mulai">
 							</div>
 							<div class="col-md-2">
 								<label class="label-input">Sampai : </label>
-								<input class="input_date" id="ed_sampai" name="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
+								<input class="form-control" id="ed_sampai" name="ed_sampai" type="text" value="{{ date_format(now(), "Y-m-d") }}" onfocus="(this.type='date')" onfocusout="(this.type='text')" placeholder="Tanggal Sampai">
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<label class="label-input">Petugas : </label>
-								<select id="petugas" class="ed_sel_petugas input_date full-width">
+								<select id="petugas" class="form-control">
 									<option value="all">Semua Petugas</option>
 									<?php
 									$data_petugas = App\User::select('id','name')->where('jabatan','petugas_loket')->get();
@@ -38,9 +38,9 @@
 									@endforeach									
 								</select>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<label class="label-input">Pelayanan : </label>
-								<select id="pelayanan" class="ed_sel_layanan input_date full-width">
+								<select id="pelayanan" class="form-control">
 									<option value="all">Semua Layanan</option>
 									<option value="0">TIDAK SURVEY</option>
 									<option value="1">SANGAT PUAS</option>
@@ -48,14 +48,12 @@
 									<option value="3">TIDAK PUAS</option>
 								</select>	
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12" style="margin-top: 10px;">
-									<button class="btn btn-danger bt_export_pdf" data-id="0"  style="align-items:left;">Download <span class="fa fa-file-pdf-o"></span></button>
+							<div class="col-md-4" style="margin-top: 30px;">
 								<button id="proses" class="btn btn-success">Proses</button>
-								<hr />
+								<button class="btn btn-danger bt_export_pdf" data-id="0"  style="align-items:left;">Download <span class="fa fa-file-pdf-o"></span></button>
 							</div>
 						</div>
+						<br>
 						<div class="row">
 							<span id="refresh-table">
 							@include('laporan.refresh_table_survey')

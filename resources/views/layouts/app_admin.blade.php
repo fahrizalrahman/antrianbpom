@@ -167,7 +167,7 @@
                 <li class="nav-item">
                   <a href="{{route('petugas.index')}} " class="nav-link">
                     <i class="fa fa-circle-o nav-icon"></i>
-                    <p>Petugas</p>
+                    <p>Admin / Petugas </p>
                   </a>
                 </li>
                 <li class="nav-item">
