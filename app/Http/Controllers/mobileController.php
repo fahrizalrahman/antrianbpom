@@ -12,6 +12,7 @@ use App\judulLayanan;
 use App\user_profile;
 use App\Sublayanan;
 use App\Antrian;
+use App\BannerMobile;
 
 class mobileController extends Controller{
 
@@ -226,7 +227,8 @@ class mobileController extends Controller{
 				$judulLayanan = judulLayanan::select('id', 'keterangan')
 					-> get();
 				$cek_sanksi = Antrian::where('id_user', Auth()->user()->id)->where('status','sanksi')->count();
-				$_content = view::make('/mobile/partials/pages/' . $request->data, compact('judulLayanan','cek_sanksi'));
+				$banner_mobile = BannerMobile::select()->first();
+				$_content = view::make('/mobile/partials/pages/' . $request->data, compact('judulLayanan','cek_sanksi','banner_mobile'));
 
 				return $_content;
 			}elseif($request->data==='account'){

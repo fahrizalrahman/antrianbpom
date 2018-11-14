@@ -100,7 +100,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Grafik Pengunjung 2018'
+            text: 'Grafik Pengunjung'
         },
         yAxis: {
             title: {
