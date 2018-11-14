@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="image_slider_container">
-			<div class="image_slider" style="background-image: url('{{ url("/img/slider/001.png") }}');"></div>
+			<div class="image_slider" style="background-image: url('{{ url("/gambar_banner/".$banner_mobile->gambar_banner."") }}');"></div>
 		</div>
 		<div class="layanan_container">
 			@if($cek_sanksi > 0)

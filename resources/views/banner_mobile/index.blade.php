@@ -35,8 +35,8 @@
                 @foreach($banner_mobile->get() as $value)
                  <tr>
                   <td>{{$value->judul_banner}}</td>
-                  <td>{{$value->gambar_banner }}</td>
-                  <td><a href="{{ route('banner-mobile.edit', $value->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
+                  <td><img src="{{asset('gambar_banner/'.$value->gambar_banner.'')}}"></td>
+                  <td><a href="{{ route('banner-mobile.edit', $value->id) }}" class="btn btn-primary">Edit</a></td>
                 </tr>
                 @endforeach
                 </tbody>
