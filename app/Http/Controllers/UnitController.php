@@ -592,7 +592,6 @@ public function filterDataSurvey(Request $request){
                           -> get();  
               }
 
-
              $pdf = PDF::loadView('pdf_laporan_unit.layout_laporan_survey',['_data' => $data,'ed_mulai'=>$request->tglmulai,'ed_sampai'=>$request->tglsampai,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit,'nama_petugas'=>$data->first()->nama_petugas]);
       
             return $pdf->download('layout_laporan_survey_unit.pdf');

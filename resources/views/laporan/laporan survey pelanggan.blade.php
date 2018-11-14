@@ -115,6 +115,7 @@
          var ed_sampai = $("#ed_sampai").val();
          var petugas = $("#petugas").val();
          var pelayanan = $("#pelayanan").val();
+		 $(".bt_export_pdf").attr('data-id',petugas);
 
 
 
@@ -161,8 +162,9 @@
 		  if(e.which===1){
 		   var ed_mulai = $("#ed_mulai").val();
 		   var ed_sampai = $("#ed_sampai").val();
-		   var petugas = $("#petugas").val();
+		   var petugas = $(this).attr('data-id');
 		   var pelayanan = $("#pelayanan").val();
+		   
 
 	  $.ajax({
 		  cache: false,
