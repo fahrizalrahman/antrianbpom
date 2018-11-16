@@ -52,13 +52,13 @@
                   <td>{{$value->title}}</td>
                   <td>{{$value->lantai}}</td>
                   <td>{{$value->type}}</td>
-                  <td><a href="{{ route('indexImg.editBtn', $value->id) }}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">{{$value->status}}</a></td>
+                  <td><button data-id="{{$value->id}}" class="btn btn-success btn-sm ">{{$value->status}}</button></td>
                   <td align="center">
-                      <form action="{{route('inputImgLt4.destroy4', $value->id)}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></button>
-                      </form>
+                    
+                          <button data-id="{{$value->id}}" class="btn btn-primary btn-sm bt_on">On</button>
+                          <button data-id="{{$value->id}}" class="btn btn-danger btn-sm bt_off">Off</button>
+                          <button data-id="{{$value->id}}" class="btn btn-warning btn-sm bt_del">Del</button>
+                      
                   </td>
                 </tr>
                 @endforeach
@@ -83,4 +83,78 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+@endsection
+
+@section('scripts')
+
+<script type="text/javascript">
+$(document).on('click', '.bt_on', function(e){
+	e.preventDefault();
+	if(e.which===1){
+		if(confirm('Yakin Aktifkan File?')){
+			$.ajax({
+				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				dataType: 'html',
+				url		: '/proses/image/status',
+				data 	: 'q=proses aktif&data=' + $(this).attr('data-id'),
+				success	: function(data){
+					if(data.length > 0){
+						alert('Data berhasil Di Aktifkan');
+					}
+          location.reload();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.responseText);
+				}
+			});
+		}
+	}
+});
+
+$(document).on('click', '.bt_off', function(e){
+	e.preventDefault();
+	if(e.which===1){
+		if(confirm('Yakin Ingin Non-Aktifkan File ?')){
+			$.ajax({
+				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				dataType: 'html',
+				url		: '/proses/image/status',
+				data 	: 'q=proses non&data=' + $(this).attr('data-id'),
+				success	: function(data){
+					if(data.length > 0){
+						alert('File berhasil Di Non-Aktifkan');
+					}
+          location.reload();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.responseText);
+				}
+			});
+		}
+	}
+});
+
+$(document).on('click', '.bt_del', function(e){
+	e.preventDefault();
+	if(e.which===1){
+		if(confirm('Yakin Ingin Menghapus Gambar/Video ?')){
+			$.ajax({
+				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				dataType: 'html',
+				url		: '/proses/image/status',
+				data 	: 'q=proses del&data=' + $(this).attr('data-id'),
+				success	: function(data){
+					if(data.length > 0){
+						alert('Data berhasil Dihapus !');
+					}
+          location.reload();
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.responseText);
+				}
+			});
+		}
+	}
+});
+</script>
 @endsection
