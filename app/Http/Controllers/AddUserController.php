@@ -14,6 +14,15 @@ class AddUserController extends Controller
      *
      * @return void
      */
+
+     private $user ;
+    function __construct(Request $request)
+    {
+        $this->middleware('auth');
+        $this->user = \Auth::user();
+    }
+
+
     public function __construct()
     {
         $this->middleware('auth');

@@ -79,7 +79,6 @@ class mobileController extends Controller{
 					
 				}
 					
-			}
 			}elseif($request->jenis==='sub_layanan'){
 				/*Check Hari*/
 				$_hari = \App\helper\Tanggal::ambil_hari($request->tanggal);
@@ -111,10 +110,10 @@ class mobileController extends Controller{
 						-> count()) + 1;
 
 					$cek_antri = DB::table('antrians')
-							->whereRaw('id_loket=' . $request->data)
+							->whereRaw('id_loket=' . $_head_loket->id_loket)
 							->whereMonth('tgl_antrian','=',date("m", strtotime($request->tanggal)))
 							->whereYear('tgl_antrian','=',date("Y", strtotime($request->tanggal)))
-							->where('status','=','selesai')
+							->where('status','=','antri')
 							-> count();
 
 						$_jam = date('H');
@@ -150,7 +149,7 @@ class mobileController extends Controller{
 			}
 		
 	}
-
+}
 	public function booking_layanan(Request $request){
 		if(Auth::check()){
 			if($request->data!=='0'){

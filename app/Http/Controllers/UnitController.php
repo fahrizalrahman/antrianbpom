@@ -16,6 +16,13 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $user ;
+    function __construct(Request $request)
+    {
+        $this->middleware('auth');
+        $this->user = \Auth::user();
+    }
+
     public function index()
     {
         if (Auth::check()) {
