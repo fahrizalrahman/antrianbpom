@@ -14,9 +14,11 @@
 			<form>
 			@csrf
 			<div class="cell-12 text-center">
-				<div class="img_profile_edit">
-					<span class="mif-pencil"></span>
-					<input type="file" id="ed_photo" hidden="hidden">
+				@if(@$_user_profile->foto == null)
+				<div class="img_profile_edit" style="background-image: url('/img/default-avatar.jpg')">
+				@else
+				<div class="img_profile_edit" style="background-image: url('{{ url("/foto-profile/".@$_user_profile->foto."") }}');">
+				@endif
 				</div>
 			</div>
 
@@ -47,6 +49,10 @@
 					<div class="cell-12 w-100 input_container">
 						<input name="ed_email" type="email" value="{{ @$_user_profile->email_1 }}" id="ed_email" data-role="input" data-clear-button="false" placeholder="Email alternatif" data-prepend="<span class='mif-envelop'></span>">
 					</div>
+					<div class="cell-12 w-100 input_container">
+						<input type="file" name="foto" id="foto" data-role="file"  value="{{ @$_user_profile->foto }}" data-prepend="<span class='mif-folder'></span>" placeholder="Ambil Foto">
+					</div>
+					<input type="hidden" name="id_profile_user" value="{{ @$_user_profile->id }}" >
 					<div class="cell-12 w-100 mt-5 text-center">
 						<button type="submit" id="update" class="image-button primary">
 							<span class="mif-floppy-disk icon"></span>

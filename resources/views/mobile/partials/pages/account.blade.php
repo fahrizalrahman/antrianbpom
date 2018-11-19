@@ -18,7 +18,11 @@
 				</div>
 			</div>
 			<div class="cell-12">
-				<div class="img_profile" style="background-image: url('/img/default-avatar.jpg');">
+				@if(@$profile->foto == null)
+				<div class="img_profile" style="background-image: url('/img/default-avatar.jpg')">
+				@else
+				<div class="img_profile" style="background-image: url('{{ url("/foto-profile/".@$profile->foto."") }}');">
+				@endif
 				</div>
 			</div>
 			<div class="cell-12 text-center" style="margin-top: 50px;">

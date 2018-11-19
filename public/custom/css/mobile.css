@@ -174,7 +174,7 @@ table > tr > td{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-image: url('/img/default-avatar.jpg');	
+		
 }
 .img_profile{
 	width: 100px; height: 100px;

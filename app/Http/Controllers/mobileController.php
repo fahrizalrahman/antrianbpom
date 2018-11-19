@@ -10,9 +10,12 @@ use Redirect;
 use App\Loket;
 use App\judulLayanan;
 use App\user_profile;
+use App\User;
 use App\Sublayanan;
 use App\Antrian;
 use App\BannerMobile;
+use Image;
+use File;
 
 class mobileController extends Controller{
 
@@ -269,17 +272,45 @@ class mobileController extends Controller{
 
 	public function update(Request $request){
 		if(Auth::check()){
-			$user_profile = DB::table('user_profiles')
-			-> where('userid', '=', Auth()->user()->id)
-			-> update([
+
+			$user_profile = user_profile::find($request->id_profile_user);
+			$user_profile->update([
 				'type'		=> $request->ed_type,
 				'nama'		=> $request->ed_nama,
 				'npwp'		=> $request->ed_npwp,
 				'alamat'	=> $request->ed_alamat,
 				'no_telp'	=> $request->ed_phone,
 				'nik'		=> $request->ed_nik,
-				'email_1'	=> $request->ed_email
+				'email_1'	=> $request->ed_email,
 			]);
+
+			if ($request->hasFile('foto')) {
+                // Mengambil file yang diupload
+                $foto          = $request->file('foto');
+                $uploaded_foto = $foto;
+                // mengambil extension file
+                $extension = $uploaded_foto->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($foto->getRealPath());
+                $image_resize->fit(150,150);
+                $image_resize->save(public_path('foto-profile/' . $filename));
+                // hapus foto_home lama, jika ada
+                if ($user_profile->foto) {
+                    $old_foto = $user_profile->foto;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
+                    . DIRECTORY_SEPARATOR . $user_profile->foto;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $user_profile->foto = $filename;
+                $user_profile->save();
+            }
+
+
 
 			$update_user = User::find(Auth()->user()->id);
 		            $update_user->update([
@@ -290,6 +321,32 @@ class mobileController extends Controller{
 		            'no_telp'   => $request->ed_phone,
 		            'alamat'    => $request->ed_alamat,
 		        ]);
+
+		     if ($request->hasFile('foto')) {
+                // Mengambil file yang diupload
+                $foto          = $request->file('foto');
+                $uploaded_foto = $foto;
+                // mengambil extension file
+                $extension = $uploaded_foto->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($foto->getRealPath());
+                $image_resize->fit(150,150);
+                $image_resize->save(public_path('foto-profile/' . $filename));
+                // hapus foto_home lama, jika ada
+                if ($update_user->foto) {
+                    $old_foto = $update_user->foto;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
+                    . DIRECTORY_SEPARATOR . $update_user->foto;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $update_user->foto = $filename;
+                $update_user->save();
+            }
 			
 			return Redirect::to('/home');
 		}
@@ -308,6 +365,32 @@ class mobileController extends Controller{
 			'nik'		=> $request->ed_nik,
 			'email_1'	=> $request->ed_email
 		]);
+		if ($request->hasFile('foto')) {
+                // Mengambil file yang diupload
+                $foto          = $request->file('foto');
+                $uploaded_foto = $foto;
+                // mengambil extension file
+                $extension = $uploaded_foto->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($foto->getRealPath());
+                $image_resize->fit(450,150);
+                $image_resize->save(public_path('foto-profile/' . $filename));
+                // hapus foto_home lama, jika ada
+                if ($user_profile->foto) {
+                    $old_foto = $user_profile->foto;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
+                    . DIRECTORY_SEPARATOR . $user_profile->foto;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $user_profile->foto = $filename;
+                $user_profile->save();
+            }
+
 
 		$update_user = User::find(Auth()->user()->id);
             $update_user->update([
@@ -318,6 +401,33 @@ class mobileController extends Controller{
             'no_telp'   => $request->ed_phone,
             'alamat'    => $request->ed_alamat,
         ]);
+
+        if ($request->hasFile('foto')) {
+                // Mengambil file yang diupload
+                $foto          = $request->file('foto');
+                $uploaded_foto = $foto;
+                // mengambil extension file
+                $extension = $uploaded_foto->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($foto->getRealPath());
+                $image_resize->fit(150,150);
+                $image_resize->save(public_path('foto-profile/' . $filename));
+                // hapus foto_home lama, jika ada
+                if ($update_user->foto) {
+                    $old_foto = $update_user->foto;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
+                    . DIRECTORY_SEPARATOR . $update_user->foto;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $update_user->foto = $filename;
+                $update_user->save();
+            }
+
 		return Redirect::to('/home');
 	}
 
