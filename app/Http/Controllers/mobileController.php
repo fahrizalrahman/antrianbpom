@@ -309,44 +309,6 @@ class mobileController extends Controller{
                 $user_profile->foto = $filename;
                 $user_profile->save();
             }
-
-
-
-			$update_user = User::find(Auth()->user()->id);
-		            $update_user->update([
-		            'name'      => $request->ed_nama,
-		            'email'     => $request->ed_email,
-		            'nik'       => $request->ed_nik,
-		            'npwp'       => $request->ed_npwp,
-		            'no_telp'   => $request->ed_phone,
-		            'alamat'    => $request->ed_alamat,
-		        ]);
-
-		     if ($request->hasFile('foto')) {
-                // Mengambil file yang diupload
-                $foto          = $request->file('foto');
-                $uploaded_foto = $foto;
-                // mengambil extension file
-                $extension = $uploaded_foto->getClientOriginalExtension();
-                // membuat nama file random berikut extension
-                $filename     = str_random(40) . '.' . $extension;
-                $image_resize = Image::make($foto->getRealPath());
-                $image_resize->fit(150,150);
-                $image_resize->save(public_path('foto-profile/' . $filename));
-                // hapus foto_home lama, jika ada
-                if ($update_user->foto) {
-                    $old_foto = $update_user->foto;
-                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
-                    . DIRECTORY_SEPARATOR . $update_user->foto;
-                    try {
-                        File::delete($filepath);
-                    } catch (FileNotFoundException $e) {
-                        // File sudah dihapus/tidak ada
-                    }
-                }
-                $update_user->foto = $filename;
-                $update_user->save();
-            }
 			
 			return Redirect::to('/home');
 		}
@@ -389,43 +351,6 @@ class mobileController extends Controller{
                 }
                 $user_profile->foto = $filename;
                 $user_profile->save();
-            }
-
-
-		$update_user = User::find(Auth()->user()->id);
-            $update_user->update([
-            'name'      => $request->ed_nama,
-            'email'     => $request->ed_email,
-            'nik'       => $request->ed_nik,
-            'npwp'       => $request->ed_npwp,
-            'no_telp'   => $request->ed_phone,
-            'alamat'    => $request->ed_alamat,
-        ]);
-
-        if ($request->hasFile('foto')) {
-                // Mengambil file yang diupload
-                $foto          = $request->file('foto');
-                $uploaded_foto = $foto;
-                // mengambil extension file
-                $extension = $uploaded_foto->getClientOriginalExtension();
-                // membuat nama file random berikut extension
-                $filename     = str_random(40) . '.' . $extension;
-                $image_resize = Image::make($foto->getRealPath());
-                $image_resize->fit(150,150);
-                $image_resize->save(public_path('foto-profile/' . $filename));
-                // hapus foto_home lama, jika ada
-                if ($update_user->foto) {
-                    $old_foto = $update_user->foto;
-                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
-                    . DIRECTORY_SEPARATOR . $update_user->foto;
-                    try {
-                        File::delete($filepath);
-                    } catch (FileNotFoundException $e) {
-                        // File sudah dihapus/tidak ada
-                    }
-                }
-                $update_user->foto = $filename;
-                $update_user->save();
             }
 
 		return Redirect::to('/home');

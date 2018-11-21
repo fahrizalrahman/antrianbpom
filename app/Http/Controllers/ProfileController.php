@@ -9,9 +9,10 @@ use App\Loket;
 use App\Sublayanan;
 use App\user_profile;
 use Auth;
-use File;
 use DB;
-use Intervention\Image\ImageManagerStatic as Image;
+use Image;
+use File;
+use Redirect;
 
 class ProfileController extends Controller
 {
@@ -36,7 +37,9 @@ class ProfileController extends Controller
     }
 
     public function editProfile(){
-        $data_user = User::select()->where('id',Auth::user()->id)->first();
+        $data_user = user_profile::select()
+                    -> where('userid', '=', Auth()->user()->id)
+                    -> first();
        return view('pelanggan.profile',['data_user' => $data_user]);
     }
 
@@ -90,28 +93,94 @@ class ProfileController extends Controller
     public function updateUser(Request $request)
     {
 
-       $update_user = User::find($request->id);
-            $update_user->update([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'nik'       => $request->nik,
-            'npwp'       => $request->npwp,
-            'no_telp'   => $request->no_telp,
-            'alamat'    => $request->alamat,
-        ]);
+        $count = user_profile::where('userid',Auth()->user()->id)->count();
+        if ($count > 0) {
+                
+                $user_profile = user_profile::find($request->id);
+                $user_profile->update([
+                        'type'      => $request->type,
+                        'nama'      => $request->name,
+                        'npwp'      => $request->npwp,
+                        'alamat'    => $request->alamat,
+                        'no_telp'   => $request->no_telp,
+                        'nik'       => $request->nik,
+                        'email_1'   => $request->email
+                ]);
 
-            $user_profile = DB::table('user_profiles')
-            -> where('userid', '=', $request->id)
-            -> update([
-                'nama'      => $request->name,
-                'npwp'      => $request->npwp,
-                'alamat'    => $request->alamat,
-                'no_telp'   => $request->no_telp,
-                'nik'       => $request->nik,
-                'email_1'   => $request->email
-            ]);
+
+               if ($request->hasFile('foto')) {
+                // Mengambil file yang diupload
+                $foto          = $request->file('foto');
+                $uploaded_foto = $foto;
+                // mengambil extension file
+                $extension = $uploaded_foto->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($foto->getRealPath());
+                $image_resize->fit(150,150);
+                $image_resize->save(public_path('foto-profile/' . $filename));
+                // hapus foto_home lama, jika ada
+                if ($user_profile->foto) {
+                    $old_foto = $user_profile->foto;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
+                    . DIRECTORY_SEPARATOR . $user_profile->foto;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $user_profile->foto = $filename;
+                $user_profile->save();
+            }
+
+        }else{
+            $_rowid = (DB::table('user_profiles')->count('id')) + 1;
+               
+                $user_profile = user_profile::create([
+                    'id'        => $_rowid,
+                    'userid'    => Auth()->user()->id,
+                    'type'      => $request->type,
+                    'nama'      => $request->name,
+                    'npwp'      => $request->npwp,
+                    'alamat'    => $request->alamat,
+                    'no_telp'   => $request->no_telp,
+                    'nik'       => $request->nik,
+                    'email_1'   => $request->email
+                ]);
+
+                if ($request->hasFile('foto')) {
+                    // Mengambil file yang diupload
+                    $foto          = $request->file('foto');
+                    $uploaded_foto = $foto;
+                    // mengambil extension file
+                    $extension = $uploaded_foto->getClientOriginalExtension();
+                    // membuat nama file random berikut extension
+                    $filename     = str_random(40) . '.' . $extension;
+                    $image_resize = Image::make($foto->getRealPath());
+                    $image_resize->fit(450,150);
+                    $image_resize->save(public_path('foto-profile/' . $filename));
+                    // hapus foto_home lama, jika ada
+                    if ($user_profile->foto) {
+                        $old_foto = $user_profile->foto;
+                        $filepath = public_path() . DIRECTORY_SEPARATOR . 'foto-profile'
+                        . DIRECTORY_SEPARATOR . $user_profile->foto;
+                        try {
+                            File::delete($filepath);
+                        } catch (FileNotFoundException $e) {
+                            // File sudah dihapus/tidak ada
+                        }
+                    }
+                    $user_profile->foto = $filename;
+                    $user_profile->save();
+                 }
+
+        }
+       
+
+            
         
-        return $update_user;
+        return Redirect::to('/profile-edit');
 
     }
 

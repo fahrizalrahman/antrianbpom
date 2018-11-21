@@ -128,7 +128,7 @@ Route::get('/display', 'HomeController@display')->name('antrian');
 //route dashboard pelanggan
 Route::get('/profile-edit','ProfileController@editProfile')->name('profile');
 Route::resource('profile','ProfileController');
-Route::get('update-user', 'ProfileController@updateUser');
+Route::post('/update-user/web', 'ProfileController@updateUser');
 Route::get('/history/pelanggan', 'AntrianController@history')->name('history');
 Route::get('/monitor-tiket','AntrianController@monitorTiket')->name('monitor-tiket');
 Route::get('/lihat-tiket/{id}','AntrianController@lihatTiket')->name('lihat-tiket');
