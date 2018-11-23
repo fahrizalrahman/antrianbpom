@@ -62,6 +62,45 @@
 					</div>
 				</div>
 				@endforeach
+
+				@foreach($_data_batal as $data_batal)
+				<div class="box_monitor bg-white">
+					<div class="header">
+						<div style="display: block;">
+						<div class="lb_nama_layanan">
+							<label>{{ $data_batal->nama_layanan }}</label><br />
+							@if($data_batal->nama_sub_layanan!=='-')
+							<label>{{ $data_batal->nama_sub_layanan }}</label>
+							@endif
+						</div>
+						<div class="lb_lantai">
+							<label>Lantai {{ $data_batal->lantai }}</label>
+							@if($data_batal->nama_loket_sub_layanan==='-')
+								<label>{{ $data_batal->nama_loket }}</label>
+							@else
+								<label>{{ $data_batal->nama_loket_sub_layanan }}</label>
+							@endif
+						</div>
+						</div>
+						<div class="text-center w-100" style="border-bottom: 1px solid #aaaaaa; padding: 15px 0px 5px 0px; font-size: 10pt;">{{ \App\helper\Tanggal::konversi($data_batal->tgl_antrian, '%A, %d %B %G') }}</div>
+						<div class="lb_footer">
+							<div style="width: calc(100% - 210px)">
+								<label>Antrian</label>
+								<footer>{{ $data_batal->no_antrian }}</footer>
+							</div>
+
+							<div style="text-align: right; width: 200px;">
+								
+								<div style="font-size: 15pt;">
+								Proses : <label style="color:red;"><b> {{ strtoupper($data_batal->status) }}</b></label><br />
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				@endforeach
+
 			</div>
 		</div>
 	</div>

@@ -257,8 +257,16 @@ class mobileController extends Controller{
 					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'mulai', 'selesai', 'kepuasan')
 					-> where('id_user', '=', Auth()->user()->id)
 					-> get();
+				
+				$data_batal = DB::table('view_antrian')
+					-> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian','status')
+					-> where('id_user', '=', Auth()->user()->id)
+					-> where('status', '=', 'batal')
+					-> get();
+
 				$_content = view::make('/mobile/partials/pages/' . $request->data)
 					-> with('_data', $data)
+					-> with('_data_batal', $data_batal)
 					-> render();
 				return $_content;
 			}else{
