@@ -31,8 +31,8 @@ if(isMobile()){
 @include('pelanggan.modal')
 
 <!-- END MODAL -->
-
-        <section class="content-header">
+    
+        <section class="content-header" style="padding: 0px .5rem;">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -50,7 +50,8 @@ if(isMobile()){
                    @if($cek_sanksi > 0)
                       <center style="color:red;font-size:20px;"><p>Mohon Maaf untuk sementara , Anda tidak bisa mengambil antrian</p>
                     <p>Terkena sanksi 1 bulan , semenjak pengambilan tiket terakhir</p></center>
-                    @else    
+                    @else  
+                    <b><center><h4 style="font-family: Arial, Helvetica, sans-serif;color:blue">Gedung B ( Pelayanan Public )</h4></center></b>  
                     <div class="row"> 
                         <div class="col-sm-4">                  
                           <div class="card" >
@@ -105,7 +106,7 @@ if(isMobile()){
                                 <div class="row">
                                   @if($agent->isMobile())
                                   <div class="col-sm-12 col-xs-12">
-                                    <button style="width:270px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                    <button style="width:270px" data-toggle="modal" data-target="#myModal2" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                     </div>
                                     <br>
                                     <br>
@@ -114,7 +115,7 @@ if(isMobile()){
                                   </div>
                                 @else
                                 <div class="col-sm-6 col-xs-6">
-                                  <button style="width:150px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                  <button style="width:150px" data-toggle="modal" data-target="#myModal2" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                   </div>
 
                                   <div class="col-sm-6 col-xs-6">
@@ -140,7 +141,7 @@ if(isMobile()){
                                 <div class="row">
                                   @if($agent->isMobile())
                                   <div class="col-sm-12 col-xs-12">
-                                    <button style="width:270px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                    <button style="width:270px" data-toggle="modal" data-target="#myModal3" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                     </div>
                                     <br>
                                     <br>
@@ -149,7 +150,7 @@ if(isMobile()){
                                   </div>
                                 @else
                                 <div class="col-sm-6 col-xs-6">
-                                  <button style="width:150px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                  <button style="width:150px" data-toggle="modal" data-target="#myModal3" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                   </div>
 
                                   <div class="col-sm-6 col-xs-6">
@@ -177,7 +178,7 @@ if(isMobile()){
                                 <div class="row">
                                 @if($agent->isMobile())
                                   <div class="col-sm-12 col-xs-12">
-                                    <button style="width:270px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                    <button style="width:270px" data-toggle="modal" data-target="#myModal4" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                     </div>
                                     <br>
                                     <br>
@@ -186,7 +187,7 @@ if(isMobile()){
                                   </div>
                                 @else
                                 <div class="col-sm-6 col-xs-6">
-                                  <button style="width:150px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                  <button style="width:150px" data-toggle="modal" data-target="#myModal4" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                   </div>
 
                                   <div class="col-sm-6 col-xs-6">
@@ -212,7 +213,7 @@ if(isMobile()){
                                 <div class="row">
                                   @if($agent->isMobile())
                                   <div class="col-sm-12 col-xs-12">
-                                    <button style="width:270px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                    <button style="width:270px" data-toggle="modal" data-target="#myModal5" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                     </div>
                                     <br>
                                     <br>
@@ -221,7 +222,7 @@ if(isMobile()){
                                   </div>
                                 @else
                                 <div class="col-sm-6 col-xs-6">
-                                  <button style="width:150px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                  <button style="width:150px" data-toggle="modal" data-target="#myModal5" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                   </div>
 
                                   <div class="col-sm-6 col-xs-6">
@@ -247,7 +248,7 @@ if(isMobile()){
                                 <div class="row">
                                     @if($agent->isMobile())
                                   <div class="col-sm-12 col-xs-12">
-                                    <button style="width:270px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                    <button style="width:270px" data-toggle="modal" data-target="#myModal6" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                     </div>
                                     <br>
                                     <br>
@@ -256,7 +257,7 @@ if(isMobile()){
                                   </div>
                                 @else
                                 <div class="col-sm-6 col-xs-6">
-                                  <button style="width:150px" data-toggle="modal" data-target="#myModal1" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
+                                  <button style="width:150px" data-toggle="modal" data-target="#myModal6" class="card-link btn btn-primary" type="button"><i class="fa fa-info"></i> Info </button>
                                   </div>
 
                                   <div class="col-sm-6 col-xs-6">

@@ -55,7 +55,7 @@
 						<label class="profile_sub_title"><span class="mif-envelop"></span> {{ @$profile->email_1 }}</label>
 					</div>
 					<div class="cell-12 w-100 mt-5 text-center">
-						<button id="bt_edit_profile" class="button primary"><span class="mif-pencil"></span> Edit Profile</button>
+						<button id="bt_edit_profile" style="height: 50px;" class="button primary"><span class="mif-pencil"></span> Edit Profile</button>
 					</div>
 				</div>
 			</div>
