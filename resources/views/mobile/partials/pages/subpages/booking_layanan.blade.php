@@ -34,7 +34,7 @@
 					</span>		
 					</div>
 					<div class="form-group">
-						<button id="btn_ambil_antrian" rowid="{{ $rowid }}" jenis="{{ $jenis }}" class="button success w-100">Ambil Antrian</button>
+						<button id="btn_ambil_antrian" rowid="{{ $rowid }}" jenis="{{ $jenis }}" disabled="false" class="button success w-100">Ambil Antrian</button>
 					</div>
 					<b><p style="color:red;"><span style="font-style:italic;">* Pengambilan waktu booking hanya bisa dilakukan 1 minggu kedepan !!</span></p></b>
 				</div>

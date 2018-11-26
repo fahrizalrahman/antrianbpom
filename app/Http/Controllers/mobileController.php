@@ -375,6 +375,19 @@ class mobileController extends Controller{
         }
     }
 
+    	 public function cekTanggalMerah(Request $request)
+    {
+        	$array = json_decode(file_get_contents("https://raw.githubusercontent.com/guangrei/Json-Indonesia-holidays/master/calendar.json"),true);
+				//check tanggal merah berdasarkan libur nasional
+				if(isset($array[$request->tanggal_string])){
+				    return "Mohon Maaf , Hari yang anda Pilih Tanggal Merah <br><span style='color:red;'>(".$array[$request->tanggal_string]["deskripsi"].")</span>";
+				}
+				else{
+					return "Bukan Tanggal Merah";
+				}
+				
+    }
+
 
 	public function cekQuotaBooking(Request $request){
 		if(Auth::check()){
@@ -387,7 +400,7 @@ class mobileController extends Controller{
 				 			-> count();
 
 				$cek_qouta = DB::table('lokets')
-							-> select('batas_antrian as batas_antrian')
+							-> select('batas_antrian as batas_antrian','batas_dari_jam as batas_dari_jam','batas_sampai_jam as batas_sampai_jam')
 				 			-> where('id',$request->data)
 				 			-> first();
 			}
@@ -406,7 +419,7 @@ class mobileController extends Controller{
 				 			-> count();
 
 				$cek_qouta = DB::table('sublayanans')
-							-> select('batas_antrian as batas_antrian')
+							-> select('batas_antrian as batas_antrian','batas_dari_jam as batas_dari_jam','batas_sampai_jam as batas_sampai_jam')
 				 			-> where('id',$request->data)
 				 			-> first();
 			}
@@ -416,14 +429,20 @@ class mobileController extends Controller{
 				$show_table = '<table class="table compact table-border">
 									<thead style="background-color:#0036a3;">
 										<tr>
-										<th style="height:45px;color:white;"><center>Quota Antrian</center></th>
-										<th style="height:45px;color:white;"><center>Sisa Antrian</center></th>
+										<th style="height:20px;color:white;"><center>Quota Antrian</center></th>
+										<th style="height:20px;color:white;"><center>Sisa Antrian</center></th>
+										<th style="height:20px;color:white;"><center>Dari 
+											Jam </center></th>
+										<th style="height:20px;color:white;"><center>Sampai 
+											Jam </center></th>
 										</tr>
 									</thead>
-									<tbody >	
+									<tbody>	
 										<tr>
 										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
-										<td align="center" style="font-size:20pt;color:red;"><b>Antrian Penuh</b></td>		
+										<td align="center" style="font-size:20pt;color:red;"><b>Antrian Penuh</b></td>
+										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_dari_jam.'</b></td>
+										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_sampai_jam.'</b></td>		
 										</tr>
 									</tbody>
 							</table>';
@@ -431,14 +450,20 @@ class mobileController extends Controller{
 				$show_table = '<table class="table compact table-border">
 										<thead style="background-color:#0036a3;">
 											<tr>
-											<th style="height:45px;color:white;"><center>Quota Antrian</center></th>
-											<th style="height:45px;color:white;"><center>Sisa Antrian</center></th>
+											<th style="height:20px;color:white;"><center>Quota Antrian</center></th>
+											<th style="height:20px;color:white;"><center>Sisa Antrian</center></th>
+											<th style="height:20px;color:white;"><center>Dari Jam</center></th>
+											<th style="height:20px;color:white;"><center>Sampai 
+												Jam </center></th>
 											</tr>
 										</thead>
 										<tbody >	
 											<tr>
 											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
-											<td align="center" style="font-size:20pt;color:red;"><b>'.$hitung_sisa.'</b></td>		
+											<td align="center" style="font-size:20pt;color:red;"><b>'.$hitung_sisa.'</b></td>
+											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_dari_jam.'</b></td>
+											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_sampai_jam.'</b></td>
+
 											</tr>
 										</tbody>
 								</table>';

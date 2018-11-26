@@ -301,6 +301,7 @@ Route::get('/mobile/content/cek_quota_booking', 'mobileController@cekQuotaBookin
 Route::get('/mobile/content/update_batal_keterangan', 'mobileController@updateKeteranganBooking');
 
 Route::get('daftar-sanksi', 'HomeController@daftarSanksi');
+Route::get('/mobile/content/cek_tangal_merah', 'mobileController@cekTanggalMerah');
 
 //DAFTAR PEMBATALAN
 

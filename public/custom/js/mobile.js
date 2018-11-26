@@ -51,7 +51,7 @@ $(document).on('click', '#btn_ambil_antrian', function(e){
 			var date_plus = moment(date_now).add(7 , 'days').format('YYYY-MM-DD');
 				if (date_pesan > date_plus || date_pesan < date_now) {
 						swal({
-				  	           html: "Pengambilan waktu booking hanya bisa dilakukan 1 minggu kedepan !!"
+				  	           html: "Maaf, Pengambilan waktu booking hanya bisa dilakukan 1 minggu kedepan !!"
 				          });
 				}else{
 					$.ajax({
@@ -62,19 +62,19 @@ $(document).on('click', '#btn_ambil_antrian', function(e){
 						success	: function(data){
 							if (data == "hari tidak bisa") {
 								swal({
-					                html: "Hari ini Tidak Melayani Layanan yang Anda Pilih !!"
+					                html: "Maaf, Hari Anda Anda Pilih Tidak Melayani Layanan !!"
 					             });
 							}else if (data == "sudah tutup"){
 								swal({
-			                          html: "Batas Pengambilan Tiket Sudah Ditutup !!"
+			                          html: "Maaf, Batas Pengambilan Tiket Sudah Ditutup !!"
 			                     });
 							}else if (data == "belum buka"){
 								swal({
-			                          html: "Batas Pengambilan Tiket Belum Dibuka !!"
+			                          html: "Maaf, Batas Pengambilan Tiket Belum Dibuka !!"
 			                    });
 							}else if (data == "tiket habis"){
 								swal({
-			                          html: "Batas Pengambilan Tiket Habis !!"
+			                          html: "Maaf, Batas Pengambilan Tiket Habis !!"
 			                    });
 							} else if (data == "masih bisa"){
 								swal({
@@ -170,9 +170,11 @@ $(document).on('click', '.tm_normal', function(e){
 	}
 });
 
- $(document).on('change', '#ed_tanggal', function () { 	
-	cek_quota_booking($(this).attr('rowid'), $(this).attr('jenis'), $(this).val());
+ $(document).on('change', '#ed_tanggal', function () {
+	cek_tanggal_merah($(this).attr('rowid'), $(this).attr('jenis'), $(this).val())
 });
+
+
 
 function cek_quota_booking(_data,_jenis,_tanggal){
 	 $.ajax({
@@ -182,6 +184,34 @@ function cek_quota_booking(_data,_jenis,_tanggal){
 			data 	: 'q=cek_quota_booking&data=' + _data + '&jenis=' + _jenis + '&tanggal=' + _tanggal,
 			success	: function(data){
 				$('#table_quota').html(data);
+				$('#btn_ambil_antrian').attr("disabled",false);
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert(xhr.responseText);
+			}
+		});
+}
+
+function cek_tanggal_merah(_data,_jenis,_tanggal){
+	var _tanggal_string  = moment(_tanggal).format('YYYYMMDD');
+	 $.ajax({
+			headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			dataType: 'html',
+			url		: '/mobile/content/cek_tangal_merah',
+			data 	: 'q=cek_tangal_merah&tanggal_string=' + _tanggal_string + '&tanggal=' + _tanggal,
+			success	: function(data){
+				if (data === "Bukan Tanggal Merah") {
+					cek_quota_booking(_data,_jenis,_tanggal);
+				}else{
+					swal({
+					      html: data
+					});
+					$('#table_quota').html('');
+					$('#btn_ambil_antrian').attr("disabled",true);
+
+				}
+				
+
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				alert(xhr.responseText);
