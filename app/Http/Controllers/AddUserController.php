@@ -16,6 +16,7 @@ class AddUserController extends Controller
      */
 
      private $user ;
+    
     function __construct(Request $request)
     {
         $this->middleware('auth');
@@ -23,10 +24,6 @@ class AddUserController extends Controller
     }
 
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
