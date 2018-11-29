@@ -439,11 +439,20 @@ class mobileController extends Controller{
 									</thead>
 									<tbody>	
 										<tr>
-										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
-										<td align="center" style="font-size:20pt;color:red;"><b>Antrian Penuh</b></td>
-										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_dari_jam.'</b></td>
-										<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_sampai_jam.'</b></td>		
-										</tr>
+										<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>'.$cek_qouta->batas_antrian.'</b></td>
+										<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>Antrian Penuh</b></td>';
+										if ($cek_qouta->batas_dari_jam < 10) {
+										$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>0'.$cek_qouta->batas_dari_jam.':00</b></td>';
+										}else{
+										$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>'.$cek_qouta->batas_dari_jam.':00</b></td>';
+										}
+										if ($cek_qouta->batas_sampai_jam < 10) {
+										$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>0'.$cek_qouta->batas_sampai_jam.':00</b></td>';
+										}else{
+										$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>'.$cek_qouta->batas_sampai_jam.':00</b></td>';
+										}
+												
+										'</tr>
 									</tbody>
 							</table>';
 			}else{
@@ -459,12 +468,20 @@ class mobileController extends Controller{
 										</thead>
 										<tbody >	
 											<tr>
-											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_antrian.'</b></td>
-											<td align="center" style="font-size:20pt;color:red;"><b>'.$hitung_sisa.'</b></td>
-											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_dari_jam.'</b></td>
-											<td align="center" style="font-size:20pt;color:red;"><b>'.$cek_qouta->batas_sampai_jam.'</b></td>
+											<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>'.$cek_qouta->batas_antrian.'</b></td>
+											<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>'.$hitung_sisa.'</b></td>';
+											if ($cek_qouta->batas_dari_jam < 10) {
+											$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>0'.$cek_qouta->batas_dari_jam.':00</b></td>';
+											}else{
+											$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>'.$cek_qouta->batas_dari_jam.':00</b></td>';
+											}
+											if ($cek_qouta->batas_sampai_jam < 10) {
+											$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>0'.$cek_qouta->batas_sampai_jam.':00</b></td>';
+											}else{
+											$show_table .= '<td align="center" style="font-size:15pt;color:red;background-color:#99bbff"><b>'.$cek_qouta->batas_sampai_jam.':00</b></td>';
+											}
 
-											</tr>
+											'</tr>
 										</tbody>
 								</table>';
 			}

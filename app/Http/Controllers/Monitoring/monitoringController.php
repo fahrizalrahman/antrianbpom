@@ -20,7 +20,6 @@ class monitoringController extends Controller
 				 function() {
 				 	$data = DB::table('view_monitoring_utama')
 				 		-> select('id_element', 'no_antri', 'nomor')
-				 		// -> where(DB::raw('DATE(tgl_antrian)'),DB::raw('curdate()'))
 				 		-> get();
 	                echo "data: " . json_encode($data) . "\n\n";
                     ob_flush();

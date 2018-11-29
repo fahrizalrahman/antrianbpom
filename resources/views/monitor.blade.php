@@ -175,19 +175,22 @@
     <script src="{{asset ('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
 
 <script type="text/javascript">
-
 var es = new EventSource("<?php echo action('Monitoring\monitoringController@layanan_utama'); ?>");
   es.onmessage = function(e) {
     var _data = JSON.parse(e.data);
+
+    var date  = new Date();
+    var date_now  = moment(date).format('YYYY-MM-DD');
+
     var x = '';
     for (i in _data) {
-      x +=  _data[i].id_element + "  ,";
-      $('#' + _data[i].id_element).html(_data[i].nomor);
+             x +=  _data[i].id_element + "  ,";
+            $('#' + _data[i].id_element).html(_data[i].nomor);
+     }
     }
-  }
-
 </script>
 </body>
 </html>
