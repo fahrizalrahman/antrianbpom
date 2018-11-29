@@ -119,11 +119,13 @@ Route::get('unit-filter-daftar-pembatalan', 'UnitController@filterDaftarPembatal
 
 // Route User
 Route::get('/layanan/{id}', 'HomeController@layanan');
-Route::get('/display', 'HomeController@display')->name('antrian')->middleware('verified');
 
+/*Route::get('/display', 'HomeController@display')->name('antrian')->middleware('verified');
 Route::get('/utama','HomeController@utama')->name('utama');
 Route::get('/monitor', 'HomeController@monitor')->name('monitor');
 Route::get('/display', 'HomeController@display')->name('antrian');
+*/
+
 
 //route dashboard pelanggan
 Route::get('/profile-edit','ProfileController@editProfile')->name('profile');

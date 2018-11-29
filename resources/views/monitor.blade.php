@@ -44,8 +44,9 @@
         <div class="col-md-12" style="width:100%; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat; ">
             <div class="container-fluid" style="margin-left:auto;">
               <div class="row" style="margin-top:0px; margin-left:5px; color:azure;">
-                    <div class="col-sm-6" style="margin-top:1%; height:auto; width:auto; color:azure;">
-                        <table class="table-responsive" style="position:static;">
+                    <div class="col-sm-6" style="margin-top:5px; height:auto; width:auto; color:azure;">
+                        <table class="table-responsive" >
+                        <td colspan="4" style="background-color:#595959; color: white; height:40px; text-align:center; "><h6> <b> {{$judul_layanan1->keterangan}} </b></h6></td>
                         <col width="90">
                         <col width="430">
                         <col width="60">
@@ -63,8 +64,9 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-6" style="margin-top:1%;">
-                        <table class="table-responsive" style=" position:static;">
+                    <div class="col-sm-6" style="margin-top:5px">
+                        <table class="table-responsive" >
+                            <td colspan="4" style="background-color:#595959; color: white; height:40px; text-align:center; "><h6> <b> {{$judul_layanan2->keterangan}} </b></h6></td>
                         <col width="90">
                         <col width="430">
                         <col width="60">
@@ -83,8 +85,9 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-6" style="margin-top:-2.3%;">
-                        <table class="table-responsive" style=" position:static;">
+                    <div class="col-sm-6" style="margin-top:5px">
+                        <table class="table-responsive" >
+                            <td colspan="4" style="background-color:#595959; color: white; height:40px; text-align:center; "><h6> <b> {{$judul_layanan3->keterangan}} </b></h6></td>
                         <col width="90">
                         <col width="430">
                         <col width="60">
@@ -102,8 +105,9 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-6" style="margin-top:0.4%;">    
-                        <table class="table-responsive" style=" position:static;">
+                    <div class="col-sm-6" style="margin-top:0px">    
+                        <table class="table-responsive" >
+                            <td colspan="4" style="background-color:#595959; color: white; height:40px; text-align:center; "><h6> <b> {{$judul_layanan4->keterangan}} </b></h6></td>
                         <col width="90">
                         <col width="430">
                         <col width="60">
@@ -121,8 +125,9 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-6" style="margin-top:0.4%;">
-                        <table class="table-responsive" style=" position:static;">
+                    <div class="col-sm-6" style="margin-top:5px">
+                        <table class="table-responsive" >
+                            <td colspan="4" style="background-color:#595959; color: white; height:40px; text-align:center; "><h6> <b> {{$judul_layanan5->keterangan}} </b></h6></td>
                         <col width="90">
                         <col width="430">
                         <col width="60">
@@ -140,8 +145,9 @@
                         </table>
                     </div>
 
-                    <div class="col-sm-6" style="margin-top:-6.4%;">
-                        <table class="table-responsive" style=" position:static;">
+                    <div class="col-sm-6" style="margin-top:-75px">
+                        <table class="table-responsive" >
+                            <td colspan="4" style="background-color:#595959; color: white; height:40px; text-align:center; "><h6> <b> {{$judul_layanan6->keterangan}} </b></h6></td>
                         <col width="90">
                         <col width="430">
                         <col width="60">
