@@ -35,8 +35,8 @@
 					<footer>{{ $_judulLayanan->keterangan }}</footer>
 				</div>
 				@endforeach
-				<b><center><h4 style="font-family: Arial, Helvetica, sans-serif;color:blue">Gedung B (
-				Pelayanan Public )</h4></center></b>
+				<center><b><h4 style="font-family: Arial, Helvetica, sans-serif;color:blue">Gedung B (
+				Pelayanan Publik )</h4></b></center>
 			</div>
 			@endif
 		</div>

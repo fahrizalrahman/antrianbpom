@@ -38,7 +38,23 @@
 							@endif
 						</div>
 						</div>
+						
+						@if($data->id_sub_layanan === '-')
+						<?php $layanan = \App\Loket::select(['batas_dari_jam','batas_sampai_jam'])->where('id',$data->id_loket)->first() ?>
+						@else
+						<?php $layanan =  \App\Sublayanan::select(['batas_dari_jam','batas_sampai_jam'])->where('id',$data->id_sub_layanan)->first() ?>
+						@endif
+
 						<div class="text-center w-100" style="border-bottom: 1px solid #aaaaaa; padding: 15px 0px 5px 0px; font-size: 10pt;">{{ \App\helper\Tanggal::konversi($data->tgl_antrian, '%A, %d %B %G') }}</div>
+						<div class="text-center w-100" style="border-bottom: 1px solid #aaaaaa; padding: 5px 0px 5px 0px; font-size: 10pt;">Waktu Layanan : 
+							@if ($layanan->batas_dari_jam < 10 ) 
+							0{{ $layanan->batas_dari_jam }}:00 sd {{ $layanan->batas_sampai_jam }}:00
+							@elseif($layanan->batas_sampai_jam < 10)
+							{{ $layanan->batas_dari_jam }}:00 sd 0{{ $layanan->batas_sampai_jam }}:00
+							@else
+							{{ $layanan->batas_dari_jam }}:00 sd 0{{ $layanan->batas_sampai_jam }}:00
+							@endif
+							 </div>
 						<div class="lb_footer">
 							<div>
 								<label>Antrian</label>
