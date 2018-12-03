@@ -23,7 +23,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example2" class="table table-bordered table-striped">
+              <table id="example2" class="table table-bordered table-striped table-responsive">
                 <thead>
                 <tr>
                   <th>Petugas</th>
@@ -32,7 +32,7 @@
                   <th>No Telp</th>
                   <th>Unit</th>
                   <th>Lantai</th>
-                  <th>Aksi</th>
+                  <th >Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
                   <td>{{$value->no_telp}}</td> 
                   <td>{{$value->unit}}</td>
                   <td>{{$value->lantai}}</td>
-                  <td align="center">
+                  <td style="width:150px">
                       <form action="{{route('unit.destroy', $value->id)}}" method="POST">
                         <a href="{{ route('unit.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> |
                         @csrf

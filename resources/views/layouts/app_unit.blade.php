@@ -82,29 +82,6 @@
                             </a>
                         </li>
 
-                       <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                              <i class="nav-icon fa fa-cogs"></i>
-                              <p>
-                                Setting Hari
-                                <i class="right fa fa-angle-left"></i>
-                              </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                <a href="{{route('unit-settinghari.index')}}" class="nav-link">
-                                  <i class="fa fa-circle-o nav-icon"></i>
-                                  <p>Layanan</p>
-                                </a>
-                              </li>
-                              <li class="nav-item">
-                                <a href="{{route('unit-settingharisub.index')}} " class="nav-link">
-                                  <i class="fa fa-circle-o nav-icon"></i>
-                                  <p>Sub Layanan</p>
-                                </a>
-                              </li>
-                            </ul>
-                       </li>
 
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
@@ -129,6 +106,31 @@
                               </li>
                             </ul>
                        </li>
+
+                       <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                              <i class="nav-icon fa fa-cogs"></i>
+                              <p>
+                                Setting Hari
+                                <i class="right fa fa-angle-left"></i>
+                              </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                <a href="{{route('unit-settinghari.index')}}" class="nav-link">
+                                  <i class="fa fa-circle-o nav-icon"></i>
+                                  <p>Layanan</p>
+                                </a>
+                              </li>
+                              <li class="nav-item">
+                                <a href="{{route('unit-settingharisub.index')}} " class="nav-link">
+                                  <i class="fa fa-circle-o nav-icon"></i>
+                                  <p>Sub Layanan</p>
+                                </a>
+                              </li>
+                            </ul>
+                       </li>
+
 
                         <li class="nav-item has-treeview">
                           <a href="#" class="nav-link">
