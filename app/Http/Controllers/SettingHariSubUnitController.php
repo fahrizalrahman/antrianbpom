@@ -9,15 +9,14 @@ use Auth;
 use Session;
 
 
-class SettingHariSubController extends Controller
+class SettingHariSubUnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    private $user ;
+   private $user ;
     function __construct(Request $request)
     {
         $this->middleware('auth');
@@ -26,7 +25,6 @@ class SettingHariSubController extends Controller
 
     public function index()
     {
-        //
         $data_setting_hari_sub = SettingHariSub::select([
             'sublayanans.nama_sublayanan as nama_sublayanan',
             'setting_hari_subs.hari as hari',
@@ -34,11 +32,13 @@ class SettingHariSubController extends Controller
             'lokets.nama_layanan as nama_layanan',
         ])->leftjoin('sublayanans','sublayanans.id', '=', 'setting_hari_subs.id_sublayanan')
         ->leftjoin('lokets','lokets.id', '=', 'sublayanans.id_loket')
+        ->leftjoin('users','users.id','=','sublayanans.petugas')
+        ->where('users.unit',Auth::user()->unit)
         ->orderBy('sublayanans.nama_sublayanan', 'DESC')
         ->orderBy('setting_hari_subs.hari', 'DESC')
         ->orderBy('lokets.lantai','DESC')->get();
 
-        return view('settingharisub.index')->with(compact('data_setting_hari_sub'));
+        return view('unit.settingharisub.index')->with(compact('data_setting_hari_sub'));
     }
 
     /**
@@ -48,8 +48,8 @@ class SettingHariSubController extends Controller
      */
     public function create()
     {
-       if (Auth::check()) {
-             return  view('settingharisub.create');
+        if (Auth::check()) {
+             return  view('unit.settingharisub.create');
         }else{
              return  view('auth.login');
         }
@@ -63,7 +63,7 @@ class SettingHariSubController extends Controller
      */
     public function store(Request $request)
     {
-           $this->validate($request, [
+         $this->validate($request, [
                 'hari'  => 'required|string',
                 'id_sublayanan' => 'required',
                 ]);
@@ -78,7 +78,7 @@ class SettingHariSubController extends Controller
             "message"=>"Berhasil Menambah Setting Hari Sublayanan"
             ]);
 
-         return redirect()->route('settingharisub.index');
+         return redirect()->route('unit-settingharisub.index');
     }
 
     /**
@@ -100,7 +100,7 @@ class SettingHariSubController extends Controller
      */
     public function edit($id)
     {
-       if (Auth::check()) {
+        if (Auth::check()) {
             $settingharisub = SettingHariSub::select([
                 'sublayanans.nama_sublayanan as nama_sublayanan',
                 'setting_hari_subs.hari as hari',
@@ -110,7 +110,7 @@ class SettingHariSubController extends Controller
             ->where('setting_hari_subs.id',$id)
             ->first();
 
-            return view('settingharisub.edit')->with(compact('settingharisub'));
+            return view('unit.settingharisub.edit')->with(compact('settingharisub'));
         }else{
            return  view('auth.login'); 
         }  
@@ -125,7 +125,7 @@ class SettingHariSubController extends Controller
      */
     public function update(Request $request, $id)
     {
-           $this->validate($request, [
+        $this->validate($request, [
                 'hari'  => 'required|string',
                 'id_sublayanan' => 'required',
                 ]);
@@ -139,10 +139,10 @@ class SettingHariSubController extends Controller
 
           Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Berhasil Mengubah Setting Hari"
+            "message"=>"Berhasil Mengubah Setting Hari Sublayanan"
             ]);
 
-         return redirect()->route('settingharisub.index');
+         return redirect()->route('unit-settingharisub.index');
     }
 
     /**
@@ -151,23 +151,20 @@ class SettingHariSubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-        public function destroy($id)
-        {
-            //
-        }
-
-
-         public function delete($id)
+    public function destroy($id)
+    {
+       
+    }
+      public function delete($id)
     {
         //
         SettingHariSub::where('id', $id)->delete();
 
         Session::flash("flash_notification", [
             "level"=>"danger",
-            "message"=>"Berhasil Mengapus Setting Hari"
+            "message"=>"Berhasil Mengapus Setting Hari Sublayanan"
             ]);
-            return redirect()->route('settingharisub.index');
+            return redirect()->route('unit.settingharisub.index');
     }
-
 
 }

@@ -8,24 +8,22 @@ use App\Loket;
 use Auth;
 use Session;
 
-class SublayananController extends Controller
+class SublayananUnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-            private $user ;
+     private $user ;
     function __construct(Request $request)
     {
         $this->middleware('auth');
         $this->user = \Auth::user();
     }
-    
+
     public function index()
     {
-        //
         $data_sublayanan = Sublayanan::select([
                 'lokets.nama_layanan as nama_layanan',
                 'sublayanans.nama_sublayanan as nama_sublayanan',
@@ -38,6 +36,7 @@ class SublayananController extends Controller
             ])
         ->leftjoin('lokets','lokets.id', '=', 'sublayanans.id_loket')
         ->leftJoin('users', 'users.id', '=', 'sublayanans.petugas')
+        ->where('users.unit',Auth::user()->unit)
         ->orderBy('sublayanans.kode_loket','asc')
         ->get();
 
@@ -52,7 +51,7 @@ class SublayananController extends Controller
     public function create()
     {
         if (Auth::check()) {
-             return  view('sublayanan.create');
+             return  view('unit.sublayanan.create');
         }else{
              return  view('auth.login');
         }
@@ -66,14 +65,14 @@ class SublayananController extends Controller
      */
     public function store(Request $request)
     {
-           $this->validate($request, [
-                'kode_loket'        => 'required|unique:sublayanans',
-                'nama_sublayanan'   => 'required|string',
-                'id_loket'          => 'required',
-                'petugas'           =>'required|unique:sublayanans'
-                ]);
+            $this->validate($request, [
+                    'kode_loket'        => 'required|unique:sublayanans',
+                    'nama_sublayanan'   => 'required|string',
+                    'id_loket'          => 'required',
+                    'petugas'           =>'required|unique:sublayanans'
+                    ]);
 
-                $sublayanan = Sublayanan::create([
+            $sublayanan = Sublayanan::create([
                     'kode_loket'        => $request->kode_loket,
                     'nama_sublayanan'   => $request->nama_sublayanan,
                     'id_loket'          => $request->id_loket,
@@ -88,7 +87,7 @@ class SublayananController extends Controller
             "message"=>"Berhasil Menambah Sublayanan"
             ]);
 
-         return redirect()->route('sublayanan.index');
+         return redirect()->route('unit-sublayanan.index');
     }
 
     /**
@@ -110,7 +109,7 @@ class SublayananController extends Controller
      */
     public function edit($id)
     {
-       if (Auth::check()) {
+        if (Auth::check()) {
 
             $sublayanan = Sublayanan::select([
                 'lokets.nama_layanan as nama_layanan',
@@ -126,7 +125,7 @@ class SublayananController extends Controller
             ->where('sublayanans.id',$id)
             ->first();
 
-            return view('sublayanan.edit')->with(compact('sublayanan'));
+            return view('unit.sublayanan.edit')->with(compact('sublayanan'));
         }else{
            return  view('auth.login'); 
         }  
@@ -141,7 +140,8 @@ class SublayananController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $this->validate($request, [
+        //
+        $this->validate($request, [
                 'kode_loket'        => 'required|unique:sublayanans,kode_loket,'. $id,
                 'nama_sublayanan'   => 'required|string',
                 'id_loket'          => 'required',
@@ -164,7 +164,7 @@ class SublayananController extends Controller
             "message"=>"Berhasil Mengubahs Sublayanan"
             ]);
 
-         return redirect()->route('sublayanan.index');
+         return redirect()->route('unit-sublayanan.index');
     }
 
     /**
@@ -173,20 +173,20 @@ class SublayananController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-        public function destroy($id)
+    public function destroy($id)
     {
         //
     }
 
-        public function delete($id)
+    public function delete($id)
     {
         //
            Sublayanan::where('id', $id)->delete();
 
-        Session::flash("flash_notification", [
+            Session::flash("flash_notification", [
             "level"=>"danger",
             "message"=>"Berhasil Mengapus Sublayaan"
             ]);
-            return redirect()->route('sublayanan.index');
+            return redirect()->route('unit-sublayanan.index');
     }
 }
