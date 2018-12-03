@@ -81,7 +81,7 @@ class SettingHariUnitController extends Controller
             "message"=>"Berhasil Menambah Setting Hari"
             ]);
 
-         return redirect()->route('unit.settinghari.index');
+         return redirect()->route('unit-settinghari.index');
     }
 
     /**
@@ -146,7 +146,7 @@ class SettingHariUnitController extends Controller
             "message"=>"Berhasil Mengubah Setting Hari"
             ]);
 
-         return redirect()->route('unit.settinghari.index');
+         return redirect()->route('unit-settinghari.index');
     }
 
     /**
@@ -164,6 +164,6 @@ class SettingHariUnitController extends Controller
             "level"=>"danger",
             "message"=>"Berhasil Mengapus Setting Hari"
             ]);
-            return redirect()->route('unit.settinghari.index');
+            return redirect()->route('unit-settinghari.index');
     }
 }

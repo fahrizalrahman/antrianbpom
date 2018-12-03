@@ -40,7 +40,7 @@ class SublayananUnitController extends Controller
         ->orderBy('sublayanans.kode_loket','asc')
         ->get();
 
-        return view('sublayanan.index')->with(compact('data_sublayanan'));
+        return view('unit.sublayanan.index')->with(compact('data_sublayanan'));
     }
 
     /**
@@ -66,7 +66,7 @@ class SublayananUnitController extends Controller
     public function store(Request $request)
     {
             $this->validate($request, [
-                    'kode_loket'        => 'required|unique:sublayanans',
+                    'kode_loket'        => 'required',
                     'nama_sublayanan'   => 'required|string',
                     'id_loket'          => 'required',
                     'petugas'           =>'required|unique:sublayanans'
@@ -142,7 +142,7 @@ class SublayananUnitController extends Controller
     {
         //
         $this->validate($request, [
-                'kode_loket'        => 'required|unique:sublayanans,kode_loket,'. $id,
+                'kode_loket'        => 'required',
                 'nama_sublayanan'   => 'required|string',
                 'id_loket'          => 'required',
                 'petugas'           =>'required|unique:sublayanans,petugas,'. $id

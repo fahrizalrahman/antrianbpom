@@ -47,7 +47,7 @@
 
                   <div class="form-group{{ $errors->has('lantai') ? ' has-error' : '' }}">
                       {!! Form::label('lantai', 'Lantai', ['class'=>'col-md-2 control-label']) !!}
-                      {!! Form::select('lantai', ['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6'], null, ['class'=>'form-control', 'placeholder' => 'Pilih Lantai']) !!}
+                      {!! Form::text('lantai', Auth::user()->lantai, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Lantai', 'id' => 'lantai','name' => 'lantai','disabled']) !!}
                           @if ($errors->has('lantai'))
                             <span class="invalid-feedback" role="alert">
                               <strong>{{ $errors->first('lantai') }}</strong>
@@ -58,7 +58,7 @@
 
                   <div class="form-group{{ $errors->has('petugas') ? ' has-error' : '' }}">
                         {!! Form::label('petugas', 'Petugas', ['class'=>'col-md-2 control-label']) !!}
-                        {!! Form::select('petugas',App\User::where('jabatan','petugas_loket')->pluck('name','id')->all(), null,['class'=>'form-control','name'=>'petugas','id'=>'petugas']) !!}
+                        {!! Form::select('petugas',App\User::where('jabatan','petugas_loket')->where('lantai',Auth::user()->lantai)->pluck('name','id')->all(), null,['class'=>'form-control','name'=>'petugas','id'=>'petugas']) !!}
                             {!! $errors->first('petugas', '<p class="help-block">:message</p>') !!}
 
                              @if ($errors->has('petugas'))

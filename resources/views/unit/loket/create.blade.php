@@ -39,19 +39,13 @@
 
                   <div class="form-group{{ $errors->has('kode_antrian') ? ' has-error' : '' }}">
                     {!! Form::label('kode_antrian', 'Kode Antrian', ['class'=>'col-md-2 control-label']) !!}
-                      {!! Form::text('kode_antrian', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Loket', 'id' => 'kode_antrian','name' => 'kode_antrian']) !!}
+                      {!! Form::text('kode_antrian', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Kode Antrian', 'id' => 'kode_antrian','name' => 'kode_antrian']) !!}
                       {!! $errors->first('kode_antrian', '<p class="help-block" id="kode_error" style="color:red;">:message</p>') !!}
                   </div>
 
                   <div class="form-group{{ $errors->has('lantai') ? ' has-error' : '' }}">
                       {!! Form::label('lantai', 'Lantai', ['class'=>'col-md-2 control-label']) !!}
-                                <select class="form-control{{ $errors->has('lantai') ? ' is-invalid' : '' }}" id="lantai" name="lantai">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
+                       {!! Form::text('lantai', Auth::user()->lantai, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Lantai', 'id' => 'lantai','name' => 'lantai','disabled']) !!}
                           </select>
                           @if ($errors->has('lantai'))
                             <span class="invalid-feedback" role="alert">
@@ -62,7 +56,7 @@
 
                    <div class="form-group{{ $errors->has('petugas') ? ' has-error' : '' }}">
                         {!! Form::label('petugas', 'Petugas', ['class'=>'col-md-2 control-label']) !!}
-                        {!! Form::select('petugas',App\User::where('jabatan','petugas_loket')->pluck('name','id')->all(), null,['class'=>'form-control','name'=>'petugas','id'=>'petugas']) !!}
+                        {!! Form::select('petugas',App\User::where('jabatan','petugas_loket')->where('lantai',Auth::user()->lantai)->pluck('name','id')->all(), null,['class'=>'form-control','name'=>'petugas','id'=>'petugas']) !!}
                             {!! $errors->first('petugas', '<p class="help-block">:message</p>') !!}
 
                              @if ($errors->has('petugas'))

@@ -45,14 +45,7 @@
 
                        <div class="form-group{{ $errors->has('lantai') ? ' has-error' : '' }}">
                           {!! Form::label('lantai', 'Lantai', ['class'=>'col-md-2 control-label']) !!}
-                          <select class="form-control{{ $errors->has('lantai') ? ' is-invalid' : '' }}" id="lantai" name="lantai">
-                                    <option value="{{$settinghari->lantai}}">Lantai {{$settinghari->lantai}}</option>
-                                    <option value="1">Lantai 1 </option>
-                                    <option value="2">Lantai 2</option>
-                                    <option value="3">Lantai 3</option>
-                                    <option value="4">Lantai 4</option>
-                                    <option value="5">Lantai 5</option>
-                                    <option value="6">Lantai 6</option>
+                          {!! Form::text('lantai', Auth::user()->lantai, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Lantai', 'id' => 'lantai','name' => 'lantai','disabled']) !!}
                           </select>
                               @if ($errors->has('lantai'))
                                 <span class="invalid-feedback" role="alert">

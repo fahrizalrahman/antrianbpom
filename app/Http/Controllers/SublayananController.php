@@ -67,7 +67,7 @@ class SublayananController extends Controller
     public function store(Request $request)
     {
            $this->validate($request, [
-                'kode_loket'        => 'required|unique:sublayanans',
+                'kode_loket'        => 'required',
                 'nama_sublayanan'   => 'required|string',
                 'id_loket'          => 'required',
                 'petugas'           =>'required|unique:sublayanans'
@@ -142,7 +142,7 @@ class SublayananController extends Controller
     public function update(Request $request, $id)
     {
          $this->validate($request, [
-                'kode_loket'        => 'required|unique:sublayanans,kode_loket,'. $id,
+                'kode_loket'        => 'required',
                 'nama_sublayanan'   => 'required|string',
                 'id_loket'          => 'required',
                 'petugas'           =>'required|unique:sublayanans,petugas,'. $id
