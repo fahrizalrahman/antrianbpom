@@ -28,13 +28,16 @@
 			</div>
 			@else
 			<div class="isi_layanan">
+				<center>
 				@foreach($judulLayanan as $_judulLayanan)
 				<div  id="{{ $_judulLayanan->id }}" class="box_layanan">
 					<label>Lantai {{ $_judulLayanan->id }}</label>
 					<span class="mif-library fg-green"></span>
 					<footer>{{ $_judulLayanan->keterangan }}</footer>
 				</div>
+				
 				@endforeach
+				</center>
 				<center><b><h4 style="font-family: Arial, Helvetica, sans-serif;color:blue">Gedung B (
 				Pelayanan Publik )</h4></b></center>
 			</div>

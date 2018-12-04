@@ -9,6 +9,7 @@
 				</div>
 			</div>
 			<div class="isi_layanan">
+				<center>
 				@foreach($loket as $_loket)
 					<div id="{{ $_loket->id }}" data="{{ $_loket->sub_layanan }}" jenis="{{ $jenis }}" class="booking_layanan">
 					<label>{{ $_loket->kode }}</label>
@@ -16,6 +17,7 @@
 					<footer>{{ strtoupper($_loket->nama_layanan) }}</footer>
 				</div>
 				@endforeach
+				</center>
 			</div>
 		</div>
 	</div>
