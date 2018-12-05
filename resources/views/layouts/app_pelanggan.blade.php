@@ -32,6 +32,8 @@
           <link rel="stylesheet" href=" {{asset('css/file.css')}} ">
        
       <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap4.css')}}">
+
+
        
 </head>
 <body class="hold-transition sidebar-mini">
@@ -175,6 +177,8 @@
         <script src="{{ asset('js/sweetalert2.all.min.js') }}" type="text/javascript"></script>
         <script src="/highchart/js/modules/exporting.js"></script>
         <script src="/custom/js/custom.js" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/moment/min/moment.min.js')}}"></script>
+
 
         <script>
 

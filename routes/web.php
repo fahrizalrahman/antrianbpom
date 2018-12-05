@@ -144,6 +144,7 @@ Route::get('/monitor', 'HomeController@monitor')->name('monitor');
 Route::get('/display', 'HomeController@display')->name('antrian');
 */
 
+Route::get('/booking-web/layanan/{id}/{nama_layanan}/{jenis}', 'AntrianController@booking_layanan');
 
 //route dashboard pelanggan
 Route::get('/profile-edit','ProfileController@editProfile')->name('profile');

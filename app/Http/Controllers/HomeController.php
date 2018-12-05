@@ -348,7 +348,8 @@ class HomeController extends Controller
     public function layanan($lantai)
     {   
         $layanan_lantai = Loket::select()->where('lantai',$lantai)->get();
-        return view('pelanggan.layanan',['layanan_lantai' => $layanan_lantai,'lantai'=>$lantai]);
+
+        return view('pelanggan.layanan',['layanan_lantai' => $layanan_lantai,'lantai'=>$lantai,'jenis'=>'layanan']);
     }
 
     public function filterDataSurvey(Request $request){

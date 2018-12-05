@@ -21,7 +21,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
       </div>
 
     </div>
@@ -59,7 +59,11 @@
                             @if ($count_sublayanan > 0)
                             <button class="btn modal-sub" data-id="{{$layanan_lantais->id}}"" style="background-color:#4dff88; color:white"><i class="fa fa-list"></i> <b>SUB LAYANAN</b></button>
                             @else
-                            <button class="btn cek-layanan" data-id-loket="{{$layanan_lantais->id}}" data-batas-dari-jam="{{$layanan_lantais->batas_dari_jam}}" data-batas-sampai-jam="{{$layanan_lantais->batas_sampai_jam}}" data-batas-antrian="{{$layanan_lantais->batas_antrian}}" style="background-color:#f7bc30; color:white"><i class="fa fa-print"></i> <b>CETAK LAYANAN</b></button>
+                            <button class="btn cek-layanan " data-id-loket="{{$layanan_lantais->id}}" data-batas-dari-jam="{{$layanan_lantais->batas_dari_jam}}" data-batas-sampai-jam="{{$layanan_lantais->batas_sampai_jam}}" data-batas-antrian="{{$layanan_lantais->batas_antrian}}" style="background-color:#f7bc30; color:white"><i class="fa fa-print"></i> <b>CETAK </b></button>
+                            <button class="btn booking_layanan btn-danger" 
+                            data-id="{{$layanan_lantais->id}}" 
+                            data-nama="{{$layanan_lantais->nama_layanan}}" 
+                            data-jenis="{{$jenis}}"  style="color:white"><i class="fa fa-cart-arrow-down"></i> <b>BOOKING </b></button>
                             @endif
 
                           </center>
@@ -227,6 +231,27 @@
 
 
   });
+
+  $(document).on('click', '.booking_layanan', function (e) { 
+        
+        var id = $(this).attr('data-id');
+        var nama_layanan = $(this).attr('data-nama');
+        var jenis = $(this).attr('data-jenis');
+        booking_form(id, nama_layanan, jenis);
+        
+  });
+  $(document).on('click', '.booking_layanan_sub', function (e) { 
+        
+        var id = $(this).attr('data-id');
+        var nama_layanan = $(this).attr('data-nama');
+        var jenis = $(this).attr('data-jenis');
+        booking_form(id, nama_layanan, jenis);
+   
+  });
+  
+  function booking_form(id,nama_layanan,jenis){
+    window.location.href = "{{URL::to('/booking-web/layanan')}}/"+id+"/"+nama_layanan+"/"+jenis
+  }
 </script>
 
 <script>

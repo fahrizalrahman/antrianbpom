@@ -14,7 +14,7 @@ use Session;
 use Redirect;
 use DB;
 use Jenssegers\Agent\Agent;
-
+use View;
 
 class AntrianController extends Controller
 {
@@ -251,7 +251,9 @@ class AntrianController extends Controller
 
     public function foreachlistLayanan($data_sublayanans,$data_lokets)
     {
-        $out = '<li class="list-group-item select-sub" data-id-loket="'.$data_lokets->id.'" data-batas-dari-jam="'.$data_sublayanans->batas_dari_jam.'" data-batas-sampai-jam="'.$data_sublayanans->batas_sampai_jam.'" data-batas-antrian="'.$data_sublayanans->batas_antrian.'"  data-id-sublayanan="'.$data_sublayanans->id.'">'.$data_sublayanans->nama_sublayanan.'</li>';
+        $out = '<li class="list-group-item " >'.$data_sublayanans->nama_sublayanan.' <button class="btn btn-warning btn-sm select-sub" data-id-loket="'.$data_lokets->id.'" data-batas-dari-jam="'.$data_sublayanans->batas_dari_jam.'" data-batas-sampai-jam="'.$data_sublayanans->batas_sampai_jam.'" data-batas-antrian="'.$data_sublayanans->batas_antrian.'"  data-id-sublayanan="'.$data_sublayanans->id.'" style="background-color:#f7bc30; color:white"><i class="fa fa-print"></i> <b>CETAK </b></button> 
+        <button class="btn btn-danger btn-sm booking_layanan_sub" data-id="'.$data_sublayanans->id.'" data-nama="'.$data_sublayanans->nama_sublayanan.'" data-jenis="sub_layanan"><i class="fa fa-cart-arrow-down"></i> <b>BOOKING </b></button> </li> 
+        ';
 
         return $out;
     } 
@@ -327,6 +329,29 @@ class AntrianController extends Controller
 
 
             return view('cetak.antrian',['data_antri' => $data_monitor_tiket->first(),'data_loket'=>$data_loket]);
+    }
+
+    public function booking_layanan($id,$nama_layanan,$jenis){
+       if(Auth::check()){
+        
+            if($jenis==='layanan'){
+              $data = DB::table('lokets')
+                -> select('kode', 'nama_layanan')
+                -> where('id', '=', $id)
+                -> first();
+            }else{
+              $data = DB::table('sublayanans AS a')
+                -> leftJoin('lokets AS b', 'b.id', '=', 'a.id_loket')
+                -> select('b.kode', 'b.nama_layanan', 'a.nama_sublayanan')
+                -> where('a.id', '=', $id)
+                -> first();
+            }
+
+            return view('pelanggan.booking_layanan',['_data' => $data,'jenis'=>$jenis,'rowid'=>$id]);
+          
+      }else{
+        Auth::logout();
+      }
     }  
 
 
