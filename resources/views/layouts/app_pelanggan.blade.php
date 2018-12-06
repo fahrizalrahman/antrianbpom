@@ -110,15 +110,16 @@
             </li>
 
            <li class="nav-item">
-                <a href="{{ route('profile')}}" class="nav-link">
-                  <i class="fa fa-user-circle nav-icon"></i>
-                  <p>Profil</p>
-                </a>
-            </li>
-           <li class="nav-item">
                 <a href="{{ route('history')}}" class="nav-link">
                   <i class="fa fa-history nav-icon"></i>
                   <p>History</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('profile')}}" class="nav-link">
+                  <i class="fa fa-user-circle nav-icon"></i>
+                  <p>Profil</p>
                 </a>
             </li>
         </ul>
@@ -178,64 +179,60 @@
         <script src="/highchart/js/modules/exporting.js"></script>
         <script src="/custom/js/custom.js" type="text/javascript"></script>
         <script src="{{ asset('bower_components/moment/min/moment.min.js')}}"></script>
-
-
         <script>
-
           $(function () {
             $("#example1").DataTable();
           });
         </script>
        <script type="text/javascript">
-
-$(function () {
-    $('#linechart').highcharts({
-        chart: {
-            type: 'line',
-            options3d: {
-                enabled: true,
-                alpha: 45,
-                beta: 0
-            }
-        },
-        title: {
-            text: 'Rekap Jenis Jabatan <br /> Berdasarkan Permenpan No. 25 Tahun 2016'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            line: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                depth: 35,
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b><br />: {point.percentage:.1f} %'
-                }
-            }
-        },
-        credits: {enabled: false},
-        series: [{
-            type: 'line',
-            name: 'Jenis Jabatan',
-            data: [
-                ['Jabatan Tinggi Pratama',   45.0],
-                ['Jabatan Administrator',       26.8],
-                {
-                    name: 'Jabatan Pengawas',
-                    y: 12.8,
-                    sliced: true,
-                    selected: true
+        $(function () {
+            $('#linechart').highcharts({
+                chart: {
+                    type: 'line',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    }
                 },
-                ['Jabatan Fungsional',    8.5],
-                ['Pelaksana',     6.2],
-            ]
-        }]
-    });
-});
+                title: {
+                    text: 'Rekap Jenis Jabatan <br /> Berdasarkan Permenpan No. 25 Tahun 2016'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    line: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b><br />: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                credits: {enabled: false},
+                series: [{
+                    type: 'line',
+                    name: 'Jenis Jabatan',
+                    data: [
+                        ['Jabatan Tinggi Pratama',   45.0],
+                        ['Jabatan Administrator',       26.8],
+                        {
+                            name: 'Jabatan Pengawas',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        },
+                        ['Jabatan Fungsional',    8.5],
+                        ['Pelaksana',     6.2],
+                    ]
+                }]
+            });
+        });
 
-</script>
+        </script>
 
 
 
@@ -249,6 +246,13 @@ $(function () {
   </script>
 
 @yield('scripts')
-
+<style type="text/css">
+    table.dataTable thead tr {
+      padding: 0px;
+      margin: 0px;
+      color: white;
+      background-color: green;
+    }
+</style>
 </body>
 </html>

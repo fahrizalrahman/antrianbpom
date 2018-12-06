@@ -39,12 +39,20 @@ class AntrianController extends Controller
     public function history(Request $request){
         if(Auth::check()){
             if(Auth()->user()->jabatan==='pelanggan'){
-                $data = DB::table('view_pelayanan')
-                    -> select('tanggal', 'nama_loket', 'nama_layanan', 'sub_layanan', 'nama_petugas')
-                    -> where('id_user', '=', Auth()->user()->id)
-                    -> paginate(10);
+            $data = DB::table('view_history')
+            -> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian', 'mulai', 'selesai', 'kepuasan')
+            -> where('id_user', '=', Auth()->user()->id)
+            -> get();
+        
+            $data_batal = DB::table('view_antrian')
+              -> select('tgl_antrian', 'nama_layanan', 'nama_sub_layanan', 'nama_loket', 'nama_loket_sub_layanan', 'lantai', 'no_antrian','status')
+              -> where('id_user', '=', Auth()->user()->id)
+              -> where('status', '=', 'batal')
+              -> get();
+
                 return view('pelanggan.history')
-                    -> with('_data', $data);
+                    -> with('_data', $data)
+                    -> with('_data_batal', $data_batal);
             }
         }
     }
@@ -295,10 +303,15 @@ class AntrianController extends Controller
             'antrians.no_antrian',
             'sublayanans.nama_sublayanan as nama_sublayanan',
             'sublayanans.kode_loket as kode_loket',
-            'lokets.kode_antrian as kode_antrian'
+            'lokets.kode_antrian as kode_antrian',
+            'antrians.tgl_antrian AS tgl_antrian',
+            DB::raw('TIMESTAMPDIFF(HOUR,antrians.tgl_antrian,now()) as hitung_mundur')
           )->leftJoin('lokets', 'lokets.id', '=', 'antrians.id_loket')
            ->leftJoin('sublayanans', 'sublayanans.id', '=', 'antrians.id_sublayanan')
-        ->where(DB::raw('DATE(antrians.created_at)'), '=', DB::raw('curdate()'))->where('antrians.id_user',Auth::user()->id)->orderBy('id','desc');  
+        ->where('antrians.id_user',Auth::user()->id)
+        ->where('antrians.status','<>','selesai')
+        ->where('antrians.status','<>','batal')
+        ->orderBy('antrians.id','desc');  
         
 
         return view('pelanggan.monitor',['monitor_tiket' => $data_monitor_tiket]);

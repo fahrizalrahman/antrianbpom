@@ -21,45 +21,55 @@
               </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-hover table-bordered table-responsive">
+              <table id="example1" class="table table-bordered table-responsive">
                 <thead>
                 <tr>
-                  
-                  <th>Layanan</th>
-                  <th>Loket</th>
-                  <th>Sublayanan</th>
-                  <th>Loket</th>
-                  <th>Lantai</th>
-                  <th>No Antrian Anda</th>
-                  <th>No Antrian Sekarang</th>
-                  <th>Aksi</th>
+                  <th style="width:200px;font-size:15px;">Tanggal</th>    
+                  <th style="width:500px;font-size:15px;">Layanan</th>
+                  <th style="width:100px;font-size:15px;">Loket</th>
+                  <th style="width:100px;font-size:15px;">Sublayanan</th>
+                  <th style="width:100px;font-size:15px;">Loket</th>
+                  <th style="width:100px;font-size:15px;">Lantai</th>
+                  <th style="width:100px;font-size:15px;">Antrian</th>
+                  <th style="width:100px;font-size:15px;">Saat Ini</th>
+                  <th style="width:100px;font-size:15px;">Aksi</th>
+                  <th style="width:100px;font-size:15px;">Batal</th>
                 </tr>
                 </thead>
                 <tbody>
                   @if($monitor_tiket->count() < 1)
                   <tr>
-                    <td colspan="6"><center>Belum Ada Antrian</center></td></tr>
+                    <td colspan="8" style="background-color:grey;"><center><b >Belum Ada Antrian</b></center></td></tr>
                   @else
                   @foreach ($monitor_tiket->get() as $monitor_lokets)
 
                   <?php $no_antrian_sekarang = \App\Antrian::where('status','dipanggil')->where('id_loket',$monitor_lokets->id_loket)->orderBy('id','desc')?>
 
                  <tr>
-                  <td>{{$monitor_lokets->nama_layanan}}</td>
-                  <td>{{$monitor_lokets->kode}}</td>
-                  <td>{{$monitor_lokets->nama_sublayanan}}</td>
-                  <td>{{$monitor_lokets->kode_loket}}</td>
-                  <td>{{$monitor_lokets->lantai}}</td>
-                  <td>{{$monitor_lokets->kode_antrian}}{{$monitor_lokets->no_antrian}}</td>
+                  <td style="width:200px;font-size:14px;">{{$monitor_lokets->tgl_antrian}}</td>
+                  <td style="width:500px;font-size:14px;">{{$monitor_lokets->nama_layanan}}</td>
+                  <td style="width:100px;font-size:14px;">{{$monitor_lokets->kode}}</td>
+                  <td style="width:100px;font-size:14px;">{{$monitor_lokets->nama_sublayanan}}</td>
+                  <td style="width:100px;font-size:14px;">{{$monitor_lokets->kode_loket}}</td>
+                  <td style="width:100px;font-size:14px;">{{$monitor_lokets->lantai}}</td>
+                  <td style="width:100px;font-size:14px;">{{$monitor_lokets->kode_antrian}}{{$monitor_lokets->no_antrian}}</td>
                    
                   @if($no_antrian_sekarang->count() == 0)
-                  <td style="background-color:red;color:white;"><center><h5>Tidak Ada Panggilan</h5></center></td>
+                  <td style="width:500px;font-size:14px;background-color:red;color:white;"><center><p>Tidak Ada Panggilan</p></center></td>
                   @elseif($no_antrian_sekarang->first()->no_antrian == $monitor_lokets->no_antrian)
-                  <td style="background-color:green;color:white;"><center><h5>Panggilan Anda</h5></center></td>
+                  <td style="width:500px;font-size:14px;background-color:green;color:white;"><center><p>Panggilan Anda</p></center></td>
                   @else
-                  <td><center><h4>{{$no_antrian_sekarang->first()->kode_antrian}}{{$no_antrian_sekarang->first()->no_antrian}}</h4></center></td>
+                  <td style="width:500px;font-size:14px;" ><center><p>{{$no_antrian_sekarang->first()->kode_antrian}}{{$no_antrian_sekarang->first()->no_antrian}}</p></center></td>
                   @endif
-                  <td><a href="{{ route('lihat-tiket',$monitor_lokets->id) }}" style="background-color:#17A2B8; color:white;" class="btn btn-sm"><i class="nav-icon fa fa-eye" ></i> Lihat Tiket</a></td>
+                  <td style="width:100px;font-size:14px;"><a href="{{ route('lihat-tiket',$monitor_lokets->id) }}" style="background-color:#17A2B8; color:white;" class="btn btn-sm"><i class="nav-icon fa fa-eye" ></i> Lihat</a>
+                  <td style="width:100px;font-size:14px;">
+                 @if($monitor_lokets->hitung_mundur < -11)
+                    <button id="btn_batal_booking" data-id="{{ $monitor_lokets->id }}" class="btn btn-danger btn-sm"> <i class="nav-icon fa fa-remove" ></i> Batal</button>
+                  @else
+                    <button id="btn_batal_booking" disabled="true" data-id="{{ $monitor_lokets->id }}" class="btn btn-danger btn-sm"> <i class="nav-icon fa fa-remove" ></i> Batal</button>
+                  @endif
+                </td>
+            </td>
                 </tr>
                 @endforeach
                 @endif
@@ -89,4 +99,64 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+@endsection
+@section('scripts')
+<script type="text/javascript">
+  $(document).on('click', '#btn_batal_booking', function(e){
+  var id_antrian = $(this).attr('data-id');
+  e.preventDefault();
+  if(e.which===1){
+    swal({
+      title: 'Apakah Anda Ingin Membatalkan Booking , Silakan Tulis Keterangan Alasan',
+      input: 'select',
+      inputOptions: {
+        'Keperluan Mendadak': 'Keperluan Mendadak',
+        'Sakit': 'Sakit',
+        'Alasan Lain': 'Alasan Lain'
+      },
+      inputPlaceholder: '-- Pilih Alasan --',
+      showCancelButton: true,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value === 'Alasan Lain') {
+             swal({
+            input: 'text',
+            inputPlaceholder:'Isi Alasan Disini ...',
+          }).then(function (text) {
+              update_keterangan(String(text.value),id_antrian);
+          })
+          }else{
+            update_keterangan(value,id_antrian);
+          }
+        })
+      }
+    })
+  }
+});
+
+
+
+function update_keterangan(ket,id_antrian){           
+          $.ajax({
+            headers : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            dataType: 'html',
+            url   : '/mobile/content/update_batal_keterangan',
+            data  : 'q=update_batal_keterangan&ket=' + ket + '&id_antrian=' + id_antrian,
+            success : function(data){
+                swal({
+                  html: 'Berhasil Membatalkan Booking',
+                                showConfirmButton :  false,
+                                type: "success",
+                                timer: 1000
+                 });
+                window.location.href = "{{URL::to('/monitor-tiket')}}"
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            swal({
+                       html: "Terjadi Kesalahan , Silakan Hubungi IT"
+                });
+          }
+        });
+}
+</script>
 @endsection

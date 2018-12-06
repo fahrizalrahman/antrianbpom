@@ -209,11 +209,11 @@ $(document).on('click', '#btn_ambil_antrian', function(e){
 			                          html: "Booking hanya bisa 2 kali dalam sebulan !!"
 			                    });
 							}
-							load_content('booking');
+							
 						},
 						error: function (xhr, ajaxOptions, thrownError){
 							alert(xhr.responseText);
-							load_content('monitor');
+							
 						}
 					});
 				}

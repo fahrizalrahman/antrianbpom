@@ -17,37 +17,84 @@
               <div class="card">
 
               <div class="card-header">
-                <h3>History Data</h3>
+                <h3>History Antrian</h3>
               </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table width="100%">
+              <table id="example1" class="table table-bordered table-responsive">
                 <thead>
                 <tr>
-                  
-                  <th>Tanggal</th>
-                  <th>Loket</th>
-                  <th>Layanan</th>
-                  <th>Sub Layanan</th>
-                  <th>Petugas</th>
+                  <th style="width:100px;font-size:14px;">Tanggal</th>
+                  <th style="width:100px;font-size:14px;">Loket</th>
+                  <th style="width:500px;font-size:14px;">Layanan</th>
+                  <th style="width:500px;font-size:14px;">Sub Layanan</th>
+                  <th style="width:100px;font-size:14px;">Antrian</th>
+                  <th style="width:100px;font-size:14px;">Lantai</th>
+                  <th style="width:100px;font-size:14px;">Kepuasan</th>
+                  <th style="width:300px;font-size:14px;">Lama Proses</th>
                 </tr>
                 </thead>
                 <tbody>
                   @foreach($_data as $data)
+                   <?php
+                  $mulai = new DateTime($data->mulai);
+                  $selesai = new DateTime($data->selesai);
+
+                  $dteDiff  = $mulai->diff($selesai);
+                  $survey = array('TIDAK SURVEY','SANGAT PUAS', 'PUAS', 'TIDAK PUAS');
+                  ?>
                     <tr>
-                      <td>{{ $data->tanggal }}</td>
-                      <td>{{ $data->nama_loket }}</td>
-                      <td>{{ $data->nama_layanan }}</td>
-                      <td>{{ $data->sub_layanan }}</td>
-                      <td>{{ $data->nama_petugas }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $data->tgl_antrian }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $data->nama_loket }}</td>
+                      <td style="width:500px;font-size:14px;">{{ $data->nama_layanan }}</td>
+                      <td style="width:500px;font-size:14px;">{{ $data->nama_loket_sub_layanan }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $data->no_antrian }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $data->lantai }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $survey[$data->kepuasan] }}</td>
+                      <td style="width:300px;font-size:14px;">{{ $dteDiff->format("%H:%I:%S") }}</td>
                     </tr>
                   @endforeach
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <td style="padding-top: 15px" colspan="5">{{ $_data->render() }}</td>
-                  </tr>
-                </tfoot>
+              </table>
+            </div>
+
+             
+             <div class="card-header">
+                <h3>History Batal</h3>
+              </div>
+              <div class="card-body">
+              <table id="example2" class="table table-bordered table-responsive">
+                <thead>
+                <tr style="padding: 0px;margin: 0px;color:white;background-color: red;">
+                  <th style="width:300px;font-size:14px;">Tanggal</th>
+                  <th style="width:100px;font-size:14px;">Loket</th>
+                  <th style="width:500px;font-size:14px;">Layanan</th>
+                  <th style="width:500px;font-size:14px;">Sub Layanan</th>
+                  <th style="width:100px;font-size:14px;">Antrian</th>
+                  <th style="width:100px;font-size:14px;">Lantai</th>
+                  <th style="width:100px;font-size:14px;">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                  @foreach($_data_batal as $data_batal)
+                   <?php
+                  $mulai = new DateTime($data->mulai);
+                  $selesai = new DateTime($data->selesai);
+
+                  $dteDiff  = $mulai->diff($selesai);
+                  $survey = array('TIDAK SURVEY','SANGAT PUAS', 'PUAS', 'TIDAK PUAS');
+                  ?>
+                    <tr>
+                      <td style="width:300px;font-size:14px;">{{ $data_batal->tgl_antrian }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $data_batal->nama_loket }}</td>
+                      <td style="width:500px;font-size:14px;">{{ $data_batal->nama_layanan }}</td>
+                      <td style="width:500px;font-size:14px;">{{ $data_batal->nama_loket_sub_layanan }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $data_batal->no_antrian }}</td>
+                      <td style="width:100px;font-size:14px;">{{ $data_batal->lantai }}</td>
+                      <td style="width:100px;font-size:14px;">{{ strtoupper($data_batal->status) }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
               </table>
             </div>
             <!-- /.card-body -->
@@ -61,38 +108,6 @@
 </div>
 </section>
 </div>
-<style type="text/css">
-table > tbody > tr > td{
-  padding: 5px 10px;
-  border: 1px solid #aaaaaa;
-}
-table > thead > tr > th{
-  padding: 5px 10px;
-  font-weight: bold;
-  border: 1px solid #aaaaaa;
-  cursor: default;
-  background-color: #dddddd;
-}
-.input_date{
-  border: 1px solid #aaaaaa;
-  width: 160px;
-  height: 30px;
-  outline-width: 0px;
-  font-family: arial;
-  color: black;
-  padding: 5px 10px;
-}
-.input-custom{
-  padding: 5px 10px;
-}
-.label-input{
-  font-weight: normal !important;
-}
-.table-container{
-  padding: 10px;
-  border: 1px solid #dddddd;
-}
-</style>
     <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>BPOM</strong>
@@ -104,4 +119,12 @@ table > thead > tr > th{
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+@endsection
+
+@section('scripts')
+        <script>
+          $(function () {
+            $("#example2").DataTable();
+          });
+        </script>
 @endsection
