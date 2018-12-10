@@ -43,7 +43,12 @@
         <div class="row">
           <div class="col-md-12">
                 <div class="container"> 
-                <section class="main" >   
+                <section class="main" >  
+                   @if($lantai == 2)
+                   <b><p style="color:red;"><span>* Untuk Layanan Konsultasi Silakan Hubungi Kontak berikut <br>
+                   - Email &nbsp;&nbsp; : <br>
+                   - No Telp : </span></p></b>
+                   @endif  
                     <div class="row">  
                     @foreach($layanan_lantai as $layanan_lantais)  
                     <?php $count_sublayanan = \App\Sublayanan::where('id_loket',$layanan_lantais->id)->count() ?>
@@ -71,7 +76,7 @@
                          </div>
                       </div>
                    @endforeach
-                   </div>  
+                   </div> 
                 </section>
                 </div>
             <!-- /.card -->
@@ -114,8 +119,10 @@
       var batas_dari_jam = $(this).attr('data-batas-dari-jam');
       var batas_sampai_jam = $(this).attr('data-batas-sampai-jam');
       var batas_antrian = $(this).attr('data-batas-antrian');
+      
 
       var currentdate = new Date();
+      var _tanggal  = moment(currentdate).format('YYYY-MM-DD');
       var dayNow = currentdate.getDay()
 
       if (dayNow == 0) {
@@ -134,38 +141,49 @@
             var hari = "sabtu";
         }
 
-       $.get('{{ Url("cek-setting-hari-sub") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_sublayanan,hari:hari}, function(resp){  
+       $.get('{{ Url("setting-range-bulan") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_sublayanan,jenis:'sublayanan',tanggal:_tanggal}, function(resp){ 
+            if (resp < 2) {
+             $.get('{{ Url("cek-setting-hari-sub") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_sublayanan,hari:hari}, function(resp){  
 
-          if (resp > 0) {
-                  $.get('{{ Url("count-antrian") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_loket}, function(resp){  
+                if (resp > 0) {
+                        $.get('{{ Url("count-antrian") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_sublayanan,jenis:'sublayanan'}, function(resp){  
 
-                    if (currentdate.getHours() >= batas_sampai_jam && resp > batas_antrian) {
-                        swal({
-                          html: "Batas Pengambilan Tiket Sudah Ditutup !!"
-                        });
-                    }else if (currentdate.getHours() <= batas_dari_jam && resp > batas_antrian){
-                        swal({
-                          html: "Batas Pengambilan Tiket Belum Dibuka !!"
-                        });
-                    }else{
-                      window.location.href = "{{URL::to('print-antrian-sub/')}}/"+id_loket+"/"+id_sublayanan
-                        
-                        swal({
-                            html :  "Berhasil Mengambil Antrian",
-                            showConfirmButton :  false,
-                            type: "success",
-                            timer: 1000
-                        });
-                    }
-                 });
-          }else{
-            swal({
-                html: "Hari ini Tidak Melayani Sub Layanan yang Anda Pilih !!"
+                          if (currentdate.getHours() >= batas_sampai_jam) {
+                              swal({
+                                html: "Batas Pengambilan Tiket Sudah Ditutup !!"
+                              });
+                          }else if (currentdate.getHours() <= batas_dari_jam){
+                              swal({
+                                html: "Batas Pengambilan Tiket Belum Dibuka !!"
+                              });
+                          }else if (resp > batas_antrian){
+                              swal({
+                                html: "Maaf, Batas Pengambilan Tiket Habis !!"
+                              });
+                          }else{
+                            window.location.href = "{{URL::to('print-antrian-sub/')}}/"+id_loket+"/"+id_sublayanan
+                              
+                              swal({
+                                  html :  "Berhasil Mengambil Antrian",
+                                  showConfirmButton :  false,
+                                  type: "success",
+                                  timer: 1000
+                              });
+                          }
+                       });
+                }else{
+                  swal({
+                      html: "Maaf, Hari Anda Anda Pilih Tidak Melayani Layanan !!"
+                    });
+                }
+
               });
-          }
-
-        });
-
+           }else{
+              swal({
+                      html: "Booking hanya bisa 2 kali dalam sebulan !!"
+                    });
+           }
+       });
   });
 </script>
 
@@ -176,8 +194,10 @@
       var batas_dari_jam = $(this).attr('data-batas-dari-jam');
       var batas_sampai_jam = $(this).attr('data-batas-sampai-jam');
       var batas_antrian = $(this).attr('data-batas-antrian');
+      
 
       var currentdate = new Date();
+      var _tanggal  = moment(currentdate).format('YYYY-MM-DD');
       var dayNow = currentdate.getDay()
 
       if (dayNow == 0) {
@@ -196,38 +216,51 @@
             var hari = "sabtu";
         }
 
-       $.get('{{ Url("cek-setting-hari") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_loket,hari:hari}, function(resp){  
+     $.get('{{ Url("setting-range-bulan") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_loket,jenis:'layanan',tanggal:_tanggal}, function(resp){ 
+            if (resp < 2) {
 
-          if (resp > 0) {
-                  $.get('{{ Url("count-antrian") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_loket}, function(resp){  
+                     $.get('{{ Url("cek-setting-hari") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_loket,hari:hari}, function(resp){  
 
-                    if (currentdate.getHours() >= batas_sampai_jam && resp > batas_antrian) {
-                        swal({
-                          html: "Batas Pengambilan Tiket Sudah Ditutup !!"
-                        });
-                    }else if (currentdate.getHours() <= batas_dari_jam && resp > batas_antrian){
-                        swal({
-                          html: "Batas Pengambilan Tiket Belum Dibuka !!"
-                        });
-                    }else{
-                      window.location.href = "{{URL::to('print-antrian/')}}/"+id_loket
+                        if (resp > 0) {
+                                $.get('{{ Url("count-antrian") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id_loket,jenis:'layanan'}, function(resp){  
 
-                       swal({
-                            html :  "Berhasil Mengambil Antrian",
-                            showConfirmButton :  false,
-                            type: "success",
-                            timer: 1000
-                        });
-                    }
-                 });
-          }else{
-            swal({
-                html: "Hari ini Tidak Melayani Layanan yang Anda Pilih !!"
-              });
-          }
+                                if (currentdate.getHours() >= batas_sampai_jam) {
+                                    swal({
+                                      html: "Batas Pengambilan Tiket Sudah Ditutup !!"
+                                    });
+                                }else if (currentdate.getHours() <= batas_dari_jam){
+                                    swal({
+                                      html: "Batas Pengambilan Tiket Belum Dibuka !!"
+                                    });
+                                }else if (resp > batas_antrian){
+                                    swal({
+                                      html: "Maaf, Batas Pengambilan Tiket Habis !!"
+                                    });
+                                }else{
+                                          window.location.href = "{{URL::to('print-antrian/')}}/"+id_loket
 
-        });
+                                           swal({
+                                                html :  "Berhasil Mengambil Antrian",
+                                                showConfirmButton :  false,
+                                                type: "success",
+                                                timer: 1000
+                                            });
+                                        }
+                                });
+                              }else{
+                                swal({
+                                    html: "Maaf, Hari Anda Anda Pilih Tidak Melayani Layanan !!"
+                                  });
+                              }
 
+                      });
+
+              }else{
+                    swal({
+                      html: "Booking hanya bisa 2 kali dalam sebulan !!"
+                    });
+              }
+            });
 
 
   });

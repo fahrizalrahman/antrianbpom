@@ -39,7 +39,7 @@
                 <tbody>
                   @if($monitor_tiket->count() < 1)
                   <tr>
-                    <td colspan="8" style="background-color:grey;"><center><b >Belum Ada Antrian</b></center></td></tr>
+                    <td colspan="10" style="background-color:grey;"><center><b >Belum Ada Antrian</b></center></td></tr>
                   @else
                   @foreach ($monitor_tiket->get() as $monitor_lokets)
 

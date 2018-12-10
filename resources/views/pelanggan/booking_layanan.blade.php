@@ -50,6 +50,8 @@
 
                 <div class="input-group mb-3">
                 	<button id="btn_ambil_antrian" rowid="{{ $rowid }}" jenis="{{ $jenis }}" disabled="false" class="btn btn-success ">Ambil Antrian</button>
+                	
+                	<b><p style="color:red;"><span style="font-style:italic;">* Pengambilan waktu booking hanya bisa dilakukan 1 minggu kedepan !!</span></p></b>
                 </div>
               </div>
               <!-- /.card-body -->

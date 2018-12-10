@@ -177,7 +177,7 @@ Route::get('count-antrian', 'AntrianController@count_antrian');
 Route::get('cek-setting-hari', 'AntrianController@cekSettingHari');
 Route::get('cek-setting-hari-sub', 'AntrianController@cekSettingHariSub');
 Route::get('logout', 'AntrianController@logout');
-
+Route::get('setting-range-bulan', 'AntrianController@settingRangeBulan');
 
 
 //setting hari

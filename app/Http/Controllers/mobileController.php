@@ -48,6 +48,7 @@ class mobileController extends Controller{
 							->whereRaw('id_loket=' . $request->data)
 							->whereMonth('tgl_antrian','=',date("m", strtotime($request->tanggal)))
 							->whereYear('tgl_antrian','=',date("Y", strtotime($request->tanggal)))
+							->where('id_user','=',Auth()->user()->id)
 							->where('status','=','antri')
 							-> count();
 
@@ -55,27 +56,46 @@ class mobileController extends Controller{
 
 					if ($cek_antri < 2) {
 
-						if((intval($_jam) >= $_waktu->batas_sampai_jam)){
-							return	$_antri = 'sudah tutup';
-						}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
-							return	$_antri = 'belum buka';
-						}elseif((intval($_no_antri) > $_waktu->batas_antrian)){
-							return	$_antri = 'tiket habis';
+						$_tanggal = date('Y-m-d');
+						if($_tanggal === $request->tanggal){
+								if((intval($_jam) >= $_waktu->batas_sampai_jam)){
+									return	$_antri = 'sudah tutup';
+								}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
+									return	$_antri = 'belum buka';
+								}elseif((intval($_no_antri) > $_waktu->batas_antrian)){
+									return	$_antri = 'tiket habis';
+								}else{
+									
+									DB::table('antrians')
+									-> insert([
+										'id_loket'		=> $request->data,
+										'status'		=> 'antri',
+										'no_antrian'	=>	$_no_antri,
+										'id_user'		=> Auth()->user()->id,
+										'created_at'	=> now(),
+										'updated_at'	=> now(),
+										'tgl_antrian'	=> $request->tanggal]);
+
+									return	$_antri = 'masih bisa';
+								}
 						}else{
-							
-							DB::table('antrians')
-							-> insert([
-								'id_loket'		=> $request->data,
-								'status'		=> 'antri',
-								'no_antrian'	=>	$_no_antri,
-								'id_user'		=> Auth()->user()->id,
-								'created_at'	=> now(),
-								'updated_at'	=> now(),
-								'tgl_antrian'	=> $request->tanggal]);
+							if((intval($_no_antri) > $_waktu->batas_antrian)){
+									return	$_antri = 'tiket habis';
+								}else{
+									
+									DB::table('antrians')
+									-> insert([
+										'id_loket'		=> $request->data,
+										'status'		=> 'antri',
+										'no_antrian'	=>	$_no_antri,
+										'id_user'		=> Auth()->user()->id,
+										'created_at'	=> now(),
+										'updated_at'	=> now(),
+										'tgl_antrian'	=> $request->tanggal]);
 
-							return	$_antri = 'masih bisa';
+									return	$_antri = 'masih bisa';
+								}
 						}
-
 					}else{
 						return $_antri = 'bulan over';
 					}
@@ -112,36 +132,63 @@ class mobileController extends Controller{
 							])
 						-> count()) + 1;
 
+					$cek_no_antri = (DB::table('antrians')
+						-> where([
+							'id_sublayanan'		=> $request->data,
+							'tgl_antrian'	=> $request->tanggal
+							])
+						-> count()) + 1;
+
 					$cek_antri = DB::table('antrians')
-							->whereRaw('id_loket=' . $_head_loket->id_loket)
+							->whereRaw('id_sublayanan=' . $request->data)
 							->whereMonth('tgl_antrian','=',date("m", strtotime($request->tanggal)))
 							->whereYear('tgl_antrian','=',date("Y", strtotime($request->tanggal)))
+							->where('id_user','=',Auth()->user()->id)
 							->where('status','=','antri')
 							-> count();
 
 						$_jam = date('H');
 					
 					if ($cek_antri < 2) {
+						$_tanggal = date('Y-m-d');
+						if($_tanggal === $request->tanggal){
+								if((intval($_jam) >= $_waktu->batas_sampai_jam)){
+									return	$_antri = 'sudah tutup';
+								}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
+									return	$_antri = 'belum buka';
+								}elseif((intval($cek_no_antri) > $_waktu->batas_antrian)){
+									return	$_antri = 'tiket habis';
+								}else{
+									DB::table('antrians')
+									-> insert([
+										'id_loket'		=> $_head_loket->id_loket,
+										'status'		=> 'antri',
+										'no_antrian'	=>	$_no_antri,
+										'id_user'		=> Auth()->user()->id,
+										'id_sublayanan'	=> $request->data,
+										'created_at'	=> now(),
+										'updated_at'	=> now(),
+										'tgl_antrian'	=> $request->tanggal]);
 
-						if((intval($_jam) >= $_waktu->batas_sampai_jam)){
-							return	$_antri = 'sudah tutup';
-						}elseif((intval($_jam) <= $_waktu->batas_dari_jam)){
-							return	$_antri = 'belum buka';
-						}elseif((intval($_no_antri) > $_waktu->batas_antrian)){
-							return	$_antri = 'tiket habis';
+									return $_antri = 'masih bisa';
+								}
 						}else{
-							DB::table('antrians')
-							-> insert([
-								'id_loket'		=> $_head_loket->id_loket,
-								'status'		=> 'antri',
-								'no_antrian'	=>	$_no_antri,
-								'id_user'		=> Auth()->user()->id,
-								'id_sublayanan'	=> $request->data,
-								'created_at'	=> now(),
-								'updated_at'	=> now(),
-								'tgl_antrian'	=> $request->tanggal]);
+							if((intval($cek_no_antri) > $_waktu->batas_antrian)){
+									return	$_antri = 'tiket habis';
+								}else{
+									DB::table('antrians')
+									-> insert([
+										'id_loket'		=> $_head_loket->id_loket,
+										'status'		=> 'antri',
+										'no_antrian'	=>	$_no_antri,
+										'id_user'		=> Auth()->user()->id,
+										'id_sublayanan'	=> $request->data,
+										'created_at'	=> now(),
+										'updated_at'	=> now(),
+										'tgl_antrian'	=> $request->tanggal]);
 
-							return $_antri = 'masih bisa';
+									return $_antri = 'masih bisa';
+								}
 						}
 					}else{
 						 return $_antri = 'bulan over';

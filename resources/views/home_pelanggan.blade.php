@@ -51,7 +51,7 @@ if(isMobile()){
                       <center style="color:red;font-size:20px;"><p>Mohon Maaf untuk sementara , Anda tidak bisa mengambil antrian</p>
                     <p>Terkena sanksi 1 bulan , semenjak pengambilan tiket terakhir</p></center>
                     @else  
-                    <b><center><h4 style="font-family: Arial, Helvetica, sans-serif;color:blue">Gedung B ( Pelayanan Public )</h4></center></b>  
+                    <b><center><h4 style="font-family: Arial, Helvetica, sans-serif;color:blue">Gedung B ( Pelayanan Publik )</h4></center></b>  
                     <div class="row"> 
                         <div class="col-sm-4 col-xs-12">                  
                           <div class="card" >

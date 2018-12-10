@@ -59,7 +59,7 @@ class AntrianController extends Controller
     public function print($id)
     {
         $agent = new Agent();
-        $antrian_terbaru = Antrian::select(['no_antrian'])->where('id_loket',$id)->whereDate('created_at', Carbon::today())->orderBy('id','desc');
+        $antrian_terbaru = Antrian::select(['no_antrian'])->where('id_loket',$id)->whereDate('tgl_antrian', Carbon::today())->orderBy('id','desc');
 
         if ($antrian_terbaru->count() > 0) {
             $no_antrian = $antrian_terbaru->first()->no_antrian + intval(1);
@@ -109,7 +109,7 @@ class AntrianController extends Controller
         public function printSub($id,$id_sub)
     {
         $agent = new Agent();
-        $antrian_terbaru = Antrian::select(['no_antrian'])->where('id_loket',$id)->whereDate('created_at', Carbon::today())->orderBy('id','desc');
+        $antrian_terbaru = Antrian::select(['no_antrian'])->where('id_loket',$id)->whereDate('tgl_antrian', Carbon::today())->orderBy('id','desc');
 
         if ($antrian_terbaru->count() > 0) {
             $no_antrian = $antrian_terbaru->first()->no_antrian + intval(1);
@@ -257,69 +257,95 @@ class AntrianController extends Controller
 
     }
 
-    public function foreachlistLayanan($data_sublayanans,$data_lokets)
-    {
-        $out = '<li class="list-group-item " >'.$data_sublayanans->nama_sublayanan.' <button class="btn btn-warning btn-sm select-sub" data-id-loket="'.$data_lokets->id.'" data-batas-dari-jam="'.$data_sublayanans->batas_dari_jam.'" data-batas-sampai-jam="'.$data_sublayanans->batas_sampai_jam.'" data-batas-antrian="'.$data_sublayanans->batas_antrian.'"  data-id-sublayanan="'.$data_sublayanans->id.'" style="background-color:#f7bc30; color:white"><i class="fa fa-print"></i> <b>CETAK </b></button> 
-        <button class="btn btn-danger btn-sm booking_layanan_sub" data-id="'.$data_sublayanans->id.'" data-nama="'.$data_sublayanans->nama_sublayanan.'" data-jenis="sub_layanan"><i class="fa fa-cart-arrow-down"></i> <b>BOOKING </b></button> </li> 
-        ';
+            public function foreachlistLayanan($data_sublayanans,$data_lokets){
+                $out = '<li class="list-group-item " >'.$data_sublayanans->nama_sublayanan.' <button class="btn btn-warning btn-sm select-sub" data-id-loket="'.$data_lokets->id.'" data-batas-dari-jam="'.$data_sublayanans->batas_dari_jam.'" data-batas-sampai-jam="'.$data_sublayanans->batas_sampai_jam.'" data-batas-antrian="'.$data_sublayanans->batas_antrian.'"  data-id-sublayanan="'.$data_sublayanans->id.'" style="background-color:#f7bc30; color:white"><i class="fa fa-print"></i> <b>CETAK </b></button> 
+                <button class="btn btn-danger btn-sm booking_layanan_sub" data-id="'.$data_sublayanans->id.'" data-nama="'.$data_sublayanans->nama_sublayanan.'" data-jenis="sub_layanan"><i class="fa fa-cart-arrow-down"></i> <b>BOOKING </b></button> </li> 
+                ';
 
-        return $out;
-    } 
+                return $out;
+            } 
 
-            public function count_antrian(Request $request)
-    {   
+            public function count_antrian(Request $request){   
 
-        $layanan_lantai = Antrian::select()->where('id_loket',$request->id)
-        ->where(DB::raw('DATE(tgl_antrian)'), '=', DB::raw('curdate()'))->count();
+              if($request->jenis == 'layanan'){
+                    $count = Antrian::select()->where('id_loket',$request->id)
+                    ->where(DB::raw('DATE(tgl_antrian)'), '=', DB::raw('curdate()'))->count() + 1;
+              }else{
+                    $count = Antrian::select()->where('id_sublayanan',$request->id)
+                    ->where(DB::raw('DATE(tgl_antrian)'), '=', DB::raw('curdate()'))->count() + 1;
+              }
 
-        return $layanan_lantai;
-    }
+              return $count;
+            }
 
-            public function cekSettingHari(Request $request)
-    {   
+            public function cekSettingHari(Request $request){   
 
-        $count = SettingHari::select()->where('id_loket',$request->id)
-        ->where('hari',$request->hari)->count();
+              $count = SettingHari::select()->where('id_loket',$request->id)
+              ->where('hari',$request->hari)->count();
 
-        return $count;
-    }
+              return $count;
+            }
 
 
-            public function cekSettingHariSub(Request $request)
-    {   
+            public function cekSettingHariSub(Request $request){   
 
-        $count = SettingHariSub::select()->where('id_sublayanan',$request->id)
-        ->where('hari',$request->hari)->count();
+                $count = SettingHariSub::select()->where('id_sublayanan',$request->id)
+                ->where('hari',$request->hari)->count();
 
-        return $count;
-    }
-        public function monitorTiket(){
-        $data_monitor_tiket = Antrian::select(
-            'antrians.id AS id',
-            'antrians.id_loket',
-            'lokets.nama_layanan',
-            'lokets.kode',
-            'lokets.lantai',
-            'antrians.no_antrian',
-            'sublayanans.nama_sublayanan as nama_sublayanan',
-            'sublayanans.kode_loket as kode_loket',
-            'lokets.kode_antrian as kode_antrian',
-            'antrians.tgl_antrian AS tgl_antrian',
-            DB::raw('TIMESTAMPDIFF(HOUR,antrians.tgl_antrian,now()) as hitung_mundur')
-          )->leftJoin('lokets', 'lokets.id', '=', 'antrians.id_loket')
-           ->leftJoin('sublayanans', 'sublayanans.id', '=', 'antrians.id_sublayanan')
-        ->where('antrians.id_user',Auth::user()->id)
-        ->where('antrians.status','<>','selesai')
-        ->where('antrians.status','<>','batal')
-        ->orderBy('antrians.id','desc');  
+                return $count;
+            }
+
+            public function settingRangeBulan(Request $request){
+                    if ($request->jenis == "layanan") {
+                          $rangeBulan = DB::table('antrians')
+                            ->whereRaw('id_loket=' . $request->id)
+                            ->whereMonth('tgl_antrian','=',date("m", strtotime($request->tanggal)))
+                            ->whereYear('tgl_antrian','=',date("Y", strtotime($request->tanggal)))
+                            ->where('id_user','=',Auth()->user()->id)
+                            ->where('status','=','antri')
+                            ->count();                      
+                    }else{
+                          $rangeBulan = DB::table('antrians')
+                            ->whereRaw('id_sublayanan=' . $request->id)
+                            ->whereMonth('tgl_antrian','=',date("m", strtotime($request->tanggal)))
+                            ->whereYear('tgl_antrian','=',date("Y", strtotime($request->tanggal)))
+                            ->where('id_user','=',Auth()->user()->id)
+                            ->where('status','=','antri')
+                            ->count();
+                    }
+
+
+                    return $rangeBulan;
+
+
+            }
         
+          public function monitorTiket(){
+            $data_monitor_tiket = Antrian::select(
+                'antrians.id AS id',
+                'antrians.id_loket',
+                'lokets.nama_layanan',
+                'lokets.kode',
+                'lokets.lantai',
+                'antrians.no_antrian',
+                'sublayanans.nama_sublayanan as nama_sublayanan',
+                'sublayanans.kode_loket as kode_loket',
+                'lokets.kode_antrian as kode_antrian',
+                'antrians.tgl_antrian AS tgl_antrian',
+                DB::raw('TIMESTAMPDIFF(HOUR,antrians.tgl_antrian,now()) as hitung_mundur')
+              )->leftJoin('lokets', 'lokets.id', '=', 'antrians.id_loket')
+               ->leftJoin('sublayanans', 'sublayanans.id', '=', 'antrians.id_sublayanan')
+            ->where('antrians.id_user',Auth::user()->id)
+            ->where('antrians.status','<>','selesai')
+            ->where('antrians.status','<>','batal')
+            ->orderBy('antrians.id','desc');  
+            
 
-        return view('pelanggan.monitor',['monitor_tiket' => $data_monitor_tiket]);
-    }
+            return view('pelanggan.monitor',['monitor_tiket' => $data_monitor_tiket]);
+       }
 
 
-     public function lihatTiket($id)
-    {
+     public function lihatTiket($id){
         # code...
             $data_monitor_tiket = Antrian::select()->where('id',$id);
 

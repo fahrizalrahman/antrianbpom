@@ -18,7 +18,13 @@
 				</div>
 				@endforeach
 				</center>
+				<b><p style="color:red;font-size:12px" ><i>* Untuk Layanan Konsultasi Silakan Hubungi Kontak berikut </i><br>
+                   - Email &nbsp;&nbsp; : <br>
+                   - No Telp : </p></b>
 			</div>
+
+
+                
 		</div>
 	</div>
 </div>
