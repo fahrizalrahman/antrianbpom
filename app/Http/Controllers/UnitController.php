@@ -65,10 +65,32 @@ class UnitController extends Controller
                 elseif($data->kepuasan==='3'){$param = 'Tidak Puas';}
                 $hasil = $hasil . '{name: "' . $param . '", y: ' . $data->jml . '},';
             }
+             $count_antri = DB::table('view_antrian')
+                    -> whereRaw('status="antri" and tgl_antrian= curdate() and ( unit_sublayanan="' . Auth::user()->unit . '" or unit_layanan="' . Auth::user()->unit . '")')
+                    ->count();
+
+            
+            $count_batal = DB::table('view_antrian')
+                    -> whereRaw('status="batal" and tgl_antrian= curdate() and ( unit_sublayanan="' . Auth::user()->unit . '" or unit_layanan="' . Auth::user()->unit . '")')
+                    ->count();
+
+            $count_terima = DB::table('view_antrian')
+                    -> whereRaw('status="diterima" and tgl_antrian= curdate() and ( unit_sublayanan="' . Auth::user()->unit . '" or unit_layanan="' . Auth::user()->unit . '")')
+                    ->count();
+            
+            $count_selesai = DB::table('view_antrian')
+                    -> whereRaw('status="selesai" and tgl_antrian= curdate() and ( unit_sublayanan="' . Auth::user()->unit . '" or unit_layanan="' . Auth::user()->unit . '")')
+                    ->count();
+
             return view('unit.home')
                 -> with('_tanggal', substr($tanggal, 0,-1))
                 -> with('_hasil', substr($hasil, 0, -1))
-                -> with('_nilai', substr($nilai, 0, -1));
+                -> with('_nilai', substr($nilai, 0, -1))
+                -> with('count_antri',$count_antri)
+                -> with('count_batal',$count_batal)
+                -> with('count_terima',$count_terima)
+                -> with('count_selesai',$count_selesai);
+
             }
         } else {
             return "Anda Tidak Memiliki Akses";
