@@ -16,18 +16,18 @@
     <section class="content">
       <div class="container-fluid">
 
-                        <!-- Small boxes (Stat box) -->
+                                   <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box" style="background-color:#81D4FA;color:white;">
               <div class="inner">
                 <h3>{{$count_antri}}</h3>
 
                 <p>Kunjungan Antri</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class='fa fa-street-view'></i>
               </div>
               <a  class="small-box-footer"> </a>
             </div>
@@ -35,7 +35,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box" style="background-color:#9FA8DA;color:white;;">
               <div class="inner">
                 <h3>{{$count_terima}}</h3>
 
@@ -50,7 +50,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box" style="background-color:#4DB6AC;color:white;">
               <div class="inner">
                 <h3>{{$count_selesai}}</h3>
 
@@ -65,7 +65,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box" style="background-color:#FF5722;color:white;">
               <div class="inner">
                 <h3>{{$count_batal}}</h3>
 
