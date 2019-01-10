@@ -730,8 +730,8 @@ class HomeController extends Controller
                                 <td>'. strtoupper($data->nama_loket).'</td>
                                 <td>'. strtoupper($data->sub_layanan).'</td>
                                 <td>'. strtoupper($data->nama_loket_sub).'</td>
-                                <td align="center">'. $data->lama.'</td>
                                 <td align="center">'. strtoupper($emosi[$data->kepuasan]) .'</td>
+                                <td align="center">'. $data->lama.'</td>
                             </tr>';
                         $_i++;
                             }

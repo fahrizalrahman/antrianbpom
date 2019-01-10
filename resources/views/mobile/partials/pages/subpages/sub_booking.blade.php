@@ -18,9 +18,12 @@
 				</div>
 				@endforeach
 				</center>
-				<b><p style="color:red;font-size:12px" ><i>* Untuk Layanan Konsultasi Silakan Hubungi Kontak berikut </i><br>
+				<b>
+					@if($_loket->lantai == 2)
+					<p style="color:red;font-size:12px" ><i>* Untuk Layanan Konsultasi Silakan Hubungi Kontak berikut </i><br>
                    - Email &nbsp;&nbsp; : <br>
                    - No Telp : </p></b>
+                   @endif
 			</div>
 
 
