@@ -21,7 +21,7 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<table id="example2" width="100%" class="table table-stripedtable-responsive">
+								<table id="example2" width="100%" class="table table-striped table-responsive">
 									<thead>
 										<tr>
 											<th width="60px">Tanggal</th>

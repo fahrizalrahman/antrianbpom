@@ -26,7 +26,7 @@
              {!! Form::model($settingharisub, ['url' => route('unit-settingharisub.update', $settingharisub->id), 'method' => 'put']) !!}
             {{csrf_field()}}                
             <div class="card-body">
-                  
+                    <input type="hidden" name="id" id="id" value="{{$settingharisub->id}}">
                    <div class="form-group{{ $errors->has('hari') ? ' has-error' : '' }}">
                           {!! Form::label('hari', 'Hari', ['class'=>'col-md-2 control-label']) !!}
                           <select class="form-control{{ $errors->has('hari') ? ' is-invalid' : '' }}" id="hari" name="hari">
@@ -74,7 +74,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button" id="proses" class="btn btn-primary">Submit</button>
                 </div>
              {!! Form::close() !!}
             </div>
@@ -95,4 +95,31 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+@endsection
+@section('scripts')
+<script type="text/javascript">
+     
+
+   $(document).on('click', '#proses', function (e) { 
+          var hari = $("#hari").val();
+          var id_sublayanan = $("#id_sublayanan").val();
+          var id = $("#id").val();
+
+          $.get('{{ Url("edit-settingharisub-unit") }}',{'_token': $('meta[name=csrf-token]').attr('content'),hari:hari,id_sublayanan:id_sublayanan,id:id}, function(resp){ 
+            if (resp == 0) {
+              swal({
+                 html: "Hari Yang Anda Pilih Sudah Terpakai !"
+              });
+            }else{
+              window.location.href = '/unit-settingharisub';
+              swal({
+                 html :  "Berhasil Mngubah Setting Hari Sub Layanan",
+                 showConfirmButton :  false,
+                 type: "success",
+                 timer: 2000
+              });
+            }
+          });
+     });
+</script>
 @endsection

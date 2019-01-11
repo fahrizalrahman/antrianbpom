@@ -107,10 +107,10 @@ return [
         'string'  => 'The :attribute must be :size characters.',
         'array'   => 'The :attribute must contain :size items.',
     ],
-    'string'               => 'The :attribute must be a string.',
+    'string'               => 'Kolom :attribute hanya bisa berupa string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
-    'uploaded'             => 'The :attribute failed to upload.',
+    'unique'               => 'Kolom :attribute Sudah Terpakai.',
+    'uploaded'             => 'Upload :attribute Tidak Bisa.',
     'url'                  => 'The :attribute format is invalid.',
 
     /*

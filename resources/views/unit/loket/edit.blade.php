@@ -28,28 +28,28 @@
                   <div class="form-group{{ $errors->has('nama_layanan') ? ' has-error' : '' }}">
                     {!! Form::label('nama_layanan', 'Nama Layanan', ['class'=>'col-md-2 control-label']) !!}
                       {!! Form::text('nama_layanan', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Nama Layanan', 'id' => 'nama_layanan' ,'name'=>'nama_layanan']) !!}
-                      {!! $errors->first('nama_layanan', '<p class="help-block" id="nama_layanan_error">:message</p>') !!}
+                      {!! $errors->first('nama_layanan', '<p class="help-block"  style="color:red;" id="nama_layanan_error">:message</p>') !!}
                   </div>
 
                   <div class="form-group{{ $errors->has('kode') ? ' has-error' : '' }}">
                     {!! Form::label('kode', 'Loket', ['class'=>'col-md-2 control-label']) !!}
                       {!! Form::text('kode', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'No Loket', 'id' => 'kode','name' => 'kode']) !!}
-                      {!! $errors->first('kode', '<p class="help-block" id="kode_error" style="color:red;">:message</p>') !!}
+                      {!! $errors->first('kode', '<p class="help-block"  style="color:red;" id="kode_error" style="color:red;">:message</p>') !!}
                   </div>
 
                   
                   <div class="form-group{{ $errors->has('kode_antrian') ? ' has-error' : '' }}">
                     {!! Form::label('kode_antrian', 'Kode Antrian', ['class'=>'col-md-2 control-label']) !!}
                       {!! Form::text('kode_antrian', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Loket', 'id' => 'kode_antrian','name' => 'kode_antrian']) !!}
-                      {!! $errors->first('kode_antrian', '<p class="help-block" id="kode_error" style="color:red;">:message</p>') !!}
+                      {!! $errors->first('kode_antrian', '<p class="help-block"  style="color:red;" id="kode_error" style="color:red;">:message</p>') !!}
                   </div>
 
 
                   <div class="form-group{{ $errors->has('lantai') ? ' has-error' : '' }}">
-                      {!! Form::label('lantai', 'Lantai', ['class'=>'col-md-2 control-label']) !!}
-                      {!! Form::text('lantai', Auth::user()->lantai, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Lantai', 'id' => 'lantai','name' => 'lantai','disabled']) !!}
+                      
+                      {!! Form::hidden('lantai', Auth::user()->lantai, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Lantai', 'id' => 'lantai','name' => 'lantai','disabled']) !!}
                           @if ($errors->has('lantai'))
-                            <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback"  style="color:red;" role="alert">
                               <strong>{{ $errors->first('lantai') }}</strong>
                             </span>
                            @endif
@@ -59,7 +59,7 @@
                   <div class="form-group{{ $errors->has('petugas') ? ' has-error' : '' }}">
                         {!! Form::label('petugas', 'Petugas', ['class'=>'col-md-2 control-label']) !!}
                         {!! Form::select('petugas',App\User::where('jabatan','petugas_loket')->where('lantai',Auth::user()->lantai)->pluck('name','id')->all(), null,['class'=>'form-control','name'=>'petugas','id'=>'petugas']) !!}
-                            {!! $errors->first('petugas', '<p class="help-block">:message</p>') !!}
+                            {!! $errors->first('petugas', '<p class="help-block" style="color:red;" >:message</p>') !!}
 
                              @if ($errors->has('petugas'))
                                     <span class="invalid-feedback" role="alert">
@@ -84,7 +84,7 @@
                                     <option value="17">17</option>
                               </select>
                               @if ($errors->has('batas_dari_jam'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback"  style="color:red;" role="alert">
                                   <strong>{{ $errors->first('batas_dari_jam') }}</strong>
                                 </span>
                                @endif
@@ -106,7 +106,7 @@
                                     <option value="17">17</option>
                               </select>
                               @if ($errors->has('batas_sampai_jam'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback"  style="color:red;" role="alert">
                                   <strong>{{ $errors->first('batas_sampai_jam') }}</strong>
                                 </span>
                                @endif
@@ -114,14 +114,14 @@
                   <div class="form-group{{ $errors->has('batas_antrian') ? ' has-error' : '' }}">
                     {!! Form::label('batas_antrian', 'Batas Antrian', ['class'=>'col-md-2 control-label']) !!}
                       {!! Form::number('batas_antrian', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'No Loket', 'id' => 'batas_antrian','name' => 'batas_antrian']) !!}
-                      {!! $errors->first('batas_antrian', '<p class="help-block" id="kode_error" style="color:red;">:message</p>') !!}
+                      {!! $errors->first('batas_antrian', '<p class="help-block"  style="color:red;" id="kode_error" style="color:red;">:message</p>') !!}
                   </div>
-
+                  <input type="hidden" name="id" id="id" value="{{$loket->id}}">
                   
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Edit</button>
+                  <button type="button" id="proses" class="btn btn-primary">Edit</button>
                 </div>
              {!! Form::close() !!}
             </div>
@@ -142,4 +142,39 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+@endsection
+@section('scripts')
+<script type="text/javascript">
+     $(document).on('click', '#proses', function (e) { 
+          var nama_layanan = $("#nama_layanan").val();
+          var kode = $("#kode").val();
+          var kode_antrian = $("#kode_antrian").val();
+          var lantai = $("#lantai").val();
+          var petugas = $("#petugas").val();
+          var batas_dari_jam = $("#batas_dari_jam").val();
+          var batas_sampai_jam = $("#batas_sampai_jam").val();
+          var batas_antrian = $("#batas_antrian").val();
+          var id = $("#id").val();
+          
+          $.get('{{ Url("edit-layanan-unit") }}',{'_token': $('meta[name=csrf-token]').attr('content'),nama_layanan:nama_layanan,kode:kode,kode_antrian:kode_antrian,lantai:lantai,petugas:petugas,batas_dari_jam:batas_dari_jam,batas_sampai_jam:batas_sampai_jam,batas_antrian:batas_antrian,id:id}, function(resp){ 
+            if (resp == 0) {
+              swal({
+                 html: "Petugas Yang Anda Pilih Sudah Mempunyai Layanan !!"
+              });
+            }else if(resp == 2){
+               swal({
+                 html: "Kode Antrian Yang Anda Pilih Sudah Terpakai !!"
+              }); 
+            }else{
+              window.location.href = '/unit-loket';
+              swal({
+                 html :  "Berhasil Mengubah Loket",
+                 showConfirmButton :  false,
+                 type: "success",
+                 timer: 2000
+              });
+            }
+          });
+     });
+</script>
 @endsection

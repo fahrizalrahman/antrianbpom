@@ -29,7 +29,8 @@
                    <div class="form-group{{ $errors->has('hari') ? ' has-error' : '' }}">
                           {!! Form::label('hari', 'Hari', ['class'=>'col-md-2 control-label']) !!}
                               <select class="form-control{{ $errors->has('hari') ? ' is-invalid' : '' }}" id="hari" name="hari">
-                                    <option value="{{$settinghari->hari}}">{{$settinghari->hari}}</option>
+
+                                    <option selected value="{{$settinghari->hari}}">{{$settinghari->hari}}</option>
                                     <option value="senin">Senin</option>
                                     <option value="selasa">Selasa</option>
                                     <option value="rabu">Rabu</option>

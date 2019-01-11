@@ -7,9 +7,26 @@
 <body style="font-family: Arial, Helvetica, sans-serif;font-size:15px;">
 <img src="{{ asset('logo/bpom.png') }}" style="height:35px;">
 
-<center><h3>LAPORAN PEMBATALAN PER UNIT</h3></center>
+<center><h3>DAFTAR PEMBATALAN PER UNIT</h3></center>
 <hr>
-<p style="margin-top:-2px;margin-bottom:-2px;"><b>Unit</b> : {{$unit}}</p>
+<p style="margin-top:-2px;margin-bottom:-2px;"><b>Admin Unit</b> : 
+				@if($unit == "Direktorat_Pengawasan_Keamanan")
+                Direktorat Pengawasan Keamanan, Mutu dan Ekspor Impor Obat, Narkotika, Psikotropika, Prekursor dan Zat Adiktif
+                @elseif($unit == "Direktorat_Pengawasan_Produksi_Obat")
+                Direktorat Pengawasan Produksi Obat, Narkotika, Psikotropika dan Prekursor
+                @elseif($unit == "Pusat_Pengembangan")
+                Pusat Pengembangan Pengujian Obat dan Makanan Nasional
+                @elseif($unit == "Biro_Hubungan_Masyarakat")
+                Biro Hubungan Masyarakat dan Dukungan Strategis Pimpinan
+                @elseif($unit == "Pusat_Data_Informasi")
+                Pusat Data dan Informasi Obat & Makanan
+                @elseif($unit == "Direktorat_Registrasi_Obat")
+                Direktorat Registrasi Obat Tradisional, Suplemen Kesehatan dan Kosmetik
+                @elseif($unit == "Direktorat_Obat")
+                Direktorat Registrasi Obat
+                @elseif($unit == "Direktorat_Registrasi_Pangan")
+                Direktorat Registrasi Pangan Olahan
+                @endif</p>
 <p style="margin-top:-2px;margin-bottom:-2px;"><b>Petugas</b> : @if($petugas == "all") 
 Semua 
 @else{{$nama_petugas->name}}

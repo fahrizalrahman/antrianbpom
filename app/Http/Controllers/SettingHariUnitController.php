@@ -84,6 +84,36 @@ class SettingHariUnitController extends Controller
          return redirect()->route('unit-settinghari.index');
     }
 
+    public function prosesSettingHariUnit(Request $request){
+            $cek_hari = SettingHari::where('id_loket',$request->id_loket)->where('hari',$request->hari)->count();
+            if($cek_hari > 0){
+                $return = 0;
+            }else{
+                 $settinghari = SettingHari::create([
+                    'hari'      => $request->hari,
+                    'id_loket'  => $request->id_loket,
+                ]);
+                 $return = 1;
+            }
+
+            return $return;
+
+    }
+
+    public function editSettingHariUnit(Request $request){
+        $cek_hari = SettingHari::where('id_loket',$request->id_loket)->where('id','!=',$request->id)->where('hari',$request->hari)->count();
+            if($cek_hari > 0){
+                $return = 0;
+            }else{
+                $settinghari = SettingHari::find($request->id);
+                $settinghari->update([
+                    'hari'  => $request->hari,
+                    'id_loket'  => $request->id_loket,
+                ]);
+                $return = 1;
+            }
+            return $return;
+    }
     /**
      * Display the specified resource.
      *
@@ -107,6 +137,7 @@ class SettingHariUnitController extends Controller
         if (Auth::check()) {
             $settinghari = SettingHari::select([
                 'lokets.nama_layanan as nama_layanan',
+                'setting_haris.id_loket as id_loket',
                 'setting_haris.hari as hari',
                 'setting_haris.id as id',
                 'lokets.lantai as lantai'
@@ -158,7 +189,19 @@ class SettingHariUnitController extends Controller
     public function destroy($id)
     {
         //
-        SettingHari::where('id', $id)->delete();
+        SettingHari::where('id',$id)->delete();
+
+        Session::flash("flash_notification", [
+            "level"=>"danger",
+            "message"=>"Berhasil Mengapus Setting Hari"
+            ]);
+            return redirect()->route('unit-settinghari.index');
+    }
+
+        public function delete($id)
+    {
+        //
+        SettingHari::where('id',$id)->delete();
 
         Session::flash("flash_notification", [
             "level"=>"danger",

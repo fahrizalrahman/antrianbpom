@@ -60,7 +60,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button" id="proses" class="btn btn-primary">Submit</button>
                 </div>
              {!! Form::close() !!}
             </div>
@@ -95,14 +95,27 @@
           });
     });
       
-        $(document).on('change', '#lantai', function (e) { 
-         var lantai = $(this).val();
 
-          $.get('{{ Url("cek-pilih-lantai") }}',{'_token': $('meta[name=csrf-token]').attr('content'),lantai:lantai}, function(resp){  
+     $(document).on('click', '#proses', function (e) { 
+          var hari = $("#hari").val();
+          var id_loket = $("#id_loket").val();
 
-            $("#select-layanan").html(resp);
-             
+          
+          $.get('{{ Url("proses-settinghari-unit") }}',{'_token': $('meta[name=csrf-token]').attr('content'),hari:hari,id_loket:id_loket}, function(resp){ 
+            if (resp == 0) {
+              swal({
+                 html: "Hari Yang Anda Pilih Sudah Terpakai !"
+              });
+            }else{
+              window.location.href = '/unit-settinghari';
+              swal({
+                 html :  "Berhasil Menambahkan Setting Hari",
+                 showConfirmButton :  false,
+                 type: "success",
+                 timer: 2000
+              });
+            }
           });
-    });
+     });
 </script>
 @endsection

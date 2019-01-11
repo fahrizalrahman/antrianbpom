@@ -26,13 +26,13 @@
               <table id="example2" class="table table-bordered table-striped table-responsive">
                 <thead>
                 <tr>
-                  <th>Petugas</th>
-                  <th>Email </th>
-                  <th>NIK </th>
-                  <th>No Telp</th>
-                  <th>Unit</th>
-                  <th>Lantai</th>
-                  <th >Aksi</th>
+                  <th style="width:200px;">Petugas</th>
+                  <th style="width:300px;">Email </th>
+                  <th style="width:100px;">NIK </th>
+                  <th style="width:100px;">No Telp</th>
+                  <th style="width:400px;">Unit</th>
+                  <th style="width:50px;">Lantai</th>
+                  <th style="width:100px;">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,14 +42,27 @@
                   <td>{{$value->email}}</td>
                   <td>{{$value->nik}}</td>
                   <td>{{$value->no_telp}}</td> 
-                  <td>{{$value->unit}}</td>
+                  @if($value->unit == "Direktorat_Pengawasan_Keamanan")
+                  <td>Direktorat Pengawasan Keamanan, Mutu dan Ekspor Impor Obat, Narkotika, Psikotropika, Prekursor dan Zat Adiktif</td>
+                  @elseif($value->unit == "Direktorat_Pengawasan_Produksi_Obat")
+                  <td>Direktorat Pengawasan Produksi Obat, Narkotika, Psikotropika dan Prekursor</td>
+                  @elseif($value->unit == "Pusat_Pengembangan")
+                  <td>Pusat Pengembangan Pengujian Obat dan Makanan Nasional</td>
+                  @elseif($value->unit == "Biro_Hubungan_Masyarakat")
+                  <td>Biro Hubungan Masyarakat dan Dukungan Strategis Pimpinan</td>
+                  @elseif($value->unit == "Pusat_Data_Informasi")
+                  <td>Pusat Data dan Informasi Obat & Makanan</td>
+                  @elseif($value->unit == "Direktorat_Registrasi_Obat")
+                  <td>Direktorat Registrasi Obat Tradisional, Suplemen Kesehatan dan Kosmetik</td>
+                  @elseif($value->unit == "Direktorat_Obat")
+                  <td>Direktorat Registrasi Obat</td>
+                  @elseif($value->unit == "Direktorat_Registrasi_Pangan")
+                  <td>Direktorat Registrasi Pangan Olahan</td>
+                  @endif
                   <td>{{$value->lantai}}</td>
-                  <td style="width:150px">
-                      <form action="{{route('unit.destroy', $value->id)}}" method="POST">
+                  <td style="width:100px">
                         <a href="{{ route('unit.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> |
-                        @csrf
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></button>
+                        <a href="{{route('unit.delete', $value->id)}}" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>
                       </form>
                   </td>
                   

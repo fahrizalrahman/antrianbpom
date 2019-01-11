@@ -37,6 +37,7 @@ class LoketUnitController extends Controller
                     'lokets.id AS id',
                      'lokets.nama_layanan',
                      'lokets.kode',
+                     'lokets.kode_antrian',
                      'users.name AS petugas',
                      'lokets.lantai', 
                      'lokets.batas_dari_jam',
@@ -81,17 +82,7 @@ class LoketUnitController extends Controller
                 'petugas'   => 'unique:lokets'
                 ]);
 
-        //INSERT MASTER DATA KAS WARUNG, JADI DEFAULT KAS
-                $loket = Loket::create([
-                    'nama_layanan'  => $request->nama_layanan,
-                    'kode'          => $request->kode,
-                    'lantai'        => $request->lantai,
-                    'petugas'       => $request->petugas,
-                    'batas_dari_jam'=> $request->batas_dari_jam,
-                    'batas_sampai_jam'=> $request->batas_sampai_jam,
-                    'batas_antrian'=> $request->batas_antrian,
-                    'kode_antrian'  => $request->kode_antrian
-                ]);
+        
 
           Session::flash("flash_notification", [
             "level"=>"success",
@@ -101,6 +92,58 @@ class LoketUnitController extends Controller
          return redirect()->route('unit-loket.index');
     }
 
+
+    public function prosesLayananUnit(Request $request){
+                $cek_loket = Loket::where('petugas',$request->petugas)->count();
+                $cek_sub = Sublayanan::where('petugas',$request->petugas)->count();
+                $cek_kode_antrian = Loket::where('kode_antrian',$request->kode_antrian,'lantai',$request->lantai)->count();
+                if ($cek_loket > 0 OR $cek_sub > 0) {
+                    $return = 0;
+                }elseif($cek_kode_antrian > 0){
+                    $return = 2;
+                }else{
+                    $loket = Loket::create([
+                        'nama_layanan'  => $request->nama_layanan,
+                        'kode'          => $request->kode,
+                        'lantai'        => $request->lantai,
+                        'petugas'       => $request->petugas,
+                        'batas_dari_jam'=> $request->batas_dari_jam,
+                        'batas_sampai_jam'=> $request->batas_sampai_jam,
+                        'batas_antrian'=> $request->batas_antrian,
+                        'kode_antrian'  => $request->kode_antrian
+                    ]);
+                    $return = 1;  
+                }
+                
+
+                return $return;
+    }
+
+
+    public function editLayananUnit(Request $request){
+                $cek_loket = Loket::where('petugas',$request->petugas)->where('id','!=',$request->id)->count();
+                $cek_sub = Sublayanan::where('petugas',$request->petugas)->count();
+                $cek_kode_antrian = Loket::where('kode_antrian',$request->kode_antrian)->where('lantai',$request->lantai)->where('id','!=',$request->id)->count();
+                if ($cek_loket > 0 OR $cek_sub > 0) {
+                    $return = 0;
+                }elseif($cek_kode_antrian > 0){
+                    $return = 2;
+                }else{
+                    $loket = Loket::find($request->id);
+                    $loket->update([
+                        'nama_layanan'      => $request->nama_layanan,
+                        'kode'              => $request->kode,
+                        'lantai'            => $request->lantai,
+                        'petugas'           => $request->petugas,
+                        'batas_dari_jam'    => $request->batas_dari_jam,
+                        'batas_sampai_jam'  => $request->batas_sampai_jam,
+                        'batas_antrian'     => $request->batas_antrian,
+                        'kode_antrian'      =>$request->kode_antrian
+                    ]);
+                    $return = 1;
+                }
+                return $return;
+    }
     /**
      * Display the specified resource.
      *

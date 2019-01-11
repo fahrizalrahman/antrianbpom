@@ -28,17 +28,7 @@
                         @method('PUT')
                       <div class="card-body">
                           <div class="form-group">
-                              <label>Pilih Unit</label>
-                              <select class="form-control" name="unit" value="{{$petugas->unit}}">
-                                  <option value="Direktorat_Pengawasan_Keamanan">Direktorat Pengawasan Keamanan, Mutu dan Ekspor Impor Obat, Narkotika, Psikotropika, Prekursor dan Zat Adiktif</option>
-                                  <option value="Direktorat_Pengawasan_Produksi_Obat">Direktorat Pengawasan Produksi Obat, Narkotika, Psikotropika dan Prekursor</option>
-                                  <option value="Pusat_Pengembangan">Pusat Pengembangan Pengujian Obat dan Makanan Nasional</option>
-                                  <option value="Biro_Hubungan_Masyarakat">Biro Hubungan Masyarakat dan Dukungan Strategis Pimpinan</option>
-                                  <option value="Pusat_Data_Informasi">Pusat Data dan Informasi Obat & Makanan</option>
-                                  <option value="Direktorat_Registrasi_Obat">Direktorat Registrasi Obat Tradisional, Suplemen Kesehatan dan Kosmetik</option>
-                                  <option value="Direktorat_Obat">Direktorat Obat</option>
-                                  <option value="Direktorat_Registrasi_Pangan">Direktorat Registrasi Pangan Olahan</option>
-                              </select>
+                              <input type="hidden" class="form-control" name="unit" value="{{$petugas->unit}}"> 
                           </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nama</label>
@@ -51,11 +41,11 @@
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">NIK</label>
-                          <input type="text" class="form-control" value="{{$petugas->nik}}" name="nik" placeholder="Masukan NIK">
+                          <input type="number" minlength="16" maxlength="16" class="form-control" value="{{$petugas->nik}}" name="nik" placeholder="Masukan NIK">
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputEmail1">No Telpn</label>
-                        <input type="text" class="form-control" value="{{$petugas->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
+                        <label for="exampleInputEmail1">No Telp</label>
+                        <input type="number" maxlength="13" class="form-control" value="{{$petugas->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Alamat</label>
@@ -63,24 +53,12 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Lantai</label>
-                        <input type="text" class="form-control" value="{{$petugas->lantai}}" name="lantai" placeholder="Lantai" readonly>
+                        <input type="hidden" class="form-control" value="{{$petugas->lantai}}" name="lantai" placeholder="Lantai" readonly>
                       </div>
-                  {{-- <div class="form-group">
-                      <label>Pilih Lantai</label>
-                      <select class="form-control" value="{{$petugas->lantai}}" name="lantai">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                      </select>
-                  </div> --}}
+
 
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Password</label>
-                    <input type="text" class="form-control" value="{{$petugas->password}}" name="password" placeholder="Masukan Password baru">
+                    <input type="hidden" class="form-control" value="{{$petugas->password}}" name="password" placeholder="Masukan Password baru">
                   </div>
                       </div>
                       <!-- /.card-body -->

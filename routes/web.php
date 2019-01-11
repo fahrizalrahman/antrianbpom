@@ -120,19 +120,27 @@ Route::get('unit-filter-daftar-pembatalan', 'UnitController@filterDaftarPembatal
 //Tambah Loket / Setting Hari Unit
 Route::resource('unit-settinghari','SettingHariUnitController');
 Route::get('/unit-settinghari/delete/{id}', 'SettingHariUnitController@delete')->name('unit-settinghari.delete');
+Route::get('proses-settinghari-unit', 'SettingHariUnitController@prosesSettingHariUnit');
+Route::get('edit-settinghari-unit', 'SettingHariUnitController@editSettingHariUnit');
 
 
 
 Route::resource('unit-settingharisub','SettingHariSubUnitController');
 Route::get('/unit-settingharisub/delete/{id}', 'SettingHariSubUnitController@delete')->name('unit-settingharisub.delete');
+Route::get('proses-settingharisub-unit', 'SettingHariSubUnitController@prosesSettingHariSubUnit');
+Route::get('edit-settingharisub-unit', 'SettingHariSubUnitController@editSettingHariSubUnit');
 
 
 
 Route::resource('unit-loket','LoketUnitController');
+Route::get('proses-layanan-unit','LoketUnitController@prosesLayananUnit');
+Route::get('edit-layanan-unit','LoketUnitController@editLayananUnit');
+
 Route::get('/unit-loket/delete/{id}', 'LoketUnitController@delete')->name('unit-loket.delete');
 
 
 Route::resource('unit-sublayanan','SublayananUnitController');
+
 Route::get('/unit-sublayanan/delete/{id}', 'SublayananUnitController@delete')->name('unit-sublayanan.delete');
 
 // Route User
@@ -193,6 +201,7 @@ Route::get('/layanan-antrian/{lantai}/{layanan}/{loket}', 'LoketController@petug
 
 //Route Unit
 Route::resource('unit','UnitController'); 
+Route::get('/unit/delete/{id}', 'UnitController@delete')->name('unit.delete');
 
 Route::get('/monitor','DisplayController@Display')->name('monitor');
 

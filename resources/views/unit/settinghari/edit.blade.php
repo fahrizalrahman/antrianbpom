@@ -26,6 +26,7 @@
              {!! Form::model($settinghari, ['url' => route('unit-settinghari.update', $settinghari->id), 'method' => 'put']) !!}
             {{csrf_field()}}
                 <div class="card-body">
+                  <input type="hidden" name="id" id="id" value="{{$settinghari->id}}">
                    <div class="form-group{{ $errors->has('hari') ? ' has-error' : '' }}">
                           {!! Form::label('hari', 'Hari', ['class'=>'col-md-2 control-label']) !!}
                               <select class="form-control{{ $errors->has('hari') ? ' is-invalid' : '' }}" id="hari" name="hari">
@@ -66,7 +67,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button"  id="proses" class="btn btn-primary">Submit</button>
                 </div>
              {!! Form::close() !!}
             </div>
@@ -101,5 +102,27 @@
              
           });
     });
+
+    $(document).on('click', '#proses', function (e) { 
+          var hari = $("#hari").val();
+          var id_loket = $("#id_loket").val();
+          var id = $("#id").val();
+          
+          $.get('{{ Url("edit-settinghari-unit") }}',{'_token': $('meta[name=csrf-token]').attr('content'),hari:hari,id_loket:id_loket,id:id}, function(resp){ 
+            if (resp == 0) {
+              swal({
+                 html: "Hari Yang Anda Pilih Sudah Terpakai !"
+              });
+            }else{
+              window.location.href = '/unit-settinghari';
+              swal({
+                 html :  "Berhasil Mengubah Setting Hari",
+                 showConfirmButton :  false,
+                 type: "success",
+                 timer: 2000
+              });
+            }
+          });
+     });
 </script>
 @endsection

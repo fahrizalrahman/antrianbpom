@@ -101,7 +101,7 @@ class UnitController extends Controller
 
     public function petugas()
     {
-        $petugas = User::where('jabatan','petugas_loket')->where('unit', Auth::user()->unit)->get();
+        $petugas = User::where('jabatan','petugas_loket')->where('unit', Auth::user()->unit)->orderBy('id','DESC')->get();
         return view('unit.petugas.indexPetugas', compact('petugas'));
     }
 
@@ -213,7 +213,22 @@ class UnitController extends Controller
         $petugas->delete();
 
         Session::flash("flash_notification", [
-            "level"=>"success",
+            "level"=>"danger",
+            "message"=>"Berhasil Menghapus Petugas"
+            ]);
+
+        return redirect()->route('unit.petugas');
+        
+    }
+    
+        public function delete($id)
+    {
+        
+        $petugas = User::findorfail($id);
+        $petugas->delete();
+
+        Session::flash("flash_notification", [
+            "level"=>"danger",
             "message"=>"Berhasil Menghapus Petugas"
             ]);
 
@@ -645,30 +660,22 @@ public function filterDataSurvey(Request $request){
       public function generatePDFBooking(Request $request){
             
             if ($request->petugas == 'all') {
-                    $datas = DB::table('view_antrian as va')
+                     $datas = DB::table('view_antrian as va')
                             -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian')
                             ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
                             ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
-                            ->where(DB::raw('DATE(va.tgl_antrian)'),'>',DB::raw('curdate()'))
-                            ->where('upl.unit', '=', Auth()->user()->unit)
-                            ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                            ->get();
+                            -> whereRaw('DATE(va.tgl_antrian) > curdate() and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();
            }else{
-                    $datas = DB::table('view_antrian as va')
+                     $datas = DB::table('view_antrian as va')
                             -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian')
                             ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
                             ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
-                            ->where(DB::raw('DATE(va.tgl_antrian)'),'>',DB::raw('curdate()'))
-                            ->where('va.petugas_layanan',$request->petugas)
-                            ->orWhere('va.petugas_sub_layanan',$request->petugas)
-                            ->where('upl.unit', '=', Auth()->user()->unit)
-                            ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                            ->get();                    
+                            -> whereRaw('DATE(va.tgl_antrian) > curdate() and (va.petugas_layanan = "'.$request->petugas.'" or va.petugas_sub_layanan = "'.$request->petugas.'") and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();                   
            }
 
-          $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
+            $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
 
-             $pdf = PDF::loadView('pdf_laporan_unit.layout_laporan_booking',['_data' => $datas,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit,'nama_petugas'=>$nama_petugas ]);
+            $pdf = PDF::loadView('pdf_laporan_unit.layout_laporan_booking',['_data' => $datas,'petugas'=> $request->petugas,'unit'=>Auth()->user()->unit,'nama_petugas'=>$nama_petugas ]);
       
             return $pdf->download('layout_laporan_booking_unit.pdf');
     }
@@ -676,27 +683,23 @@ public function filterDataSurvey(Request $request){
          public function generatePDFPembatalan(Request $request){
             
            if ($request->petugas == 'all') {
-                              $datas = DB::table('view_antrian as va')
-                                -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
-                                ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
-                                ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')            
-                                ->where('va.status','batal')
-                                ->where('upl.unit', '=', Auth()->user()->unit)
-                                ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                                ->get();
+
+                            $datas = DB::table('view_antrian as va')
+                            -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
+                            ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
+                            ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
+                            -> whereRaw('va.status = "batal" and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();
+
                             
-           }else{
-                             $datas = DB::table('view_antrian as va')
-                                -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
-                                ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
-                                ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')            
-                                ->where('va.status','batal')
-                                ->where('va.petugas_layanan',$request->petugas)
-                                ->orWhere('va.petugas_sub_layanan',$request->petugas)
-                                ->where('upl.unit', '=', Auth()->user()->unit)
-                                ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                                ->get();                    
-           }
+                    }else{
+                          
+                           $datas = DB::table('view_antrian as va')
+                            -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
+                            ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
+                            ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
+                            -> whereRaw('va.status = "batal" and (va.petugas_layanan = "'.$request->petugas.'" or va.petugas_sub_layanan = "'.$request->petugas.'") and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();
+
+                    }
 
            $nama_petugas = User::select('name')->where('id',$request->petugas)->first();
 
@@ -755,54 +758,86 @@ public function filterDataSurvey(Request $request){
                             -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian')
                             ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
                             ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
-                            -> where(DB::raw('DATE(va.tgl_antrian)'),'>',DB::raw('curdate()'))
-                            ->where('upl.unit', '=', Auth()->user()->unit)
-                            ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                            ->get();
+                            -> whereRaw('DATE(va.tgl_antrian) > curdate() and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();
+
            }else{
+
                     $datas = DB::table('view_antrian as va')
                             -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian')
                             ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
                             ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
-                            ->where(DB::raw('DATE(va.tgl_antrian)'),'>',DB::raw('curdate()'))
-                            ->where('va.petugas_layanan',$request->petugas)
-                            ->orWhere('va.petugas_sub_layanan',$request->petugas)
-                            ->where('upl.unit', '=', Auth()->user()->unit)
-                            ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                       ->get();                    
-           }
+                            -> whereRaw('DATE(va.tgl_antrian) > curdate() and (va.petugas_layanan = "'.$request->petugas.'" or va.petugas_sub_layanan = "'.$request->petugas.'") and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();
+                 
+                      }
 
-           return view('unit.laporan.refresh_table_daftar_booking')
-                   ->with('_data',$datas);
+                     $_i=0; 
+                     $return = "";
+                    foreach($datas as $data){
+                      if($_i % 2===0){
+                        $return .= "<tr>";
+                      }
+                      else{
+                        $return .= "<tr style='background-color: #dddddd'>";
+                      }
+                      $return .= "<td align='center'>".substr($data->tanggal,0,10)."</td>
+                        <td>".strtoupper($data->nama_pelanggan)."</td>
+                        <td>".strtoupper($data->no_telp)."</td>
+                        <td>".$data->no_antrian."</td>
+                        <td>".strtoupper($data->nama_layanan)."</td>
+                        <td>".strtoupper($data->nama_loket)."</td>
+                        <td>".strtoupper($data->sub_layanan)."</td>
+                        <td>".strtoupper($data->nama_loket_sub)."</td>
+                      </tr>";
+                       $_i++;
+                  }
+                  $return .=  "";
+
+           return $return;
    } 
 
           public function filterDaftarPembatalan(Request $request){
 
-           if ($request->petugas == 'all') {
-                             $datas = DB::table('view_antrian as va')
-                                -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
-                                ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
-                                ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')            
-                                ->where('va.status','batal')
-                                ->where('upl.unit', '=', Auth()->user()->unit)
-                                ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                                ->get();
-                            
-           }else{
-                             $datas = DB::table('view_antrian as va')
-                                -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
-                                ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
-                                ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')            
-                                ->where('va.status','batal')
-                                ->where('va.petugas_layanan',$request->petugas)
-                                ->orWhere('va.petugas_sub_layanan',$request->petugas)
-                                ->where('upl.unit', '=', Auth()->user()->unit)
-                                ->orWhere('ups.unit', '=', Auth()->user()->unit)
-                                ->get();                    
-           }
+                    if ($request->petugas == 'all') {
 
-           return view('unit.laporan.refresh_table_daftar_pembatalan')
-                   ->with('_data',$datas);
+                            $datas = DB::table('view_antrian as va')
+                            -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
+                            ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
+                            ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
+                            -> whereRaw('va.status = "batal" and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();
+
+                            
+                    }else{
+                          
+                           $datas = DB::table('view_antrian as va')
+                            -> select('va.tgl_antrian as tanggal', 'va.email as email', 'va.name as nama_pelanggan', 'va.no_telp as no_telp', 'va.nama_layanan as nama_layanan', 'va.nama_sub_layanan as sub_layanan', 'va.nama_loket as nama_loket','va.nama_loket_sub_layanan as nama_loket_sub','va.no_antrian as no_antrian','va.keterangan_batal as keterangan_batal')
+                            ->leftJoin('users as upl', 'upl.id', '=', 'va.petugas_layanan')
+                            ->leftJoin('users as ups', 'ups.id', '=', 'va.petugas_sub_layanan')
+                            -> whereRaw('va.status = "batal" and (va.petugas_layanan = "'.$request->petugas.'" or va.petugas_sub_layanan = "'.$request->petugas.'") and (upl.unit = "'.Auth()->user()->unit.'" or ups.unit = "'.Auth()->user()->unit.'")')->get();
+
+                    }
+
+                      $_i=0; 
+                     $return = "";
+                    foreach($datas as $data){
+                      if($_i % 2===0){
+                        $return .= "<tr>";
+                      }
+                      else{
+                        $return .= "<tr style='background-color: #dddddd'>";
+                      }
+                      $return .= "<td align='center'>".substr($data->tanggal,0,10)."</td>
+                        <td>".$data->nama_pelanggan."</td>
+                        <td>".$data->no_antrian."</td>
+                        <td>".$data->nama_layanan."</td>
+                        <td>".$data->nama_loket."</td>
+                        <td>".$data->sub_layanan."</td>
+                        <td>".$data->nama_loket_sub."</td>
+                        <td>".$data->keterangan_batal."</td>";
+                       $_i++;
+                  }
+                  $return .=  "";
+
+           return $return;
    }  
 
 }

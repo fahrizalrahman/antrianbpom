@@ -39,7 +39,26 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
                 </li>
 
-                <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;"><strong>Sistem Antrian BPOM</strong></a></li>
+                <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;"><strong>Sistem Antrian BPOM | Admin
+                Unit : 
+                @if(Auth::user()->unit == "Direktorat_Pengawasan_Keamanan")
+                Direktorat Pengawasan Keamanan, Mutu dan Ekspor Impor Obat, Narkotika, Psikotropika, Prekursor dan Zat Adiktif
+                @elseif(Auth::user()->unit == "Direktorat_Pengawasan_Produksi_Obat")
+                Direktorat Pengawasan Produksi Obat, Narkotika, Psikotropika dan Prekursor
+                @elseif(Auth::user()->unit == "Pusat_Pengembangan")
+                Pusat Pengembangan Pengujian Obat dan Makanan Nasional
+                @elseif(Auth::user()->unit == "Biro_Hubungan_Masyarakat")
+                Biro Hubungan Masyarakat dan Dukungan Strategis Pimpinan
+                @elseif(Auth::user()->unit == "Pusat_Data_Informasi")
+                Pusat Data dan Informasi Obat & Makanan
+                @elseif(Auth::user()->unit == "Direktorat_Registrasi_Obat")
+                Direktorat Registrasi Obat Tradisional, Suplemen Kesehatan dan Kosmetik
+                @elseif(Auth::user()->unit == "Direktorat_Obat")
+                Direktorat Registrasi Obat
+                @elseif(Auth::user()->unit == "Direktorat_Registrasi_Pangan")
+                Direktorat Registrasi Pangan Olahan
+                @endif
+              </strong></a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -87,7 +106,7 @@
                             <a href="#" class="nav-link">
                               <i class="nav-icon fa fa-user-md"></i>
                               <p>
-                                Tambah Loket
+                               Loket
                                 <i class="right fa fa-angle-left"></i>
                               </p>
                             </a>
