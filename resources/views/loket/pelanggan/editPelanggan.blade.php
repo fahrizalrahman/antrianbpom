@@ -31,24 +31,7 @@
                           <label for="exampleInputEmail1">Nama</label>
                           <input type="text" class="form-control" value="{{$editpelanggan->name}}" name="name" placeholder="Masukan Nama">
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">E-Mail</label>
-                            <input type="email" class="form-control" value="{{$editpelanggan->email}}" name="email" placeholder="Masukan Email">
-                        </div>
 
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">NIK</label>
-                          <input type="text" class="form-control" value="{{$editpelanggan->nik}}" name="nik" maxlength="16" minlength="16" placeholder="Masukan NIK">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">No Telpn</label>
-                        <input type="text" class="form-control" value="{{$editpelanggan->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Alamat</label>
-                      <input type="text" class="form-control" value="{{$editpelanggan->alamat}}" name="alamat" placeholder="Masukan Alamat">
-                  </div>
-          
                         <div class="form-group">
                             <label>Pilih Lantai</label>
                             <select class="form-control" value="{{$editpelanggan->lantai}}" name="lantai">
@@ -60,7 +43,26 @@
                                 <option value="6">6</option>
                             </select>
                         </div>
+        
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">E-Mail</label>
+                            <input type="email" class="form-control" value="{{$editpelanggan->email}}" name="email" placeholder="Masukan Email">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">NIK</label>
+                          <input type="number" class="form-control" value="{{$editpelanggan->nik}}" name="nik" maxlength="16" minlength="16" placeholder="Masukan NIK">
                       </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">No Telp</label>
+                        <input type="number" class="form-control" value="{{$editpelanggan->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Alamat</label>
+                      <input type="text" class="form-control" value="{{$editpelanggan->alamat}}" name="alamat" placeholder="Masukan Alamat">
+                  </div>
+                      </div>
+                        
                       <!-- /.card-body -->
       
                       <div class="card-footer">

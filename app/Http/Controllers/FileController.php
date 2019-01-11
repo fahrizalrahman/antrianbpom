@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\File;
+use Image;
+use Session;
 use DB;
 use Storage;
 class FileController extends Controller
@@ -118,23 +120,67 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title'     => 'nullable|min:5',
-            'lantai'    => 'required',
-            'type'      => 'required',
-            'status'    => 'required',
-            'file'      => 'required|file|max:2000'
-        ]);
+        // $this->validate($request,[
+        //     'title'     => 'nullable|min:5',
+        //     'lantai'    => 'required',
+        //     'type'      => 'required',
+        //     'status'    => 'required',
+        //     'file'      => 'required|file|max:2000'
+        // ]);
         
-        $uploadFile = $request->file('file');
-        $path       = $uploadFile->store('public/files');
-        $file       = File::create([
-            'title' => $request->title ?? $uploadFile->getClientOriginalName(),
-            'lantai'    => $request->lantai,
-            'type'      => $request->type,
-            'status'    => $request->status,
-            'filename'  => $path
-        ]);
+        // $uploadFile = $request->file('file');
+        // $path       = $uploadFile->store('public/files');
+        // $file       = File::create([
+        //     'title' => $request->title ?? $uploadFile->getClientOriginalName(),
+        //     'lantai'    => $request->lantai,
+        //     'type'      => $request->type,
+        //     'status'    => $request->status,
+        //     'filename'  => $path
+        // ]);
+
+        $this->validate($request, [
+            'gambar' => 'image|required|mimes:jpeg,png,jpg,gif,svg'
+         ]);
+
+        $create_banner  = File::create([
+            'title'    => $request->title
+            // 'lantai'    => $request->lantai,
+            //  'type'      => $request->type,
+            //  'status'    => $request->status
+        ]);   
+
+            if ($request->hasFile('gambar')) {
+                // Mengambil file yang diupload
+                $gambar          = $request->file('gambar');
+                $uploaded_gambar_banner = $gambar;
+                // mengambil extension file
+                $extension = $uploaded_gambar_banner->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($gambar->getRealPath());
+                $image_resize->fit(450,150);
+                $image_resize->save(public_path('img/' . $filename));
+                // hapus gambar_banner_home lama, jika ada
+                if ($create_banner->gambar) {
+                    $old_gambar_banner = $create_banner->gambar;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'gambar_banner_produk'
+                    . DIRECTORY_SEPARATOR . $create_banner->gambar;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $create_banner->gambar = $filename;
+                $create_banner->save();
+            }
+
+            
+            Session::flash("flash_notification", [
+                "level"=>"success",
+                "message"=>"Berhasil Menambah Banner"
+            ]); 
+
         return redirect()->route('inputImg.index');
     }
 

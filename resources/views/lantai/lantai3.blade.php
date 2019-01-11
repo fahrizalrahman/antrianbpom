@@ -49,7 +49,7 @@
                 @endforeach
         </table>
       </div>
-        @if(@$bgLantai3->first()->type == 'Video')
+        {{-- @if(@$bgLantai3->first()->type == 'Video')
             <div class="col-sm-7"  style="width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                 
                 <video style=" margin-left:115px; min-width:480px; min-height:548px; position:center;" controls autoplay loop>
                     <source src="{{Storage::url($bgLantai3->first()->filename)}}" type="video/mp4">
@@ -64,14 +64,13 @@
                 
             </div>
         @else
-            <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai3->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai3->first()->gambar))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
             </div>
         @endif
+            </div> --}}
+            <div class="col-sm-7" style="background-image:url({{asset('img/'.@$bgLantai3->first()->gambar)}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
             </div>
-    {{-- <div class="row">
-        <div class="col-md-12" style="height:3px; width:100%; background-color:#34a1bc;">
-        </div>
-    </div> --}}
+
     <div class="col-md-12" style="width:103%;">
         <table border="0px" style="width:103.8%; height:40px; margin-left:-29px;">
             <tr>

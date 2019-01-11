@@ -53,7 +53,7 @@ class AdminUnitController extends Controller
         $AddAdminUnit->nik = $request->nik;
         $AddAdminUnit->no_telp = $request->no_telp;
         $AddAdminUnit->alamat = $request->alamat;
-        $AddAdminUnit->jabatan = $request->jabatan;
+        $AddAdminUnit->jabatan = 'admin_unit';
         $AddAdminUnit->lantai = $request->lantai;
         $AddAdminUnit->unit = $request->unit;
         $AddAdminUnit->password = bcrypt('123456');
@@ -109,7 +109,7 @@ class AdminUnitController extends Controller
         $AddAdminUnit->alamat = $request->alamat;
         $AddAdminUnit->lantai = $request->lantai;
         $AddAdminUnit->unit = $request->unit;
-        $AddAdminUnit->password = $request->password;
+        // $AddAdminUnit->password = $request->password;
         $AddAdminUnit->save();
 
         Session::flash("flash_notification", [
@@ -136,6 +136,23 @@ class AdminUnitController extends Controller
             "level"=>"success",
             "message"=>"Berhasil Menghapus Admin Unit"
             ]);
+
+        return redirect()->route('AdminUnit.index');
+    }
+
+    public function reset($id)
+    {
+        
+        $petugas = User::find($id);
+        $petugas->password = bcrypt('123456');
+        $petugas->save();
+
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Reset Password"
+            ]);
+
 
         return redirect()->route('AdminUnit.index');
     }

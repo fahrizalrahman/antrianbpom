@@ -54,7 +54,7 @@
 
       <div>
             @if(@$imgSid5->count() > 0)
-              <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:400px; margin-left:-15px; width:132%;">
+              <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:400px; margin-left:-15px; width:115%;">
             @else
              <img style="background-color:white; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:132%;">
              @endif
@@ -77,7 +77,8 @@
                            
             </div>
         @else
-        <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai5->first()->filename))}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">
+        <div class="col-sm-7" style="background-image:url({{asset('img/'.@$bgLantai5->first()->gambar)}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+        {{-- </div> --}}
         @endif
 
         @if(@$imgFotL5->count() > 0)

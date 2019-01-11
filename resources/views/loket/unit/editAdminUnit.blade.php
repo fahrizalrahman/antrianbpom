@@ -48,6 +48,10 @@
                               <label for="exampleInputEmail1">Unit</label>
                               <input type="text" class="form-control" value="{{$AddAdminUnit->unit}}" name="unit" readonly>
                           </div>
+                          <div class="form-group">
+                              <label for="exampleInputEmail1">Lantai</label>
+                              <input type="text" class="form-control" value="{{$AddAdminUnit->lantai}}" name="lantai" placeholder="Lantai" readonly>
+                          </div>
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nama</label>
@@ -60,37 +64,19 @@
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">NIK</label>
-                          <input type="text" class="form-control" value="{{$AddAdminUnit->nik}}" name="nik" placeholder="Masukan NIK">
+                          <input type="number" class="form-control" value="{{$AddAdminUnit->nik}}" name="nik" placeholder="Masukan NIK">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">No Telpn</label>
-                        <input type="text" class="form-control" value="{{$AddAdminUnit->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
+                        <input type="number" class="form-control" value="{{$AddAdminUnit->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Alamat</label>
                       <input type="text" class="form-control" value="{{$AddAdminUnit->alamat}}" name="alamat" placeholder="Masukan Alamat">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Lantai</label>
-                        <input type="text" class="form-control" value="{{$AddAdminUnit->lantai}}" name="lantai" placeholder="Lantai" readonly>
-                      </div>
-                  {{-- <div class="form-group">
-                      <label>Pilih Lantai</label>
-                      <select class="form-control" value="{{$AddAdminUnit->lantai}}" name="lantai">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                      </select>
-                  </div> --}}
+                    
 
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Password</label>
-                    <input type="text" class="form-control" value="{{$AddAdminUnit->password}}" name="password" placeholder="Masukan Password baru">
-                  </div>
                       </div>
                       <!-- /.card-body -->
       

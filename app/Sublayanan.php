@@ -18,4 +18,9 @@ class Sublayanan extends Model
     {
         return $this->hasOne('App\Loket', 'id', 'id_loket');
     }
+    // relasi ke user
+    public function user()
+    {
+        return $this->hasOne('App\User', 'id', 'petugas');
+    }
 }

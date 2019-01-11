@@ -8,6 +8,6 @@ class File extends Model
 {
     protected $fillable = 
     [
-    'title','lantai','filename','status','type'
+    'title','lantai','gambar','status','type'
     ];
 }

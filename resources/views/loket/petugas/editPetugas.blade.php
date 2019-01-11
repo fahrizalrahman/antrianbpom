@@ -43,6 +43,10 @@
                                   <option value="Distribusi_ONPP">Distribusi ONPP</option>
                               </select>
                           </div>
+                          <div class="form-group">
+                              <label for="exampleInputEmail1">Lantai</label>
+                              <input type="text" class="form-control" value="{{$editPetugas->lantai}}" name="lantai" placeholder="Lantai" readonly>
+                            </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Nama</label>
                           <input type="text" class="form-control" value="{{$editPetugas->name}}" name="name" placeholder="Masukan Nama">
@@ -54,21 +58,18 @@
 
                         <div class="form-group">
                           <label for="exampleInputEmail1">NIK</label>
-                          <input type="text" class="form-control" value="{{$editPetugas->nik}}" name="nik" placeholder="Masukan NIK">
+                          <input type="number" class="form-control" value="{{$editPetugas->nik}}" name="nik" placeholder="Masukan NIK">
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputEmail1">No Telpn</label>
-                        <input type="text" class="form-control" value="{{$editPetugas->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
+                        <label for="exampleInputEmail1">No Telp</label>
+                        <input type="number" class="form-control" value="{{$editPetugas->no_telp}}" name="no_telp" placeholder="Masukan no_telp">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">Alamat</label>
                       <input type="text" class="form-control" value="{{$editPetugas->alamat}}" name="alamat" placeholder="Masukan Alamat">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Lantai</label>
-                        <input type="text" class="form-control" value="{{$editPetugas->lantai}}" name="lantai" placeholder="Lantai" readonly>
-                      </div>
+                    
                   {{-- <div class="form-group">
                       <label>Pilih Lantai</label>
                       <select class="form-control" value="{{$editPetugas->lantai}}" name="lantai">

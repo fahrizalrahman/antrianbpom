@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Sublayanan;
 use App\Loket;
+use App\User;
 use Auth;
 use Session;
 
@@ -56,6 +57,44 @@ class SublayananController extends Controller
         }else{
              return  view('auth.login');
         }
+    }
+
+    public function cekPilihPetugas(Request $request){
+
+        $data_loket = User::select('name','id')->where('lantai',$request->lantai)->where('jabatan','petugas_loket')->get();
+
+         $select = '';
+         $select .= '<div class="form-group">
+                     <label for="petugas" class="col-md-2 control-label">Nama Layanan</label>
+                     <select id="petugas" class="form-control" name="petugas">
+                     ';
+                    foreach ($data_loket as $data_lokets) {
+
+        $select .= '<option value="'.$data_lokets->id.'">'.$data_lokets->name.'         </option>';
+                        }'
+                        </select> 
+                    </div>';
+
+        return $select;
+    }
+
+    public function cekPilihPetugasEdit(Request $request){
+
+        $data_loket = User::select('name','id')->where('lantai',$request->lantai)->where('jabatan','petugas_loket')->get();
+
+         $select = '';
+         $select .= '<div class="form-group">
+                     <label for="petugas" class="col-md-2 control-label">Nama Layanan</label>
+                     <select id="petugas" class="form-control" name="petugas">
+                     ';
+                    foreach ($data_loket as $data_lokets) {
+
+        $select .= '<option value="'.$data_lokets->id.'">'.$data_lokets->name.'         </option>';
+                        }'
+                        </select> 
+                    </div>';
+
+        return $select;
     }
 
     /**
