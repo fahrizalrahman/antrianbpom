@@ -43,7 +43,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
 
-      <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;"><strong>Sistem Antrian BPOM</strong></a></li>
+      <li><a class="nav-link" href="#" style="color: white; font-size: 13pt;"><strong>Sistem Antrian BPOM | Admin</strong></a></li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -127,7 +127,7 @@
               <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-user-md"></i>
                 <p>
-                  Tambah Loket
+                   Loket
                   <i class="right fa fa-angle-left"></i>
                 </p>
               </a>
@@ -155,7 +155,7 @@
               <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-user"></i>
                 <p>
-                  Tambah User
+                   User
                   <i class="right fa fa-angle-left"></i>
                 </p>
               </a>
@@ -183,20 +183,20 @@
             <li class="nav-item">
                 <a href="{{ route('banner-mobile.index') }}" class="nav-link">
                       <i class="fa fa-camera-retro nav-icon"></i>
-                      <p>Tambah Banner</p>
+                      <p> Banner</p>
                 </a>
             </li>
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fa fa-image"></i>
                   <p>
-                    Tambah Gambar
+                     Gambar
                     <i class="right fa fa-angle-left"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('inputImg.index')}}" class="nav-link">
+                    <a href="{{route('gambar-utama.index')}}" class="nav-link">
                       <i class="fa fa-circle-o nav-icon"></i>
                       <p> Gambar Utama</p>
                     </a>
@@ -232,7 +232,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-pencil"></i>
               <p>
-                Tambah Text
+                 Text
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>

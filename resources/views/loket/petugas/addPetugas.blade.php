@@ -39,6 +39,17 @@
                                     <option value="Direktorat_Registrasi_Pangan">Direktorat Registrasi Pangan Olahan</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label>Pilih Lantai</label>
+                                <select class="form-control" name="lantai">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
                           <div class="form-group">
                             <label for="name">Nama</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Masukan Nama" required>
@@ -51,12 +62,12 @@
   
                           <div class="form-group">
                               <label for="exampleInputEmail1">NIK</label>
-                              <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
+                              <input type="number" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
                           </div>
   
                           <div class="form-group">
                               <label for="exampleInputEmail1">No Telp</label>
-                              <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
+                              <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
                           </div>
   
                           <div class="form-group">
@@ -74,17 +85,7 @@
                               </select>
                           </div>
                         
-                        <div class="form-group">
-                            <label>Pilih Lantai</label>
-                            <select class="form-control" name="lantai">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </div>
+                        
 
 
                       <div class="card-footer">

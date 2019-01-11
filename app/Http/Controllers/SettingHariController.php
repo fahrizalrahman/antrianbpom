@@ -180,7 +180,7 @@ class SettingHariController extends Controller
                          ';
                         foreach ($data_loket as $data_lokets) {
 
-            $select .= '<option value="'.$data_lokets->id.'">'.$data_lokets->nama_layanan.'         </option>';
+            $select .= '<option value="'.$data_lokets->id.'">'.$data_lokets->nama_layanan.' </option>';
                             }'
                             </select> 
                         </div>';

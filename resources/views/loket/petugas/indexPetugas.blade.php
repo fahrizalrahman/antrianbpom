@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="judul">Petugas</h1>
+            <h1 class="judul">Admin / Petugas</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -32,8 +32,8 @@
                   <th >Jabatan</th>
                   <th >Lantai</th>
                   <th >Unit</th>
-                  <th >Reset</th>
                   <th style="width:100px">Aksi</th> 
+                  <th >Reset</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,13 +45,13 @@
                   <td>{{$value->jabatan}}</td>
                   <td>{{$value->lantai}}</td>
                   <td>{{$value->unit}}</td>
-                  <td><a href="{{ route('reset', $value->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fa fa-refresh"></i></a> 
-                  </td>
+                  
                   <td>
                       
                         <a href="{{ route('petugas.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> |  <a href="{{ route('loket.delete',$value->id) }}" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>
                   </td>
-                  
+                  <td><a href="{{ route('reset', $value->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fa fa-refresh"></i></a> 
+                  </td>
                   
                 </tr>
                 @endforeach

@@ -88,6 +88,7 @@ Route::get('unit/bg','FileController@ImageBgUnit')->name('bgunit.index');
 
     // Petugas
 Route::get('unit/petugas','UnitController@petugas')->name('unit.petugas');
+Route::get('unit-reset/{id}','UnitController@reset')->name('unit.reset');
 
 // Route Admin Unit
 Route::resource('AdminUnit','AdminUnitController');
@@ -194,7 +195,12 @@ Route::get('/settinghari/delete/{id}', 'SettingHariController@delete')->name('se
 
 
 Route::get('cek-pilih-lantai', 'SettingHariController@cekPilihLantai');
+Route::get('cek-pilih-petugas','LoketController@cekPilihPetugas');
+Route::get('cek-pilih-petugas-sub','SublayananController@cekPilihPetugasSub');
+Route::get('cek-pilih-petugas-edit','LoketController@cekPilihPetugasEdit');
+Route::get('cek-pilih-petugas-sub-edit','SublayananController@cekPilihSubPetugasEdit');
 
+Route::Resource('gambar-utama','GambarUtamaController');
 
 /*Route pelayanan loket*/
 Route::get('/layanan-antrian/{lantai}/{layanan}/{loket}', 'LoketController@petugas');

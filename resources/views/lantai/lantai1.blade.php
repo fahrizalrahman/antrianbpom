@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
             </div>
-            @if(@$bgLantai1->first()->type == 'Video')
+            {{-- @if(@$bgLantai1->first()->type == 'Video')
                 <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">             <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:542px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai1->first()->filename)}}" type="video/mp4">
                     </video>
@@ -51,7 +51,10 @@
             @else
                 <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai1->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
                 </div>
-            @endif
+            @endif --}}
+
+            <div class="col-sm-7" style="background-image:url({{asset('img/'.@$bgLantai1->first()->gambar)}}); margin-left:-10px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            </div>
                 
             <div class="col-sm-4" style="width:120.%; height:auto;">
                 <table border="1px;" style="width:132.3%; margin-left:-5px; border-color:gray;">

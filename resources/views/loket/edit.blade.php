@@ -56,7 +56,7 @@
                     </div>
 
 
-                  <div class="form-group{{ $errors->has('petugas') ? ' has-error' : '' }}">
+                  {{-- <div class="form-group{{ $errors->has('petugas') ? ' has-error' : '' }}">
                         {!! Form::label('petugas', 'Petugas', ['class'=>'col-md-2 control-label']) !!}
                         {!! Form::select('petugas',App\User::where('jabatan','petugas_loket')->pluck('name','id')->all(), null,['class'=>'form-control','name'=>'petugas','id'=>'petugas']) !!}
                             {!! $errors->first('petugas', '<p class="help-block">:message</p>') !!}
@@ -66,7 +66,11 @@
                                         <strong>{{ $errors->first('petugas') }}</strong>
                                     </span>
                             @endif
-                        </div>
+                        </div> --}}
+
+                        <span id="select-petugas">
+
+                        </span>
 
                          <div class="form-group{{ $errors->has('batas_dari_jam') ? ' has-error' : '' }}">
                           {!! Form::label('batas_dari_jam', 'Batas Dari Jam', ['class'=>'col-md-2 control-label']) !!}
@@ -142,4 +146,28 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+      $(document).ready(function() {
+         var lantai = $("#lantai").val();
+
+          $.get('{{ Url("cek-pilih-petugas-edit") }}',{'_token': $('meta[name=csrf-token]').attr('content'),lantai:lantai}, function(resp){  
+
+            $("#select-petugas").html(resp);
+             
+          });
+    });
+
+        $(document).on('change', '#lantai', function (e) { 
+         var lantai = $(this).val();
+
+          $.get('{{ Url("cek-pilih-petugas-edit") }}',{'_token': $('meta[name=csrf-token]').attr('content'),lantai:lantai}, function(resp){  
+
+            $("#select-petugas").html(resp);
+             
+          });
+    });
+    </script>
 @endsection

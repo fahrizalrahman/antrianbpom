@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Input Gambar Utama</h1>
+            <h1>Edit Gambar Utama</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -23,34 +23,26 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{{route('gambar-utama.store')}} " role="form" method="POST" enctype="multipart/form-data">
+              <form role="form" action="{{route('gambar-utama.update', $edit_gambar->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Judul File</label>
-                      <input type="text" class="form-control" id="judul_gambar" name="judul_gambar" placeholder="Masukan Judul">
+                      <label for="exampleInputEmail1">Judul Gambar</label>
+                      <input type="text" class="form-control" id="judul_gambar" name="judul_gambar" value="{{$edit_gambar->judul_gambar}} " placeholder="Masukan Judul">
                     </div>
+
                     <div class="form-group">
-                        <label>Pilih Lantai</label>
-                        <select class="form-control" name="lantai">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
+                      <label for="exampleInputEmail1">Lantai</label>
+                      <input type="text" class="form-control" id="lantai" name="lantai" value="{{$edit_gambar->lantai}} " readonly>
                     </div>
+
                     <div class="form-group">
-                      <label for="exampleInputFile">File input</label>
-                      <div class="input-group">
-                        <div class="custom-file">
-                          <input type="file" name="gambar" id="gambar">
-                        </div>
-                      </div>
+                      <label for="name">Gambar Utama</label>
+                      <input type="file" name="gambar" value="{{$edit_gambar->gambar}}" class="form-control">
                     </div>
-                    
-                  </div>
+                  </div> 
+                </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>

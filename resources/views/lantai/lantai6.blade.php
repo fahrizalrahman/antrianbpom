@@ -49,8 +49,8 @@
                     
                 </div>
             @else
-                <div class="col-sm-7" style="background-image:url({{url(Storage::url(@$bgLantai6->first()->filename))}}); margin-right:-13px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
-                </div>
+            <div class="col-sm-7" style="background-image:url({{asset('img/'.@$bgLantai6->first()->gambar)}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            </div>
             @endif
                 
             <div class="col-sm-4" style="width:120.%; height:auto;">

@@ -31,6 +31,7 @@
                   <th>Lantai</th>
                   <th>Email </th>
                   <th>NIK </th>
+                  <th>Reset</th>
 
                    <th style="width:auto">Aksi</th> 
                    {{-- <th>Reset</th> --}}
@@ -52,9 +53,9 @@
                         <button type="submit" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></button>
                       </form>
                   </td>
-                  {{-- <td align="center">
-                   <a href="{{ route('reset', $value->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fa fa-refresh"></i></a> 
-                  </td> --}}
+                  <td align="center">
+                   <a href="{{ route('unit.reset', $value->id) }}" class="btn btn-info btn-sm"><i class="nav-icon fa fa-refresh"></i></a> 
+                  </td>
                   
                 </tr>
                 @endforeach

@@ -30,7 +30,7 @@
 
                         <div class="form-group">
                             <label for="nik">NIK</label>
-                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" maxlength="16" minlength="16" required>
+                            <input type="number" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" maxlength="16" minlength="16" required>
                         @if ($errors->has('nik'))
                                 <span class="invalid-feedback" role="alert">
                                   <strong>{{ $errors->first('nik') }}</strong>
@@ -40,7 +40,7 @@
 
                         <div class="form-group">
                             <label for="no_telp">No Telp</label>
-                            <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
+                            <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
                          @if ($errors->has('no_telp'))
                                 <span class="invalid-feedback" role="alert">
                                   <strong>{{ $errors->first('no_telp') }}</strong>

@@ -24,13 +24,11 @@
           @include('layouts._flash')
            <div class="card">
             <div class="card-header">
-                <a href="{{ route('inputImg.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a>
-                <a href="#" id="admin_filter" class="btn btn-danger">Lantai 1</a>
-                <a href="{{route('loket.inputImg.indexImgLt2')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 2</a>
-                <a href="{{route('loket.inputImg.indexImgLt3')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 3</a>
-                <a href="{{route('loket.inputImg.indexImgLt4')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 4</a>
-                <a href="{{route('loket.inputImg.indexImgLt5')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 5</a>
-                <a href="{{route('loket.inputImg.indexImgLt6')}}" id="admin_filter" class="btn btn-outline-primary">Lantai 6</a>
+                {{-- <a href="{{ route('inputImg.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar</a> 
+                --}}
+                {{-- @if($gambar_utama->count() == 1) --}}
+                <a href="{{ route('gambar-utama.create') }}" class="btn btn-primary" type="button" ><i class="nav-icon fa fa-plus"></i> Tambah Gambar </a>
+                {{-- @endif --}}
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -41,24 +39,18 @@
                   <th>id</th>
                   <th>Title </th>
                   <th>Lantai </th>
-                  <th>Type File</th>
-                  <th>Status</th>
+                  <th>Gambar</th>
                   <th>action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($Lt1 as $value)
+                @foreach($gambar_utama as $value)
                  <tr>
                   <td>{{$value->id}}</td>
-                  <td>{{$value->title}}</td>
+                  <td>{{$value->judul_gambar}}</td>
                   <td>{{$value->lantai}}</td>
-                  <td>{{$value->type}}</td>
-                  <td><button data-id="{{$value->id}}" class="btn btn-success btn-sm ">{{$value->status}}</button></td>
-                  <td align="center">
-                      <button data-id="{{$value->id}}" class="btn btn-primary btn-sm bt_on">On</button>
-                      <button data-id="{{$value->id}}" class="btn btn-danger btn-sm bt_off">Off</button>
-                      <button data-id="{{$value->id}}" class="btn btn-warning btn-sm bt_del">Del</button>
-                  </td>
+                  <td><img src="{{asset('img/'.$value->gambar.'')}}"></td>
+                  <td><a href="{{ route('gambar-utama.edit', $value->id) }}" class="btn btn-primary">Edit</a></td>
                 </tr>
                 @endforeach
                 </tbody>

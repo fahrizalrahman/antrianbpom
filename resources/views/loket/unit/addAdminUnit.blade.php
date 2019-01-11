@@ -51,25 +51,17 @@
   
                           <div class="form-group">
                               <label for="exampleInputEmail1">NIK</label>
-                              <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
+                              <input type="number" class="form-control" id="nik" name="nik" minlength="16" maxlength="16" placeholder="Masukan NIK" required>
                           </div>
   
                           <div class="form-group">
                               <label for="exampleInputEmail1">No Telp</label>
-                              <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
+                              <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
                           </div>
   
                           <div class="form-group">
                               <label for="exampleInputEmail1">Alamat</label>
                               <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
-                          </div>
-  
-        
-                          <div class="form-group">
-                              <label>Admin Unit</label>
-                              <select class="form-control" name="jabatan" readonly>
-                                  <option value="admin_unit">Admin Unit</option>                                                      
-                              </select>
                           </div>
                         
                         <div class="form-group">

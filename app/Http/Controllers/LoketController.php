@@ -220,8 +220,21 @@ class LoketController extends Controller
         //  
         if (Auth::check()) {
             if(Auth::user()->jabatan==='admin'){
-
-                return view('loket.index');
+                $loket = Loket::select(
+                    'lokets.id AS id',
+                     'lokets.nama_layanan',
+                     'lokets.kode',
+                     'users.name AS petugas',
+                     'lokets.lantai', 
+                     'lokets.batas_dari_jam',
+                     'lokets.batas_sampai_jam',
+                     'lokets.batas_antrian'
+                 )
+                ->leftJoin('users', 'users.id', '=', 'lokets.petugas')
+                // ->where('lokets.lantai',$request->data_lantai)
+                ->orderBy('lokets.lantai','asc')
+                ->get();  
+                return view('loket.index', compact('loket'));
             }elseif(Auth::user()->jabatan==='petugas_loket'){
 
                 $loket = Loket::select('id', 'nama_layanan', 'kode', 'lantai', 'kode_antrian')
@@ -386,6 +399,44 @@ class LoketController extends Controller
          return redirect()->route('loket.index');
     }
 
+
+    public function cekPilihPetugas(Request $request){
+
+        $data_loket = User::select('name','id')->where('lantai',$request->lantai)->where('jabatan','petugas_loket')->get();
+
+         $select = '';
+         $select .= '<div class="form-group">
+                     <label for="petugas" class="col-md-2 control-label">Nama Petugas</label>
+                     <select id="petugas" class="form-control" name="petugas">
+                     ';
+                    foreach ($data_loket as $data_lokets) {
+
+        $select .= '<option value="'.$data_lokets->id.'">'.$data_lokets->name.'         </option>';
+                        }'
+                        </select> 
+                    </div>';
+
+        return $select;
+    }
+
+    public function cekPilihPetugasEdit(Request $request){
+
+        $data_loket = User::select('name','id')->where('lantai',$request->lantai)->where('jabatan','petugas_loket')->get();
+
+         $select = '';
+         $select .= '<div class="form-group">
+                     <label for="petugas" class="col-md-2 control-label">Nama Petugas</label>
+                     <select id="petugas" class="form-control" name="petugas">
+                     ';
+                    foreach ($data_loket as $data_lokets) {
+
+        $select .= '<option value="'.$data_lokets->id.'">'.$data_lokets->name.'         </option>';
+                        }'
+                        </select> 
+                    </div>';
+
+        return $select;
+    }
     /**
      * Display the specified resource.
      *
@@ -648,42 +699,29 @@ class LoketController extends Controller
     }
 
 
-    public function tableLantaiLayanan(Request $request){
-                $loket = Loket::select(
-                    'lokets.id AS id',
-                     'lokets.nama_layanan',
-                     'lokets.kode',
-                     'users.name AS petugas',
-                     'lokets.lantai', 
-                     'lokets.batas_dari_jam',
-                     'lokets.batas_sampai_jam',
-                     'lokets.batas_antrian'
-                 )
-                ->leftJoin('users', 'users.id', '=', 'lokets.petugas')
-                ->where('lokets.lantai',$request->data_lantai)
-                ->orderBy('id','asc')
-                ->get();  
+    // public function tableLantaiLayanan(Request $request){
+    //             $loket = Loket::select(
+    //                 'lokets.id AS id',
+    //                  'lokets.nama_layanan',
+    //                  'lokets.kode',
+    //                  'users.name AS petugas',
+    //                  'lokets.lantai', 
+    //                  'lokets.batas_dari_jam',
+    //                  'lokets.batas_sampai_jam',
+    //                  'lokets.batas_antrian'
+    //              )
+    //             ->leftJoin('users', 'users.id', '=', 'lokets.petugas')
+    //             // ->where('lokets.lantai',$request->data_lantai)
+    //             ->orderBy('id','asc')
+    //             ->get();  
 
-                $tables = '';
-                    foreach ($loket as $value) {
-                $tables .= '<tr>
-                            <td>'.$value->kode.'</td>
-                            <td>'.$value->nama_layanan.'</td>
-                            <td>'.$value->lantai.'</td>
-                            <td>'.$value->petugas.'</td>
-                            <td>'.$value->batas_dari_jam.'</td>
-                            <td>'.$value->batas_sampai_jam.'</td>
-                            <td>'.$value->batas_antrian.'</td>
-                            <td align="center">
-                            <a href="'. route('loket.edit', $value->id) .'" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
-                            
-                             <a href="'.route('loket.delete',$value->id).'" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>
-                             </td>
-                            </tr>';
-                            }
-                $tables .=  '';
+    //             $tables = '';
+    //                 foreach ($loket as $value) {
+    //             $tables .= '';
+    //                         }
+    //             $tables .=  '';
 
-                return $tables;
+    //             return $tables;
              
-            }
+    //         }
 }
