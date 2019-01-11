@@ -29,6 +29,7 @@ class SettingHariController extends Controller
     {
         //
         $data_setting_hari = SettingHari::select([
+            'setting_haris.id_loket as id_loket',
             'lokets.nama_layanan as nama_layanan',
             'setting_haris.hari as hari',
             'setting_haris.id as id',

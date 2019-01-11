@@ -73,9 +73,9 @@ Route::resource('user','AddUserController');
 Route::post('/user-perusahaan', 'AddUserController@storePerusahaan')->name('store-perusahaan');
 
 // Tambah Petugas
-Route::resource('petugas','addPetugasController');
-Route::get('/petugas-reset/{id}', 'addPetugasController@reset')->name('reset');
-Route::get('/petugas/delete/{id}', 'addPetugasController@delete')->name('petugas.delete');
+Route::resource('petugas','AddPetugasController');
+Route::get('/petugas-reset/{id}', 'AddPetugasController@reset')->name('reset');
+Route::get('/petugas/delete/{id}', 'AddPetugasController@delete')->name('petugas.delete');
 
 // Route Antrian
 Route::get('/print-antrian/{id}', 'AntrianController@print')->name('print-antrian');
