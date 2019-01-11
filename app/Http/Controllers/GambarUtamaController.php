@@ -23,7 +23,7 @@ class GambarUtamaController extends Controller
      */
     public function index()
     {
-        $gambar_utama = GambarUtama::select()->orderby('id','desc')->get();
+        $gambar_utama = GambarUtama::orderby('id','desc')->get();
         return view('loket.inputImg.indexImg', compact('gambar_utama'));
     }
 

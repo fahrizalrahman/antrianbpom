@@ -66,7 +66,7 @@ Route::delete('inputImgLt4/destroy4/{id}','FileController@destroy4')->name('inpu
 Route::delete('inputImgLt5/destroy5/{id}','FileController@destroy5')->name('inputImgLt5.destroy5');
 Route::delete('inputImgLt6/destroy6/{id}','FileController@destroy6')->name('inputImgLt6.destroy6');
 
-// Route::get('editImgBtn/{id}/status','FileController@editBtn')->name('indexImg.editBtn');
+ Route::get('editImgBtn/{id}/status','FileController@editBtn')->name('indexImg.editBtn');
 
 // Route Tambah User
 Route::resource('user','AddUserController');

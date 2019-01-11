@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gambar Utama Lantai 1</h1>
+            <h1>Gambar Utama</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -14,7 +14,7 @@
         <div class="alert alert-danger alert-dismissible">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <h5><i class="icon fa fa-ban"></i> Informasi !</h5>
-            Gambar atau Video yang diupload pada halaman (<i>Gambar Utama</i>) ini akan ditampilkan dilayar utama masing-masing lantai. 
+            Gambar yang diupload pada halaman (<i>Gambar Utama</i>) ini akan ditampilkan dilayar utama masing-masing lantai. 
         </div>
     </section>
 
@@ -133,7 +133,7 @@ $(document).on('click', '.bt_off', function(e){
 $(document).on('click', '.bt_del', function(e){
 	e.preventDefault();
 	if(e.which===1){
-		if(confirm('Yakin Ingin Menghapus Gambar/Video ?')){
+		if(confirm('Yakin Ingin Menghapus Gambar ?')){
 			$.ajax({
 				headers	: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 				dataType: 'html',

@@ -38,9 +38,24 @@
                   </div>
 
                   <div class="form-group{{ $errors->has('kode_antrian') ? ' has-error' : '' }}">
-                    {!! Form::label('kode_antrian', 'Kode Antrian', ['class'=>'col-md-2 control-label']) !!}
-                      {!! Form::text('kode_antrian',null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Kode Antrian', 'id' => 'kode_antrian','name' => 'kode_antrian']) !!}
-                      {!! $errors->first('kode_antrian', '<p class="help-block" style="color:red;" id="kode_error" style="color:red;">:message</p>') !!}
+                   {!! Form::label('kode_antrian', 'kode_antrian', ['class'=>'col-md-2 control-label']) !!}
+                                <select class="form-control{{ $errors->has('kode_antrian') ? ' is-invalid' : '' }}" id="kode_antrian" name="kode_antrian">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                                <option>E</option>
+                                <option>F</option>
+                                <option>G</option>
+                                <option>H</option>
+                                <option>I</option>
+                                <option>J</option>
+                          </select>
+                          @if ($errors->has('kode_antrian'))
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $errors->first('kode_antrian') }}</strong>
+                            </span>
+                           @endif
                   </div>
 
                   <div class="form-group{{ $errors->has('lantai') ? ' has-error' : '' }}">
