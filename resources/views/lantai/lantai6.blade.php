@@ -33,7 +33,8 @@
             <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
             </div>
             @if(@$bgLantai6->first()->type == 'Video')
-                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">            <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:457px; position:center;" controls autoplay loop>
+                <div class="col-sm-7"  style="margin-right:-11px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">            
+                    <video style="margin-top:-0px; margin-left:-15px; min-width:480px; min-height:457px; position:center;" controls autoplay loop>
                         <source src="{{Storage::url($bgLantai6->first()->filename)}}" type="video/mp4">
                     </video>
                     @if ($TextUtama->count() > 0)
@@ -49,7 +50,7 @@
                     
                 </div>
             @else
-            <div class="col-sm-7" style="background-image:url({{asset('img/'.@$bgLantai6->first()->gambar)}}); margin-left:129px; width:820px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
+            <div class="col-sm-7" style="background-image:url({{asset('img/'.@$bgLantai6 ->first()->gambar)}}); margin-right:-10px; width:500px; height:auto; background-size:cover; background-position:center; background-repeat:no-repeat;">                
             </div>
             @endif
                 
@@ -90,7 +91,6 @@
                 <div class="col-md-12" style="height:4px; width:100%; background-color:#34a1bc;">
                 </div>
             <div class="col-md-12" style="width:102%;">
-                
                 <table border="0px" style="width:101.8%; height:40px; margin-left:-15px;">
                     <tr>
                         <td style="width:150px; margin-right:10px; padding-top:10px; background-color:#34a1bc; text-align:center; "><b style="color:#e6e6e6;"> <h3 id="time-part"></h3></b></td>

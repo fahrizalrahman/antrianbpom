@@ -41,7 +41,7 @@
                       <label for="exampleInputFile">File input</label>
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" name="file" id="file">
+                          <input type="file" name="gambar" id="gambar">
                         </div>
                       </div>
                     </div>

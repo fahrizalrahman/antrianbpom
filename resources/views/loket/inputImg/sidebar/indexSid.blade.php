@@ -28,12 +28,13 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="admin" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>id</th>
                   <th>Title </th>
                   <th>Lantai </th>
+                  <th>Gambar</th>
                   <th>action</th>
                 </tr>
                 </thead>
@@ -43,13 +44,8 @@
                   <td>{{$value->id}}</td>
                   <td>{{$value->title}}</td>
                   <td>{{$value->lantai}}</td>
-                  <td align="center">
-                    <form action="{{route('inputImgSid.destroy', $value->id)}}" method="POST">
-                      @csrf
-                      <input type="hidden" name="_method" value="DELETE">
-                      <button type="submit" class="btn btn-danger"><i class="nav-icon fa fa-trash"></i></button>
-                    </form>
-                </td>
+                  <td><img src="{{asset('img/'.$value->gambar.'')}}"></td>
+                  <td><a href="{{ route('inputImgSid.edit', $value->id) }}" class="btn btn-primary">Edit</a></td>
                 </tr>
                 @endforeach
                 </tbody>

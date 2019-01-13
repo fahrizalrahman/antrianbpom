@@ -53,9 +53,9 @@
 
       <div>
         @if(@$imgSid4->count() > 0)
-          <img src="{{url(Storage::url(@$imgSid4->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:400px; margin-left:-15px; width:115%;">
+          <img src="{{asset('img/'.@$imgSid4->first()->gambar)}}" style="background-position:center; background-repeat:no-repeat; height:400px; margin-left:-15px; width:132%;">
         @else
-         <img style="background-color:black; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:338px;">
+         <img style="background-color:black; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:132%;">
          @endif
       </div>
     </div>

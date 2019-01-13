@@ -56,7 +56,7 @@
             @if(@$imgSid5->count() > 0)
               <img src="{{url(Storage::url($imgSid5->first()->filename))}}" style="background-position:center; background-repeat:no-repeat; height:400px; margin-left:-15px; width:115%;">
             @else
-             <img style="background-color:white; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:132%;">
+             <img style="background-color:black; background-position:center; margin-left:-15px; background-repeat:no-repeat; height:410px; width:132%;">
              @endif
           </div>
     </div>
@@ -89,13 +89,13 @@
         </div> 
         @endif
 
-        @if($imgFotR5->count() > 0)
+        {{-- @if($imgFotR5->count() > 0)
             <div class="col-md-6" style="background-image:url({{url(Storage::url(@$imgFotR5->first()->filename))}}); width:auto; height:75px;">
             </div>
         @else
             <div class="col-md-6" style="background-color:white; width:auto; height:75px;">
             </div> 
-        @endif
+        @endif --}}
         </div>      
         <div class="col-md-12" style="width:103%;">
             <table border="0px" style="width:103.8%; height:40px; margin-left:-30px;">

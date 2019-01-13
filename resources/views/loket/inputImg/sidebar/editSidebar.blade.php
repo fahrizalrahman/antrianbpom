@@ -39,6 +39,11 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                      <label for="name">Gambar</label>
+                      <input type="file" name="gambar" value="{{$editSid->gambar}}" class="form-control">
+                    </div>
+                  </div> 
                     
                   </div>
                 <!-- /.card-body -->

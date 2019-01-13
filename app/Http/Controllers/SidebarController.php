@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Sidebar;
-use storage;
+use File;
+use Image;
+use Session;
 
 class SidebarController extends Controller
 {
@@ -45,19 +47,45 @@ class SidebarController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title'     => 'nullable|min:5',
-            'lantai'    => 'required',
-            'file'      => 'required|file|max:2000'
-        ]);
+            'gambar' => 'image|required|mimes:jpeg,png,jpg,gif,svg'
+         ]);
 
-        $upload = $request->file('file');
-        $path   = $upload->store('public/files');
-        $file   = Sidebar::create([
-            'title'     => $request->title ?? $uploadFile->getClientOriginalName(),
-            'lantai'    => $request->lantai,
-            'filename'  => $path
-        ]);
+        $create_banner  = Sidebar::create([
+            'title'    => $request->title,
+            'lantai'    => $request->lantai
+        ]);   
 
+
+            if ($request->hasFile('gambar')) {
+                // Mengambil file yang diupload
+                $gambar          = $request->file('gambar');
+                $uploaded_gambar_banner = $gambar;
+                // mengambil extension file
+                $extension = $uploaded_gambar_banner->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($gambar->getRealPath());
+                $image_resize->fit(450,150);
+                $image_resize->save(public_path('img/' . $filename));
+                // hapus gambar_banner_home lama, jika ada
+                if ($create_banner->gambar) {
+                    $old_gambar_banner = $create_banner->gambar;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'gambar_banner_produk'
+                    . DIRECTORY_SEPARATOR . $create_banner->gambar;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $create_banner->gambar = $filename;
+                $create_banner->save();
+            }
+
+            Session::flash("flash_notification", [
+                "level"=>"success",
+                "message"=>"Berhasil Menambah Gambar"
+            ]); 
         return redirect()->route('inputImgSid.index');
     }
 
@@ -93,11 +121,48 @@ class SidebarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $editSid = Sidebar::findorfail($id);
-        $editSid->title = $request->title;
-        $editSid->lantai = $request->lantai;
-        // $editSid->file = $request->file;
-        $editSid->save();
+        $this->validate($request, [
+            'gambar' => 'image|required|mimes:jpeg,png,jpg,gif,svg'
+         ]); 
+
+        $update_gambar = Sidebar::find($id);
+        $update_gambar->update([
+            'title'    => $request->title,
+            'lantai'    => $request->lantai
+        ]);
+
+
+            if ($request->hasFile('gambar')) {
+                // Mengambil file yang diupload
+                $gambar          = $request->file('gambar');
+                $uploaded_gambar_banner = $gambar;
+                // mengambil extension file
+                $extension = $uploaded_gambar_banner->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename     = str_random(40) . '.' . $extension;
+                $image_resize = Image::make($gambar->getRealPath());
+                $image_resize->fit(450,150);
+                $image_resize->save(public_path('img/' . $filename));
+                // hapus gambar_banner_home lama, jika ada
+                if ($update_gambar->gambar) {
+                    $old_gambar_banner = $update_gambar->gambar;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'gambar_banner_produk'
+                    . DIRECTORY_SEPARATOR . $update_gambar->gambar;
+                    try {
+                        File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                        // File sudah dihapus/tidak ada
+                    }
+                }
+                $update_gambar->gambar = $filename;
+                $update_gambar->save();
+            }
+
+            Session::flash("flash_notification", [
+                "level"=>"success",
+                "message"=>"Berhasil Menambah Gambar"
+            ]); 
+        return redirect()->route('inputImgSid.index');
     }
 
     /**

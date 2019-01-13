@@ -17,7 +17,7 @@ class CreateSidebarsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->enum('lantai', array('4','5'));
-            $table->string('filename');
+            $table->string('gambar');
             $table->timestamps();
         });
     }
