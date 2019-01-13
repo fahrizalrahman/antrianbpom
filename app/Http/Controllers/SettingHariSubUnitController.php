@@ -30,6 +30,7 @@ class SettingHariSubUnitController extends Controller
             'setting_hari_subs.hari as hari',
             'setting_hari_subs.id as id',
             'lokets.nama_layanan as nama_layanan',
+            'lokets.lantai as lantai',
         ])->leftjoin('sublayanans','sublayanans.id', '=', 'setting_hari_subs.id_sublayanan')
         ->leftjoin('lokets','lokets.id', '=', 'sublayanans.id_loket')
         ->leftjoin('users','users.id','=','sublayanans.petugas')
@@ -81,6 +82,34 @@ class SettingHariSubUnitController extends Controller
          return redirect()->route('unit-settingharisub.index');
     }
 
+    public function prosesSettingHariSubUnit(Request $request){
+            $cek_hari = SettingHariSub::where('id_sublayanan',$request->id_sublayanan)->where('hari',$request->hari)->count();
+            if($cek_hari > 0){
+                $return = 0;
+            }else{
+                $settingharisub = SettingHariSub::create([
+                    'hari'      => $request->hari,
+                    'id_sublayanan'  => $request->id_sublayanan,
+                ]);
+                $return = 1;
+            }
+            return $return;
+    }
+
+    public function editSettingHariSubUnit(Request $request){
+            $cek_hari = SettingHariSub::where('id_sublayanan',$request->id_sublayanan)->where('hari',$request->hari)->where('id','!=',$request->id)->count();
+            if($cek_hari > 0){
+                $return = 0;
+            }else{
+                 $settingharisub = SettingHariSub::find($request->id);
+                 $settingharisub->update([
+                    'hari'          => $request->hari,
+                    'id_sublayanan'      => $request->id_sublayanan,
+                ]);
+                $return = 1;
+            }
+            return $return;
+    }
     /**
      * Display the specified resource.
      *
@@ -164,7 +193,7 @@ class SettingHariSubUnitController extends Controller
             "level"=>"danger",
             "message"=>"Berhasil Mengapus Setting Hari Sublayanan"
             ]);
-            return redirect()->route('unit.settingharisub.index');
+            return redirect()->route('unit-settingharisub.index');
     }
 
 }

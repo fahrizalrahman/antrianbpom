@@ -31,8 +31,25 @@
 						</div>
 						<br>
 						<div class="row">
-							<span id="refresh-table">
-								@include('unit.laporan.refresh_table_daftar_booking')
+							<span >
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th width="60px">Tanggal</th>
+                      <th width="130px">Nama Pengunjung</th>
+                      <th width="100px">No. Telp</th>
+                      <th width="100px">No Antrian</th>
+                      <th width="130px">Layanan</th>
+                      <th width="80px">Loket</th>
+                      <th width="130px">Sub Layanan</th>
+                      <th width="80px">Loket Sub</th>
+                    </tr>
+                  </thead>
+                  <tbody id="refresh-table">
+								
+                </tbody>
+                </table>
+              </div>
 							</span> <!--penutup span-->
 						</div>
 					</div>
@@ -77,7 +94,7 @@ table.dataTable thead tr {
 <script type="text/javascript">
 
       $(document).ready(function() {
-      	var petugas = $("#petugas").val();
+      	var petugas = "all";
           $.get('{{ Url("unit-filter-daftar-booking") }}',{'_token': $('meta[name=csrf-token]').attr('content'),petugas:petugas}, function(resp){  
            			 $("#refresh-table").html(resp);
           });
@@ -155,6 +172,10 @@ table.dataTable thead tr {
 	}
 });
 
+ $(function () {
+            $("#example1").DataTable({
+            });
+          });
 </script>
 
 @endsection

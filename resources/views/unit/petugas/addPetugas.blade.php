@@ -40,8 +40,7 @@
                                 </select>
                             </div> --}}
                             <div class="form-group">
-                              <label for="unit">Unit</label>
-                              <input type="text" class="form-control" id="unit" name="unit" placeholder="Masukan Unit" value="{{Auth::user()->unit }}" required readonly>
+                              <input type="hidden" class="form-control" id="unit" name="unit" placeholder="Masukan Unit" value="{{Auth::user()->unit }}" required readonly>
                             </div>
 
                           <div class="form-group">
@@ -56,12 +55,12 @@
   
                           <div class="form-group">
                               <label for="exampleInputEmail1">NIK</label>
-                              <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
+                              <input type="number" minlength="16" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
                           </div>
   
                           <div class="form-group">
                               <label for="exampleInputEmail1">No Telp</label>
-                              <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
+                              <input type="number" maxlength="13" class="form-control" id="no_telp" name="no_telp" placeholder="Masukan No Telp" required>
                           </div>
   
                           <div class="form-group">
@@ -70,34 +69,13 @@
                           </div>
   
                           <div class="form-group">
-                            <label for="jabatan">Jabatan</label>
-                            <input type="text" class="form-control" id="jabatan" name="jabatan" value=" petugas_loket " placeholder="Masukan Jabatan" readonly required>
+                            <input type="hidden" class="form-control" id="jabatan" name="jabatan" value="petugas_loket" placeholder="Masukan Jabatan" readonly required>
                           </div>
 
-                          {{-- <div class="form-group">
-                              <label>Pilih Petugas</label>
-                              <select class="form-control" name="jabatan">
-                                  <option value="petugas_loket">Petugas Loket</option>                              
-                              </select>
-                          </div> --}}
 
                           <div class="form-group">
-                            <label for="lantai">Lantai</label>
-                            <input type="text" class="form-control" id="lantai" name="lantai" placeholder="Masukan Lantai" value=" {{Auth::user()->lantai}} " required>
+                            <input type="hidden" class="form-control" id="lantai" name="lantai" placeholder="Masukan Lantai" value=" {{Auth::user()->lantai}} " required>
                           </div>
-                        
-                        {{-- <div class="form-group">
-                            <label>Pilih Lantai</label>
-                            <select class="form-control" name="lantai">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </div> --}}
-
 
                       <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

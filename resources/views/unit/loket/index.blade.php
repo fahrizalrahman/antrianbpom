@@ -26,27 +26,29 @@
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Loket</th>
-                  <th>Pelayanan</th>
-                  <th>Lantai</th>
-                  <th>Petugas</th>
-                  <th>Buka</th>
-                  <th>Tutup</th>
-                  <th>Max</th>
-                  <th width="75px">Aksi</th>
+                  <th style="width:100px">Loket</th>
+                  <th style="width:50px">Kode Antrian</th>
+                  <th style="width:200px">Pelayanan</th>
+                  <th style="width:100px">Lantai</th>
+                  <th style="width:100px">Petugas</th>
+                  <th style="width:100px">Buka</th>
+                  <th style="width:100px">Tutup</th>
+                  <th style="width:100px">Max</th>
+                  <th style="width:150px">Aksi</th>
                 </tr>
                 </thead>
                 <tbody id="refresh-table">
                      @foreach($loket as $value)
                       <tr>
-                            <td>{{$value->kode}}</td>
-                            <td>{{$value->nama_layanan}}</td>
-                            <td>{{$value->lantai}}</td>
-                            <td>{{$value->petugas}}</td>
-                            <td>{{$value->batas_dari_jam}}</td>
-                            <td>{{$value->batas_sampai_jam}}</td>
-                            <td>{{$value->batas_antrian}}</td>
-                            <td align="center">
+                            <td style="width:100px">{{$value->kode}}</td>
+                            <td style="width:50px">{{$value->kode_antrian}}</td>
+                            <td style="width:200px">{{$value->nama_layanan}}</td>
+                            <td style="width:100px">{{$value->lantai}}</td>
+                            <td style="width:100px">{{$value->petugas}}</td>
+                            <td style="width:100px">{{$value->batas_dari_jam}}</td>
+                            <td style="width:100px">{{$value->batas_sampai_jam}}</td>
+                            <td style="width:100px">{{$value->batas_antrian}}</td>
+                            <td align="center" style="width:150px">
                             <a href="{{ route('unit-loket.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 
                             
                              <a href="{{route('unit-loket.delete',$value->id)}}" class="btn btn-danger btn-sm"><i class="nav-icon fa fa-trash"></i></a>

@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Setting Hari Sublayanan</h1>
+            <h1>Setting Hari Sub Layanan</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -28,6 +28,7 @@
                 <tr>
                   <th>Nama Sub Layanan</th>
                   <th>Nama Layanan</th>
+                  <th>Lantai</th>
                   <th>Hari</th>
                   <th>Aksi</th>
                 </tr>
@@ -37,6 +38,7 @@
                  <tr>
                   <td>{{$value->nama_sublayanan}}</td>
                   <td>{{$value->nama_layanan}}</td>
+                  <td>{{$value->lantai}}</td>
                   <td>{{$value->hari}}</td>
                   <td>
                     <a href="{{ route('unit-settingharisub.edit', $value->id) }}" class="btn btn-warning btn-sm"><i class="nav-icon fa fa-wrench"></i></a> || 

@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Tambah Setting Hari Sublayanan</h1>
+            <h1>Tambah Setting Hari Sub Layanan</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -73,7 +73,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button" id="proses" class="btn btn-primary">Submit</button>
                 </div>
              {!! Form::close() !!}
             </div>
@@ -117,5 +117,26 @@
              
           });
     });
+
+   $(document).on('click', '#proses', function (e) { 
+          var hari = $("#hari").val();
+          var id_sublayanan = $("#id_sublayanan").val();
+
+          $.get('{{ Url("proses-settingharisub-unit") }}',{'_token': $('meta[name=csrf-token]').attr('content'),hari:hari,id_sublayanan:id_sublayanan}, function(resp){ 
+            if (resp == 0) {
+              swal({
+                 html: "Hari Yang Anda Pilih Sudah Terpakai !"
+              });
+            }else{
+              window.location.href = '/unit-settingharisub';
+              swal({
+                 html :  "Berhasil Menambahkan Setting Hari Sub Layanan",
+                 showConfirmButton :  false,
+                 type: "success",
+                 timer: 2000
+              });
+            }
+          });
+     });
 </script>
 @endsection

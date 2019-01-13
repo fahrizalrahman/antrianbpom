@@ -29,20 +29,20 @@
                  <div class="form-group{{ $errors->has('nama_sublayanan') ? ' has-error' : '' }}">
                     {!! Form::label('nama_sublayanan', 'Nama Sublayanan', ['class'=>'col-md-2 control-label']) !!}
                       {!! Form::text('nama_sublayanan', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Nama Sublayanan', 'id' => 'nama_sublayanan' ,'name'=>'nama_sublayanan']) !!}
-                      {!! $errors->first('nama_sublayanan', '<p class="help-block" id="nama_layanan_error">:message</p>') !!}
+                      {!! $errors->first('nama_sublayanan', '<p class="help-block" style="color:red;" id="nama_layanan_error">:message</p>') !!}
                   </div>
 
                  <div class="form-group{{ $errors->has('kode_loket') ? ' has-error' : '' }}">
                     {!! Form::label('kode_loket', 'Loket', ['class'=>'col-md-2 control-label']) !!}
                       {!! Form::text('kode_loket', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Loket', 'id' => 'kode_loket' ,'name'=>'kode_loket']) !!}
-                      {!! $errors->first('kode_loket', '<p class="help-block" id="nama_layanan_error">:message</p>') !!}
+                      {!! $errors->first('kode_loket', '<p class="help-block" style="color:red;" id="nama_layanan_error">:message</p>') !!}
                   </div>
 
                    <div class="form-group{{ $errors->has('lantai') ? ' has-error' : '' }}">
-                          {!! Form::label('lantai', 'Lantai', ['class'=>'col-md-2 control-label']) !!}
-                         {!! Form::text('lantai', Auth::user()->lantai, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Lantai', 'id' => 'lantai','name' => 'lantai','disabled']) !!}
+                         
+                         {!! Form::hidden('lantai', Auth::user()->lantai, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Lantai', 'id' => 'lantai','name' => 'lantai','disabled']) !!}
                               @if ($errors->has('lantai'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" style="color:red;" role="alert">
                                   <strong>{{ $errors->first('lantai') }}</strong>
                                 </span>
                                @endif
@@ -55,10 +55,10 @@
                     <div class="form-group{{ $errors->has('petugas') ? ' has-error' : '' }}">
                         {!! Form::label('petugas', 'Petugas', ['class'=>'col-md-2 control-label']) !!}
                         {!! Form::select('petugas',App\User::where('jabatan','petugas_loket')->where('lantai',Auth::user()->lantai)->pluck('name','id')->all(), null,['class'=>'form-control','name'=>'petugas','id'=>'petugas']) !!}
-                            {!! $errors->first('petugas', '<p class="help-block">:message</p>') !!}
+                            {!! $errors->first('petugas', '<p class="help-block" style="color:red;">:message</p>') !!}
 
                              @if ($errors->has('petugas'))
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" style="color:red;" role="alert">
                                         <strong>{{ $errors->first('petugas') }}</strong>
                                     </span>
                             @endif
@@ -80,7 +80,7 @@
                                     <option value="17">17</option>
                               </select>
                               @if ($errors->has('batas_dari_jam'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" style="color:red;" role="alert">
                                   <strong>{{ $errors->first('batas_dari_jam') }}</strong>
                                 </span>
                                @endif
@@ -102,7 +102,7 @@
                                     <option value="17">17</option>
                               </select>
                               @if ($errors->has('batas_sampai_jam'))
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" style="color:red;" role="alert">
                                   <strong>{{ $errors->first('batas_sampai_jam') }}</strong>
                                 </span>
                                @endif
@@ -111,7 +111,7 @@
                   <div class="form-group{{ $errors->has('batas_antrian') ? ' has-error' : '' }}">
                     {!! Form::label('batas_antrian', 'Batas Antrian', ['class'=>'col-md-2 control-label']) !!}
                       {!! Form::number('batas_antrian', null, ['class'=>'form-control','required','autocomplete'=>'off', 'placeholder' => 'Batas Antrian', 'id' => 'batas_antrian','name' => 'batas_antrian']) !!}
-                      {!! $errors->first('batas_antrian', '<p class="help-block" id="kode_error" style="color:red;">:message</p>') !!}
+                      {!! $errors->first('batas_antrian', '<p class="help-block" style="color:red;" id="kode_error" style="color:red;">:message</p>') !!}
                   </div>
 
 

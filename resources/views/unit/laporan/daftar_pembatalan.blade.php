@@ -32,8 +32,25 @@
 						</div>
 						<br>
 						<div class="row">
-							<span id="refresh-table">
-							@include('unit.laporan.refresh_table_daftar_pembatalan')
+							<span>
+							<table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th width="100px">Tanggal</th>
+											<th width="100px">Nama</th>
+											<th width="100px">No Antrian</th>
+											<th width="100px">Layanan</th>
+											<th width="100px">Loket</th>
+											<th width="100px">Sub Layanan</th>
+											<th width="100px">Loket Sub</th>
+											<th width="130px">Keterangan Batal</th>
+										</tr>
+									</thead>
+									<tbody id="refresh-table">
+										
+									</tbody>
+				                </table>
+				              </div>
 						</span>
 						</div>
 					</div>
@@ -153,7 +170,10 @@ table.dataTable thead tr {
  		});
 	}
 });
-
+ $(function () {
+            $("#example1").DataTable({
+            });
+          });
 </script>
 
 
